@@ -3,6 +3,7 @@
 import NextLink from 'next/link';
 import { FaInstagram } from 'react-icons/fa';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { Link } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
@@ -13,6 +14,16 @@ import { siteConfig } from '@/config/site';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  /**
+   * Whether a nav item should be marked as the current page.
+   * Exact match for routes; fragment URLs (/#section) are never
+   * 'current' because the route is the same as the page they
+   * appear on.
+   */
+  const isCurrent = (href: string) =>
+    !href.includes("#") && pathname === href;
 
   // Stable id for aria-controls on the mobile menu disclosure. Using
   // useId would also work, but this keeps the navbar Server-Component
@@ -37,16 +48,23 @@ export const Navbar = () => {
 
         {/* Desktop nav */}
         <ul className="hidden gap-6 sm:flex">
-          {siteConfig.navItems.map((item) => (
-            <li key={item.href}>
-              <NextLink
-                className="text-foreground hover:text-primary data-[active=true]:text-primary transition-colors data-[active=true]:font-medium"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </li>
-          ))}
+          {siteConfig.navItems.map((item) => {
+            const current = isCurrent(item.href);
+            return (
+              <li key={item.href}>
+                <NextLink
+                  aria-current={current ? "page" : undefined}
+                  className={cn(
+                    "text-foreground hover:text-primary transition-colors",
+                    current && "text-primary font-medium",
+                  )}
+                  href={item.href}
+                >
+                  {item.label}
+                </NextLink>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Desktop right side */}
