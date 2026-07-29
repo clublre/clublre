@@ -9,67 +9,7 @@ import {
   CardClubBody,
 } from "@/components/ui";
 import { title } from "@/components/primitives";
-
-/**
- * Posts placeholder — en producción vendrían de un CMS (Sanity, Contentful,
- * markdown files, etc.). Mantenemos el shape estable.
- */
-const posts = [
-  {
-    slug: "apertura-pileta-2026",
-    title: "Apertura de la pileta 2026",
-    excerpt:
-      "Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.",
-    date: "2026-01-15",
-    category: "Institucional",
-    accent: "sky" as const,
-  },
-  {
-    slug: "torneo-interno-futbol",
-    title: "Torneo interno de fútbol",
-    excerpt:
-      "Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.",
-    date: "2026-02-02",
-    category: "Fútbol",
-    accent: "amarillo" as const,
-  },
-  {
-    slug: "escuela-basquet-juvenil",
-    title: "Escuela de básquet juvenil",
-    excerpt:
-      "Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.",
-    date: "2026-02-20",
-    category: "Básquet",
-    accent: "sky" as const,
-  },
-  {
-    slug: "colonia-de-verano",
-    title: "Colonia de verano 2026",
-    excerpt:
-      "Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.",
-    date: "2025-12-01",
-    category: "Eventos",
-    accent: "gradient" as const,
-  },
-  {
-    slug: "hockey-primera",
-    title: "Hockey primera: nuevo plantel",
-    excerpt:
-      "Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.",
-    date: "2026-03-05",
-    category: "Hockey",
-    accent: "amarillo" as const,
-  },
-  {
-    slug: "mejoras-instalaciones",
-    title: "Mejoras en las instalaciones",
-    excerpt:
-      "Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.",
-    date: "2026-03-18",
-    category: "Institucional",
-    accent: "gradient" as const,
-  },
-] as const;
+import { postsNewestFirst } from "@/config/posts";
 
 const formatDate = (iso: string) =>
   new Intl.DateTimeFormat("es-AR", {
@@ -104,7 +44,7 @@ export default function BlogPage() {
       <Section as='section' spacing='lg' variant='muted'>
         <Container>
           <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
-            {posts.map((post) => (
+            {postsNewestFirst.map((post) => (
               <CardClub
                 key={post.slug}
                 accent={post.accent}
@@ -118,14 +58,16 @@ export default function BlogPage() {
                   </time>
                 </div>
                 <CardClubTitle className='hover:text-primary'>
-                  <NextLink href={`/blog/${post.slug}`}>{post.title}</NextLink>
+                  <NextLink href={`/blog/${post.slug}` as never}>
+                    {post.title}
+                  </NextLink>
                 </CardClubTitle>
                 <CardClubBody className='mt-3 grow'>
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
                   className='mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline'
-                  href={`/blog/${post.slug}`}>
+                  href={`/blog/${post.slug}` as never}>
                   Leer más →
                 </NextLink>
               </CardClub>

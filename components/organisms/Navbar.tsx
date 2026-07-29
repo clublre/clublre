@@ -13,11 +13,19 @@ import { siteConfig } from "@/config/site";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Stable id for aria-controls on the mobile menu disclosure. Using
+  // useId would also work, but this keeps the navbar Server-Component
+  // friendly (state lives in this "use client" module anyway).
+  const MOBILE_MENU_ID = "navbar-mobile-menu";
+
   return (
-    <nav className='sticky top-0 z-50 w-full border-b border-default-200/50 bg-background/80 backdrop-blur-md'>
+    <nav
+      aria-label='Principal'
+      className='sticky top-0 z-50 w-full border-b border-default-200/50 bg-background/80 backdrop-blur-md'>
       <div className='container mx-auto flex h-16 max-w-7xl items-center justify-between px-6'>
         {/* Brand */}
         <NextLink
+          aria-label={`Ir al inicio — ${siteConfig.name}`}
           className='flex items-center gap-2'
           href='/'
           onClick={() => setIsMenuOpen(false)}>
@@ -40,7 +48,7 @@ export const Navbar = () => {
         {/* Desktop right side */}
         <div className='hidden items-center gap-4 sm:flex'>
           <Link
-            aria-label='Instagram'
+            aria-label='Instagram (se abre en una pestaña nueva)'
             href={siteConfig.links.instagram}
             rel='noopener noreferrer'
             target='_blank'>
@@ -52,7 +60,7 @@ export const Navbar = () => {
         {/* Mobile right side */}
         <div className='flex items-center gap-3 sm:hidden'>
           <Link
-            aria-label='Instagram'
+            aria-label='Instagram (se abre en una pestaña nueva)'
             href={siteConfig.links.instagram}
             rel='noopener noreferrer'
             target='_blank'>
@@ -60,17 +68,23 @@ export const Navbar = () => {
           </Link>
           <ThemeToggle />
           <button
+            aria-controls={MOBILE_MENU_ID}
+            aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             className='rounded-md p-2 text-default-700 transition-colors hover:bg-default-100'
+            type='button'
             onClick={() => setIsMenuOpen((v) => !v)}>
             {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — controlled by the disclosure button above. */}
       {isMenuOpen ? (
-        <div className='border-t border-default-200/50 bg-background sm:hidden'>
+        <div
+          aria-label='Menú de navegación móvil'
+          className='border-t border-default-200/50 bg-background sm:hidden'
+          id={MOBILE_MENU_ID}>
           <ul className='container mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4'>
             {siteConfig.navMenuItems.map((item) => (
               <li key={item.href}>
