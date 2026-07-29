@@ -1,17 +1,26 @@
 /* ==========================================================================
    Club LRE - Global Styles
-   Tailwind CSS v4 + HeroUI v3 + Design Tokens
+   Tailwind CSS v4 + HeroUI v3 + Design System
+
+   Sections:
+   1. Imports
+   2. @theme block (brand tokens, surfaces, typography, radii)
+   3. Light/Dark overrides
+   4. Brand gradients
+   5. Keyframes & utilities
+   6. Base layer
    ========================================================================== */
 
 @import "tailwindcss";
 @import "@heroui/styles";
 
 /* --------------------------------------------------------------------------
-   Design tokens — Club LRE
-   Basado en la paleta azul (#0009A0) y dorado (#EEE457) del club.
+   2. @theme — Design tokens (Tailwind v4 native)
+   These tokens generate utility classes like bg-background, text-foreground,
+   bg-estu-azul, etc.
    ------------------------------------------------------------------------ */
 @theme {
-  /* Brand colors */
+  /* Brand palette */
   --color-estu-azul-50: oklch(0.97 0.03 270);
   --color-estu-azul-100: oklch(0.93 0.06 270);
   --color-estu-azul-200: oklch(0.85 0.12 270);
@@ -29,11 +38,9 @@
   --color-estu-amarillo-200: oklch(0.9 0.14 95);
   --color-estu-amarillo-300: oklch(0.85 0.17 95);
   --color-estu-amarillo-400: oklch(0.82 0.17 95);
+  --color-estu-amarillo-500: oklch(0.78 0.17 95);
+  --color-estu-amarillo-600: oklch(0.7 0.16 95);
   --color-estu-amarillo: #eee457;
-
-  /* Surfaces */
-  --color-surface: var(--background);
-  --color-surface-foreground: var(--foreground);
 
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -44,10 +51,60 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+
+  /* Shadows */
+  --shadow-club: 0 4px 14px 0 rgb(0 9 160 / 0.12), 0 1px 4px 0 rgb(0 0 0 / 0.04);
+  --shadow-club-lg: 0 10px 40px 0 rgb(0 9 160 / 0.18),
+    0 4px 12px 0 rgb(0 0 0 / 0.06);
 }
 
 /* --------------------------------------------------------------------------
-   Brand gradients
+   3. Light / Dark tokens
+   In Tailwind v4 these are declared on :root and .dark for runtime switching.
+   ------------------------------------------------------------------------ */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.18 0 0);
+  --surface: oklch(0.99 0 0);
+  --surface-foreground: oklch(0.18 0 0);
+  --surface-muted: oklch(0.96 0.005 270);
+  --border: oklch(0.9 0.01 270);
+  --ring: oklch(0.45 0.24 270);
+}
+
+.dark {
+  --background: oklch(0.13 0.01 270);
+  --foreground: oklch(0.96 0 0);
+  --surface: oklch(0.18 0.01 270);
+  --surface-foreground: oklch(0.96 0 0);
+  --surface-muted: oklch(0.22 0.02 270);
+  --border: oklch(0.28 0.02 270);
+  --ring: oklch(0.72 0.18 270);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-default: var(--surface-muted);
+  --color-default-foreground: var(--surface-foreground);
+  --color-default-100: var(--surface-muted);
+  --color-default-200: var(--border);
+  --color-default-300: var(--border);
+  --color-default-400: oklch(0.55 0.02 270);
+  --color-default-500: oklch(0.5 0.02 270);
+  --color-default-600: oklch(0.42 0.02 270);
+  --color-default-700: oklch(0.3 0.02 270);
+  --color-primary: var(--color-estu-azul);
+  --color-primary-foreground: oklch(0.98 0.01 270);
+}
+
+/* --------------------------------------------------------------------------
+   4. Brand gradients
    -------------------------------------------------------------------------- */
 .gradient-estu-1 {
   background-image: linear-gradient(
@@ -65,37 +122,81 @@
   );
 }
 
+.gradient-estu-radial {
+  background-image: radial-gradient(
+    ellipse at top,
+    oklch(0.45 0.24 270 / 0.18),
+    transparent 60%
+  );
+}
+
+.shadow-club {
+  box-shadow: var(--shadow-club);
+}
+
+.shadow-club-lg {
+  box-shadow: var(--shadow-club-lg);
+}
+
 /* --------------------------------------------------------------------------
-   Keyframes
+   5. Keyframes & utilities
    -------------------------------------------------------------------------- */
 @keyframes pop-blob {
   0% {
-    transform: scale(1);
+    transform: scale(1) translate(0, 0);
   }
   33% {
-    transform: scale(1.2);
+    transform: scale(1.2) translate(20px, -10px);
   }
   66% {
-    transform: scale(0.8);
+    transform: scale(0.85) translate(-15px, 15px);
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) translate(0, 0);
   }
 }
 
 @utility animate-pop-blob {
-  animation: pop-blob 5s infinite;
+  animation: pop-blob 7s ease-in-out infinite;
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --------------------------------------------------------------------------
-   Base
+   6. Base
    -------------------------------------------------------------------------- */
 @layer base {
-  :root {
+  html {
     color-scheme: light dark;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    background: var(--color-estu-amarillo);
+    color: var(--color-estu-azul);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
   }
 }

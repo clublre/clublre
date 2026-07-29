@@ -1,0 +1,91 @@
+# Club LRE
+
+> Sitio oficial del Club Los Rosarinos Estudiantil (CLUB L.R.E), una institución deportiva y social de Rosario, Argentina, fundada en 1943.
+
+This file helps AI assistants and crawlers understand the project structure. For complete API documentation of the UI library used (HeroUI v3), see `https://heroui.com/llms.txt`.
+
+## Project
+
+- **Type**: Next.js 16 (App Router) website
+- **UI library**: HeroUI v3 (`@heroui/react` + `@heroui/styles`)
+- **Styling**: Tailwind CSS v4 (CSS-based config, no JS)
+- **Language**: TypeScript 6
+- **Theme**: `next-themes` (light/dark), default dark
+- **Node**: 22.21.1 (see `.nvmrc`)
+
+## Structure
+
+```
+app/                  # Next.js App Router
+  layout.tsx          # Root layout (Navbar + Footer)
+  page.tsx            # Home (hero, activities, CTA)
+  about/              # About / history page
+  blog/               # Blog index (placeholder posts)
+  pricing/            # Membership pricing tiers
+  providers.tsx       # next-themes wrapper
+components/
+  navbar.tsx          # Top navigation (HeroUI Link)
+  footer.tsx          # Site footer
+  theme-switch.tsx    # HeroUI Switch + next-themes
+  counter.tsx         # Demo Button component
+  icons.tsx           # SVG icons
+  patterns/           # Reusable design system primitives
+    section.tsx       # <Section> — semantic page section
+    container.tsx     # <Container> — fixed max-width wrapper
+    eyebrow.tsx       # <Eyebrow> — small uppercase label
+    card-club.tsx     # <CardClub> — branded card with optional accent
+    blurry-blob.tsx   # BlurryBlob — decorative animated background
+config/
+  site.ts             # Site metadata, nav items, social links
+  design-tokens.ts    # Brand colors, typography, spacing, activities
+  fonts.ts            # next/font configs (Inter, Fira Code)
+styles/
+  globals.css         # @import tailwindcss + @heroui/styles + @theme
+types/
+  index.ts            # IconSvgProps
+```
+
+## Design system
+
+Tokens are defined in two places (kept in sync):
+
+1. `styles/globals.css` — `@theme { ... }` block (Tailwind v4 native).
+2. `config/design-tokens.ts` — TypeScript constants for `tailwind-variants`.
+
+### Brand palette
+
+- **`estu-azul`** `#0009A0` — primary brand blue.
+- **`estu-amarillo`** `#EEE457` — primary brand yellow.
+- Each has a 50–900 scale (`estu-azul-50` to `estu-azul-900`).
+
+### Gradients
+
+- `gradient-estu-1` — blue → yellow.
+- `gradient-estu-2` — yellow → blue.
+- `gradient-estu-radial` — radial fade for hero backgrounds.
+
+### Surfaces (light/dark)
+
+- `bg-background` / `text-foreground` — page background and text.
+- `bg-surface` / `bg-surface-muted` — card / panel surfaces.
+- `border-default-200` — standard border.
+
+## HeroUI v3 conventions
+
+- **No Provider** — components work without `<NextUIProvider>`.
+- **Compound components** — `Card.Header`, `Card.Content`, etc.
+- **Theme via `next-themes`** — HeroUI reads `data-theme` / `class="dark"`.
+- **Switch / Button / Link** are imported from `@heroui/react`.
+
+## Conventions
+
+- Spanish copy (`lang="es"`).
+- Tailwind utility classes; never inline styles.
+- Use patterns from `components/patterns/` rather than ad-hoc layouts.
+- Add new brand colours to **both** `globals.css` and `design-tokens.ts`.
+
+## Common tasks
+
+- **Add a page**: create `app/<route>/page.tsx`, import from `@/components/patterns`.
+- **Add a token**: edit `styles/globals.css` (`@theme` block) + `config/design-tokens.ts`.
+- **Add a navigation item**: edit `config/site.ts` (`navItems` + `navMenuItems`).
