@@ -54,11 +54,14 @@ export function Footer() {
         </Container>
       </div>
 
-      {/* Main grid */}
+      {/* Main grid — 2 columns: brand on the left, contact on the
+          right. After dropping the Navegación column the 12-col grid
+          was wasted specificity; a simple 2-col feels right and lets
+          each block breathe. */}
       <Container className="py-12 md:py-16">
-        <div className="grid gap-10 md:grid-cols-12">
-          {/* Brand — spans 5 cols on md+ */}
-          <div className="md:col-span-5">
+        <div className="grid gap-10 md:grid-cols-2">
+          {/* Brand */}
+          <div>
             <NextLink
               aria-label={`Ir al inicio — ${siteConfig.name}`}
               className="mb-4 inline-flex items-center gap-2.5"
@@ -75,8 +78,8 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Contact — 4 cols on md+ */}
-          <div className="md:col-span-4">
+          {/* Contact */}
+          <div>
             <Eyebrow className="mb-3 block" tone="default">
               Contacto
             </Eyebrow>
