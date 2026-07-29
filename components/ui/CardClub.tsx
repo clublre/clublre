@@ -1,10 +1,10 @@
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
   /** Optional accent stripe along the top edge. */
-  accent?: "sky" | "amarillo" | "gradient";
+  accent?: 'sky' | 'amarillo' | 'gradient';
   /** Highlight the card (used for featured pricing tiers). */
   highlighted?: boolean;
   /** Optional media slot rendered above the body. */
@@ -12,9 +12,9 @@ interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const accentMap = {
-  sky: "before:bg-primary",
-  amarillo: "before:bg-amarillo",
-  gradient: "before:gradient-sky",
+  sky: 'before:bg-primary',
+  amarillo: 'before:bg-amarillo',
+  gradient: 'before:gradient-sky',
 };
 
 /**
@@ -33,18 +33,19 @@ export function CardClub({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-default-200 bg-surface shadow-club",
-        "transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-club-lg",
+        'group border-default-200 bg-surface shadow-club relative overflow-hidden rounded-xl border',
+        'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
         accent &&
           "before:absolute before:inset-x-0 before:top-0 before:h-1 before:content-['']",
         accent && accentMap[accent],
         highlighted &&
-          "ring-2 ring-primary ring-offset-2 ring-offset-background",
+          'ring-primary ring-offset-background ring-2 ring-offset-2',
         className,
       )}
-      {...props}>
-      {media ? <div className='relative'>{media}</div> : null}
-      <div className='relative p-6'>{children}</div>
+      {...props}
+    >
+      {media ? <div className="relative">{media}</div> : null}
+      <div className="relative p-6">{children}</div>
     </div>
   );
 }
@@ -54,7 +55,7 @@ export const CardClubHeader = ({
   children,
   ...props
 }: HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("mb-3 flex items-center gap-3", className)} {...props}>
+  <div className={cn('mb-3 flex items-center gap-3', className)} {...props}>
     {children}
   </div>
 );
@@ -65,8 +66,9 @@ export const CardClubTitle = ({
   ...props
 }: HTMLAttributes<HTMLHeadingElement>) => (
   <h3
-    className={cn("text-xl font-semibold text-foreground", className)}
-    {...props}>
+    className={cn('text-foreground text-xl font-semibold', className)}
+    {...props}
+  >
     {children}
   </h3>
 );
@@ -77,8 +79,9 @@ export const CardClubBody = ({
   ...props
 }: HTMLAttributes<HTMLParagraphElement>) => (
   <p
-    className={cn("text-sm leading-relaxed text-default-600", className)}
-    {...props}>
+    className={cn('text-default-600 text-sm leading-relaxed', className)}
+    {...props}
+  >
     {children}
   </p>
 );

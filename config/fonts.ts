@@ -1,4 +1,4 @@
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+import { Fira_Code as FontMono, Inter as FontSans } from 'next/font/google';
 
 /**
  * Source CSS variables exposed by Next/font. We declare them
@@ -7,11 +7,11 @@ import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
  * never reaches the page).
  */
 export const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
 export const fontMono = FontMono({
-  subsets: ["latin"],
-  variable: "--font-fira-code",
+  subsets: ['latin'],
+  variable: '--font-fira-code',
 });

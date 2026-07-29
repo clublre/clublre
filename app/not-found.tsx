@@ -21,8 +21,8 @@ export default function NotFound() {
         Página no encontrada
       </h1>
       <p className="text-default-600 mx-auto mt-4 max-w-md">
-        La página que buscás no existe o fue movida. Volvé al inicio y
-        seguí explorando el club.
+        La página que buscás no existe o fue movida. Volvé al inicio y seguí
+        explorando el club.
       </p>
       <NextLink
         className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors"

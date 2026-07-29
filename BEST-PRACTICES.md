@@ -607,6 +607,7 @@ defina un milestone.
 **Por qué ahora no:** el sitio es 100% estático (`output: "export"`
 en `next.config.js`), sin endpoints, sin auth, sin estado
 compartido. La superficie a testear es:
+
 - 5 componentes UI (`Section`, `Container`, `CardClub`, `Eyebrow`,
   `BlurryBlob`)
 - 2 organisms (`Navbar`, `Footer`)
@@ -616,15 +617,15 @@ compartido. La superficie a testear es:
 
 **Stack propuesto:**
 
-| Dependencia                             | Para qué                                     |
-| --------------------------------------- | -------------------------------------------- |
-| `vitest`                                | test runner compatible con TS + ESM          |
-| `@vitejs/plugin-react`                  | soporte React 19                             |
-| `@testing-library/react`                | render + queries semánticas                  |
-| `@testing-library/jest-dom`             | matchers (`toBeInTheDocument`, etc.)         |
-| `@testing-library/user-event`           | interacciones realistas (`click`, `type`)    |
-| `happy-dom`                             | entorno DOM rápido (más veloz que jsdom)     |
-| `axe-core` + `vitest-axe`               | smoke tests de a11y por componente           |
+| Dependencia                   | Para qué                                  |
+| ----------------------------- | ----------------------------------------- |
+| `vitest`                      | test runner compatible con TS + ESM       |
+| `@vitejs/plugin-react`        | soporte React 19                          |
+| `@testing-library/react`      | render + queries semánticas               |
+| `@testing-library/jest-dom`   | matchers (`toBeInTheDocument`, etc.)      |
+| `@testing-library/user-event` | interacciones realistas (`click`, `type`) |
+| `happy-dom`                   | entorno DOM rápido (más veloz que jsdom)  |
+| `axe-core` + `vitest-axe`     | smoke tests de a11y por componente        |
 
 **Estructura:**
 
@@ -673,27 +674,27 @@ su costo de setup.
 
 **Stack propuesto:**
 
-| Dependencia                                 | Versión          |
-| ------------------------------------------- | ---------------- |
-| `storybook`                                 | 8.x              |
-| `@storybook/nextjs-vite`                    | 8.x (compatible Next 16 + Vite) |
-| `@chromatic-com/storybook`                  | visual regression |
-| `@storybook/addon-a11y`                     | axe in-browser   |
-| `@storybook/addon-themes`                   | toggle sky/dark  |
+| Dependencia                | Versión                         |
+| -------------------------- | ------------------------------- |
+| `storybook`                | 8.x                             |
+| `@storybook/nextjs-vite`   | 8.x (compatible Next 16 + Vite) |
+| `@chromatic-com/storybook` | visual regression               |
+| `@storybook/addon-a11y`    | axe in-browser                  |
+| `@storybook/addon-themes`  | toggle sky/dark                 |
 
 **Configuración recomendada:**
 
 ```ts
 // .storybook/main.ts
 const config: StorybookConfig = {
-  framework: { name: "@storybook/nextjs-vite", options: {} },
-  stories: ["../components/**/*.stories.@(ts|tsx)"],
+  framework: { name: '@storybook/nextjs-vite', options: {} },
+  stories: ['../components/**/*.stories.@(ts|tsx)'],
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-a11y",
-    "@storybook/addon-themes",
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-themes',
   ],
-  staticDirs: ["../public"],
+  staticDirs: ['../public'],
 };
 ```
 
@@ -730,4 +731,3 @@ Cuando se priorice un item:
 1. Moverlo a una nueva sección arriba (no queda en "Pendientes").
 2. Abrir un GitHub Issue referenciando el número de sección (§X.Y).
 3. Crear branch `feat/<short-name>` desde `main`.
-

@@ -21,7 +21,7 @@
  */
 
 import { spawn, execSync } from 'node:child_process';
-import { existsSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { platform } from 'node:process';
 
@@ -101,17 +101,17 @@ function killByPattern(pattern) {
   const scoped = pidsInThisProject();
   if (scoped && scoped.length > 0) {
     run(
-      `ps -p ${scoped.join(",")} -o pid,command 2>/dev/null | grep "${pattern}" | awk '{print $1}' | xargs -r kill -9 2>/dev/null`,
+      `ps -p ${scoped.join(',')} -o pid,command 2>/dev/null | grep "${pattern}" | awk '{print $1}' | xargs -r kill -9 2>/dev/null`,
     );
   } else {
     logStep(
-      "  (no scoped matches found; falling back to project-local SIGINT)",
+      '  (no scoped matches found; falling back to project-local SIGINT)',
     );
     // Send SIGINT to the dev server's PID file if Next wrote one.
     const pidFile = `${cwd}/.next/dev/pid`;
     if (existsSync(pidFile)) {
       try {
-        const pid = readFileSync(pidFile, "utf8").trim();
+        const pid = readFileSync(pidFile, 'utf8').trim();
         if (/^\d+$/.test(pid)) {
           run(`kill -INT ${pid} 2>/dev/null`);
         }
