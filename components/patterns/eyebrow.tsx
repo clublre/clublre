@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 
 interface EyebrowProps extends HTMLAttributes<HTMLSpanElement> {
   /** Brand color accent. */
-  tone?: "azul" | "amarillo" | "default";
+  tone?: "sky" | "amarillo" | "default";
 }
 
 const toneMap = {
   default: "text-default-500",
-  azul: "text-estu-azul",
-  amarillo: "text-estu-amarillo-600",
+  sky: "text-primary",
+  amarillo: "text-amber-600",
 };
 
 /**

@@ -20,7 +20,7 @@ const spacingMap = {
 const variantMap = {
   default: "bg-background",
   muted: "bg-surface-muted",
-  gradient: "gradient-estu-radial bg-background",
+  gradient: "gradient-radial-sky bg-background",
   transparent: "bg-transparent",
 };
 

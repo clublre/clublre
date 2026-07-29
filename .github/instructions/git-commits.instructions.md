@@ -11,6 +11,7 @@ These are loaded automatically for any change in this repo.
 Format: `<type>(<scope>): <subject>`
 
 Types:
+
 - `feat:` — new user-facing functionality.
 - `fix:` — bug fix.
 - `refactor:` — internal change, no new functionality.
@@ -23,6 +24,7 @@ Types:
 Subject: imperative, lowercase, no period, ≤72 chars.
 
 Examples:
+
 - `feat(pricing): add destacado ring to plan familiar`
 - `fix(navbar): aria-label en botón de cierre de menú mobile`
 - `chore(deps): bump framer-motion to 12.x`
@@ -66,18 +68,23 @@ Use this template:
 
 ```md
 ## What
+
 <one-paragraph summary>
 
 ## Why
+
 <motivation, link to issue if any>
 
 ## How
+
 <implementation notes, anything reviewers should know>
 
 ## Screenshots / recordings
+
 <if UI change>
 
 ## Checklist
+
 - [ ] `npm run type-check` passes
 - [ ] `npm run lint` passes
 - [ ] `npm run build` passes

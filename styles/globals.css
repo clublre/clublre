@@ -1,13 +1,13 @@
 /* ==========================================================================
    Club LRE - Global Styles
-   Tailwind CSS v4 + HeroUI v3 + Design System
+   Tailwind CSS v4 + HeroUI v3 (Sky theme) + Design System
 
    Sections:
    1. Imports
-   2. @theme block (brand tokens, surfaces, typography, radii)
-   3. Light/Dark overrides
-   4. Brand gradients
-   5. Keyframes & utilities
+   2. HeroUI theme overrides (Sky palette)
+   3. Tailwind v4 @theme block (brand tokens, typography, radii)
+   4. Tailwind v4 @theme inline (semantic aliases)
+   5. Brand gradients + shadows + keyframes
    6. Base layer
    ========================================================================== */
 
@@ -15,32 +15,99 @@
 @import "@heroui/styles";
 
 /* --------------------------------------------------------------------------
-   2. @theme — Design tokens (Tailwind v4 native)
-   These tokens generate utility classes like bg-background, text-foreground,
-   bg-estu-azul, etc.
-   ------------------------------------------------------------------------ */
-@theme {
-  /* Brand palette */
-  --color-estu-azul-50: oklch(0.97 0.03 270);
-  --color-estu-azul-100: oklch(0.93 0.06 270);
-  --color-estu-azul-200: oklch(0.85 0.12 270);
-  --color-estu-azul-300: oklch(0.72 0.18 270);
-  --color-estu-azul-400: oklch(0.58 0.22 270);
-  --color-estu-azul-500: oklch(0.45 0.24 270);
-  --color-estu-azul-600: oklch(0.36 0.22 270);
-  --color-estu-azul-700: oklch(0.28 0.18 270);
-  --color-estu-azul-800: oklch(0.22 0.14 270);
-  --color-estu-azul-900: oklch(0.17 0.1 270);
-  --color-estu-azul: #0009a0;
+   2. HeroUI theme — Sky palette override
+   --------------------------------------------------------------------------
+   HeroUI ships a default indigo accent (oklch 0.62 0.195 253.83). We
+   override `--accent` (and the values that derive from it) with the
+   Sky palette so all HeroUI components pick up the new primary colour
+   without us touching `bg-background`, `text-foreground`, `border-border`,
+   etc. directly.
+*/
+@layer base {
+  /* Light mode */
+  :root,
+  .light,
+  .default,
+  [data-theme="light"],
+  [data-theme="sky"] {
+    /* Brand accent — sky-500-ish */
+    --accent: oklch(0.685 0.169 237.32);
+    --accent-foreground: oklch(0.985 0.005 247);
 
-  --color-estu-amarillo-50: oklch(0.98 0.04 95);
-  --color-estu-amarillo-100: oklch(0.95 0.08 95);
-  --color-estu-amarillo-200: oklch(0.9 0.14 95);
-  --color-estu-amarillo-300: oklch(0.85 0.17 95);
-  --color-estu-amarillo-400: oklch(0.82 0.17 95);
-  --color-estu-amarillo-500: oklch(0.78 0.17 95);
-  --color-estu-amarillo-600: oklch(0.7 0.16 95);
-  --color-estu-amarillo: #eee457;
+    /* Slight cool tint on neutrals so the chrome matches the accent */
+    --background: oklch(0.985 0.005 240);
+    --foreground: oklch(0.21 0.005 240);
+
+    --surface: oklch(1 0 0);
+    --surface-foreground: var(--foreground);
+
+    --surface-secondary: oklch(0.97 0.008 240);
+    --surface-secondary-foreground: var(--foreground);
+
+    --surface-tertiary: oklch(0.95 0.012 240);
+    --surface-tertiary-foreground: var(--foreground);
+
+    --overlay: oklch(1 0 0);
+    --overlay-foreground: var(--foreground);
+
+    --muted: oklch(0.55 0.01 240);
+
+    --default: oklch(0.96 0.008 240);
+    --default-foreground: var(--foreground);
+
+    --border: oklch(0.92 0.01 240);
+    --separator: oklch(0.93 0.01 240);
+
+    --focus: var(--accent);
+    --ring: var(--accent);
+    --link: var(--accent);
+  }
+
+  /* Dark mode */
+  .dark,
+  [data-theme="dark"] {
+    --accent: oklch(0.7 0.17 237);
+    --accent-foreground: oklch(0.15 0.005 240);
+
+    --background: oklch(0.14 0.008 240);
+    --foreground: oklch(0.97 0.005 240);
+
+    --surface: oklch(0.19 0.008 240);
+    --surface-foreground: var(--foreground);
+
+    --surface-secondary: oklch(0.24 0.01 240);
+    --surface-secondary-foreground: var(--foreground);
+
+    --surface-tertiary: oklch(0.27 0.012 240);
+    --surface-tertiary-foreground: var(--foreground);
+
+    --overlay: oklch(0.22 0.008 240);
+    --overlay-foreground: var(--foreground);
+
+    --muted: oklch(0.7 0.015 240);
+
+    --default: oklch(0.27 0.01 240);
+    --default-foreground: var(--foreground);
+
+    --border: oklch(0.3 0.012 240);
+    --separator: oklch(0.27 0.012 240);
+
+    --focus: var(--accent);
+    --ring: var(--accent);
+    --link: var(--accent);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Tailwind v4 @theme — brand tokens (Tailwind utilities)
+   --------------------------------------------------------------------------
+   Only the brand secondary (amarillo) and the project-level surfaces
+   (surface-muted, default-*) live here — everything else
+   (background, foreground, surface, border, focus) comes from HeroUI.
+*/
+@theme {
+  /* Secondary brand — Club LRE amarillo (kept as institution identity). */
+  --color-amarillo: oklch(0.92 0.17 95);
 
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -52,81 +119,74 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
 
-  /* Shadows */
+  /* Shadows — tinted with the sky accent */
   --shadow-club:
-    0 4px 14px 0 rgb(0 9 160 / 0.12), 0 1px 4px 0 rgb(0 0 0 / 0.04);
+    0 4px 14px 0 oklch(0.685 0.169 237 / 0.12),
+    0 1px 4px 0 rgb(0 0 0 / 0.04);
   --shadow-club-lg:
-    0 10px 40px 0 rgb(0 9 160 / 0.18), 0 4px 12px 0 rgb(0 0 0 / 0.06);
+    0 10px 40px 0 oklch(0.685 0.169 237 / 0.18),
+    0 4px 12px 0 rgb(0 0 0 / 0.06);
 }
 
 /* --------------------------------------------------------------------------
-   3. Light / Dark tokens
-   In Tailwind v4 these are declared on :root and .dark for runtime switching.
-   ------------------------------------------------------------------------ */
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.18 0 0);
-  --surface: oklch(0.99 0 0);
-  --surface-foreground: oklch(0.18 0 0);
-  --surface-muted: oklch(0.96 0.005 270);
-  --border: oklch(0.9 0.01 270);
-  --ring: oklch(0.45 0.24 270);
-}
-
-.dark {
-  --background: oklch(0.13 0.01 270);
-  --foreground: oklch(0.96 0 0);
-  --surface: oklch(0.18 0.01 270);
-  --surface-foreground: oklch(0.96 0 0);
-  --surface-muted: oklch(0.22 0.02 270);
-  --border: oklch(0.28 0.02 270);
-  --ring: oklch(0.72 0.18 270);
-}
-
+   4. Tailwind v4 @theme inline — semantic aliases
+   --------------------------------------------------------------------------
+   These aliases let us write `bg-background`, `text-foreground`,
+   `bg-surface-muted`, `text-default-600` etc. and have them resolve to
+   the HeroUI CSS vars.
+*/
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
-  --color-surface-muted: var(--surface-muted);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-tertiary: var(--surface-tertiary);
+
+  --color-surface-muted: var(--surface-secondary);
+
   --color-border: var(--border);
-  --color-ring: var(--ring);
-  --color-default: var(--surface-muted);
-  --color-default-foreground: var(--surface-foreground);
-  --color-default-100: var(--surface-muted);
+
+  /* `default-*` — neutral text scale used across the app. */
+  --color-default: var(--default);
+  --color-default-foreground: var(--default-foreground);
+  --color-default-100: var(--default);
   --color-default-200: var(--border);
   --color-default-300: var(--border);
-  --color-default-400: oklch(0.55 0.02 270);
-  --color-default-500: oklch(0.5 0.02 270);
-  --color-default-600: oklch(0.42 0.02 270);
-  --color-default-700: oklch(0.3 0.02 270);
-  --color-primary: var(--color-estu-azul);
-  --color-primary-foreground: oklch(0.98 0.01 270);
+  --color-default-400: color-mix(in oklch, var(--foreground) 30%, transparent);
+  --color-default-500: color-mix(in oklch, var(--foreground) 45%, transparent);
+  --color-default-600: color-mix(in oklch, var(--foreground) 60%, transparent);
+  --color-default-700: color-mix(in oklch, var(--foreground) 75%, transparent);
+
+  /* Primary mirrors the HeroUI accent for utility-class parity. */
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-foreground);
 }
 
 /* --------------------------------------------------------------------------
-   4. Brand gradients
+   5. Brand gradients, shadows, keyframes, utilities
    -------------------------------------------------------------------------- */
-.gradient-estu-1 {
+.gradient-amarillo {
   background-image: linear-gradient(
     to right,
-    var(--color-estu-azul),
-    var(--color-estu-amarillo)
+    var(--color-amarillo),
+    oklch(0.92 0.17 95 / 0.7)
   );
 }
 
-.gradient-estu-2 {
+.gradient-sky {
   background-image: linear-gradient(
     to right,
-    var(--color-estu-amarillo),
-    var(--color-estu-azul)
+    var(--accent),
+    var(--color-amarillo)
   );
 }
 
-.gradient-estu-radial {
+.gradient-radial-sky {
   background-image: radial-gradient(
     ellipse at top,
-    oklch(0.45 0.24 270 / 0.18),
+    oklch(0.685 0.169 237 / 0.18),
     transparent 60%
   );
 }
@@ -139,9 +199,6 @@
   box-shadow: var(--shadow-club-lg);
 }
 
-/* --------------------------------------------------------------------------
-   5. Keyframes & utilities
-   -------------------------------------------------------------------------- */
 @keyframes pop-blob {
   0% {
     transform: scale(1) translate(0, 0);
@@ -193,8 +250,8 @@
   }
 
   ::selection {
-    background: var(--color-estu-amarillo);
-    color: var(--color-estu-azul);
+    background: var(--color-amarillo);
+    color: var(--foreground);
   }
 
   *:focus-visible {

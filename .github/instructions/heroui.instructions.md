@@ -32,6 +32,7 @@ HeroUI v3 reads theme from `next-themes` automatically via the
 - You want to know the available variants.
 
 Available tools:
+
 - `mcp__heroui_react_list_components`
 - `mcp__heroui_react_get_component_docs`
 - `mcp__heroui_react_get_component_source_code`
@@ -100,10 +101,10 @@ Same for `Hero`, `HeroSection`, etc. — these are patterns we build from
 
 ## When to use HeroUI vs. patterns
 
-| Use HeroUI when… | Use patterns (`components/patterns/`) when… |
-|---|---|
+| Use HeroUI when…                                         | Use patterns (`components/patterns/`) when…           |
+| -------------------------------------------------------- | ----------------------------------------------------- |
 | You need interactive behavior (modal, popover, dropdown) | You need layout containers (section, container, card) |
-| You need a form control with validation | You need a brand-styled card or eyebrow label |
-| You need a known UI primitive (button, link, switch) | You need a decorative element (BlurryBlob) |
+| You need a form control with validation                  | You need a brand-styled card or eyebrow label         |
+| You need a known UI primitive (button, link, switch)     | You need a decorative element (BlurryBlob)            |
 
 If you need both, compose: pattern as wrapper + HeroUI inside.

@@ -4,19 +4,21 @@
  * Source of truth for tokens that live both in styles/globals.css (@theme)
  * and in code (tailwind-variants, classes, etc).
  *
- * CSS variables live in globals.css under `@theme { ... }` — keep these
- * constants in sync with the @theme block there.
+ * The Sky palette (primary brand colour) comes from HeroUI v3's Sky
+ * theme override — see `@layer base` in styles/globals.css. We expose
+ * a reference here only for places that need the value programmatically
+ * (e.g. inline SVG `fill`, framer-motion animations).
  */
 
 export const brand = {
-  /** Primary brand blue (Club Atlético Estudiantil) */
-  azul: "#0009A0",
-  /** Primary brand yellow */
+  /** Active HeroUI theme — single source of truth for the palette name. */
+  theme: "sky",
+  /** Secondary brand — Club LRE amarillo (only as accent / hover / CTA). */
   amarillo: "#EEE457",
-  /** Reverse: yellow → blue */
-  gradient1: "linear-gradient(to right, #0009A0, #EEE457)",
-  /** Forward: blue → yellow */
-  gradient2: "linear-gradient(to right, #EEE457, #0009A0)",
+  /** HeroUI Sky accent — light mode oklch (matches globals.css). */
+  skyLight: "oklch(0.685 0.169 237.32)",
+  /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
+  skyDark: "oklch(0.7 0.17 237)",
 } as const;
 
 export const spacing = {

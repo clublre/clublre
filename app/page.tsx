@@ -25,7 +25,7 @@ export default function Home() {
         variant='gradient'>
         <BlurryBlob />
         <Container className='relative animate-fade-in text-center'>
-          <Eyebrow className='mb-4 block' tone='azul'>
+          <Eyebrow className='mb-4 block' tone='sky'>
             Club Los Rosarinos Estudiantil
           </Eyebrow>
           <h1
@@ -35,7 +35,7 @@ export default function Home() {
             })}>
             Más de 80 años
             <br />
-            <span className={title({ color: "estu2" })}>
+            <span className={title({ color: "sky" })}>
               formando comunidad
             </span>
           </h1>
@@ -65,7 +65,7 @@ export default function Home() {
       <Section as='section' id='actividades' spacing='lg' variant='muted'>
         <Container>
           <div className='mb-12 text-center'>
-            <Eyebrow className='mb-3 block' tone='azul'>
+            <Eyebrow className='mb-3 block' tone='sky'>
               Nuestras disciplinas
             </Eyebrow>
             <h2 className={title({ size: "md", class: "block" })}>
@@ -81,7 +81,7 @@ export default function Home() {
             {activities.map((activity) => (
               <CardClub
                 key={activity.id}
-                accent={activity.id === "futbol" ? "azul" : "amarillo"}>
+                accent={activity.id === "futbol" ? "sky" : "amarillo"}>
                 <CardClubHeader>
                   <span aria-hidden='true' className='text-3xl'>
                     {activity.icon}
@@ -98,18 +98,16 @@ export default function Home() {
       {/* CTA */}
       <Section as='section' spacing='md'>
         <Container>
-          <div className='gradient-estu-2 rounded-2xl p-10 text-center text-estu-azul-900 shadow-club-lg md:p-16'>
+          <div className='gradient-sky rounded-2xl p-10 text-center text-sky-900 shadow-club-lg md:p-16'>
             <h2 className='mb-4 text-3xl font-bold md:text-4xl'>
               Sumate al club
             </h2>
-            <p className='mx-auto mb-8 max-w-xl text-base text-estu-azul-800 md:text-lg'>
+            <p className='mx-auto mb-8 max-w-xl text-base text-sky-800 md:text-lg'>
               Tres generaciones de rosarinos pasaron por nuestras instalaciones.
               Te invitamos a ser parte.
             </p>
             <NextLink href='/pricing'>
-              <Button
-                className='bg-estu-azul font-semibold text-white'
-                size='lg'>
+              <Button className='font-semibold' size='lg' variant='primary'>
                 Quiero asociarme
               </Button>
             </NextLink>

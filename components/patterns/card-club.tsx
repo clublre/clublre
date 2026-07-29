@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
   /** Optional accent stripe along the top edge. */
-  accent?: "azul" | "amarillo" | "gradient";
+  accent?: "sky" | "amarillo" | "gradient";
   /** Highlight the card (used for featured pricing tiers). */
   highlighted?: boolean;
   /** Optional media slot rendered above the body. */
@@ -12,9 +12,9 @@ interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const accentMap = {
-  azul: "before:bg-estu-azul",
-  amarillo: "before:bg-estu-amarillo",
-  gradient: "before:gradient-estu-2",
+  sky: "before:bg-primary",
+  amarillo: "before:bg-amarillo",
+  gradient: "before:gradient-sky",
 };
 
 /**
@@ -39,7 +39,7 @@ export function CardClub({
           "before:absolute before:inset-x-0 before:top-0 before:h-1 before:content-['']",
         accent && accentMap[accent],
         highlighted &&
-          "ring-2 ring-estu-azul ring-offset-2 ring-offset-background",
+          "ring-2 ring-primary ring-offset-2 ring-offset-background",
         className,
       )}
       {...props}>

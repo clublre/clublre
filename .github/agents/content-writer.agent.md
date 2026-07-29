@@ -38,7 +38,7 @@ voice: warm, community-focused, no marketing fluff.
 
 ## Spanish typography
 
-- Opening quote: «  » (angle quotes) en vez de "  ".
+- Opening quote: « » (angle quotes) en vez de " ".
 - Em-dash: — (sin espacios).
 - Numbers: 1.000, 8.500 (Argentine convention).
 - Dates: 15 de enero de 2026.

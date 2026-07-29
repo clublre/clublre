@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 interface BlobProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** First blob colour — usually the brand azul. */
+  /** First blob colour — usually the brand sky. */
   firstBlobColor?: string;
-  /** Second blob colour — usually estu-amarillo. */
+  /** Second blob colour — usually amarillo. */
   secondBlobColor?: string;
 }
 
@@ -13,8 +13,8 @@ interface BlobProps extends React.HTMLAttributes<HTMLDivElement> {
  */
 export default function BlurryBlob({
   className,
-  firstBlobColor = "bg-estu-azul-300",
-  secondBlobColor = "bg-estu-amarillo-300",
+  firstBlobColor = "bg-sky-300",
+  secondBlobColor = "bg-amber-300",
 }: BlobProps) {
   return (
     <div

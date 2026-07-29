@@ -22,7 +22,7 @@ const posts = [
       "Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.",
     date: "2026-01-15",
     category: "Institucional",
-    accent: "azul" as const,
+    accent: "sky" as const,
   },
   {
     slug: "torneo-interno-futbol",
@@ -40,7 +40,7 @@ const posts = [
       "Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.",
     date: "2026-02-20",
     category: "Básquet",
-    accent: "azul" as const,
+    accent: "sky" as const,
   },
   {
     slug: "colonia-de-verano",
@@ -83,7 +83,7 @@ export default function BlogPage() {
     <>
       <Section as='section' spacing='md'>
         <Container>
-          <Eyebrow className='mb-3 block' tone='azul'>
+          <Eyebrow className='mb-3 block' tone='sky'>
             Novedades
           </Eyebrow>
           <h1
@@ -92,7 +92,7 @@ export default function BlogPage() {
               class: "block max-w-3xl leading-[1.1]",
             })}>
             Blog del
-            <span className={title({ color: "estu2" })}>club</span>
+            <span className={title({ color: "sky" })}>club</span>
           </h1>
           <p className='mt-4 max-w-2xl text-default-600'>
             Novedades institucionales, resultados deportivos y todo lo que pasa
@@ -110,21 +110,21 @@ export default function BlogPage() {
                 accent={post.accent}
                 className='flex flex-col'>
                 <div className='mb-3 flex items-center justify-between text-xs'>
-                  <span className='rounded-full bg-estu-azul-50 px-2.5 py-1 font-medium uppercase tracking-wider text-estu-azul-700 dark:bg-estu-azul-900 dark:text-estu-azul-200'>
+                  <span className='rounded-full bg-sky-50 px-2.5 py-1 font-medium uppercase tracking-wider text-sky-700 dark:bg-sky-900 dark:text-sky-200'>
                     {post.category}
                   </span>
                   <time className='text-default-500' dateTime={post.date}>
                     {formatDate(post.date)}
                   </time>
                 </div>
-                <CardClubTitle className='hover:text-estu-azul'>
+                <CardClubTitle className='hover:text-primary'>
                   <NextLink href={`/blog/${post.slug}`}>{post.title}</NextLink>
                 </CardClubTitle>
                 <CardClubBody className='mt-3 grow'>
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
-                  className='mt-4 inline-flex items-center gap-1 text-sm font-medium text-estu-azul hover:underline'
+                  className='mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline'
                   href={`/blog/${post.slug}`}>
                   Leer más →
                 </NextLink>

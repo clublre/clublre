@@ -77,8 +77,9 @@ BEST-PRACTICES.md       # The architectural bible — read it first
 ### 2. Styling
 
 - ✅ Use Tailwind utility classes generated from tokens.
-- ✅ Brand tokens: `bg-estu-azul-*`, `bg-estu-amarillo-*`,
-  `gradient-estu-1/2`, `shadow-club`, `shadow-club-lg`.
+- ✅ Brand tokens: `bg-sky-*` / `text-primary` (HeroUI Sky theme via
+  `@accent`), `bg-amarillo` (secondary), `gradient-sky`,
+  `shadow-club`, `shadow-club-lg`.
 - ❌ No inline `style={{ color: '#...' }}`. Use utility classes.
 - ❌ No `bg-[#abc]` arbitrary values — add a token to `globals.css` and
   `design-tokens.ts` instead.
@@ -89,7 +90,7 @@ BEST-PRACTICES.md       # The architectural bible — read it first
   `@/components/patterns`.
 - ✅ Brand cards use `<CardClub>` (with `accent` / `highlighted`).
 - ✅ Buttons: HeroUI `<Button>` with `variant="primary" | "outline" |
-  "ghost" | ...`. Never hand-roll a styled `<button>` unless it's a
+"ghost" | ...`. Never hand-roll a styled `<button>` unless it's a
   semantic toggle (e.g. theme switch).
 - ❌ Don't recreate components that already exist in HeroUI v3.
 
@@ -104,7 +105,7 @@ BEST-PRACTICES.md       # The architectural bible — read it first
 ### 5. Types
 
 - ✅ Strict TS — `noUncheckedIndexedAccess` is on. `arr[0]` is `T |
-  undefined`.
+undefined`.
 - ✅ `import type` for type-only imports.
 - ✅ `Route` from `next` for `<Link href>` values.
 - ❌ No `any`. If you must escape, prefer `unknown` + narrowing.

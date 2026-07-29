@@ -15,36 +15,41 @@ type-check / build, but you don't make autonomous changes.
 For every PR or change, check:
 
 ### Correctness
+
 - [ ] TypeScript strict mode passes (`npm run type-check`).
 - [ ] ESLint passes (`npm run lint`). 0 errors, warnings are OK if
-  documented.
+      documented.
 - [ ] Build passes (`npm run build`).
 - [ ] No `// @ts-ignore` or `as any` without justification.
 - [ ] No `console.log` left behind.
 
 ### Architecture
+
 - [ ] No `"use client"` in files that don't need it.
 - [ ] No `<NextUIProvider>` (removed in HeroUI v3).
 - [ ] No imports from `@nextui-org/*`.
 - [ ] Tokens added in `globals.css` are mirrored in
-  `config/design-tokens.ts`.
+      `config/design-tokens.ts`.
 - [ ] Reusable UI added in `components/patterns/`, not
-  `components/`.
+      `components/`.
 - [ ] `Route` type used for `<Link href>` (when not a fragment URL).
 
 ### Styling
+
 - [ ] No arbitrary Tailwind values (`bg-[#xxx]`).
 - [ ] No inline `style={{ color: '...' }}` for colors (use tokens).
 - [ ] Dark mode works: tokens that should switch are defined in both
-  `:root` and `.dark`.
+      `:root` and `.dark`.
 
 ### Accessibility
+
 - [ ] All icon-only buttons have `aria-label`.
 - [ ] All images have `alt`.
 - [ ] Headings follow hierarchy (h1 → h2 → h3).
 - [ ] Form inputs have labels.
 
 ### Code style
+
 - [ ] Imports sorted (Prettier default).
 - [ ] No unused imports (`unused-imports/no-unused-imports`).
 - [ ] Component names PascalCase, files PascalCase, utilities camelCase.

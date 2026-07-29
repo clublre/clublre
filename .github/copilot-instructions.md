@@ -20,18 +20,18 @@
 
 ## Component selection cheat-sheet
 
-| User asks for… | Use |
-|---|---|
-| A button | `<Button>` from `@heroui/react`. |
-| A link to internal page | `<NextLink href="...">` with `Route` type. |
-| A link to external URL | Plain `<a>` with `target="_blank" rel="noopener noreferrer"`. |
-| A card / panel | `<CardClub>` from `@/components/patterns`. |
-| A page section with padding | `<Section variant="..." spacing="...">`. |
-| A constrained-width wrapper | `<Container size="...">`. |
-| An icon button | `<button aria-label="...">` with react-icons child. |
-| A switch / toggle | `<Switch>` from `@heroui/react`. |
-| A nav bar | The existing `components/navbar.tsx` pattern (sticky `<nav>`). |
-| A form input | `<Input>` from `@heroui/react`. |
+| User asks for…              | Use                                                            |
+| --------------------------- | -------------------------------------------------------------- |
+| A button                    | `<Button>` from `@heroui/react`.                               |
+| A link to internal page     | `<NextLink href="...">` with `Route` type.                     |
+| A link to external URL      | Plain `<a>` with `target="_blank" rel="noopener noreferrer"`.  |
+| A card / panel              | `<CardClub>` from `@/components/patterns`.                     |
+| A page section with padding | `<Section variant="..." spacing="...">`.                       |
+| A constrained-width wrapper | `<Container size="...">`.                                      |
+| An icon button              | `<button aria-label="...">` with react-icons child.            |
+| A switch / toggle           | `<Switch>` from `@heroui/react`.                               |
+| A nav bar                   | The existing `components/navbar.tsx` pattern (sticky `<nav>`). |
+| A form input                | `<Input>` from `@heroui/react`.                                |
 
 If none of these fit, say so and propose a new pattern — don't invent
 ad-hoc markup.
@@ -44,10 +44,10 @@ When generating a class string that includes a brand color:
 
 ```tsx
 // ✅
-className="bg-estu-azul-500 text-white hover:bg-estu-azul-600"
+className = "bg-sky-500 text-white hover:bg-sky-600";
 
 // ❌
-className="bg-[#0009A0]"
+className = "bg-[#0009A0]";
 ```
 
 When you need a value that isn't in the palette, **add it to
@@ -68,9 +68,9 @@ the utility.
 import { Input, Label, FieldError } from "@heroui/react";
 
 <form>
-  <Label htmlFor="email">Email</Label>
-  <Input id="email" name="email" type="email" required />
-</form>
+  <Label htmlFor='email'>Email</Label>
+  <Input id='email' name='email' type='email' required />
+</form>;
 ```
 
 ---

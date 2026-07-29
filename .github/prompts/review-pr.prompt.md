@@ -20,16 +20,20 @@ You are reviewing a pull request. Be terse and specific. Don't lecture.
 Use this format:
 
 ### 🚨 Blockers
+
 Things that must be fixed before merge. Include file:line and
 suggested fix.
 
 ### ⚠️ Should fix
+
 Non-blocking but important. Convention violations, a11y, etc.
 
 ### 💡 Suggestions
+
 Polish, refactor, performance. Nice to have.
 
 ### ✅ Looks good
+
 Brief summary of what works.
 
 ## Rules

@@ -84,26 +84,25 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound();
 
   return (
-    <Section spacing="lg">
-      <Container size="md">
+    <Section spacing='lg'>
+      <Container size='md'>
         <NextLink
-          className="mb-6 inline-flex items-center gap-2 text-sm text-default-600 hover:text-estu-azul"
-          href="/blog"
-        >
+          className='mb-6 inline-flex items-center gap-2 text-sm text-default-600 hover:text-primary'
+          href='/blog'>
           <FaArrowLeft size={12} /> Volver al blog
         </NextLink>
-        <Eyebrow className="mb-3 block" tone="azul">
+        <Eyebrow className='mb-3 block' tone='sky'>
           {post.category} · {formatDate(post.date)}
         </Eyebrow>
         <h1 className={title({ size: "lg", class: "block leading-[1.1]" })}>
           {post.title}
         </h1>
-        <p className="mt-6 text-lg leading-relaxed text-default-700">
+        <p className='mt-6 text-lg leading-relaxed text-default-700'>
           {post.body}
         </p>
-        <p className="mt-6 text-sm text-default-500">
-          Artículo placeholder. En producción este contenido provendría del
-          CMS del club.
+        <p className='mt-6 text-sm text-default-500'>
+          Artículo placeholder. En producción este contenido provendría del CMS
+          del club.
         </p>
       </Container>
     </Section>

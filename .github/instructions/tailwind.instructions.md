@@ -16,11 +16,17 @@ file with Tailwind classes.
 
 ## Tokens
 
-- Brand colors: `estu-azul-*`, `estu-amarillo-*` (50 → 900).
+- **Primary** — HeroUI Sky theme. Accent comes from `--accent` /
+  `--focus` / `--link` (overridden in `@layer base` in
+  `globals.css`). Use the utility `bg-primary` / `text-primary` /
+  `border-primary`, or Tailwind built-in `bg-sky-*` / `text-sky-*`.
+- **Secondary** — `--color-amarillo` (utility `bg-amarillo`,
+  `text-amarillo`). Used as accent / hover only.
 - Surfaces: `bg-background`, `bg-surface`, `bg-surface-muted`,
-  `border-border`, `text-foreground`.
+  `border-border`, `text-foreground` — all derived from HeroUI vars.
+- Defaults: `text-default-600`, `text-default-500`, `border-default-200`.
 - Shadows: `shadow-club`, `shadow-club-lg`.
-- Gradients: `gradient-estu-1`, `gradient-estu-2`, `gradient-estu-radial`.
+- Gradients: `gradient-sky`, `gradient-amarillo`, `gradient-radial-sky`.
 - Typography: `font-sans`, `font-mono`.
 
 ## Adding new tokens
@@ -44,7 +50,7 @@ export const rojo = "#D33F49";
 ```
 
 ```tsx
-<div className="bg-estu-rojo-500" />
+<div className='bg-estu-rojo-500' />
 ```
 
 ## Don't use arbitrary values
@@ -55,7 +61,7 @@ export const rojo = "#D33F49";
 <div className="p-[13px]" />
 
 // ✅ use tokens or Tailwind defaults
-<div className="bg-estu-azul" />
+<div className="bg-sky-500" />
 <div className="p-3" />
 ```
 
@@ -93,9 +99,11 @@ Don't reorder — import order matters for Tailwind v4.
 ```tsx
 import { cn } from "@/lib/utils";
 
-<button className={cn(
-  "px-4 py-2 rounded-md",
-  isActive && "bg-estu-azul text-white",
-  isDisabled && "opacity-50 cursor-not-allowed",
-)} />
+<button
+  className={cn(
+    "px-4 py-2 rounded-md",
+    isActive && "bg-sky-500 text-white",
+    isDisabled && "opacity-50 cursor-not-allowed",
+  )}
+/>;
 ```

@@ -4,9 +4,7 @@ import { tv } from "tailwind-variants";
  * Heading variants — Club LRE
  *
  * Color variants reference the brand gradients defined in globals.css
- * (gradient-estu-1, gradient-estu-2). Tailwind v4 doesn't ship
- * arbitrary `from-[#xxx]` utilities by default the same way v3 did;
- * we map colors to utility classes that resolve to our @theme tokens.
+ * (gradient-sky, gradient-amarillo) or Tailwind built-in palettes.
  */
 export const title = tv({
   base: "tracking-tight inline font-semibold",
@@ -14,12 +12,11 @@ export const title = tv({
     color: {
       violet: "bg-gradient-to-r from-fuchsia-400 to-purple-500",
       yellow: "bg-gradient-to-r from-yellow-300 to-yellow-500",
-      blue: "bg-gradient-to-r from-sky-400 to-blue-600",
+      sky: "gradient-sky",
       cyan: "bg-gradient-to-r from-cyan-400 to-cyan-500",
       green: "bg-gradient-to-r from-green-400 to-green-500",
       pink: "bg-gradient-to-r from-pink-400 to-rose-500",
-      estu1: "gradient-estu-1",
-      estu2: "gradient-estu-2",
+      amarillo: "gradient-amarillo",
       foreground: "dark:from-white dark:to-neutral-600",
     },
     size: {
@@ -39,12 +36,11 @@ export const title = tv({
       color: [
         "violet",
         "yellow",
-        "blue",
+        "sky",
         "cyan",
         "green",
         "pink",
-        "estu1",
-        "estu2",
+        "amarillo",
         "foreground",
       ],
       class: "bg-clip-text text-transparent",

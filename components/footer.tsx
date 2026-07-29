@@ -43,7 +43,7 @@ export function Footer() {
               {siteConfig.navItems.map((item) => (
                 <li key={item.href}>
                   <NextLink
-                    className='text-default-600 transition-colors hover:text-estu-azul'
+                    className='text-default-600 transition-colors hover:text-primary'
                     href={item.href}>
                     {item.label}
                   </NextLink>
@@ -51,14 +51,14 @@ export function Footer() {
               ))}
               <li>
                 <NextLink
-                  className='text-default-600 transition-colors hover:text-estu-azul'
+                  className='text-default-600 transition-colors hover:text-primary'
                   href='/blog'>
                   Blog
                 </NextLink>
               </li>
               <li>
                 <NextLink
-                  className='text-default-600 transition-colors hover:text-estu-azul'
+                  className='text-default-600 transition-colors hover:text-primary'
                   href='/pricing'>
                   Cuotas
                 </NextLink>
@@ -73,21 +73,21 @@ export function Footer() {
             </h4>
             <ul className='space-y-2 text-sm text-default-600'>
               <li className='flex items-start gap-2'>
-                <FaMapMarkerAlt className='mt-0.5 size-4 shrink-0 text-estu-azul' />
+                <FaMapMarkerAlt className='mt-0.5 size-4 shrink-0 text-primary' />
                 <span>Av. Pellegrini 1500, Rosario, Santa Fe</span>
               </li>
               <li className='flex items-center gap-2'>
-                <FaPhone className='size-4 shrink-0 text-estu-azul' />
+                <FaPhone className='size-4 shrink-0 text-primary' />
                 <span>+54 341 555 0000</span>
               </li>
               <li className='flex items-center gap-2'>
-                <FaEnvelope className='size-4 shrink-0 text-estu-azul' />
+                <FaEnvelope className='size-4 shrink-0 text-primary' />
                 <span>info@clublre.com.ar</span>
               </li>
               <li className='flex items-center gap-2 pt-2'>
                 <a
                   aria-label='Instagram'
-                  className='text-default-600 transition-colors hover:text-estu-azul'
+                  className='text-default-600 transition-colors hover:text-primary'
                   href={siteConfig.links.instagram}
                   rel='noopener noreferrer'
                   target='_blank'>

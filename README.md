@@ -41,10 +41,12 @@ Tokens definidos en dos lugares (sincronizados):
 1. `styles/globals.css` — bloque `@theme` (Tailwind v4).
 2. `config/design-tokens.ts` — constantes TS.
 
-### Paleta de marca
+### Paleta
 
-- **Azul** `#0009A0` — `bg-estu-azul`, `text-estu-azul-*`
-- **Amarillo** `#EEE457` — `bg-estu-amarillo`, `text-estu-amarillo-*`
+- **Primary** — HeroUI **Sky** theme (cyan/blue). Override de `--accent`
+  en `styles/globals.css`. Usá `bg-primary` / `text-primary` o los utilities
+  built-in de Tailwind `bg-sky-*` / `text-sky-*`.
+- **Secondary** — `#EEE457` — `bg-amarillo` (acento decorativo).
 
 ### Patterns reutilizables (`components/patterns/`)
 

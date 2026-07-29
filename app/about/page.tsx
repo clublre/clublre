@@ -15,7 +15,7 @@ export default function AboutPage() {
       {/* Header */}
       <Section as='section' spacing='md'>
         <Container>
-          <Eyebrow className='mb-3 block' tone='azul'>
+          <Eyebrow className='mb-3 block' tone='sky'>
             Sobre nosotros
           </Eyebrow>
           <h1
@@ -25,7 +25,7 @@ export default function AboutPage() {
             })}>
             Una historia ligada a
             <br />
-            <span className={title({ color: "estu2" })}>Rosario</span>
+            <span className={title({ color: "sky" })}>Rosario</span>
           </h1>
           <p className='mt-6 max-w-2xl text-lg text-default-600'>
             Fundado en 1943, el Club Los Rosarinos Estudiantil es una
@@ -49,7 +49,7 @@ export default function AboutPage() {
           </div>
 
           <div className='grid gap-6 md:grid-cols-3'>
-            <CardClub accent='azul'>
+            <CardClub accent='sky'>
               <CardClubTitle>Comunidad</CardClubTitle>
               <CardClubBody>
                 Un espacio donde las familias rosarinas crecen juntas,
@@ -78,7 +78,7 @@ export default function AboutPage() {
       <Section as='section' spacing='lg'>
         <Container>
           <div className='mb-12 text-center'>
-            <Eyebrow className='mb-3 block' tone='azul'>
+            <Eyebrow className='mb-3 block' tone='sky'>
               Comisión directiva
             </Eyebrow>
             <h2 className={title({ size: "md", class: "block" })}>
@@ -94,7 +94,7 @@ export default function AboutPage() {
             {commission.map((member) => (
               <li
                 key={member.role}
-                className='rounded-lg border border-default-200 bg-surface p-5 shadow-club transition-colors hover:border-estu-azul-300'>
+                className='rounded-lg border border-default-200 bg-surface p-5 shadow-club transition-colors hover:border-sky-300'>
                 <p className='text-xs font-medium uppercase tracking-wider text-default-500'>
                   {member.role}
                 </p>

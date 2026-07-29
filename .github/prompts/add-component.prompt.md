@@ -57,15 +57,13 @@ const component = tv({
 });
 
 export interface NameProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "size">,
+  extends
+    Omit<HTMLAttributes<HTMLDivElement>, "size">,
     VariantProps<typeof component> {}
 
 export function Name({ className, variant, size, ...props }: NameProps) {
   return (
-    <div
-      className={cn(component({ variant, size }), className)}
-      {...props}
-    />
+    <div className={cn(component({ variant, size }), className)} {...props} />
   );
 }
 ```

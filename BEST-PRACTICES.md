@@ -8,15 +8,15 @@
 
 ## Stack (versiones fijadas)
 
-| Capa | Versión | Por qué |
-|---|---|---|
-| **Next.js** | 16.2+ | App Router estable, Turbopack default, React 19. |
-| **React** | 19.x | `useActionState`, `useOptimistic`, `<Form>`, React Compiler ready. |
-| **TypeScript** | 6.x | `noUncheckedIndexedAccess`, `noImplicitOverride`, etc. |
-| **HeroUI** | 3.2+ | API compound, sin Provider, Tailwind v4 native. |
-| **Tailwind CSS** | 4.3+ | `@theme` en CSS, no JS config. |
-| **ESLint** | 9.x | Flat config, `eslint-config-next/core-web-vitals`. |
-| **Node.js** | 22.21.x | LTS, requerido por HeroUI MCP. |
+| Capa             | Versión | Por qué                                                            |
+| ---------------- | ------- | ------------------------------------------------------------------ |
+| **Next.js**      | 16.2+   | App Router estable, Turbopack default, React 19.                   |
+| **React**        | 19.x    | `useActionState`, `useOptimistic`, `<Form>`, React Compiler ready. |
+| **TypeScript**   | 6.x     | `noUncheckedIndexedAccess`, `noImplicitOverride`, etc.             |
+| **HeroUI**       | 3.2+    | API compound, sin Provider, Tailwind v4 native.                    |
+| **Tailwind CSS** | 4.3+    | `@theme` en CSS, no JS config.                                     |
+| **ESLint**       | 9.x     | Flat config, `eslint-config-next/core-web-vitals`.                 |
+| **Node.js**      | 22.21.x | LTS, requerido por HeroUI MCP.                                     |
 
 ---
 
@@ -156,15 +156,15 @@ HeroUI v3 **no usa** `<NextUIProvider>`. Solo wrapeá con `next-themes` si neces
 
 Usá los siguientes para cosas comunes:
 
-| Necesitás | Usá |
-|---|---|
-| Botón | `<Button variant="primary" \| "outline" \| "ghost" \| ...>` |
-| Link externo | `<Link>` de HeroUI o `<a target="_blank" rel="noopener noreferrer">` |
-| Switch / toggle | `<Switch>` con `Switch.Control`, `Switch.Thumb` |
-| Modal / drawer | `<Modal>` / `<Drawer>` (compound) |
-| Card | `<Card>` con `Card.Header`, `Card.Body` |
-| Dropdown menu | `<Dropdown>` + `Dropdown.Menu` |
-| Input | `<Input>` + `<Input.Group>` |
+| Necesitás       | Usá                                                                  |
+| --------------- | -------------------------------------------------------------------- |
+| Botón           | `<Button variant="primary" \| "outline" \| "ghost" \| ...>`          |
+| Link externo    | `<Link>` de HeroUI o `<a target="_blank" rel="noopener noreferrer">` |
+| Switch / toggle | `<Switch>` con `Switch.Control`, `Switch.Thumb`                      |
+| Modal / drawer  | `<Modal>` / `<Drawer>` (compound)                                    |
+| Card            | `<Card>` con `Card.Header`, `Card.Body`                              |
+| Dropdown menu   | `<Dropdown>` + `Dropdown.Menu`                                       |
+| Input           | `<Input>` + `<Input.Group>`                                          |
 
 ### 4.3 ¿Y si no hay componente?
 
@@ -199,9 +199,9 @@ Los tokens viven en `styles/globals.css` (`@theme` block) y se espejean en `conf
 
 ### 5.3 Convenciones de clases
 
-- ✅ `bg-estu-azul-500`, `text-default-600` (utility generada por tokens).
+- ✅ `bg-sky-*`, `bg-primary`, `text-default-600` (utility generada por tokens).
 - ✅ `shadow-club`, `shadow-club-lg` (custom shadow).
-- ✅ `gradient-estu-1`, `gradient-estu-2` (gradientes del club).
+- ✅ `gradient-sky`, `gradient-amarillo`, `gradient-radial-sky`.
 - ⚠️ Evitá valores arbitrarios (`bg-[#0009A0]`). Si necesitás un valor, agregá un token.
 - ⚠️ Evitá inline styles. Solo `style={{ "--var": value }}` para pasar CSS vars a HeroUI.
 

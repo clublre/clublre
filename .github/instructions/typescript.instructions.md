@@ -70,7 +70,10 @@ import { tv, type VariantProps } from "tailwind-variants";
 const card = tv({
   base: "rounded-lg border",
   variants: {
-    accent: { azul: "before:bg-estu-azul", amarillo: "before:bg-estu-amarillo" },
+    accent: {
+      sky: "before:bg-sky-500",
+      amarillo: "before:bg-amarillo",
+    },
   },
 });
 

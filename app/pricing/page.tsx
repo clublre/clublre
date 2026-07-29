@@ -26,7 +26,7 @@ export default function PricingPage() {
       {/* Header */}
       <Section as='section' spacing='md'>
         <Container className='text-center'>
-          <Eyebrow className='mb-3 block' tone='azul'>
+          <Eyebrow className='mb-3 block' tone='sky'>
             Cuotas 2026
           </Eyebrow>
           <h1
@@ -35,7 +35,7 @@ export default function PricingPage() {
               class: "block leading-[1.1]",
             })}>
             Elegí tu
-            <span className={title({ color: "estu2" })}>cuota</span>
+            <span className={title({ color: "sky" })}>cuota</span>
           </h1>
           <p className='mx-auto mt-4 max-w-xl text-default-600'>
             Planes para individuales, familias y menores. Sin matrícula, sin
@@ -51,13 +51,13 @@ export default function PricingPage() {
             {pricingTiers.map((tier) => (
               <CardClub
                 key={tier.id}
-                accent={tier.highlighted ? "gradient" : "azul"}
+                accent={tier.highlighted ? "gradient" : "sky"}
                 className='flex flex-col'
                 highlighted={tier.highlighted}>
                 <div className='mb-4 flex items-baseline justify-between'>
                   <CardClubTitle>{tier.name}</CardClubTitle>
                   {tier.highlighted ? (
-                    <span className='rounded-full bg-estu-amarillo px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-estu-azul-900'>
+                    <span className='rounded-full bg-amarillo px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-amber-900'>
                       Popular
                     </span>
                   ) : null}
@@ -74,7 +74,7 @@ export default function PricingPage() {
                     <li
                       key={feature}
                       className='flex items-start gap-2 text-sm text-default-700'>
-                      <FaCheck className='mt-0.5 size-4 shrink-0 text-estu-azul' />
+                      <FaCheck className='mt-0.5 size-4 shrink-0 text-primary' />
                       <span>{feature}</span>
                     </li>
                   ))}
