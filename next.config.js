@@ -74,6 +74,15 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   async headers() {
+    // Headers are NOT applied in `next dev`. Next binds to localhost
+    // only and HMR + Vercel Live feedback + Next dev's liveness
+    // probes need a permissive CSP that breaks the production values.
+    // The `headers()` callback runs in `next build` only when
+    // NODE_ENV=production, but we make the skip explicit here so
+    // every contributor sees why.
+    if (process.env.NODE_ENV !== 'production') {
+      return [];
+    }
     return [
       {
         source: '/:path*',
