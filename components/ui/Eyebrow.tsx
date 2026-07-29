@@ -1,35 +1,40 @@
 import type { HTMLAttributes } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
 
-interface EyebrowProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Brand color accent. */
-  tone?: "sky" | "amarillo" | "default";
-}
-
-const toneMap = {
-  default: "text-default-500",
-  sky: "text-primary",
-  amarillo: "text-amber-600",
-};
-
 /**
  * Eyebrow — small uppercase label that sits above a heading.
- * Uses the design system typography scale.
+ * Built on tailwind-variants so the tone is type-safe and
+ * `VariantProps<typeof eyebrow>` derives the public API.
  */
+const eyebrow = tv({
+  base: "text-xs font-semibold uppercase tracking-[0.2em]",
+  variants: {
+    tone: {
+      default: "text-default-500",
+      sky: "text-primary",
+      amarillo: "text-amber-600",
+    },
+  },
+  defaultVariants: {
+    tone: "default",
+  },
+});
+
+export interface EyebrowProps
+  extends HTMLAttributes<HTMLSpanElement>,
+    VariantProps<typeof eyebrow> {}
+
 export function Eyebrow({
-  tone = "default",
+  tone,
   className,
   children,
   ...props
 }: EyebrowProps) {
   return (
     <span
-      className={cn(
-        "text-xs font-semibold uppercase tracking-[0.2em]",
-        toneMap[tone],
-        className,
-      )}
+      className={cn(eyebrow({ tone }), className)}
       {...props}>
       {children}
     </span>

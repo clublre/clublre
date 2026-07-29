@@ -1,37 +1,45 @@
 import type { HTMLAttributes } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { cn } from "@/lib/utils";
-
-interface SectionProps extends HTMLAttributes<HTMLElement> {
-  /** Visual variant — controls background, padding and divider. */
-  variant?: "default" | "muted" | "gradient" | "transparent";
-  /** Vertical padding size. */
-  spacing?: "sm" | "md" | "lg";
-  /** Render as `<section>` (default) or another element. */
-  as?: "section" | "div" | "article" | "main";
-}
-
-const spacingMap = {
-  sm: "py-10 md:py-14",
-  md: "py-16 md:py-20",
-  lg: "py-20 md:py-28",
-};
-
-const variantMap = {
-  default: "bg-background",
-  muted: "bg-surface-muted",
-  gradient: "gradient-radial-sky bg-background",
-  transparent: "bg-transparent",
-};
 
 /**
  * Section — semantic page section wrapper.
  * Centralises vertical spacing and background variants so pages stay
- * consistent.
+ * consistent. Built on tailwind-variants so the public API can be
+ * extended with `VariantProps<typeof section>`.
  */
+const section = tv({
+  base: "",
+  variants: {
+    variant: {
+      default: "bg-background",
+      muted: "bg-surface-muted",
+      gradient: "gradient-radial-sky bg-background",
+      transparent: "bg-transparent",
+    },
+    spacing: {
+      sm: "py-10 md:py-14",
+      md: "py-16 md:py-20",
+      lg: "py-20 md:py-28",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    spacing: "md",
+  },
+});
+
+export interface SectionProps
+  extends HTMLAttributes<HTMLElement>,
+    VariantProps<typeof section> {
+  /** Render as `<section>` (default) or another element. */
+  as?: "section" | "div" | "article" | "main";
+}
+
 export function Section({
-  variant = "default",
-  spacing = "md",
+  variant,
+  spacing,
   as: Tag = "section",
   className,
   children,
@@ -39,7 +47,7 @@ export function Section({
 }: SectionProps) {
   return (
     <Tag
-      className={cn(spacingMap[spacing], variantMap[variant], className)}
+      className={cn(section({ variant, spacing }), className)}
       {...props}>
       {children}
     </Tag>
