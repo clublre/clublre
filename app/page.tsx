@@ -60,6 +60,7 @@ export default function HomePage() {
               size: 'lg',
               class: 'mx-auto block max-w-4xl leading-[1.05]',
             })}
+            style={{ viewTransitionName: 'page-title' }}
           >
             Más de 80 años
             <br />
@@ -134,8 +135,8 @@ export default function HomePage() {
               Actividades para todas las edades
             </h2>
             <p className="text-default-600 mx-auto mt-4 max-w-2xl">
-              Desde básquet federado y natación hasta karate, vóley y
-              escuelas de iniciación deportiva.
+              Desde básquet federado y natación hasta karate, vóley y escuelas
+              de iniciación deportiva.
             </p>
           </div>
 

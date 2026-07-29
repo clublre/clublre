@@ -52,7 +52,10 @@ export default async function BlogPostPage({ params }: PageProps) {
           {post.category} ·{' '}
           <time dateTime={post.date}>{formatDate(post.date)}</time>
         </Eyebrow>
-        <h1 className={title({ size: 'lg', class: 'block leading-[1.1]' })}>
+        <h1
+          className={title({ size: 'lg', class: 'block leading-[1.1]' })}
+          style={{ viewTransitionName: 'page-title' }}
+        >
           {post.title}
         </h1>
         <p className="text-default-700 mt-6 text-lg leading-relaxed">

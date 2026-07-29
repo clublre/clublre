@@ -64,6 +64,7 @@ export default function PricingPage() {
               size: 'lg',
               class: 'block leading-[1.1]',
             })}
+            style={{ viewTransitionName: 'page-title' }}
           >
             Elegí tu
             <span className={title({ color: 'sky' })}>cuota</span>

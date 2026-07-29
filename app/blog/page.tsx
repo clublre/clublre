@@ -35,6 +35,7 @@ export default function BlogPage() {
               size: 'lg',
               class: 'block max-w-3xl leading-[1.1]',
             })}
+            style={{ viewTransitionName: 'page-title' }}
           >
             Blog del
             <span className={title({ color: 'sky' })}>club</span>
