@@ -6,7 +6,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
-import { Container } from "@/components/patterns/container";
+import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/icons";
 import { siteConfig } from "@/config/site";
 

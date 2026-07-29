@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import NextLink from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
-import { Section, Container, Eyebrow } from "@/components/patterns";
+import { Section, Container, Eyebrow } from "@/components/ui";
 import { title } from "@/components/primitives";
 
 /**

@@ -93,18 +93,25 @@ Note: `onChange`, not `onValueChange`.
 ### Navbar / Footer / Hero
 
 **There is no `Navbar` component in HeroUI v3.** Use semantic HTML +
-utility classes (see `components/navbar.tsx` and `components/footer.tsx`
-for the pattern).
+utility classes (see `components/organisms/Navbar.tsx` and
+`components/organisms/Footer.tsx` for the pattern).
 
 Same for `Hero`, `HeroSection`, etc. — these are patterns we build from
 `<Section>` + `<Container>` + utility classes.
 
-## When to use HeroUI vs. patterns
+## When to use HeroUI vs. our primitives
 
-| Use HeroUI when…                                         | Use patterns (`components/patterns/`) when…           |
+| Use HeroUI when…                                         | Use our primitives (`components/ui/`) when…           |
 | -------------------------------------------------------- | ----------------------------------------------------- |
 | You need interactive behavior (modal, popover, dropdown) | You need layout containers (section, container, card) |
 | You need a form control with validation                  | You need a brand-styled card or eyebrow label         |
-| You need a known UI primitive (button, link, switch)     | You need a decorative element (BlurryBlob)            |
+| You need a known UI primitive (button, link)             | You need a decorative element (BlurryBlob)            |
 
-If you need both, compose: pattern as wrapper + HeroUI inside.
+If you need both, compose: primitive as wrapper + HeroUI inside.
+
+## For icon-only buttons
+
+Use `IconButton` from `@/components/atoms/IconButton`. It's a wrapper
+around HeroUI's `Button` with `isIconOnly` and a required `aria-label`.
+Don't hand-roll `<button aria-label="...">...</button>` for nav bar
+icons — go through the atom so the styling stays consistent.

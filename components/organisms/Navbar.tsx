@@ -7,7 +7,7 @@ import { Link } from "@heroui/react";
 import clsx from "clsx";
 
 import { Logo } from "@/components/icons";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { siteConfig } from "@/config/site";
 
 export const Navbar = () => {
@@ -46,7 +46,7 @@ export const Navbar = () => {
             target='_blank'>
             <FaInstagram className='text-default-500 size-6' />
           </Link>
-          <ThemeSwitch />
+          <ThemeToggle />
         </div>
 
         {/* Mobile right side */}
@@ -58,7 +58,7 @@ export const Navbar = () => {
             target='_blank'>
             <FaInstagram className='text-default-500 size-5' />
           </Link>
-          <ThemeSwitch />
+          <ThemeToggle />
           <button
             aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             className='rounded-md p-2 text-default-700 transition-colors hover:bg-default-100'

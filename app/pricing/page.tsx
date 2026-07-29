@@ -9,7 +9,7 @@ import {
   CardClub,
   CardClubTitle,
   CardClubBody,
-} from "@/components/patterns";
+} from "@/components/ui";
 import { title } from "@/components/primitives";
 import { pricingTiers } from "@/config/design-tokens";
 

@@ -10,7 +10,7 @@ import {
   CardClubTitle,
   CardClubBody,
   BlurryBlob,
-} from "@/components/patterns";
+} from "@/components/ui";
 import { title, subtitle } from "@/components/primitives";
 import { activities } from "@/config/design-tokens";
 

@@ -20,7 +20,7 @@ agents. If a more specific `.github/instructions/*.instructions.md` or
 3. **HeroUI v3 has no `<Provider>`.** Do not reintroduce NextUIProvider.
 4. **Tokens live in two places, kept in sync:**
    `styles/globals.css` (`@theme` block) + `config/design-tokens.ts`.
-5. **Use patterns from `components/patterns/`** before creating new
+5. **Use primitives from `components/ui/`** before creating new
    components. New reusable UI goes there, not in `components/`.
 6. **Run `npm run type-check && npm run lint` before declaring done.**
 7. **Do not commit secrets, `.env*`, or `node_modules`.**
@@ -43,12 +43,22 @@ app/                    # Next 16 App Router. Each route is a folder.
   pricing/              # Cuotas
   error.tsx             # Global error boundary
 components/
-  navbar.tsx            # Top navigation
-  footer.tsx            # Site footer
-  theme-switch.tsx      # Light/dark toggle (HeroUI Switch + next-themes)
   icons.tsx             # Brand SVG icons
-  patterns/             # Design system primitives (Section, Container,
-                        # CardClub, Eyebrow, BlurryBlob)
+  primitives.ts         # tailwind-variants helpers (title, subtitle)
+  counter.tsx           # Demo Button (not part of the design system)
+  atoms/                # Atomic design — atoms (small, single-purpose)
+    IconButton.tsx      # HeroUI Button with isIconOnly + aria-label
+  molecules/            # Atomic design — molecules (atoms + state/logic)
+    ThemeToggle.tsx     # IconButton + next-themes (sun/moon)
+  organisms/            # Atomic design — organisms (full sections)
+    Navbar.tsx          # Top navigation
+    Footer.tsx          # Site footer
+  ui/                   # UI primitives — layout & decorative patterns
+    Section.tsx         # Semantic page section wrapper
+    Container.tsx       # Fixed max-width wrapper
+    Eyebrow.tsx         # Small uppercase label above a heading
+    CardClub.tsx        # Branded card with optional accent stripe
+    BlurryBlob.tsx      # Decorative animated blobs
 config/
   site.ts               # Site metadata, navItems, links
   design-tokens.ts      # TS mirror of CSS @theme tokens
@@ -84,15 +94,29 @@ BEST-PRACTICES.md       # The architectural bible — read it first
 - ❌ No `bg-[#abc]` arbitrary values — add a token to `globals.css` and
   `design-tokens.ts` instead.
 
-### 3. Components & patterns
+### 3. Components — Atomic design
+
+Components live under `components/` classified by atomic-design
+level. **New shared components go in the right bucket — not in the
+root.**
+
+| Level       | Folder         | Example                    | Rule of thumb                                    |
+| ----------- | -------------- | -------------------------- | ------------------------------------------------ |
+| **atoms**   | `atoms/`       | `IconButton`               | Single-purpose, no state. Wraps a HeroUI primitive. |
+| **molecules** | `molecules/` | `ThemeToggle`              | Atom + state/logic (e.g. `next-themes`).         |
+| **organisms** | `organisms/` | `Navbar`, `Footer`        | Full sections of the page.                      |
+| **ui**      | `ui/`          | `Section`, `Container`, `CardClub`, `Eyebrow`, `BlurryBlob` | Layout / decorative primitives shared across pages. |
 
 - ✅ Page sections use `<Section>` + `<Container>` from
-  `@/components/patterns`.
+  `@/components/ui`.
 - ✅ Brand cards use `<CardClub>` (with `accent` / `highlighted`).
+- ✅ Icon-only buttons use `<IconButton>` from `@/components/atoms`.
+- ✅ Light/dark toggle uses `<ThemeToggle>` from `@/components/molecules`.
 - ✅ Buttons: HeroUI `<Button>` with `variant="primary" | "outline" |
 "ghost" | ...`. Never hand-roll a styled `<button>` unless it's a
-  semantic toggle (e.g. theme switch).
+  semantic toggle (e.g. menu hamburger).
 - ❌ Don't recreate components that already exist in HeroUI v3.
+- ❌ Don't put shared components at the root of `components/`.
 
 ### 4. Forms & interactivity
 
@@ -152,7 +176,7 @@ obvious from the name. Example:
 
 1. Don't add a new dependency without confirming it works with
    React 19 + Next 16.
-2. Don't refactor `components/patterns/*` without updating
+2. Don't refactor `components/ui/*` without updating
    `BEST-PRACTICES.md`.
 3. Don't add `// eslint-disable` without a one-line reason comment.
 4. Don't add console.logs. Use `console.warn` / `console.error` only.

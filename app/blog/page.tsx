@@ -7,7 +7,7 @@ import {
   CardClub,
   CardClubTitle,
   CardClubBody,
-} from "@/components/patterns";
+} from "@/components/ui";
 import { title } from "@/components/primitives";
 
 /**

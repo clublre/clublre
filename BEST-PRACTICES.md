@@ -238,7 +238,7 @@ HeroUI lee el tema del HTML. No hay mismatch porque HeroUI v3 no usa Provider. A
 
 ---
 
-## 7. Estructura de archivos
+## 7. Estructura de archivos — Atomic design
 
 ```
 app/
@@ -249,15 +249,23 @@ app/
     page.tsx          # Ruta
     layout.tsx        # Layout específico (opcional)
 components/
-  navbar.tsx
-  footer.tsx
-  theme-switch.tsx
-  patterns/           # Design system primitives
-    section.tsx
-    container.tsx
-    eyebrow.tsx
-    card-club.tsx
-    blurry-blob.tsx
+  icons.tsx           # Brand SVG icons
+  primitives.ts       # tailwind-variants helpers (title, subtitle)
+  atoms/              # Single-purpose, no state
+    IconButton.tsx    # HeroUI Button isIconOnly + aria-label
+    index.ts
+  molecules/          # atoms + state/logic
+    ThemeToggle.tsx   # IconButton + next-themes
+    index.ts
+  organisms/          # Full sections
+    Navbar.tsx
+    Footer.tsx
+  ui/                 # Layout & decorative primitives
+    Section.tsx
+    Container.tsx
+    Eyebrow.tsx
+    CardClub.tsx
+    BlurryBlob.tsx
     index.ts
 config/
   site.ts             # Nav, links, metadata
@@ -271,7 +279,16 @@ public/
 
 ### Reglas
 
-- **Patrones en `components/patterns/`** — no crear componentes sueltos en `components/` para UI reusable.
+- **Atomic design** — respetá la jerarquía: atom → molecule → organism.
+  No poner UI reusable en la raíz de `components/`.
+- **UI primitives en `components/ui/`** — Section, Container, CardClub,
+  Eyebrow, BlurryBlob. No en `patterns/` (legacy).
+- **Atoms en `components/atoms/`** — IconButton. Son stateless y wrappean
+  primitivos de HeroUI.
+- **Molecules en `components/molecules/`** — ThemeToggle. Combinan atoms
+  con state (next-themes, useState, etc).
+- **Organisms en `components/organisms/`** — Navbar, Footer. Secciones
+  completas de la página.
 - **Tokens en `config/`** — no hardcodear colores / spacing en componentes.
 - **`@/` aliases** — siempre.
 
