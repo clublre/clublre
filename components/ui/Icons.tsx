@@ -1,4 +1,5 @@
 import type { FC, SVGProps } from 'react';
+import Image from 'next/image';
 
 /**
  * Props shared by every brand SVG icon. Inlined here (rather than in
@@ -9,39 +10,46 @@ export interface IconSvgProps extends SVGProps<SVGSVGElement> {
 }
 
 /**
- * Brand logo — used in Navbar and Footer.
- *
- * Note: previously this file bundled 8 icons (Discord, Twitter, Github,
- * Heart, Search, NextUI logo, etc.). Those were dead code from the
- * NextUI v2 template and have been removed.
+ * Props for the brand logo. Narrower than {@link IconSvgProps} because
+ * the logo is an image, not an SVG — SVG-specific event handlers
+ * (`onCopy` on `SVGSVGElement`, etc.) don't apply.
  */
-export const Logo: FC<IconSvgProps> = ({
-  size = 36,
-  width,
-  height,
-  ...props
-}) => (
-  <svg
-    fill="none"
-    height={size || height}
-    viewBox="0 0 32 32"
-    width={size || width}
-    {...props}
-  >
-    <path
-      clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
-  </svg>
-);
+export interface LogoProps {
+  /** Render width AND height in pixels (square). */
+  size?: number;
+  className?: string;
+}
 
 /**
- * HeroUI SunFilledIcon — used by ThemeToggle in light mode.
- * Inline copy to keep the design-system self-contained.
+ * Brand shield — the actual Club LRE escudo, served from
+ * `/public/logo2.jpeg` and routed through `next/image` so Next can
+ * resize/cache it. The logo already contains its own brand colours
+ * (navy + sky + gold) so no theme adaptation is needed.
  */
-export const SunFilledIcon: FC<IconSvgProps> = ({
+export const Logo: FC<LogoProps> = ({ size = 36, className }) => (
+  <Image
+    priority
+    alt="Club Los Rosarinos Estudiantil"
+    className={cnLogo(className)}
+    height={size}
+    src="/logo2.jpeg"
+    width={size}
+  />
+);
+
+// Tiny className helper kept inline to avoid pulling `cn` from
+// `lib/utils` (which would create an awkward cross-folder import in
+// this lightweight icon module).
+function cnLogo(cls?: string): string {
+  return ['h-auto w-auto rounded-full', cls].filter(Boolean).join(' ');
+}
+
+/**
+ * Outline sun icon — used by ThemeToggle in light mode.
+ * Lucide-style: a circle with 8 rays around it, drawn with stroke.
+ * Replaces the previous filled variant for a lighter visual weight.
+ */
+export const SunIcon: FC<IconSvgProps> = ({
   size = 24,
   width,
   height,
@@ -49,17 +57,27 @@ export const SunFilledIcon: FC<IconSvgProps> = ({
 }: IconSvgProps) => (
   <svg
     aria-hidden="true"
+    fill="none"
     focusable="false"
     height={size || height}
     role="presentation"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth={2}
     viewBox="0 0 24 24"
     width={size || width}
     {...props}
   >
-    <g fill="currentColor">
-      <path d="M19 12a7 7 0 11-7-7 7 7 0 017 7z" />
-      <path d="M12 22.96a.969.969 0 01-1-.96v-.08a1 1 0 012 0 1.038 1.038 0 01-1 1.04zm7.14-2.82a1.024 1.024 0 01-.71-.29l-.13-.13a1 1 0 011.41-1.41l.13.13a1 1 0 010 1.41.984.984 0 01-.7.29zm-14.28 0a1.024 1.024 0 01-.71-.29 1 1 0 010-1.41l.13-.13a1 1 0 011.41 1.41l-.13.13a1 1 0 01-.7.29zM22 13h-.08a1 1 0 010-2 1.038 1.038 0 011.04 1 .969.969 0 01-.96 1zM2.08 13H2a1 1 0 010-2 1.038 1.038 0 011.04 1 .969.969 0 01-.96 1zm16.93-7.01a1.024 1.024 0 01-.71-.29 1 1 0 010-1.41l.13-.13a1 1 0 011.41 1.41l-.13.13a.984.984 0 01-.7.29zm-14.02 0a1.024 1.024 0 01-.71-.29l-.13-.14a1 1 0 011.41-1.41l.13.13a1 1 0 010 1.41.97.97 0 01-.7.3zM12 3.04a.969.969 0 01-1-.96V2a1 1 0 012 0 1.038 1.038 0 01-1 1.04z" />
-    </g>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="m17.66 17.66 1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="m6.34 17.66-1.41 1.41" />
+    <path d="m19.07 4.93-1.41 1.41" />
   </svg>
 );
 
