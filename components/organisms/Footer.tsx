@@ -28,9 +28,9 @@ const year = new Date().getFullYear();
  */
 export function Footer() {
   return (
-    <footer className="border-default-200 bg-surface-muted border-t">
+    <footer className="bg-surface-muted">
       {/* CTA strip */}
-      <div className="border-default-200 border-b">
+      <div>
         <Container className="flex flex-col items-start justify-between gap-6 py-10 md:flex-row md:items-center md:py-12">
           <div className="max-w-2xl">
             <Eyebrow className="mb-2 block" tone="sky">
@@ -73,52 +73,7 @@ export function Footer() {
               {siteConfig.description}. Más de 80 años formando deportistas y
               comunidad en el corazón de Rosario.
             </p>
-
-            {/* Social row */}
-            <ul className="mt-6 flex items-center gap-2">
-              <li>
-                <a
-                  aria-label="Instagram (se abre en una pestaña nueva)"
-                  className={cn(
-                    'border-default-200 bg-background text-default-600 hover:border-primary hover:text-primary',
-                    'inline-flex size-9 items-center justify-center rounded-full border transition-colors',
-                  )}
-                  href={siteConfig.links.instagram}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <FaInstagram aria-hidden="true" className="size-4" />
-                </a>
-              </li>
-            </ul>
           </div>
-
-          {/* Navigation — 3 cols on md+ */}
-          <nav
-            aria-label="Pie de página — navegación"
-            className="md:col-span-3"
-          >
-            <h2 className="sr-only">Navegación</h2>
-            <Eyebrow className="mb-3 block" tone="default">
-              Navegación
-            </Eyebrow>
-            <ul className="space-y-2.5 text-sm">
-              {siteConfig.navMenuItems.map((item) => (
-                <li key={item.href}>
-                  <NextLink
-                    className={cn(
-                      'text-default-600 hover:text-primary inline-flex items-center gap-1.5 transition-colors',
-                      'before:bg-primary before:size-1 before:rounded-full before:opacity-0',
-                      'before:transition-opacity hover:before:opacity-100',
-                    )}
-                    href={item.href}
-                  >
-                    {item.label}
-                  </NextLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
           {/* Contact — 4 cols on md+ */}
           <div className="md:col-span-4">
@@ -163,7 +118,7 @@ export function Footer() {
             </ul>
 
             {/* Hours — placeholder until the club confirms */}
-            <div className="border-default-200 bg-background/50 mt-5 rounded-lg border p-3">
+            <div className="bg-foreground/5 mt-5 rounded-lg p-3">
               <p className="text-default-500 text-xs font-semibold tracking-wider uppercase">
                 Horarios a confirmar
               </p>
@@ -176,7 +131,7 @@ export function Footer() {
       </Container>
 
       {/* Bottom bar */}
-      <div className="border-default-200 border-t">
+      <div>
         <Container className="text-default-500 flex flex-col items-start justify-between gap-3 py-6 text-xs sm:flex-row sm:items-center">
           <p>
             © {year} {siteConfig.name}. Todos los derechos reservados.
@@ -186,8 +141,8 @@ export function Footer() {
             <a
               aria-label="Volver arriba"
               className={cn(
-                'border-default-200 text-default-600 hover:border-primary hover:text-primary',
-                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors',
+                'bg-foreground/5 text-default-600 hover:bg-foreground/10 hover:text-primary',
+                'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs transition-colors',
               )}
               href="#top"
             >
