@@ -18,6 +18,18 @@ export interface LogoProps {
   /** Render width AND height in pixels (square). */
   size?: number;
   className?: string;
+  /**
+   * Pass `priority` for above-the-fold placements (Navbar brand on
+   * first paint). Other positions — Footer, deep-linked pages — get
+   * lazy loading by default which avoids redundant preload work
+   * for an asset the user has already cached.
+   */
+  priority?: boolean;
+  /**
+   * Explicit responsive sizes hint (passed through to next/image)
+   * so the browser can pick the right resolution from the source-set.
+   */
+  sizes?: string;
 }
 
 /**
@@ -26,14 +38,20 @@ export interface LogoProps {
  * resize/cache it. The logo already contains its own brand colours
  * (navy + sky + gold) so no theme adaptation is needed.
  */
-export const Logo: FC<LogoProps> = ({ size = 36, className }) => (
+export const Logo: FC<LogoProps> = ({
+  size = 36,
+  className,
+  priority = false,
+  sizes,
+}) => (
   <Image
-    priority
     alt="Club Los Rosarinos Estudiantil"
     className={cnLogo(className)}
     height={size}
+    sizes={sizes}
     src="/logo2.jpeg"
     width={size}
+    {...(priority ? { priority: true } : { loading: 'lazy' })}
   />
 );
 

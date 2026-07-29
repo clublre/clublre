@@ -64,7 +64,7 @@ export function Footer() {
               className="mb-4 inline-flex items-center gap-2.5"
               href="/"
             >
-              <Logo size={32} />
+              <Logo sizes="32px" size={32} />
               <span className="text-foreground font-bold tracking-tight">
                 {siteConfig.name}
               </span>

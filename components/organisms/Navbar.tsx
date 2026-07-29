@@ -76,7 +76,8 @@ export const Navbar = () => {
             href="/"
             onClick={() => setIsMenuOpen(false)}
           >
-            <Logo size={28} />
+            {/* priority + sizes for the LCP image on first paint */}
+            <Logo priority sizes="(max-width: 640px) 28px, 28px" size={28} />
             <span className="text-foreground hidden text-sm font-bold tracking-tight sm:inline">
               {siteConfig.name}
             </span>
