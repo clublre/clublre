@@ -6,14 +6,13 @@ import {
   FaInfoCircle,
   FaNewspaper,
   FaTags,
-  FaInstagram,
   FaBars,
   FaArrowRight,
 } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { Button, Drawer, Link } from '@heroui/react';
+import { Button, Drawer } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Icons';
@@ -36,17 +35,19 @@ const NAV_ICONS: Record<string, IconType> = {
 /**
  * Top-level site navigation.
  *
- * - Desktop (>= sm): brand + horizontal nav with icon + label and
- *   animated underline indicator + Instagram + theme toggle.
+ * - Desktop (>= sm): brand + horizontal pill-style nav with icon + label
+ *   (bg-primary/10 active state + hover bg-default-100) + theme toggle.
+ *   Instagram lives in the Footer (single source of truth for the social
+ *   link) so we don't repeat it across the chrome.
  * - Mobile (< sm): brand + hamburger that opens a HeroUI `Drawer`
- *   sliding from the right. The drawer carries three sections:
- *     1. Páginas — full nav list with active pill
- *     2. Contacto rápido — 3 tile-actions (call/email/map)
- *     3. CTA primario — "Hacete socio" pointing at /pricing
- *   plus social + theme in the footer.
+ *   sliding from the right. The drawer carries the nav list (with
+ *   rounded-xl active pill + "Activa" badge for the current route)
+ *   + a primary CTA "Hacete socio" pointing at /pricing, plus the
+ *   theme toggle in the header.
  *
  * Active-route state is exposed via `aria-current="page"` for
- * assistive tech, mirrored visually by the underline / pill style.
+ * assistive tech; mirrored visually by a sky-tinted pill on both
+ * the desktop nav and the drawer.
  */
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,7 +82,10 @@ export const Navbar = () => {
             </span>
           </NextLink>
 
-          {/* Desktop nav */}
+          {/* Desktop nav — pill style with bg-primary/10 active state.
+              Kept as a semantic <ul>/<li>/<NextLink> (vs HeroUI Tabs) so
+              that screen readers announce a navigation list and
+              `aria-current="page"` keeps working for the active route. */}
           <ul className="hidden items-center gap-1 sm:flex">
             {siteConfig.navItems.map((item) => {
               const Icon = NAV_ICONS[item.href];
@@ -91,10 +95,11 @@ export const Navbar = () => {
                   <NextLink
                     aria-current={current ? 'page' : undefined}
                     className={cn(
-                      'group relative inline-flex h-16 items-center gap-1.5 px-3 text-sm font-medium transition-colors',
+                      'group inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200',
+                      'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                       current
-                        ? 'text-primary'
-                        : 'text-default-700 hover:text-foreground',
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-default-600 hover:bg-default-100 hover:text-foreground',
                     )}
                     href={item.href}
                   >
@@ -102,23 +107,14 @@ export const Navbar = () => {
                       <Icon
                         aria-hidden="true"
                         className={cn(
-                          'size-3.5 shrink-0 transition-colors',
+                          'size-4 shrink-0 transition-colors',
                           current
                             ? 'text-primary'
-                            : 'text-default-500 group-hover:text-foreground',
+                            : 'text-default-400 group-hover:text-foreground',
                         )}
                       />
                     ) : null}
                     {item.label}
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        'bg-primary absolute inset-x-3 bottom-0 h-0.5 origin-left rounded-full transition-transform duration-300 ease-out',
-                        current
-                          ? 'scale-x-100'
-                          : 'scale-x-0 group-hover:scale-x-100',
-                      )}
-                    />
                   </NextLink>
                 </li>
               );
@@ -127,15 +123,6 @@ export const Navbar = () => {
 
           {/* Desktop right side */}
           <div className="hidden items-center gap-1 sm:flex">
-            <Link
-              aria-label="Instagram (se abre en una pestaña nueva)"
-              className="text-default-600 hover:text-primary rounded-md p-2 transition-colors"
-              href={siteConfig.links.instagram}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <FaInstagram aria-hidden="true" className="size-4" />
-            </Link>
             <ThemeToggle />
           </div>
 
