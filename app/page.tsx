@@ -35,9 +35,7 @@ export default function Home() {
             })}>
             Más de 80 años
             <br />
-            <span className={title({ color: "sky" })}>
-              formando comunidad
-            </span>
+            <span className={title({ color: "sky" })}>formando comunidad</span>
           </h1>
           <p
             className={subtitle({

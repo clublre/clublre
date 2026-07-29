@@ -11,6 +11,20 @@ export interface ThemeSwitchProps {
   className?: string;
 }
 
+/**
+ * ThemeSwitch — light/dark toggle built on HeroUI v3's Switch compound.
+ *
+ * Anatomy (per HeroUI v3 docs):
+ *   <Switch>
+ *     <Switch.Content>
+ *       <Switch.Control>
+ *         <Switch.Thumb>
+ *           <Switch.Icon>{icon}</Switch.Icon>
+ *         </Switch.Thumb>
+ *       </Switch.Control>
+ *     </Switch.Content>
+ *   </Switch>
+ */
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
   const isSSR = useIsSSR();
@@ -28,17 +42,19 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       isSelected={isLight}
       size='lg'
       onChange={onChange}>
-      <Switch.Control className='border-none bg-transparent group-data-[selected=true]:bg-transparent'>
-        <Switch.Thumb className='bg-transparent shadow-none'>
-          <Switch.Icon>
-            {!isLight && !isSSR ? (
-              <MoonFilledIcon size={22} />
-            ) : (
-              <SunFilledIcon size={22} />
-            )}
-          </Switch.Icon>
-        </Switch.Thumb>
-      </Switch.Control>
+      <Switch.Content>
+        <Switch.Control className='border-none bg-transparent group-data-[selected=true]:bg-transparent'>
+          <Switch.Thumb className='bg-transparent shadow-none'>
+            <Switch.Icon>
+              {!isLight && !isSSR ? (
+                <MoonFilledIcon size={16} />
+              ) : (
+                <SunFilledIcon size={16} />
+              )}
+            </Switch.Icon>
+          </Switch.Thumb>
+        </Switch.Control>
+      </Switch.Content>
     </Switch>
   );
 };
