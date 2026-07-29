@@ -134,7 +134,7 @@ export default function HomePage() {
               Actividades para todas las edades
             </h2>
             <p className="text-default-600 mx-auto mt-4 max-w-2xl">
-              Desde fútbol y básquet federado hasta pileta climatizada y
+              Desde básquet federado y natación hasta karate, vóley y
               escuelas de iniciación deportiva.
             </p>
           </div>

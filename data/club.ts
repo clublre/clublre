@@ -37,11 +37,11 @@ export interface PricingTier {
 /** Activities offered by the club (used across home + about pages). */
 export const activities: ReadonlyArray<Activity> = [
   {
-    id: 'futbol',
-    name: 'Fútbol',
+    id: 'voley',
+    name: 'Vóley',
     description:
-      'Canchas de césped sintético para entrenamientos y partidos amistosos.',
-    icon: '⚽',
+      'Escuela de vóley mixto y femenino con entrenamientos y partidos amistosos para todas las edades.',
+    icon: '🏐',
   },
   {
     id: 'basquet',
@@ -51,25 +51,25 @@ export const activities: ReadonlyArray<Activity> = [
     icon: '🏀',
   },
   {
+    id: 'tenis-de-mesa',
+    name: 'Tenis de mesa',
+    description:
+      'Mesas disponibles para entrenamiento recreativo y competencia federada en categorías juveniles y mayores.',
+    icon: '🏓',
+  },
+  {
+    id: 'karate',
+    name: 'Karate',
+    description:
+      'Escuela de karate con clases para chicos y adultos, desde iniciación hasta competencia federada.',
+    icon: '🥋',
+  },
+  {
     id: 'natacion',
     name: 'Natación',
     description:
       'Pileta climatizada con clases para chicos, adultos y entrenamiento competitivo.',
     icon: '🏊',
-  },
-  {
-    id: 'tenis',
-    name: 'Tenis',
-    description:
-      'Canchas de polvo de ladrillo y clases individuales o grupales.',
-    icon: '🎾',
-  },
-  {
-    id: 'hockey',
-    name: 'Hockey',
-    description:
-      'Escuela de hockey sobre césped para infantiles y primera división.',
-    icon: '🏑',
   },
   {
     id: 'gimnasia',

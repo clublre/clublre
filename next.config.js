@@ -25,11 +25,11 @@ const nextConfig = {
     // ship barrel exports; this makes Next import directly from
     // individual entry points when possible.
     optimizePackageImports: [
-      "@heroui/react",
-      "@heroui/styles",
-      "react-icons",
-      "react-icons/fa",
-      "framer-motion",
+      '@heroui/react',
+      '@heroui/styles',
+      'react-icons',
+      'react-icons/fa',
+      'framer-motion',
     ],
   },
 };

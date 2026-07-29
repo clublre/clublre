@@ -46,14 +46,14 @@ export const posts: ReadonlyArray<BlogPost> = [
     body: 'Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.',
   },
   {
-    slug: 'torneo-interno-futbol',
-    title: 'Torneo interno de fútbol',
+    slug: 'torneo-interno-basquet',
+    title: 'Torneo interno de básquet 2026',
     date: '2026-02-02',
-    category: 'Fútbol',
+    category: 'Básquet',
     accent: 'amarillo',
     excerpt:
-      'Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.',
-    body: 'Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.',
+      'Se viene una nueva edición del clásico torneo interno de básquet. Inscripciones abiertas para todas las categorías.',
+    body: 'Se viene una nueva edición del clásico torneo interno de básquet. Inscripciones abiertas para todas las categorías.',
   },
   {
     slug: 'escuela-basquet-juvenil',
@@ -76,14 +76,14 @@ export const posts: ReadonlyArray<BlogPost> = [
     body: 'Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.',
   },
   {
-    slug: 'hockey-primera',
-    title: 'Hockey primera: nuevo plantel',
+    slug: 'karate-cinturon-negro',
+    title: 'Karate: nuevo cinturón negro 2026',
     date: '2026-03-05',
-    category: 'Hockey',
+    category: 'Karate',
     accent: 'amarillo',
     excerpt:
-      'Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.',
-    body: 'Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.',
+      'Conocé a los nuevos cinturones negros de la escuela de karate del club formados en el ciclo 2025-2026.',
+    body: 'Conocé a los nuevos cinturones negros de la escuela de karate del club formados en el ciclo 2025-2026.',
   },
   {
     slug: 'mejoras-instalaciones',
