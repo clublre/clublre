@@ -4,14 +4,10 @@ import NextLink from 'next/link';
 import {
   FaHome,
   FaInfoCircle,
-  FaFutbol,
   FaNewspaper,
   FaTags,
   FaInstagram,
   FaBars,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
   FaArrowRight,
 } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
@@ -20,7 +16,6 @@ import { usePathname } from 'next/navigation';
 import { Button, Drawer, Link } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
-import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Logo } from '@/components/ui/Icons';
 import { IconButton } from '@/components/atoms/IconButton';
 import { ThemeToggle } from '@/components/molecules/ThemeToggle';
@@ -34,36 +29,9 @@ import { siteConfig } from '@/config/site';
 const NAV_ICONS: Record<string, IconType> = {
   '/': FaHome,
   '/about': FaInfoCircle,
-  '/#actividades': FaFutbol,
   '/blog': FaNewspaper,
   '/pricing': FaTags,
 };
-
-/**
- * Quick-contact actions shown in the drawer. Each is a single-tap
- * affordance for the most common pre-purchase questions (call,
- * email, directions).
- */
-const QUICK_CONTACTS = [
-  {
-    href: 'tel:+543415550000',
-    icon: FaPhone,
-    label: 'Llamar',
-    sublabel: 'Ahora',
-  },
-  {
-    href: 'mailto:info@clublre.com.ar',
-    icon: FaEnvelope,
-    label: 'Escribir',
-    sublabel: 'Email',
-  },
-  {
-    href: 'https://maps.google.com/?q=Av.+Pellegrini+1500,+Rosario',
-    icon: FaMapMarkerAlt,
-    label: 'Cómo llegar',
-    sublabel: 'Mapa',
-  },
-] as const;
 
 /**
  * Top-level site navigation.
@@ -90,33 +58,31 @@ export const Navbar = () => {
     [pathname],
   );
 
-  const year = new Date().getFullYear();
-
   return (
     <>
       <nav
-        aria-label='Principal'
+        aria-label="Principal"
         className={cn(
           'border-default-200/60 bg-background/70 supports-[backdrop-filter]:bg-background/60',
           'sticky top-0 z-40 w-full border-b backdrop-blur-xl',
         )}
       >
-        <div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-6'>
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
           {/* Brand */}
           <NextLink
             aria-label={`Ir al inicio — ${siteConfig.name}`}
-            className='flex items-center gap-2.5 rounded-md transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background'
-            href='/'
+            className="focus-visible:ring-primary focus-visible:ring-offset-background flex items-center gap-2.5 rounded-md transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+            href="/"
             onClick={() => setIsMenuOpen(false)}
           >
             <Logo size={28} />
-            <span className='hidden text-sm font-bold tracking-tight text-foreground sm:inline'>
+            <span className="text-foreground hidden text-sm font-bold tracking-tight sm:inline">
               {siteConfig.name}
             </span>
           </NextLink>
 
           {/* Desktop nav */}
-          <ul className='hidden items-center gap-1 sm:flex'>
+          <ul className="hidden items-center gap-1 sm:flex">
             {siteConfig.navItems.map((item) => {
               const Icon = NAV_ICONS[item.href];
               const current = isCurrent(item.href);
@@ -134,7 +100,7 @@ export const Navbar = () => {
                   >
                     {Icon ? (
                       <Icon
-                        aria-hidden='true'
+                        aria-hidden="true"
                         className={cn(
                           'size-3.5 shrink-0 transition-colors',
                           current
@@ -145,9 +111,9 @@ export const Navbar = () => {
                     ) : null}
                     {item.label}
                     <span
-                      aria-hidden='true'
+                      aria-hidden="true"
                       className={cn(
-                        'absolute inset-x-3 bottom-0 h-0.5 origin-left rounded-full bg-primary transition-transform duration-300 ease-out',
+                        'bg-primary absolute inset-x-3 bottom-0 h-0.5 origin-left rounded-full transition-transform duration-300 ease-out',
                         current
                           ? 'scale-x-100'
                           : 'scale-x-0 group-hover:scale-x-100',
@@ -160,28 +126,28 @@ export const Navbar = () => {
           </ul>
 
           {/* Desktop right side */}
-          <div className='hidden items-center gap-1 sm:flex'>
+          <div className="hidden items-center gap-1 sm:flex">
             <Link
-              aria-label='Instagram (se abre en una pestaña nueva)'
-              className='text-default-600 hover:text-primary rounded-md p-2 transition-colors'
+              aria-label="Instagram (se abre en una pestaña nueva)"
+              className="text-default-600 hover:text-primary rounded-md p-2 transition-colors"
               href={siteConfig.links.instagram}
-              rel='noopener noreferrer'
-              target='_blank'
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <FaInstagram aria-hidden='true' className='size-4' />
+              <FaInstagram aria-hidden="true" className="size-4" />
             </Link>
             <ThemeToggle />
           </div>
 
           {/* Mobile right side — only the hamburger trigger. */}
-          <div className='flex items-center sm:hidden'>
+          <div className="flex items-center sm:hidden">
             <IconButton
-              aria-label='Abrir menú de navegación'
-              size='md'
-              variant='ghost'
+              aria-label="Abrir menú de navegación"
+              size="md"
+              variant="ghost"
               onPress={() => setIsMenuOpen(true)}
             >
-              <FaBars aria-hidden='true' className='size-5' />
+              <FaBars aria-hidden="true" className="size-5" />
             </IconButton>
           </div>
         </div>
@@ -189,143 +155,94 @@ export const Navbar = () => {
 
       {/* Mobile drawer */}
       <Drawer.Backdrop isOpen={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <Drawer.Content placement='right'>
-          <Drawer.Dialog className='w-full max-w-sm'>
-            <Drawer.Header className='flex flex-row items-center justify-between gap-3 border-b border-default-100'>
+        <Drawer.Content placement="right">
+          <Drawer.Dialog className="w-full max-w-sm">
+            <Drawer.Header className="flex flex-row items-center justify-between gap-2">
               <NextLink
                 aria-label={`Ir al inicio — ${siteConfig.name}`}
-                className='flex items-center gap-2.5 rounded-md'
-                href='/'
+                className="flex items-center gap-2.5 rounded-md"
+                href="/"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Logo size={28} />
-                <span className='text-sm font-bold tracking-tight text-foreground'>
+                <span className="text-foreground text-sm font-bold tracking-tight">
                   {siteConfig.name}
                 </span>
               </NextLink>
-              {/* Override the slot's absolute positioning so the close
-                  button participates in the header's flex flow and stays
-                  vertically centred with the brand. */}
-              <Drawer.CloseTrigger className='text-default-600 hover:text-foreground hover:bg-default-100 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4' />
+              {/* Right cluster: theme toggle to the left of close. */}
+              <div className="flex items-center gap-1">
+                <ThemeToggle />
+                {/* Override the slot's absolute positioning so the close
+                    button participates in the header's flex flow. */}
+                <Drawer.CloseTrigger className="text-default-600 hover:text-foreground hover:bg-default-100 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4" />
+              </div>
             </Drawer.Header>
 
-            <Drawer.Body className='gap-6'>
-              {/* Section 1 — Páginas */}
-              <section>
-                <Eyebrow className='mb-2 block px-1' tone='default'>
-                  Páginas
-                </Eyebrow>
-                <nav aria-label='Menú principal'>
-                  <ul className='flex flex-col gap-1'>
-                    {siteConfig.navMenuItems.map((item) => {
-                      const Icon = NAV_ICONS[item.href] ?? FaInfoCircle;
-                      const current = isCurrent(item.href);
-                      return (
-                        <li key={item.href}>
-                          <NextLink
-                            aria-current={current ? 'page' : undefined}
-                            className={cn(
-                              'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
-                              current
-                                ? 'bg-primary/10 text-primary'
-                                : 'text-default-700 hover:bg-default-100 hover:text-foreground',
-                            )}
-                            href={item.href}
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            <Icon
-                              aria-hidden='true'
-                              className={cn(
-                                'size-4 shrink-0 transition-colors',
-                                current
-                                  ? 'text-primary'
-                                  : 'text-default-500 group-hover:text-foreground',
-                              )}
-                            />
-                            <span>{item.label}</span>
-                            {current ? (
-                              <span
-                                aria-hidden='true'
-                                className='text-primary-foreground bg-primary ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider'
-                              >
-                                Activa
-                              </span>
-                            ) : null}
-                          </NextLink>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </nav>
-              </section>
-
-              {/* Section 2 — Contacto rápido */}
-              <section>
-                <Eyebrow className='mb-2 block px-1' tone='default'>
-                  Contacto rápido
-                </Eyebrow>
-                <ul className='grid grid-cols-3 gap-2'>
-                  {QUICK_CONTACTS.map((c) => {
-                    const Icon = c.icon;
+            <Drawer.Body className="flex flex-col gap-4">
+              <nav aria-label="Menú principal" className="flex-1">
+                <ul className="flex flex-col gap-1">
+                  {siteConfig.navMenuItems.map((item) => {
+                    const Icon = NAV_ICONS[item.href] ?? FaInfoCircle;
+                    const current = isCurrent(item.href);
                     return (
-                      <li key={c.href}>
-                        <a
-                          aria-label={`${c.label} — ${c.sublabel}`}
+                      <li key={item.href}>
+                        <NextLink
+                          aria-current={current ? 'page' : undefined}
                           className={cn(
-                            'border-default-200 bg-background text-default-700 hover:border-primary hover:text-primary',
-                            'flex flex-col items-center gap-1 rounded-xl border px-2 py-3 text-xs font-medium transition-colors',
+                            'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
+                            current
+                              ? 'bg-primary/10 text-primary'
+                              : 'text-default-700 hover:bg-default-100 hover:text-foreground',
                           )}
-                          href={c.href}
+                          href={item.href}
+                          onClick={() => setIsMenuOpen(false)}
                         >
-                          <Icon aria-hidden='true' className='size-4' />
-                          <span>{c.label}</span>
-                        </a>
+                          <Icon
+                            aria-hidden="true"
+                            className={cn(
+                              'size-4 shrink-0 transition-colors',
+                              current
+                                ? 'text-primary'
+                                : 'text-default-500 group-hover:text-foreground',
+                            )}
+                          />
+                          <span>{item.label}</span>
+                          {current ? (
+                            <span
+                              aria-hidden="true"
+                              className="text-primary-foreground bg-primary ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase"
+                            >
+                              Activa
+                            </span>
+                          ) : null}
+                        </NextLink>
                       </li>
                     );
                   })}
                 </ul>
-              </section>
+              </nav>
 
-              {/* Section 3 — CTA primario */}
-              <section>
+              {/* CTA primario anclado al fondo del body */}
+              <div className="mt-auto">
                 <NextLink
-                  className='block'
-                  href='/pricing'
+                  className="block"
+                  href="/pricing"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Button
-                    className='w-full font-semibold'
-                    size='md'
-                    variant='primary'
+                    className="w-full font-semibold"
+                    size="md"
+                    variant="primary"
                   >
                     Hacete socio
-                    <FaArrowRight aria-hidden='true' className='ml-1 size-3.5' />
+                    <FaArrowRight
+                      aria-hidden="true"
+                      className="ml-1 size-3.5"
+                    />
                   </Button>
                 </NextLink>
-                <p className='text-default-500 mt-2 text-center text-[11px]'>
-                  Sin matrícula · Cuotas desde $4.500/mes
-                </p>
-              </section>
-            </Drawer.Body>
-
-            <Drawer.Footer className='flex flex-col gap-3 border-t border-default-100'>
-              <div className='flex items-center justify-between gap-2'>
-                <Link
-                  aria-label='Instagram (se abre en una pestaña nueva)'
-                  className='text-default-700 hover:text-primary flex items-center gap-2 rounded-md text-sm transition-colors'
-                  href={siteConfig.links.instagram}
-                  rel='noopener noreferrer'
-                  target='_blank'
-                >
-                  <FaInstagram aria-hidden='true' className='size-4' />
-                  @clubestudiantilrosario
-                </Link>
-                <ThemeToggle />
               </div>
-              <p className='text-default-500 text-center text-xs'>
-                © {year} {siteConfig.name}. Rosario, Argentina.
-              </p>
-            </Drawer.Footer>
+            </Drawer.Body>
           </Drawer.Dialog>
         </Drawer.Content>
       </Drawer.Backdrop>
