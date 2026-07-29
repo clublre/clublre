@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: Use this agent to review pull requests or proposed changes. Checks against AGENTS.md, BEST-PRACTICES.md, and the project's design system.
-tools: ["read", "grep", "bash", "edit"]
+tools: ['read', 'grep', 'bash', 'edit']
 ---
 
 # Code reviewer agent

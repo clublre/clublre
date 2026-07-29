@@ -352,18 +352,18 @@ servers como `codebase-memory-mcp`.
 
 ### Tools disponibles (vía MCP)
 
-| Tool | Qué hace |
-|---|---|
-| `index_repository` | Indexa un repo en el knowledge graph. |
-| `search_graph` | Búsqueda estructural por label, name pattern, degree. |
-| `trace_call_path` | BFS de call graph in/out (depth 1-5). |
-| `get_architecture` | Overview: lenguajes, packages, routes, hotspots. |
-| `detect_changes` | Mapea git diff a symbols afectados + blast radius. |
-| `query_graph` | Ejecuta queries Cypher-like (read-only). |
-| `get_code_snippet` | Lee código por qualified name. |
-| `search_code` | Grep en archivos indexados. |
-| `manage_adr` | CRUD para Architecture Decision Records. |
-| `list_projects` / `index_status` / `delete_project` | Lifecycle. |
+| Tool                                                | Qué hace                                              |
+| --------------------------------------------------- | ----------------------------------------------------- |
+| `index_repository`                                  | Indexa un repo en el knowledge graph.                 |
+| `search_graph`                                      | Búsqueda estructural por label, name pattern, degree. |
+| `trace_call_path`                                   | BFS de call graph in/out (depth 1-5).                 |
+| `get_architecture`                                  | Overview: lenguajes, packages, routes, hotspots.      |
+| `detect_changes`                                    | Mapea git diff a symbols afectados + blast radius.    |
+| `query_graph`                                       | Ejecuta queries Cypher-like (read-only).              |
+| `get_code_snippet`                                  | Lee código por qualified name.                        |
+| `search_code`                                       | Grep en archivos indexados.                           |
+| `manage_adr`                                        | CRUD para Architecture Decision Records.              |
+| `list_projects` / `index_status` / `delete_project` | Lifecycle.                                            |
 
 ### Setup
 
@@ -408,7 +408,12 @@ codebase-memory-mcp cli index_repository --repo-path .
 Output esperado:
 
 ```json
-{"project":"Users-ezequielrivas-Repos-clublre","nodes":379,"edges":548,"status":"indexed"}
+{
+  "project": "Users-ezequielrivas-Repos-clublre",
+  "nodes": 379,
+  "edges": 548,
+  "status": "indexed"
+}
 ```
 
 El AI agent lo invoca automáticamente al primer connect, pero hacerlo
@@ -457,12 +462,12 @@ e instalables con un solo comando.
 
 ### Skills recomendadas para este stack
 
-| Skill | Fuente | Para qué |
-|---|---|---|
-| **`web-design-guidelines`** | `vercel-labs/agent-skills@web-design-guidelines` | Review de UI/UX contra Web Interface Guidelines de Vercel. Útil cuando pedís "revisar mi UI" / "audit design" / "check accessibility". |
+| Skill                             | Fuente                                                 | Para qué                                                                                                                                        |
+| --------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`web-design-guidelines`**       | `vercel-labs/agent-skills@web-design-guidelines`       | Review de UI/UX contra Web Interface Guidelines de Vercel. Útil cuando pedís "revisar mi UI" / "audit design" / "check accessibility".          |
 | **`vercel-react-best-practices`** | `vercel-labs/agent-skills@vercel-react-best-practices` | Performance optimization para React/Next.js desde Vercel Engineering. Triggers en refactors de componentes, data fetching, bundle optimization. |
-| **`vercel-composition-patterns`** | `vercel-labs/agent-skills@vercel-composition-patterns` | Compound components, render props, context providers. React 19 API changes. Aplicable a nuestro atomic design y al uso de HeroUI compound. |
-| **`heroui-react`** ⭐ | `heroui-inc/heroui@heroui-react` | Skill oficial de HeroUI v3 React. Cubre instalación, theming con oklch, dark/light, todos los componentes. La más importante para nosotros. |
+| **`vercel-composition-patterns`** | `vercel-labs/agent-skills@vercel-composition-patterns` | Compound components, render props, context providers. React 19 API changes. Aplicable a nuestro atomic design y al uso de HeroUI compound.      |
+| **`heroui-react`** ⭐             | `heroui-inc/heroui@heroui-react`                       | Skill oficial de HeroUI v3 React. Cubre instalación, theming con oklch, dark/light, todos los componentes. La más importante para nosotros.     |
 
 ### Instalación
 

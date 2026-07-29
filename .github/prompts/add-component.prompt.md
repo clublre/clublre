@@ -41,10 +41,10 @@ these steps exactly.
 ## Template
 
 ```tsx
-import type { HTMLAttributes } from "react";
+import type { HTMLAttributes } from 'react';
 
-import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@/lib/utils";
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@/lib/utils';
 
 /**
  * <Name> — short purpose.
@@ -53,17 +53,17 @@ import { cn } from "@/lib/utils";
  * Don't use for: ...
  */
 const component = tv({
-  base: "...",
+  base: '...',
   variants: {
-    variant: { default: "...", other: "..." },
-    size: { sm: "...", md: "...", lg: "..." },
+    variant: { default: '...', other: '...' },
+    size: { sm: '...', md: '...', lg: '...' },
   },
-  defaultVariants: { variant: "default", size: "md" },
+  defaultVariants: { variant: 'default', size: 'md' },
 });
 
 export interface NameProps
   extends
-    Omit<HTMLAttributes<HTMLDivElement>, "size">,
+    Omit<HTMLAttributes<HTMLDivElement>, 'size'>,
     VariantProps<typeof component> {}
 
 export function Name({ className, variant, size, ...props }: NameProps) {

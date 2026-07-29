@@ -77,8 +77,8 @@ components/
 | `<Eyebrow>`    | Label pequeño uppercase sobre un heading.                          |
 | `<CardClub>`   | Card de marca con accent stripe opcional.                          |
 | `<BlurryBlob>` | Blobs animados decorativos para hero.                              |
-| `IconButton`   | Atom wrapper sobre HeroUI Button con `isIconOnly` + `aria-label`. |
-| `ThemeToggle`  | Molecule que combina `IconButton` + `next-themes` para light/dark.  |
+| `IconButton`   | Atom wrapper sobre HeroUI Button con `isIconOnly` + `aria-label`.  |
+| `ThemeToggle`  | Molecule que combina `IconButton` + `next-themes` para light/dark. |
 
 ## Estructura del proyecto
 

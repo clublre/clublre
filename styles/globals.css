@@ -11,8 +11,8 @@
    6. Base layer
    ========================================================================== */
 
-@import "tailwindcss";
-@import "@heroui/styles";
+@import 'tailwindcss';
+@import '@heroui/styles';
 
 /* --------------------------------------------------------------------------
    2. HeroUI theme — Sky palette override
@@ -28,8 +28,8 @@
   :root,
   .light,
   .default,
-  [data-theme="light"],
-  [data-theme="sky"] {
+  [data-theme='light'],
+  [data-theme='sky'] {
     /* Brand accent — sky-500-ish */
     --accent: oklch(0.685 0.169 237.32);
     --accent-foreground: oklch(0.985 0.005 247);
@@ -65,7 +65,7 @@
 
   /* Dark mode */
   .dark,
-  [data-theme="dark"] {
+  [data-theme='dark'] {
     --accent: oklch(0.7 0.17 237);
     --accent-foreground: oklch(0.15 0.005 240);
 
@@ -249,10 +249,10 @@
   }
 
   body {
-    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+    @apply bg-background text-foreground min-h-screen font-sans antialiased;
     font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+      'rlig' 1,
+      'calt' 1;
   }
 
   ::selection {

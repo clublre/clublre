@@ -1,7 +1,7 @@
 ---
 name: content-writer
 description: Use this agent to write or edit Spanish-language copy for pages, blog posts, and UI strings. Maintains voice and tone consistency.
-tools: ["read", "grep", "edit"]
+tools: ['read', 'grep', 'edit']
 ---
 
 # Content writer agent

@@ -1,7 +1,7 @@
 ---
 name: design-system
 description: Use this agent when adding or modifying UI components, design tokens, or visual patterns. Enforces the Club LRE design system consistency.
-tools: ["*"]
+tools: ['*']
 ---
 
 # Design system agent

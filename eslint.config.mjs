@@ -1,5 +1,5 @@
-import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
-import nextTypescript from "eslint-config-next/typescript";
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
 
 /**
  * ESLint 9 flat config for Club LRE.
@@ -16,21 +16,21 @@ import nextTypescript from "eslint-config-next/typescript";
 const config = [
   {
     ignores: [
-      ".next/**",
-      "node_modules/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-      "*.config.js",
-      "*.config.mjs",
-      "public/**",
+      '.next/**',
+      'node_modules/**',
+      'out/**',
+      'build/**',
+      'next-env.d.ts',
+      '*.config.js',
+      '*.config.mjs',
+      'public/**',
       // Per-developer agent skills (Vercel `skills` CLI). Not committed;
       // not our lint concern.
-      ".agents/**",
-      ".claude/**",
-      ".cursor/**",
-      ".windsurf/**",
-      ".trae/**",
+      '.agents/**',
+      '.claude/**',
+      '.cursor/**',
+      '.windsurf/**',
+      '.trae/**',
     ],
   },
   ...nextCoreWebVitals,
@@ -38,12 +38,12 @@ const config = [
   {
     rules: {
       // Console — only allow warn/error/info.
-      "no-console": ["warn", { allow: ["warn", "error", "info"] }],
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
 
       // React hygiene.
-      "react/self-closing-comp": "warn",
-      "react/jsx-sort-props": [
-        "warn",
+      'react/self-closing-comp': 'warn',
+      'react/jsx-sort-props': [
+        'warn',
         {
           callbacksLast: true,
           shorthandFirst: true,
@@ -51,26 +51,26 @@ const config = [
           reservedFirst: true,
         },
       ],
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off",
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
 
       // TypeScript hygiene.
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
         {
-          args: "after-used",
+          args: 'after-used',
           ignoreRestSiblings: false,
-          argsIgnorePattern: "^_.*?$",
+          argsIgnorePattern: '^_.*?$',
         },
       ],
-      "@typescript-eslint/consistent-type-imports": [
-        "warn",
-        { prefer: "type-imports", fixStyle: "inline-type-imports" },
+      '@typescript-eslint/consistent-type-imports': [
+        'warn',
+        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
       ],
 
       // Hooks.
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
     },
   },
 ];

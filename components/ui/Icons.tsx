@@ -1,6 +1,12 @@
-import type { FC } from "react";
+import type { FC, SVGProps } from 'react';
 
-import { type IconSvgProps } from "@/types";
+/**
+ * Props shared by every brand SVG icon. Inlined here (rather than in
+ * a top-level `types/` barrel) because only this file consumes them.
+ */
+export interface IconSvgProps extends SVGProps<SVGSVGElement> {
+  size?: number;
+}
 
 /**
  * Brand logo — used in Navbar and Footer.

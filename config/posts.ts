@@ -14,7 +14,7 @@
  * of `body` to avoid duplication.
  */
 
-export type PostAccent = "sky" | "amarillo" | "gradient";
+export type PostAccent = 'sky' | 'amarillo' | 'gradient';
 
 export interface BlogPost {
   /** URL slug. Used as the `[slug]` route param and as a `Route` after concat. */
@@ -36,64 +36,64 @@ export interface BlogPost {
 /** Order matters — sorted by `date` desc on the index page. */
 export const posts: ReadonlyArray<BlogPost> = [
   {
-    slug: "apertura-pileta-2026",
-    title: "Apertura de la pileta 2026",
-    date: "2026-01-15",
-    category: "Institucional",
-    accent: "sky",
+    slug: 'apertura-pileta-2026',
+    title: 'Apertura de la pileta 2026',
+    date: '2026-01-15',
+    category: 'Institucional',
+    accent: 'sky',
     excerpt:
-      "Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.",
-    body: "Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.",
+      'Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.',
+    body: 'Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.',
   },
   {
-    slug: "torneo-interno-futbol",
-    title: "Torneo interno de fútbol",
-    date: "2026-02-02",
-    category: "Fútbol",
-    accent: "amarillo",
+    slug: 'torneo-interno-futbol',
+    title: 'Torneo interno de fútbol',
+    date: '2026-02-02',
+    category: 'Fútbol',
+    accent: 'amarillo',
     excerpt:
-      "Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.",
-    body: "Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.",
+      'Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.',
+    body: 'Se viene una nueva edición del clásico torneo interno. Inscripciones abiertas para todas las categorías.',
   },
   {
-    slug: "escuela-basquet-juvenil",
-    title: "Escuela de básquet juvenil",
-    date: "2026-02-20",
-    category: "Básquet",
-    accent: "sky",
+    slug: 'escuela-basquet-juvenil',
+    title: 'Escuela de básquet juvenil',
+    date: '2026-02-20',
+    category: 'Básquet',
+    accent: 'sky',
     excerpt:
-      "Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.",
-    body: "Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.",
+      'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
+    body: 'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
   },
   {
-    slug: "colonia-de-verano",
-    title: "Colonia de verano 2026",
-    date: "2025-12-01",
-    category: "Eventos",
-    accent: "gradient",
+    slug: 'colonia-de-verano',
+    title: 'Colonia de verano 2026',
+    date: '2025-12-01',
+    category: 'Eventos',
+    accent: 'gradient',
     excerpt:
-      "Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.",
-    body: "Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.",
+      'Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.',
+    body: 'Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.',
   },
   {
-    slug: "hockey-primera",
-    title: "Hockey primera: nuevo plantel",
-    date: "2026-03-05",
-    category: "Hockey",
-    accent: "amarillo",
+    slug: 'hockey-primera',
+    title: 'Hockey primera: nuevo plantel',
+    date: '2026-03-05',
+    category: 'Hockey',
+    accent: 'amarillo',
     excerpt:
-      "Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.",
-    body: "Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.",
+      'Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.',
+    body: 'Conocé a las jugadoras que representarán al club en la próxima temporada de hockey sobre césped.',
   },
   {
-    slug: "mejoras-instalaciones",
-    title: "Mejoras en las instalaciones",
-    date: "2026-03-18",
-    category: "Institucional",
-    accent: "gradient",
+    slug: 'mejoras-instalaciones',
+    title: 'Mejoras en las instalaciones',
+    date: '2026-03-18',
+    category: 'Institucional',
+    accent: 'gradient',
     excerpt:
-      "Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.",
-    body: "Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.",
+      'Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.',
+    body: 'Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.',
   },
 ];
 

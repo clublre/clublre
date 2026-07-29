@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 
 import { Container } from "@/components/ui/Container";
-import { Logo } from "@/components/icons";
+import { Logo } from "@/components/ui/Icons";
 import { siteConfig } from "@/config/site";
 
 const year = new Date().getFullYear();

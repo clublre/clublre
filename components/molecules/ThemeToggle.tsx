@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 
 import { IconButton } from "@/components/atoms/IconButton";
-import { MoonFilledIcon, SunFilledIcon } from "@/components/icons";
+import { MoonFilledIcon, SunFilledIcon } from "@/components/ui/Icons";
 
 export interface ThemeToggleProps {
   className?: string;

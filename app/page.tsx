@@ -14,7 +14,7 @@ import {
 import { title, subtitle } from "@/components/primitives";
 import { activities } from "@/config/design-tokens";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       {/* Hero */}
