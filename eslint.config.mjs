@@ -24,6 +24,13 @@ const config = [
       "*.config.js",
       "*.config.mjs",
       "public/**",
+      // Per-developer agent skills (Vercel `skills` CLI). Not committed;
+      // not our lint concern.
+      ".agents/**",
+      ".claude/**",
+      ".cursor/**",
+      ".windsurf/**",
+      ".trae/**",
     ],
   },
   ...nextCoreWebVitals,

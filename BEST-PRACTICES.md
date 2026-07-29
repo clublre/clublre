@@ -447,6 +447,62 @@ manual.
 
 ---
 
+## 7.8 Agent skills — opcionales, recomendadas
+
+Además de los MCP servers, hay **agent skills** ([`skills`](https://github.com/vercel-labs/skills),
+npm: `skills@1.5.x`) que extienden el comportamiento del AI agent
+con instrucciones y scripts especializados. Son equivalentes a
+`AGENTS.md` + scripts ejecutables, versionados en repos externos
+e instalables con un solo comando.
+
+### Skills recomendadas para este stack
+
+| Skill | Fuente | Para qué |
+|---|---|---|
+| **`web-design-guidelines`** | `vercel-labs/agent-skills@web-design-guidelines` | Review de UI/UX contra Web Interface Guidelines de Vercel. Útil cuando pedís "revisar mi UI" / "audit design" / "check accessibility". |
+| **`vercel-react-best-practices`** | `vercel-labs/agent-skills@vercel-react-best-practices` | Performance optimization para React/Next.js desde Vercel Engineering. Triggers en refactors de componentes, data fetching, bundle optimization. |
+| **`vercel-composition-patterns`** | `vercel-labs/agent-skills@vercel-composition-patterns` | Compound components, render props, context providers. React 19 API changes. Aplicable a nuestro atomic design y al uso de HeroUI compound. |
+| **`heroui-react`** ⭐ | `heroui-inc/heroui@heroui-react` | Skill oficial de HeroUI v3 React. Cubre instalación, theming con oklch, dark/light, todos los componentes. La más importante para nosotros. |
+
+### Instalación
+
+```bash
+# Una vez, con Node 22+:
+npx -y skills@1.5.18 add heroui-inc/heroui@heroui-react -y
+npx -y skills@1.5.18 add 'vercel-labs/agent-skills@web-design-guidelines' -y
+npx -y skills@1.5.18 add 'vercel-labs/agent-skills@vercel-react-best-practices' -y
+npx -y skills@1.5.18 add 'vercel-labs/agent-skills@vercel-composition-patterns' -y
+```
+
+El CLI detecta qué agentes tenés instalados (GitHub Copilot en
+nuestro caso) y los instala en `.agents/skills/`. Cada agente
+descubre las skills vía sus directorios estándar
+(`.agents/skills/`, `.claude/skills/`, etc.).
+
+### Listar / remover / actualizar
+
+```bash
+npx skills list                 # qué hay instalado
+npx skills find <query>        # buscar en skills.sh
+npx skills update              # actualizar todo
+npx skills remove <name>        # sacar una
+```
+
+### Por qué no están commiteadas
+
+Cada dev tiene su propio subset de skills. `.agents/`, `.claude/`,
+`.cursor/`, `.windsurf/` están en `.gitignore`. El dev las
+instala una vez y quedan locales.
+
+### Cuándo NO instalarlas
+
+- Si solo vas a hacer commits chicos sin interacción con el agent,
+  las skills no aportan mucho.
+- Si el agent no detecta skills automáticamente (algunos
+  editores requieren config manual en `.vscode/settings.json`).
+
+---
+
 ## 8. Accesibilidad (a11y)
 
 ### 8.1 Mínimo obligatorio

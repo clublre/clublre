@@ -46,5 +46,11 @@ next-env.d.ts
 /CLAUDE.md
 /CONVENTIONS.md
 
+# agent-skills — installed per-developer via `npx skills add`.
+# Not committed; each dev installs what they need.
+# See BEST-PRACTICES.md §7.8 for the recommended skills.
+/.agents/
+/.windsurf/
+
 # OS
 .DS_Store
