@@ -34,16 +34,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# codebase-memory — auto-generated context files for AI tools.
-# Regenerate locally with `npx codebase-memory analyze .`
-# (or install globally: `npm i -g codebase-memory`).
-# The .github/copilot-instructions.md is committed manually instead
-# since GitHub Copilot reads it from the repo.
+# codebase-memory (CLI) — legacy, no longer used. Kept for backwards
+# compat in case anyone has it installed.
+# codebase-memory-mcp (MCP server) — installed globally, indexed locally.
+/.codebase-memory/
 /.claude/
-.cursorrules
-.windsurfrules
-.clinerules
-.roomodes
+/.cursorrules
+/.windsurfrules
+/.clinerules
+/.roomodes
 /CLAUDE.md
 /CONVENTIONS.md
 

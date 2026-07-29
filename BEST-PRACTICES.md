@@ -338,48 +338,63 @@ y volvé a probar.
 
 ---
 
-## 7.6 `codebase-memory` — opcional, no commiteado
+## 7.6 `codebase-memory-mcp` — opcional, recomendado
 
-[`codebase-memory`](https://github.com/RagavRida/codebase-memory) es
-una CLI que analiza el codebase una vez y genera archivos de contexto
-auto-actualizados para 7 AI tools (Claude Code, Cursor, GitHub
-Copilot, Windsurf, Cline, Aider, Roo Code).
+[`codebase-memory-mcp`](https://github.com/DeusData/codebase-memory-mcp)
+es un **MCP server real** que indexa el codebase en un knowledge graph
+persistente y expone tools estructurales (call paths, architecture,
+search, dead code, Cypher queries) directamente al AI agent. 120× menos
+tokens que hacer grep/read manual.
 
-### Por qué NO está commiteado
+Ya está configurado en `.vscode/mcp.json` y en `~/Library/Application
+Support/Code/User/mcp.json` (global). Aparece en el selector de MCP
+servers como `codebase-memory-mcp`.
 
-`codebase-memory` genera archivos como `.claude/`, `.cursorrules`,
-`.windsurfrules`, `.clinerules`, `.roomodes`, `CLAUDE.md`,
-`CONVENTIONS.md` — **todos están en `.gitignore`**. Cada developer
-los regenera localmente con `codebase-memory analyze .`.
+### Tools disponibles (vía MCP)
 
-El **único archivo que sí commiteamos** es `.github/copilot-instructions.md`
-(porque GitHub Copilot lo lee directamente desde el repo). Este archivo
-es custom y **no** es el auto-generado por codebase-memory.
+| Tool | Qué hace |
+|---|---|
+| `index_repository` | Indexa un repo en el knowledge graph. |
+| `search_graph` | Búsqueda estructural por label, name pattern, degree. |
+| `trace_call_path` | BFS de call graph in/out (depth 1-5). |
+| `get_architecture` | Overview: lenguajes, packages, routes, hotspots. |
+| `detect_changes` | Mapea git diff a symbols afectados + blast radius. |
+| `query_graph` | Ejecuta queries Cypher-like (read-only). |
+| `get_code_snippet` | Lee código por qualified name. |
+| `search_code` | Grep en archivos indexados. |
+| `manage_adr` | CRUD para Architecture Decision Records. |
+| `list_projects` / `index_status` / `delete_project` | Lifecycle. |
 
-### Cuándo correrlo (opcional)
-
-- En una sesión larga, antes de empezar a tirar prompts, corré
-  `codebase-memory analyze .` una vez. Genera el contexto y el AI
-  funciona mejor.
-- Después de cambios grandes (renames, migraciones, nuevas features)
-  corré `codebase-memory update .` para hacer incremental.
-- Si querés desinstalarlo: `codebase-memory teardown`.
-
-### Setup (solo una vez, global)
+### Setup
 
 ```bash
-npm install -g codebase-memory
-codebase-memory --help  # ver comandos
+# One-time: el binario se descarga automáticamente al instalar
+npm install -g codebase-memory-mcp
+
+# Por proyecto: configurar agentes (Claude Code, GitHub Copilot, etc.)
+codebase-memory-mcp install
+
+# Indexar el repo actual (lo hace el MCP server automáticamente al
+# primer connect, pero se puede forzar):
+codebase-memory-mcp cli index_repository --repo-path .
 ```
 
-**No** correr `codebase-memory setup` — instala hooks globales de
-Claude Code que modifican tu sesión global.
+El knowledge graph persiste en `~/.cache/codebase-memory-mcp/` (default)
+o en `<repo>/.codebase-memory/` (configurado vía env var).
 
-### Si querés commitear la salida
+### Cuándo NO usarlo
 
-Si decidís commitear la salida para que todo el equipo tenga el
-contexto, remové los entries de `.gitignore` correspondientes
-(sección `# codebase-memory`).
+- En sessions cortas sin modificaciones estructurales, el contexto
+  de `.github/instructions/*.instructions.md` + `AGENTS.md` es
+  suficiente.
+- Para preguntas simples de búsqueda, `grep` + `search_code` MCP
+  son suficientes.
+
+### Por qué `.codebase-memory/` está en `.gitignore`
+
+El cache de SQLite (~50-200MB) es personal y se regenera localmente
+con `index_repository`. Cada developer lo regenera. No es parte del
+repositorio.
 
 ---
 

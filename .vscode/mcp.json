@@ -9,6 +9,14 @@
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "codebase-memory-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "codebase-memory-mcp@latest"],
+      "env": {
+        "CBM_CACHE_DIR": "${workspaceFolder}/.codebase-memory"
+      }
     }
   }
 }
