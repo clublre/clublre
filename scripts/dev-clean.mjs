@@ -21,7 +21,7 @@
  */
 
 import { spawn, execSync } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from 'node:path';
 import { platform } from 'node:process';
 
@@ -59,14 +59,67 @@ function run(cmd) {
   }
 }
 
+/**
+ * Find PIDs whose working directory is inside `cwd`. Used to scope
+ * process kills to the current repo (avoids killing `next dev`
+ * instances belonging to other projects on the same machine).
+ *
+ * macOS / Linux: `lsof -a -d cwd -c node -F p` lists node PIDs and
+ * the directories they were launched from; we filter to those whose
+ * cwd starts with the project path.
+ */
+function pidsInThisProject() {
+  if (isWindows) return null; // Skip scoping on Windows for now.
+  const out = run(
+    `lsof -a -d cwd -c node -F p 2>/dev/null | awk '/^p/ {substr($1,2)}'`,
+  );
+  if (!out.trim()) return null;
+  const allPids = out
+    .split('\n')
+    .map((s) => s.trim())
+    .filter((s) => /^\d+$/.test(s));
+  // Refine: check each PID's cwd via lsof.
+  const scoped = [];
+  for (const pid of allPids) {
+    const cwdOut = run(
+      `lsof -a -d cwd -p ${pid} 2>/dev/null | awk '/^f/ {print substr($1,2)}'`,
+    );
+    if (cwdOut && cwdOut.startsWith(cwd)) scoped.push(pid);
+  }
+  return scoped;
+}
+
 function killByPattern(pattern) {
   logStep(`Killing processes matching "${pattern}"`);
   if (isWindows) {
     run(`taskkill /F /IM node.exe /FI "WINDOWTITLE eq ${pattern}*" 2>nul`);
     return;
   }
-  // pkill exits 1 when nothing matched — that's fine.
-  run(`pkill -f "${pattern}" 2>/dev/null`);
+  // Scope: prefer PIDs whose cwd is inside this repo. If we can't
+  // determine that (e.g. lsof not available), fall back to a global
+  // pkill on the pattern.
+  const scoped = pidsInThisProject();
+  if (scoped && scoped.length > 0) {
+    run(
+      `ps -p ${scoped.join(",")} -o pid,command 2>/dev/null | grep "${pattern}" | awk '{print $1}' | xargs -r kill -9 2>/dev/null`,
+    );
+  } else {
+    logStep(
+      "  (no scoped matches found; falling back to project-local SIGINT)",
+    );
+    // Send SIGINT to the dev server's PID file if Next wrote one.
+    const pidFile = `${cwd}/.next/dev/pid`;
+    if (existsSync(pidFile)) {
+      try {
+        const pid = readFileSync(pidFile, "utf8").trim();
+        if (/^\d+$/.test(pid)) {
+          run(`kill -INT ${pid} 2>/dev/null`);
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+  }
 }
 
 function freePort(port) {

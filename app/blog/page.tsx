@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import type { Route } from 'next';
 
 import {
   Section,
@@ -10,6 +11,9 @@ import {
 } from '@/components/ui';
 import { title } from '@/components/primitives';
 import { postsNewestFirst } from '@/config/posts';
+
+/** Build a typed blog post route from a slug. */
+const postHref = (slug: string): Route => `/blog/${slug}` as Route;
 
 const formatDate = (iso: string) =>
   new Intl.DateTimeFormat('es-AR', {
@@ -60,16 +64,14 @@ export default function BlogPage() {
                   </time>
                 </div>
                 <CardClubTitle className="hover:text-primary">
-                  <NextLink href={`/blog/${post.slug}` as never}>
-                    {post.title}
-                  </NextLink>
+                  <NextLink href={postHref(post.slug)}>{post.title}</NextLink>
                 </CardClubTitle>
                 <CardClubBody className="mt-3 grow">
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
                   className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium hover:underline"
-                  href={`/blog/${post.slug}` as never}
+                  href={postHref(post.slug)}
                 >
                   Leer más →
                 </NextLink>

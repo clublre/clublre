@@ -110,8 +110,9 @@
   --color-amarillo: oklch(0.92 0.17 95);
 
   /* Soft sky tokens — used for category pills, tags, chips.
-     These are accent-50 / accent-900 of the Sky palette. */
-  --color-sky-soft: color-mix(in oklch, var(--accent) 12%, transparent);
+     Mirror of brand.skySoft / brand.skySoftFg in config/design-tokens.ts.
+     Keep the alpha at 14% so CSS and TS agree exactly. */
+  --color-sky-soft: color-mix(in oklch, var(--accent) 14%, transparent);
   --color-sky-soft-fg: var(--accent);
 
   /* Typography */
