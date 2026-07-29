@@ -117,7 +117,7 @@ export default function RootLayout({
     <html
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      lang="es"
+      lang="es-AR"
     >
       <head />
       <body
