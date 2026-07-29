@@ -17,6 +17,11 @@
       "env": {
         "CBM_CACHE_DIR": "${workspaceFolder}/.codebase-memory"
       }
+    },
+    "sequential-thinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"]
     }
   }
 }

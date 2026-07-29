@@ -396,6 +396,55 @@ El cache de SQLite (~50-200MB) es personal y se regenera localmente
 con `index_repository`. Cada developer lo regenera. No es parte del
 repositorio.
 
+### Indexar el repo (one-time setup)
+
+Después de instalar el MCP, **indexar el proyecto manualmente** la
+primera vez para construir el knowledge graph:
+
+```bash
+codebase-memory-mcp cli index_repository --repo-path .
+```
+
+Output esperado:
+
+```json
+{"project":"Users-ezequielrivas-Repos-clublre","nodes":379,"edges":548,"status":"indexed"}
+```
+
+El AI agent lo invoca automáticamente al primer connect, pero hacerlo
+manualmente:
+
+- Acelera la primera query.
+- Verifica que el binario funciona.
+- Permite explorar el graph con `get_architecture`, `search_graph`,
+  etc. antes de la primera sesión.
+
+Re-indexar después de cambios estructurales grandes (nuevas features,
+migraciones, renames):
+
+```bash
+codebase-memory-mcp cli index_repository --repo-path .
+# Opcional: genera artefacto compartido .codebase-memory/graph.db.zst
+# para que el equipo evite re-indexar (commiteable si querés).
+```
+
+---
+
+## 7.7 `sequential-thinking` MCP — opcional
+
+[`@modelcontextprotocol/server-sequential-thinking`](https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking)
+es un MCP server oficial de Anthropic que provee un tool
+`sequential_thinking` para chain-of-thought reasoning paso a paso.
+Útil cuando el AI agent necesita descomponer problemas complejos
+en pasos numerados antes de actuar.
+
+Ya está configurado en `.vscode/mcp.json` y en `~/Library/Application
+Support/Code/User/mcp.json`.
+
+**Cuándo usarlo**: debugging multi-paso, migraciones grandes, refactors
+cross-cutting. El agent decide cuándo invocarlo — no requiere acción
+manual.
+
 ---
 
 ## 8. Accesibilidad (a11y)
