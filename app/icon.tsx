@@ -20,39 +20,35 @@ export const contentType = 'image/png';
  * through Node `fs` reads the asset once per build (static route).
  */
 export default async function Icon() {
-  const logoData = await readFile(
-    join(process.cwd(), 'public', 'logo2.jpeg'),
-  );
+  const logoData = await readFile(join(process.cwd(), 'public', 'logo2.jpeg'));
   const logoSrc = `data:image/jpeg;base64,${logoData.toString('base64')}`;
 
   return new ImageResponse(
-    (
-      <div
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '50%',
+        overflow: 'hidden',
+        background: '#fff',
+      }}
+    >
+      {}
+      <img
+        alt="CLUB L.R.E"
+        height={32}
+        src={logoSrc}
         style={{
-          height: '100%',
           width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: '50%',
-          overflow: 'hidden',
-          background: '#fff',
+          height: '100%',
+          objectFit: 'cover',
         }}
-      >
-        { }
-        <img
-          alt="CLUB L.R.E"
-          height={32}
-          src={logoSrc}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-          }}
-          width={32}
-        />
-      </div>
-    ),
+        width={32}
+      />
+    </div>,
     { ...size },
   );
 }

@@ -114,11 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      suppressHydrationWarning
-      data-scroll-behavior="smooth"
-      lang="es-AR"
-    >
+    <html suppressHydrationWarning data-scroll-behavior="smooth" lang="es-AR">
       <head />
       <body
         className={cn(

@@ -6,7 +6,13 @@ import * as Sentry from '@sentry/nextjs';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
   useEffect(() => {
     // Send the error (and any recovered digest from Next) to Sentry
     // so we actually know about problems in production. `error.digest`
