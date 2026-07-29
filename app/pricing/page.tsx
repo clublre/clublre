@@ -11,7 +11,7 @@ import {
   CardClubBody,
 } from "@/components/ui";
 import { title } from "@/components/primitives";
-import { pricingTiers } from "@/config/design-tokens";
+import { pricingTiers } from "@/data/club";
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("es-AR", {

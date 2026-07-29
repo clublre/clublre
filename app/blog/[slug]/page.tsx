@@ -5,7 +5,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
-import { posts, postsBySlug } from '@/config/posts';
+import { posts, postsBySlug } from "@/data/posts";
 
 interface PageProps {
   params: Promise<{ slug: string }>;

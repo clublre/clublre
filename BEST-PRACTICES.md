@@ -193,9 +193,7 @@ Tailwind v4 **no usa `tailwind.config.js`**. Todo está en `globals.css` con `@t
 
 ### 5.2 Tokens
 
-Los tokens viven en `styles/globals.css` (`@theme` block) y se espejean en `config/design-tokens.ts` para uso en código TS.
-
-**Regla**: cuando agregás un color o spacing nuevo, **siempre** lo agregás en ambos lugares.
+Los tokens viven en `styles/globals.css` (`@theme` block) y se espejean en `config/design-tokens.ts` para uso en código TS. **Domain data** (activities, commission, pricing tiers, blog posts) vive en `data/` y se reemplaza por un CMS en producción — no se mezcla con los tokens visuales.
 
 ### 5.3 Convenciones de clases
 

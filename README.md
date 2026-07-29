@@ -41,6 +41,9 @@ Tokens definidos en dos lugares (sincronizados):
 1. `styles/globals.css` — bloque `@theme` (Tailwind v4).
 2. `config/design-tokens.ts` — constantes TS.
 
+Domain content (activities, commission, pricing tiers, blog posts)
+vive en `data/` y se reemplaza por un CMS en producción.
+
 ### Paleta
 
 - **Primary** — HeroUI **Sky** theme (cyan/blue). Override de `--accent`

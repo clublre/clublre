@@ -12,7 +12,7 @@ import {
   BlurryBlob,
 } from "@/components/ui";
 import { title, subtitle } from "@/components/primitives";
-import { activities } from "@/config/design-tokens";
+import { activities } from "@/data/club";
 
 export default function HomePage() {
   return (

@@ -68,6 +68,10 @@ Tokens are defined in two places (kept in sync):
 1. `styles/globals.css` — `@theme { ... }` block (Tailwind v4 native).
 2. `config/design-tokens.ts` — TypeScript constants for code consumption.
 
+Domain / editorial content (activities, commission, pricing tiers,
+blog posts) lives in `data/` and gets replaced by a CMS adapter in
+production.
+
 ### Brand palette
 
 - **Primary** — HeroUI **Sky** theme (cyan/blue). Override of `--accent`
@@ -125,9 +129,11 @@ Tokens are defined in two places (kept in sync):
   - molecule → `components/molecules/<Name>.tsx`
   - UI primitive → `components/ui/<Name>.tsx`
   - organism → `components/organisms/<Name>.tsx`
-- **Add a blog post** (or change one): edit `config/posts.ts`. Both the
-  index (`app/blog/page.tsx`) and the detail page
+- **Add a blog post** (or change one): edit `data/posts.ts`. Both
+  the index (`app/blog/page.tsx`) and the detail page
   (`app/blog/[slug]/page.tsx`) consume the same array.
+- **Add a club activity / commission member / pricing tier**: edit
+  `data/club.ts`.
 - **Verify before commit**: `npm run type-check && npm run lint &&
   npm run build`.
 - **MCP servers** available (auto-started by VS Code on demand):

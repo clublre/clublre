@@ -7,7 +7,7 @@ import {
   CardClubBody,
 } from "@/components/ui";
 import { title } from "@/components/primitives";
-import { commission } from "@/config/design-tokens";
+import { commission } from "@/data/club";
 
 export default function AboutPage() {
   return (

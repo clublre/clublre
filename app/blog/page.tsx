@@ -10,7 +10,7 @@ import {
   CardClubBody,
 } from '@/components/ui';
 import { title } from '@/components/primitives';
-import { postsNewestFirst } from '@/config/posts';
+import { postsNewestFirst } from "@/data/posts";
 
 /** Build a typed blog post route from a slug. */
 const postHref = (slug: string): Route => `/blog/${slug}` as Route;
