@@ -19,6 +19,7 @@ const section = tv({
       transparent: "bg-transparent",
     },
     spacing: {
+      none: "py-0",
       sm: "py-10 md:py-14",
       md: "py-16 md:py-20",
       lg: "py-20 md:py-28",

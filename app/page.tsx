@@ -1,5 +1,11 @@
-import NextLink from "next/link";
-import { Button } from "@heroui/react";
+import NextLink from 'next/link';
+import { Button } from '@heroui/react';
+import {
+  FaArrowRight,
+  FaMapMarkerAlt,
+  FaRunning,
+  FaUsers,
+} from 'react-icons/fa';
 
 import {
   Section,
@@ -10,9 +16,29 @@ import {
   CardClubTitle,
   CardClubBody,
   BlurryBlob,
-} from "@/components/ui";
-import { title, subtitle } from "@/components/primitives";
-import { activities } from "@/data/club";
+} from '@/components/ui';
+import { title, subtitle } from '@/components/primitives';
+import { activities } from '@/data/club';
+import { cn } from '@/lib/utils';
+
+/** Trust strip — quick social proof between hero and activities. */
+const STATS = [
+  {
+    icon: FaUsers,
+    value: '3.500+',
+    label: 'Socios activos',
+  },
+  {
+    icon: FaRunning,
+    value: '15+',
+    label: 'Disciplinas',
+  },
+  {
+    icon: FaMapMarkerAlt,
+    value: 'Av. Pellegrini 1500',
+    label: 'Rosario, Santa Fe',
+  },
+] as const;
 
 export default function HomePage() {
   return (
@@ -22,7 +48,8 @@ export default function HomePage() {
         as='section'
         className='relative isolate overflow-hidden'
         spacing='lg'
-        variant='gradient'>
+        variant='gradient'
+      >
         <BlurryBlob />
         <Container className='relative animate-fade-in text-center'>
           <Eyebrow className='mb-4 block' tone='sky'>
@@ -30,31 +57,71 @@ export default function HomePage() {
           </Eyebrow>
           <h1
             className={title({
-              size: "lg",
-              class: "block max-w-4xl mx-auto leading-[1.05]",
-            })}>
+              size: 'lg',
+              class: 'block max-w-4xl mx-auto leading-[1.05]',
+            })}
+          >
             Más de 80 años
             <br />
-            <span className={title({ color: "sky" })}>formando comunidad</span>
+            <span className={title({ color: 'sky' })}>
+              formando comunidad
+            </span>
           </h1>
           <p
             className={subtitle({
-              class: "mx-auto mt-6 max-w-xl text-center text-default-700",
-            })}>
+              class:
+                'mx-auto mt-6 max-w-xl text-center text-default-700',
+            })}
+          >
             Deportes, recreación y vida social para toda la familia en el
             corazón de Rosario.
           </p>
           <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
             <NextLink href='/pricing'>
-              <Button className='font-semibold' size='lg' variant='primary'>
+              <Button size='lg' variant='primary'>
                 Conocé las cuotas
+                <FaArrowRight aria-hidden='true' className='ml-2 size-4' />
               </Button>
             </NextLink>
             <NextLink href='/about'>
-              <Button className='font-semibold' size='lg' variant='outline'>
+              <Button size='lg' variant='outline'>
                 Sobre el club
               </Button>
             </NextLink>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Trust strip — overlapping the hero/actividades seam */}
+      <Section
+        as='section'
+        className='relative z-10 -mt-12 sm:-mt-16'
+        spacing='none'
+      >
+        <Container size='xl'>
+          <div
+            className={cn(
+              'bg-background border-default-200 grid gap-px overflow-hidden rounded-2xl border shadow-club-lg sm:grid-cols-3',
+            )}
+          >
+            {STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className='bg-background flex items-center gap-4 px-6 py-6 sm:py-8'
+              >
+                <span className='bg-primary/10 text-primary inline-flex size-12 shrink-0 items-center justify-center rounded-xl'>
+                  <stat.icon aria-hidden='true' className='size-5' />
+                </span>
+                <div className='min-w-0'>
+                  <p className='text-foreground text-xl font-bold tracking-tight sm:text-2xl'>
+                    {stat.value}
+                  </p>
+                  <p className='text-default-600 truncate text-sm'>
+                    {stat.label}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -66,7 +133,7 @@ export default function HomePage() {
             <Eyebrow className='mb-3 block' tone='sky'>
               Nuestras disciplinas
             </Eyebrow>
-            <h2 className={title({ size: "md", class: "block" })}>
+            <h2 className={title({ size: 'md', class: 'block' })}>
               Actividades para todas las edades
             </h2>
             <p className='mx-auto mt-4 max-w-2xl text-default-600'>
@@ -79,7 +146,8 @@ export default function HomePage() {
             {activities.map((activity) => (
               <CardClub
                 key={activity.id}
-                accent={activity.id === "futbol" ? "sky" : "amarillo"}>
+                accent={activity.id === 'futbol' ? 'sky' : 'amarillo'}
+              >
                 <CardClubHeader>
                   <span aria-hidden='true' className='text-3xl'>
                     {activity.icon}
@@ -96,19 +164,46 @@ export default function HomePage() {
       {/* CTA */}
       <Section as='section' spacing='md'>
         <Container>
-          <div className='gradient-sky rounded-2xl p-10 text-center text-sky-900 shadow-club-lg md:p-16'>
-            <h2 className='mb-4 text-3xl font-bold md:text-4xl'>
-              Sumate al club
-            </h2>
-            <p className='mx-auto mb-8 max-w-xl text-base text-sky-800 md:text-lg'>
-              Tres generaciones de rosarinos pasaron por nuestras instalaciones.
-              Te invitamos a ser parte.
-            </p>
-            <NextLink href='/pricing'>
-              <Button className='font-semibold' size='lg' variant='primary'>
-                Quiero asociarme
-              </Button>
-            </NextLink>
+          <div className='from-primary via-primary/90 to-primary/70 relative overflow-hidden rounded-3xl bg-gradient-to-br p-10 text-center text-primary-foreground shadow-club-lg md:p-16'>
+            {/* Decorative blurred shapes */}
+            <div
+              aria-hidden='true'
+              className='absolute -top-20 -right-20 size-64 rounded-full bg-white/10 blur-3xl'
+            />
+            <div
+              aria-hidden='true'
+              className='absolute -bottom-20 -left-20 size-64 rounded-full bg-white/10 blur-3xl'
+            />
+
+            <div className='relative'>
+              <Eyebrow className='mb-4 block' tone='default'>
+                Sumate al club
+              </Eyebrow>
+              <h2 className='mb-4 text-3xl font-bold tracking-tight md:text-4xl'>
+                Tres generaciones ya pasaron por acá.
+              </h2>
+              <p className='mx-auto mb-8 max-w-xl text-base opacity-90 md:text-lg'>
+                Te invitamos a ser parte. Conocé nuestras cuotas y empezá a
+                disfrutar del club hoy mismo.
+              </p>
+              <div className='flex flex-wrap items-center justify-center gap-3'>
+                <NextLink href='/pricing'>
+                  <Button size='lg' variant='outline'>
+                    Quiero asociarme
+                    <FaArrowRight aria-hidden='true' className='ml-2 size-4' />
+                  </Button>
+                </NextLink>
+                <NextLink href='/about'>
+                  <Button
+                    className='text-foreground hover:text-foreground'
+                    size='lg'
+                    variant='ghost'
+                  >
+                    Conocé nuestra historia
+                  </Button>
+                </NextLink>
+              </div>
+            </div>
           </div>
         </Container>
       </Section>
