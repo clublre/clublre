@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.{ts,tsx}"
+applyTo: '**/*.{ts,tsx}'
 ---
 
 # TypeScript rules for this repo
@@ -23,11 +23,11 @@ file. They override defaults from Copilot's base model.
 
 ```ts
 // ✅
-import { type FC, type ReactNode } from "react";
-import type { Metadata } from "next";
+import { type FC, type ReactNode } from 'react';
+import type { Metadata } from 'next';
 
 // ❌
-import { FC, ReactNode } from "react";
+import { FC, ReactNode } from 'react';
 ```
 
 The `consistent-type-imports` rule enforces this with auto-fix.
@@ -39,12 +39,12 @@ The `consistent-type-imports` rule enforces this with auto-fix.
 
 ```ts
 // ✅
-import { Button } from "@heroui/react";
-import { cn } from "@/lib/utils";
-import { title } from "@/components/primitives";
+import { Button } from '@heroui/react';
+import { cn } from '@/lib/utils';
+import { title } from '@/components/primitives';
 
 // ❌
-import { Button } from "../../../node_modules/@heroui/react";
+import { Button } from '../../../node_modules/@heroui/react';
 ```
 
 ## React component types
@@ -69,14 +69,14 @@ interface SectionProps {
 For styled components with variants, use `tailwind-variants`:
 
 ```ts
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from 'tailwind-variants';
 
 const card = tv({
-  base: "rounded-lg border",
+  base: 'rounded-lg border',
   variants: {
     accent: {
-      sky: "before:bg-sky-500",
-      amarillo: "before:bg-amarillo",
+      sky: 'before:bg-sky-500',
+      amarillo: 'before:bg-amarillo',
     },
   },
 });
@@ -89,10 +89,10 @@ type CardProps = VariantProps<typeof card> & { children: ReactNode };
 `typedRoutes` is on. Use the `Route` type:
 
 ```ts
-import type { Route } from "next";
+import type { Route } from 'next';
 
 const links: { href: Route; label: string }[] = [
-  { href: "/about", label: "About" },
+  { href: '/about', label: 'About' },
 ];
 ```
 

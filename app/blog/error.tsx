@@ -38,8 +38,8 @@ export default function BlogSlugError({
           No pudimos mostrar este post
         </h1>
         <p className="text-default-600 mx-auto mt-3 max-w-md text-base">
-          Algo se rompió mientras cargábamos el contenido. Reintentá o volvé
-          al listado para elegir otro artículo.
+          Algo se rompió mientras cargábamos el contenido. Reintentá o volvé al
+          listado para elegir otro artículo.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button

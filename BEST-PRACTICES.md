@@ -107,6 +107,7 @@ de `<Providers>`. Google lo usa para rich results (panel del
 conocimiento sobre la organización deportiva en SERP).
 
 Datos confirmados via web search 2026-07-29:
+
 - `name`, `alternateName` (CLUB L.R.E)
 - `address` PostalAddress completo (Iriondo 375, S2122 Rosario)
 - `telephone` (+54 341 435 1273)
@@ -630,6 +631,7 @@ Output en `.next/diagnostics/analyze/index.html` (sin servidor) o
 levanta UI interactiva en `localhost:4000` si removés el `-o`.
 
 Útil cuando:
+
 - Agregás una dep nueva — ver cuánto pesa en el bundle.
 - Después de un upgrade mayor de Next/React/HeroUI.
 - Sospecha de regresión (cliente bundle creciendo sin razón).
@@ -841,12 +843,13 @@ dejándolos activos solo en builds de producción.
 ### 13.2 Error tracking (Sentry) — ✅ configurado
 
 `@sentry/nextjs` instalado. Files:
+
 - `instrumentation.ts` (Next 16 hook) — dispatcha el config
   correcto según `NEXT_RUNTIME` (server / edge).
 - `sentry.{server,edge,client}.config.ts` — tres configs
   separadas que setean `tracesSampleRate: 0.1` en prod.
 - `app/error.tsx` ya hace `Sentry.captureException(error, { tags:
-  { boundary: 'app/error' } })`. Lo mismo en `app/blog/error.tsx`
+{ boundary: 'app/error' } })`. Lo mismo en `app/blog/error.tsx`
   con tag `boundary='blog/[slug]'`. Filtrá issues en Sentry por
   ese tag para separar errores globales vs scoped.
 

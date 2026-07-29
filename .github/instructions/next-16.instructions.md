@@ -1,5 +1,5 @@
 ---
-applyTo: "app/**/*.{ts,tsx}"
+applyTo: 'app/**/*.{ts,tsx}'
 ---
 
 # Next.js 16 — file-based metadata + view transitions + React 19
@@ -9,16 +9,17 @@ working in `app/`.
 
 ## File-based metadata routes (auto-routes in `app/`)
 
-| File                     | Auto-routed URL      | Purpose                                  |
-| ------------------------ | -------------------- | ---------------------------------------- |
-| `opengraph-image.tsx`    | `/opengraph-image`    | OG image (1200×630 PNG) for shares     |
-| `icon.tsx`               | `/icon`               | Favicon (32×32 PNG)                    |
-| `apple-icon.tsx`         | `/apple-icon`         | Apple touch icon (180×180 PNG)         |
-| `robots.ts`              | `/robots.txt`         | `MetadataRoute.Robots` export          |
-| `sitemap.ts`             | `/sitemap.xml`        | `MetadataRoute.Sitemap` export         |
-| `opengraph-image.alt.txt`| (no URL)              | Alt text for OG image                  |
+| File                      | Auto-routed URL    | Purpose                            |
+| ------------------------- | ------------------ | ---------------------------------- |
+| `opengraph-image.tsx`     | `/opengraph-image` | OG image (1200×630 PNG) for shares |
+| `icon.tsx`                | `/icon`            | Favicon (32×32 PNG)                |
+| `apple-icon.tsx`          | `/apple-icon`      | Apple touch icon (180×180 PNG)     |
+| `robots.ts`               | `/robots.txt`      | `MetadataRoute.Robots` export      |
+| `sitemap.ts`              | `/sitemap.xml`     | `MetadataRoute.Sitemap` export     |
+| `opengraph-image.alt.txt` | (no URL)           | Alt text for OG image              |
 
 For metadata image routes:
+
 - Default runtime is Edge. If you read `public/*.jpeg` /
   `*.png` with `node:fs/promises`, **pin to Node explicitly**:
 
@@ -75,11 +76,12 @@ Safari < 18 falls back to an instant cut. No regression.
 ## Route-segment boundaries
 
 For any dynamic route that can fail or async-load, ship:
+
 - `app/<route>/loading.tsx` — skeleton matching the final typographic
   rhythm. Use `aria-hidden` so screen readers don't announce it.
 - `app/<route>/error.tsx` — fallback that DOES NOT crash the layout.
   Capture with `Sentry.captureException(error, { tags: { boundary:
-  '<route>' } })`.
+'<route>' } })`.
 
 Multiple boundaries form layers: route-level + global (`app/error.tsx`).
 
