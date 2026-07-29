@@ -96,8 +96,8 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   icons: {
-    icon: '/logo2.jpeg',
-    apple: '/logo2.jpeg',
+    icon: '/icon',
+    apple: '/apple-icon',
   },
 };
 

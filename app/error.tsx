@@ -1,17 +1,22 @@
 'use client';
 
 import { useEffect } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 
-export default function Error({ reset }: { error: Error; reset: () => void }) {
+export default function Error({ error, reset }: { error: Error; reset: () => void }) {
   useEffect(() => {
-    // TODO: replace with a real error reporting service (e.g. Sentry)
-    //       once we have one. For now we log to the browser console so
-    //       devs can see the issue locally.
-    console.error('[ErrorBoundary] an error was caught');
-  }, []);
+    // Send the error (and any recovered digest from Next) to Sentry
+    // so we actually know about problems in production. `error.digest`
+    // is the stable id surfaced in the App Router.
+    Sentry.captureException(error, {
+      tags: { boundary: 'app/error' },
+    });
+    // Still log locally so devs see it in the browser console.
+    console.error('[ErrorBoundary]', error);
+  }, [error]);
 
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
