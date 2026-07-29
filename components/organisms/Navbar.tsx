@@ -143,8 +143,8 @@ export const Navbar = () => {
 
       {/* Mobile drawer */}
       <Drawer.Backdrop isOpen={isMenuOpen} onOpenChange={setIsMenuOpen}>
-        <Drawer.Content className='w-full max-w-sm' placement='right'>
-          <Drawer.Dialog>
+        <Drawer.Content placement='right'>
+          <Drawer.Dialog className='w-full max-w-sm'>
             <Drawer.Header className='flex items-center justify-between border-b border-default-100'>
               <NextLink
                 aria-label={`Ir al inicio — ${siteConfig.name}`}
