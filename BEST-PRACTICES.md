@@ -78,16 +78,82 @@ Para mutaciones: usá **Server Actions** (`"use server"` en el archivo o funció
 
 Cada `app/<route>/` tiene su `error.tsx` si tiene fetch de datos. Por ahora solo tenemos el global. **Regla**: cualquier fetch que pueda fallar debe tener su `error.tsx` local.
 
+Plus `app/<route>/loading.tsx` para skeletons segment-scoped —
+un skeleton con el mismo tipographic-rhythm que la ruta final
+evita CLS durante `generateStaticParams` o revalidaciones.
+
+### 1.7 File-based metadata routes (Next 16)
+
+Tres rutas file-based en `app/` que Next prerendera en build:
+
+- `app/opengraph-image.tsx` → genera `og:image` (1200×630 PNG) con
+  `ImageResponse` de `next/og`. Static al build (sin params).
+  Pinneado a `runtime = 'nodejs'` porque lee `public/logo2.jpeg`
+  vía `node:fs/promises` (Vercel defaultea a Edge y eso rompe).
+- `app/icon.tsx` → favicon 32×32.
+- `app/apple-icon.tsx` → Apple touch icon 180×180.
+  También `runtime = 'nodejs'` por la misma razón.
+
+Las tres leen `public/logo2.jpeg` con `readFile` y la embeben
+como `data:image/jpeg;base64,...` para que Satori (el motor
+de `next/og`) pueda renderizarla inline. Single source of truth:
+si cambia el escudo, se regenera todo en el próximo build.
+
+### 1.8 JSON-LD y `<head>` metadata
+
+`app/layout.tsx` exporta un payload `SportsClub` y lo inyecta como
+`<script type="application/ld+json" dangerouslySetInnerHTML>` antes
+de `<Providers>`. Google lo usa para rich results (panel del
+conocimiento sobre la organización deportiva en SERP).
+
+Datos confirmados via web search 2026-07-29:
+- `name`, `alternateName` (CLUB L.R.E)
+- `address` PostalAddress completo (Iriondo 375, S2122 Rosario)
+- `telephone` (+54 341 435 1273)
+- `sameAs` (Instagram)
+
+`app/sitemap.ts` y `app/robots.ts` usan la convención file-based
+de Next 16 (`MetadataRoute.Sitemap` / `MetadataRoute.Robots`) —
+no hace falta plugin. Publican `/sitemap.xml` y `/robots.txt`
+como Static al build.
+
+### 1.9 View Transitions (Next 16)
+
+`experimental.viewTransition: true` habilita la CSS View Transitions
+API para navegaciones client-side. Cross-fade de elementos con el
+mismo `view-transition-name`.
+
+Cómo aplicar a un nuevo par de páginas:
+
+```tsx
+// app/page.tsx (origen)
+<h1 style={{ viewTransitionName: 'page-title' }}>...</h1>
+
+// app/destino/page.tsx
+<h1 style={{ viewTransitionName: 'page-title' }}>...</h1>
+```
+
+Cuando navegás de origen → destino, el browser cross-fadea los
+dos `<h1>` mientras el resto de la chrome (Navbar / Footer)
+hace swap instantáneo. Sin nombre compartido → fallback a
+corte instantáneo en browsers sin soporte (Safari < 18).
+
+Hoy está aplicado a `page-title` en `/`, `/about`, `/pricing`,
+`/blog` y `/blog/[slug]`. Próximo: nombrar el logo, los CTAs y
+los cards de actividades para cross-fades más ricos entre
+home ↔ actividades.
+
 ---
 
 ## 2. React 19
 
-### 2.1 React Compiler (cuando esté estable)
+### 2.1 React Compiler ✅ activo
 
-`reactCompiler` está comentado en `next.config.js` porque requiere `babel-plugin-react-compiler` instalado. Activar cuando:
+`reactCompiler: { target: '19' }` está habilitado en `next.config.js` (estable desde React 19). Requiere `babel-plugin-react-compiler` instalado como devDependency. Reglas:
 
-1. Se decida agregar el dev-dep.
-2. Se verifique que no rompe Server Components.
+- Las componentes se memoizan automáticamente en el IR — la mayoría de los `useMemo` / `useCallback` manuales ya no son necesarios. Conservar los actuales en `Navbar` y `ThemeToggle` mientras migramos o, idealmente, removerlos cuando verifiquemos que el compiler los cubre.
+- Compatible con HeroUI y React Aria Components porque ya declaran renders puros.
+- Server Components no se ven afectados — el compiler solo corre sobre boundary "use client".
 
 ### 2.2 Nuevas APIs
 
@@ -114,6 +180,12 @@ Cada `app/<route>/` tiene su `error.tsx` si tiene fetch de datos. Por ahora solo
 - `noFallthroughCasesInSwitch: true`
 - `forceConsistentCasingInFileNames: true`
 - `allowJs: false` — solo TS, no `.js`.
+- `noPropertyAccessFromIndexSignature: true` — fuerza `record['key']`
+  en vez de `record.key` para tipos con index signature.
+  - Acceso a `process.env` pasa a bracket notation:
+    `process.env['NEXT_PUBLIC_SENTRY_DSN']`.
+  - Records con keys literales (`as const satisfies Record<...>`) se
+    pueden seguir usando con `obj.key` después de tipar.
 
 ### 3.2 Path aliases
 
@@ -551,9 +623,23 @@ next/font/google (ya configurado en `config/fonts.ts`). No importes fuentes en C
 - ❌ No importes `framer-motion` directo — HeroUI lo hace lazy si es necesario.
 - ❌ No uses `useEffect` para cosas que pueden ser server-side.
 
-### 9.4 Imágenes OG y metadata
+### 9.4 Bundle analysis
+
+`npm run analyze` corre `next build && next experimental-analyze -o`.
+Output en `.next/diagnostics/analyze/index.html` (sin servidor) o
+levanta UI interactiva en `localhost:4000` si removés el `-o`.
+
+Útil cuando:
+- Agregás una dep nueva — ver cuánto pesa en el bundle.
+- Después de un upgrade mayor de Next/React/HeroUI.
+- Sospecha de regresión (cliente bundle creciendo sin razón).
+
+### 9.5 Imágenes OG y metadata
 
 Cada page debe exportar `metadata` y `viewport`. Para OG dinámico usá `generateMetadata`.
+
+Los assets visuales (OG image, favicons) viven como file-based routes
+— ver §1.7.
 
 ---
 
@@ -720,7 +806,94 @@ de Chromatic.
 - **Analytics** — Plausible o Umami (RGPD-friendly, cookie-less).
 - **Forms backend** — contacto y pre-inscripción. Resend + React
   Email es la opción más liviana.
-- **Error tracking** — Sentry o Highlight (free tiers generosos).
+
+> ✅ **Error tracking** está cubierto (ver §13). Sentry configurado;
+> solo falta crear proyecto free tier + setear `NEXT_PUBLIC_SENTRY_DSN`.
+
+---
+
+## 13. Production hardening
+
+Una vez que el sitio entra a `clublre.com.ar` (o el dominio que
+definas), esta checklist queda activa:
+
+### 13.1 Security headers (CSP + HSTS + friends) — ✅ aplicado
+
+`next.config.js` define un array `securityHeaders` y el hook
+`async headers()` los aplica a `/:path*`. Reglas:
+
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+  — 2 años. HSTS preload list submission: <https://hstspreload.org>
+- `X-Content-Type-Options: nosniff` — bloquea MIME sniffing
+- `X-Frame-Options: SAMEORIGIN` — anti-clickjacking
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy` — cámara / micrófono / geolocation / payment /
+  interest-cohort denegados
+- CSP estricta con `default-src 'self'`, `'unsafe-inline'` solo en
+  `style-src` / `script-src` (necesario para HeroUI + dev), y
+  `frame-ancestors 'none'` como segunda capa anti-clickjacking.
+
+⚠️ Headers NO se aplican en `next dev` (Vercel Live feedback +
+HMR + liveness probes rompen con strict CSP). El `headers()`
+callback detecta `process.env.NODE_ENV` y devuelve `[]` en dev,
+dejándolos activos solo en builds de producción.
+
+### 13.2 Error tracking (Sentry) — ✅ configurado
+
+`@sentry/nextjs` instalado. Files:
+- `instrumentation.ts` (Next 16 hook) — dispatcha el config
+  correcto según `NEXT_RUNTIME` (server / edge).
+- `sentry.{server,edge,client}.config.ts` — tres configs
+  separadas que setean `tracesSampleRate: 0.1` en prod.
+- `app/error.tsx` ya hace `Sentry.captureException(error, { tags:
+  { boundary: 'app/error' } })`. Lo mismo en `app/blog/error.tsx`
+  con tag `boundary='blog/[slug]'`. Filtrá issues en Sentry por
+  ese tag para separar errores globales vs scoped.
+
+Activación: una sola env var en Vercel Project Settings:
+
+```
+NEXT_PUBLIC_SENTRY_DSN=https://xxxx@sentry.io/123
+```
+
+Sin DSN, los configs no inicializan Sentry — zero overhead en dev.
+
+### 13.3 OG image, icons & JSON-LD — ✅ aplicado
+
+Ya cubierto en §1.7 y §1.8. Verificación post-deploy:
+
+```bash
+# OG image (debería devolver 200 + Content-Type: image/png)
+curl -I https://clublre.com.ar/opengraph-image
+
+# Favicons
+curl -I https://clublre.com.ar/icon          # 32×32
+curl -I https://clublre.com.ar/apple-icon    # 180×180
+
+# JSON-LD en SERP
+# Pegar URL en https://search.google.com/test/rich-results
+```
+
+### 13.4 Bundle analysis — ✅ aplicado
+
+`npm run analyze` corre `next build && next experimental-analyze -o`
+y deja reporte en `.next/diagnostics/analyze/index.html`. Útil
+cuando se agrega una dep o se sospecha regresión de tamaño.
+
+### 13.5 Pre-deploy checklist
+
+Antes de cada release taggeado:
+
+1. `npm run type-check && npm run lint && npm run build` — limpio.
+2. `npm run analyze` — diff de bundle, sin regresiones.
+3. Probar localmente con `npm run dev` — DevTools → Network tab
+   verificá:
+   - `<link rel="icon" href="/icon">` cargado
+   - `<link rel="apple-touch-icon" href="/apple-icon">` cargado
+   - `<meta property="og:image" content=".../opengraph-image">` presente
+   - JSON-LD `<script type="application/ld+json">` con `@type: SportsClub`
+4. Linter de opengraph.xyz → score 7/7 verde en description y title.
+5. Lighthouse → Performance ≥ 95, Accessibility = 100, Best Practices = 100.
 
 ---
 

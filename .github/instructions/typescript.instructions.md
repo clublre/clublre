@@ -10,10 +10,14 @@ file. They override defaults from Copilot's base model.
 ## Strict mode is non-negotiable
 
 - `tsconfig.json` has `strict: true` + `noUncheckedIndexedAccess` +
-  `noImplicitOverride`.
+  `noImplicitOverride` + `noPropertyAccessFromIndexSignature`.
 - Don't add `// @ts-expect-error` or `as any` to silence errors. Fix
   the type properly.
 - Don't disable `strict` flags.
+- For index-signature types, use `obj['key']` not `obj.key` (e.g.
+  `process.env['NEXT_PUBLIC_SENTRY_DSN']`). For records with literal
+  keys, prefer `as const satisfies Record<string, T>` so the keys
+  become a literal union at compile time.
 
 ## Type-only imports
 
