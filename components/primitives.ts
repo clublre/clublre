@@ -1,22 +1,30 @@
 import { tv } from "tailwind-variants";
 
+/**
+ * Heading variants — Club LRE
+ *
+ * Color variants reference the brand gradients defined in globals.css
+ * (gradient-estu-1, gradient-estu-2). Tailwind v4 doesn't ship
+ * arbitrary `from-[#xxx]` utilities by default the same way v3 did;
+ * we map colors to utility classes that resolve to our @theme tokens.
+ */
 export const title = tv({
   base: "tracking-tight inline font-semibold",
   variants: {
     color: {
-      violet: "from-[#FF1CF7] to-[#b249f8]",
-      yellow: "from-[#EEE457] to-[#EBC457]",
-      blue: "from-[#5EA2EF] to-[#0072F5]",
-      cyan: "from-[#00b7fa] to-[#01cfea]",
-      green: "from-[#6FEE8D] to-[#17c964]",
-      pink: "from-[#FF72E1] to-[#F54C7A]",
-      estu1: "from-[#0009A0] to-[#EEE457]",
-      estu2: "from-[#EBC457] to-[#0009A0]",
-      foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+      violet: "bg-gradient-to-r from-fuchsia-400 to-purple-500",
+      yellow: "bg-gradient-to-r from-yellow-300 to-yellow-500",
+      blue: "bg-gradient-to-r from-sky-400 to-blue-600",
+      cyan: "bg-gradient-to-r from-cyan-400 to-cyan-500",
+      green: "bg-gradient-to-r from-green-400 to-green-500",
+      pink: "bg-gradient-to-r from-pink-400 to-rose-500",
+      estu1: "gradient-estu-1",
+      estu2: "gradient-estu-2",
+      foreground: "dark:from-white dark:to-neutral-600",
     },
     size: {
       sm: "text-3xl lg:text-4xl",
-      md: "text-[2.3rem] lg:text-5xl leading-9",
+      md: "text-4xl lg:text-5xl leading-9",
       lg: "text-4xl lg:text-6xl",
     },
     fullWidth: {
@@ -39,7 +47,7 @@ export const title = tv({
         "estu2",
         "foreground",
       ],
-      class: "bg-clip-text text-transparent bg-gradient-to-r",
+      class: "bg-clip-text text-transparent",
     },
   ],
 });

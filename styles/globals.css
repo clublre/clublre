@@ -1,3 +1,101 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ==========================================================================
+   Club LRE - Global Styles
+   Tailwind CSS v4 + HeroUI v3 + Design Tokens
+   ========================================================================== */
+
+@import "tailwindcss";
+@import "@heroui/styles";
+
+/* --------------------------------------------------------------------------
+   Design tokens — Club LRE
+   Basado en la paleta azul (#0009A0) y dorado (#EEE457) del club.
+   ------------------------------------------------------------------------ */
+@theme {
+  /* Brand colors */
+  --color-estu-azul-50: oklch(0.97 0.03 270);
+  --color-estu-azul-100: oklch(0.93 0.06 270);
+  --color-estu-azul-200: oklch(0.85 0.12 270);
+  --color-estu-azul-300: oklch(0.72 0.18 270);
+  --color-estu-azul-400: oklch(0.58 0.22 270);
+  --color-estu-azul-500: oklch(0.45 0.24 270);
+  --color-estu-azul-600: oklch(0.36 0.22 270);
+  --color-estu-azul-700: oklch(0.28 0.18 270);
+  --color-estu-azul-800: oklch(0.22 0.14 270);
+  --color-estu-azul-900: oklch(0.17 0.1 270);
+  --color-estu-azul: #0009a0;
+
+  --color-estu-amarillo-50: oklch(0.98 0.04 95);
+  --color-estu-amarillo-100: oklch(0.95 0.08 95);
+  --color-estu-amarillo-200: oklch(0.9 0.14 95);
+  --color-estu-amarillo-300: oklch(0.85 0.17 95);
+  --color-estu-amarillo-400: oklch(0.82 0.17 95);
+  --color-estu-amarillo: #eee457;
+
+  /* Surfaces */
+  --color-surface: var(--background);
+  --color-surface-foreground: var(--foreground);
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fira-code), ui-monospace, monospace;
+
+  /* Radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Brand gradients
+   -------------------------------------------------------------------------- */
+.gradient-estu-1 {
+  background-image: linear-gradient(
+    to right,
+    var(--color-estu-azul),
+    var(--color-estu-amarillo)
+  );
+}
+
+.gradient-estu-2 {
+  background-image: linear-gradient(
+    to right,
+    var(--color-estu-amarillo),
+    var(--color-estu-azul)
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes pop-blob {
+  0% {
+    transform: scale(1);
+  }
+  33% {
+    transform: scale(1.2);
+  }
+  66% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@utility animate-pop-blob {
+  animation: pop-blob 5s infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply min-h-screen bg-background font-sans text-foreground antialiased;
+  }
+}

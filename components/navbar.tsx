@@ -1,145 +1,99 @@
-import { Link } from "@nextui-org/link";
-import {
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle,
-  Navbar as NextUINavbar,
-} from "@nextui-org/navbar";
-import { link as linkStyles } from "@nextui-org/theme";
-import clsx from "clsx";
+"use client";
+
 import NextLink from "next/link";
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaBars, FaTimes } from "react-icons/fa";
+import { useState } from "react";
+import { Link } from "@heroui/react";
+import clsx from "clsx";
 
 import { Logo } from "@/components/icons";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { siteConfig } from "@/config/site";
 
 export const Navbar = () => {
-  // const searchInput = (
-  //   <Input
-  //     aria-label="Search"
-  //     classNames={{
-  //       inputWrapper: "bg-default-100",
-  //       input: "text-sm",
-  //     }}
-  //     endContent={
-  //       <Kbd className="hidden lg:inline-block" keys={["command"]}>
-  //         K
-  //       </Kbd>
-  //     }
-  //     labelPlacement="outside"
-  //     placeholder="Search..."
-  //     startContent={
-  //       <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-  //     }
-  //     type="search"
-  //   />
-  // );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
-          <NextLink className="flex justify-start items-center gap-1" href="/">
-            <Logo />
-            {/* <p className="font-bold text-inherit">EL ESTU</p> */}
-          </NextLink>
-        </NavbarBrand>
-        <ul className="hidden sm:flex gap-4 justify-start ml-2">
+    <nav className="sticky top-0 z-50 w-full border-b border-default-200/50 bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+        {/* Brand */}
+        <NextLink
+          className="flex items-center gap-2"
+          href="/"
+          onClick={() => setIsMenuOpen(false)}
+        >
+          <Logo />
+        </NextLink>
+
+        {/* Desktop nav */}
+        <ul className="hidden gap-6 sm:flex">
           {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
+            <li key={item.href}>
               <NextLink
-                className={clsx(
-                  linkStyles({
-                    color: "primary",
-                    isBlock: true,
-                  }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
+                className="text-foreground transition-colors hover:text-primary data-[active=true]:font-medium data-[active=true]:text-primary"
                 href={item.href}
               >
                 {item.label}
               </NextLink>
-            </NavbarItem>
+            </li>
           ))}
         </ul>
-      </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-4">
-          {/* <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-            <GithubIcon className="text-default-500" />
-          </Link> */}
+        {/* Desktop right side */}
+        <div className="hidden items-center gap-4 sm:flex">
           <Link
-            isExternal
             aria-label="Instagram"
             href={siteConfig.links.instagram}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <FaInstagram className="text-default-500 size-6" />
           </Link>
           <ThemeSwitch />
-        </NavbarItem>
-        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
-        {/* <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
-        </NavbarItem> */}
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        {/* <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link> */}
-        <Link
-          isExternal
-          aria-label="Instagram"
-          href={siteConfig.links.instagram}
-        >
-          <FaInstagram className="text-default-500" />
-        </Link>
-        <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        {/* {searchInput} */}
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index > 2 ? "primary" : index === 4 ? "danger" : "foreground"
-                }
-                href={item.href}
-                size="lg"
-              >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
         </div>
-      </NavbarMenu>
-    </NextUINavbar>
+
+        {/* Mobile right side */}
+        <div className="flex items-center gap-3 sm:hidden">
+          <Link
+            aria-label="Instagram"
+            href={siteConfig.links.instagram}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <FaInstagram className="text-default-500 size-5" />
+          </Link>
+          <ThemeSwitch />
+          <button
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            className="rounded-md p-2 text-default-700 transition-colors hover:bg-default-100"
+            onClick={() => setIsMenuOpen((v) => !v)}
+          >
+            {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen ? (
+        <div className="border-t border-default-200/50 bg-background sm:hidden">
+          <ul className="container mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
+            {siteConfig.navMenuItems.map((item) => (
+              <li key={item.href}>
+                <NextLink
+                  className={clsx(
+                    "block rounded-md px-3 py-2 text-base text-foreground transition-colors",
+                    "hover:bg-default-100",
+                  )}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </NextLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </nav>
   );
 };
