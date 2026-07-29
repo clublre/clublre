@@ -89,6 +89,14 @@ const nextConfig = {
       'react-icons/fa',
       'framer-motion',
     ],
+    /**
+     * Opt into the CSS View Transitions API for client-side
+     * navigations between App Router routes. The browser will
+     * cross-fade matched elements (those sharing a
+     * `view-transition-name`) automatically. Fallback is an
+     * instant cut in browsers without support (Safari < 18).
+     */
+    viewTransition: true,
   },
 };
 
