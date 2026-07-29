@@ -168,7 +168,7 @@ export default function HomePage() {
       </Section>
 
       {/* ───────────── Actividades ───────────── */}
-      <Section as="section" id="actividades" spacing="lg" >
+      <Section as="section" id="actividades" spacing="lg">
         <Container>
           {/* Section header — eyebrow + h2 + subtitle + count */}
           <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
@@ -263,8 +263,8 @@ export default function HomePage() {
                 <NextLink
                   aria-label={`Leer ${post.title}`}
                   className={cn(
-                    'group border-default-200 bg-surface shadow-club relative flex h-full flex-col overflow-hidden rounded-xl border p-6',
-                    'hover:border-primary/40 hover:shadow-club-lg transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-0.5',
+                    'group bg-surface shadow-club relative flex h-full flex-col overflow-hidden rounded-xl p-6',
+                    'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5',
                   )}
                   href={`/blog/${post.slug}` as Route}
                 >
@@ -305,7 +305,7 @@ export default function HomePage() {
        * the secondary route for users who'd rather DM. */}
       <Section as="section" spacing="md">
         <Container>
-          <div className="from-primary via-primary/90 to-primary/70 text-primary-foreground shadow-club-lg relative overflow-hidden rounded-3xl bg-linear-to-br p-10 text-center md:p-16">
+          <div className="from-primary via-primary/50 to-primary/40 text-primary-foreground shadow-club-lg relative overflow-hidden rounded-3xl bg-linear-to-br p-10 text-center md:p-16">
             {/* Decorative blurred shapes */}
             <div
               aria-hidden="true"
@@ -335,7 +335,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <NextLink href="/pricing">
-                  <Button className="font-semibold" size="lg" variant="outline">
+                  <Button className="font-semibold" size="lg" variant="primary">
                     Quiero asociarme
                     <FaArrowRight aria-hidden="true" className="ml-2 size-4" />
                   </Button>
