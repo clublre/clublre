@@ -1,3 +1,9 @@
+/**
+ * Bundle analysis lives in `next experimental-analyze` (Turbopack
+ * compatible) and is invoked by `npm run analyze`. Keeping it out
+ * of the build path means zero overhead for normal CI / production.
+ */
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,

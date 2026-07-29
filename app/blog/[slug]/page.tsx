@@ -49,7 +49,8 @@ export default async function BlogPostPage({ params }: PageProps) {
           <FaArrowLeft size={12} /> Volver al blog
         </NextLink>
         <Eyebrow className="mb-3 block" tone="sky">
-          {post.category} · {formatDate(post.date)}
+          {post.category} ·{' '}
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
         </Eyebrow>
         <h1 className={title({ size: 'lg', class: 'block leading-[1.1]' })}>
           {post.title}

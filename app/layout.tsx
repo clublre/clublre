@@ -121,7 +121,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           type="application/ld+json"
         />
-        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+        <Providers
+          themeProps={{
+            attribute: 'class',
+            defaultTheme: 'system',
+            enableSystem: true,
+          }}
+        >
           {/* Skip link — visually hidden until focused, then keyboard-only
               users can jump straight to <main> without tabbing through
               the navbar. */}
