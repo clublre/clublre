@@ -592,3 +592,142 @@ npm run type-check && npm run lint
 ## 11. AI agents (gobernanza)
 
 Ver [`AGENTS.md`](./AGENTS.md) y [`.github/copilot-instructions.md`](./.github/copilot-instructions.md) para las reglas que cualquier AI agent (Copilot, Cursor, etc.) debe seguir en este repo.
+
+---
+
+## 12. Pendientes / Post-MVP
+
+Hay mejoras que **no forman parte del MVP** pero quedan registradas
+para iteraciones futuras. Cada item incluye: contexto, motivación,
+stack propuesto y esfuerzo estimado. No abrir PRs hasta que se
+defina un milestone.
+
+### 12.1 Tests unitarios + integration (Vitest + Testing Library)
+
+**Por qué ahora no:** el sitio es 100% estático (`output: "export"`
+en `next.config.js`), sin endpoints, sin auth, sin estado
+compartido. La superficie a testear es:
+- 5 componentes UI (`Section`, `Container`, `CardClub`, `Eyebrow`,
+  `BlurryBlob`)
+- 2 organisms (`Navbar`, `Footer`)
+- 1 molecule (`ThemeToggle`)
+- 1 atom (`IconButton`)
+- Helpers de `lib/utils` (`cn`)
+
+**Stack propuesto:**
+
+| Dependencia                             | Para qué                                     |
+| --------------------------------------- | -------------------------------------------- |
+| `vitest`                                | test runner compatible con TS + ESM          |
+| `@vitejs/plugin-react`                  | soporte React 19                             |
+| `@testing-library/react`                | render + queries semánticas                  |
+| `@testing-library/jest-dom`             | matchers (`toBeInTheDocument`, etc.)         |
+| `@testing-library/user-event`           | interacciones realistas (`click`, `type`)    |
+| `happy-dom`                             | entorno DOM rápido (más veloz que jsdom)     |
+| `axe-core` + `vitest-axe`               | smoke tests de a11y por componente           |
+
+**Estructura:**
+
+```text
+__tests__/
+  components/
+    ui/
+      Section.test.tsx
+      Container.test.tsx
+      Eyebrow.test.tsx
+    atoms/
+      IconButton.test.tsx
+    molecules/
+      ThemeToggle.test.tsx
+    organisms/
+      Navbar.test.tsx
+      Footer.test.tsx
+  lib/
+    utils.test.ts
+vitest.config.ts
+vitest.setup.ts
+```
+
+**Casos críticos a cubrir:**
+
+1. `Navbar` — `aria-current="page"` cuando el `pathname` coincide con
+   `item.href` (fragmentos excluidos).
+2. `ThemeToggle` — flippea clase `dark` en `<html>` y persiste en
+   `localStorage`.
+3. `Section` / `Container` / `Eyebrow` — `defaultVariants` aplicados
+   sin necesidad de props.
+4. `IconButton` — exige `aria-label` (debería fallar el build con
+   un wrapper que lo enforza).
+5. `cn` — combinación correcta con `tailwind-merge` (clases
+   conflictivas se colapsan).
+6. a11y — `vitest-axe` en cada organism principal.
+
+**Esfuerzo estimado:** 1 sprint (3–5 días).
+
+### 12.2 Storybook (visual docs + Chromatic)
+
+**Por qué ahora no:** todo el UI es estático y los organismos son
+pocos (Navbar, Footer). Cuando crezca la superficie (blog index,
+filtros, formularios de contacto, login de socios), Storybook paga
+su costo de setup.
+
+**Stack propuesto:**
+
+| Dependencia                                 | Versión          |
+| ------------------------------------------- | ---------------- |
+| `storybook`                                 | 8.x              |
+| `@storybook/nextjs-vite`                    | 8.x (compatible Next 16 + Vite) |
+| `@chromatic-com/storybook`                  | visual regression |
+| `@storybook/addon-a11y`                     | axe in-browser   |
+| `@storybook/addon-themes`                   | toggle sky/dark  |
+
+**Configuración recomendada:**
+
+```ts
+// .storybook/main.ts
+const config: StorybookConfig = {
+  framework: { name: "@storybook/nextjs-vite", options: {} },
+  stories: ["../components/**/*.stories.@(ts|tsx)"],
+  addons: [
+    "@storybook/addon-essentials",
+    "@storybook/addon-a11y",
+    "@storybook/addon-themes",
+  ],
+  staticDirs: ["../public"],
+};
+```
+
+**Convenciones de story:**
+
+- `CSF3` (Component Story Format 3) — funciones exportadas, `args`
+  declarativos.
+- Cada componente UI expone todas las variantes (`<Section>` →
+  `Default`, `Muted`, `Gradient`, `Transparent`).
+- `play()` para interacciones (`userEvent.click` en `Navbar.mobile`).
+- Chromatic en CI con umbral de diff < 0.1%.
+
+**Esfuerzo estimado:** 2 sprints (setup + stories base) + 1 sprint
+de Chromatic.
+
+### 12.3 Otras mejoras registradas (no priorizadas)
+
+- **PWA** (`next-pwa` o Workbox manual) — instalable en Android/iOS.
+- **i18n completo** (`next-intl`) — actualmente el sitio es es-AR
+  hardcodeado; si se abre a otros países, formalizar.
+- **CMS headless** (Sanity, Contentful o MDX remoto) para que la
+  comisión pueda postear sin tocar el repo.
+- **Analytics** — Plausible o Umami (RGPD-friendly, cookie-less).
+- **Forms backend** — contacto y pre-inscripción. Resend + React
+  Email es la opción más liviana.
+- **Error tracking** — Sentry o Highlight (free tiers generosos).
+
+---
+
+## Cómo reabrir esta lista
+
+Cuando se priorice un item:
+
+1. Moverlo a una nueva sección arriba (no queda en "Pendientes").
+2. Abrir un GitHub Issue referenciando el número de sección (§X.Y).
+3. Crear branch `feat/<short-name>` desde `main`.
+
