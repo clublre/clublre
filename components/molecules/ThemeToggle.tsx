@@ -41,16 +41,12 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
       aria-label={`Cambiar a tema ${isLight ? "oscuro" : "claro"}`}
       className={className}
       size={size}
-      variant="ghost"
+      variant='ghost'
       onPress={onPress}>
       <span
         aria-hidden='true'
         className='inline-flex text-default-700 transition-colors group-data-[hover=true]:text-foreground'>
-        {isLight ? (
-          <SunFilledIcon size={20} />
-        ) : (
-          <MoonFilledIcon size={20} />
-        )}
+        {isLight ? <SunFilledIcon size={20} /> : <MoonFilledIcon size={20} />}
       </span>
     </IconButton>
   );

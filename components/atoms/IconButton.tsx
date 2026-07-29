@@ -6,12 +6,7 @@ import { Button } from "@heroui/react";
 import { cn } from "@/lib/utils";
 
 type HeroUIVariant =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "outline"
-  | "ghost"
-  | "danger";
+  "primary" | "secondary" | "tertiary" | "outline" | "ghost" | "danger";
 
 export interface IconButtonProps {
   /** Accessible label — required for icon-only buttons. */

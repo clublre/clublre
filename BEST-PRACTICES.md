@@ -294,6 +294,50 @@ public/
 
 ---
 
+## 7.5 Dev server — workflow
+
+**Regla de oro**: el dev server se deja corriendo entre cambios.
+Turbopack hace HMR perfecto sobre:
+
+- Cualquier `.tsx` / `.ts` / `.css` — recargado en caliente.
+- Cambios en `components/`, `app/`, `config/`, `lib/`.
+- Cambios en `styles/globals.css` — recompila CSS.
+
+**Cuándo SÍ reiniciar el dev server** (raro, ~5% de los casos):
+
+- Cambio en `package.json` o `next.config.js`.
+- Cambio en `tailwind.config.js` / `postcss.config.mjs`.
+- Cambio en `.env*` o variables de entorno.
+- Errores de compilación que persistan tras varios HMR.
+- El puerto 3000 quedó en TIME_WAIT o zombie process.
+
+**No** mates el dev server manualmente (`pkill`, `kill <pid>`)
+entre cambios pequeños — eso deja zombies + cache corrupto y la
+próxima arrancada puede tardar minutos o usar el puerto equivocado.
+
+### Scripts disponibles
+
+```bash
+npm run dev          # arrancar el dev server (dejarlo corriendo)
+npm run dev:turbo    # alias explícito (Turbopack es el default en Next 16)
+npm run dev:clean          # matar zombies + wipe .next/cache + .next/dev
+npm run dev:clean -- restart  # idem + arrancar dev server de nuevo
+```
+
+### Qué hace `npm run dev:clean`
+
+1. Mata procesos zombis: `next dev`, `next-server`, `next-build`,
+   `next-devtools-mcp`.
+2. Libera puertos 3000, 3001, 3002 si están ocupados.
+3. Borra `.next/cache`, `.next/dev`, `.next/server`, `.next/static`,
+   `.next/types`, `node_modules/.cache`.
+4. (Opcional) Arranca `next dev` en background.
+
+Si el dev server se comporta raro, corré `npm run dev:clean -- restart`
+y volvé a probar.
+
+---
+
 ## 8. Accesibilidad (a11y)
 
 ### 8.1 Mínimo obligatorio
