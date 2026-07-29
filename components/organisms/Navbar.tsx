@@ -24,13 +24,20 @@ import { siteConfig } from '@/config/site';
  * Icon for each nav href. Kept module-level (no hooks) so both the
  * desktop nav and the drawer can reference icons by lookup without
  * re-rendering the icon tree.
+ *
+ * `as const` locks the keys to a literal union so lookup with
+ * `noPropertyAccessFromIndexSignature: true` typechecks without a
+ * cast and the fallback (`?? FaInfoCircle`) is reachable only
+ * for entries TS doesn't know about at compile time.
  */
-const NAV_ICONS: Record<string, IconType> = {
+const NAV_ICONS = {
   '/': FaHome,
   '/about': FaInfoCircle,
   '/blog': FaNewspaper,
   '/pricing': FaTags,
-};
+} as const satisfies Record<string, IconType>;
+
+type NavHref = keyof typeof NAV_ICONS;
 
 /**
  * Top-level site navigation.
@@ -89,7 +96,7 @@ export const Navbar = () => {
               `aria-current="page"` keeps working for the active route. */}
           <ul className="hidden items-center gap-1 sm:flex">
             {siteConfig.navItems.map((item) => {
-              const Icon = NAV_ICONS[item.href];
+              const Icon = NAV_ICONS[item.href as NavHref];
               const current = isCurrent(item.href);
               return (
                 <li key={item.href}>
@@ -170,7 +177,10 @@ export const Navbar = () => {
               <nav aria-label="Menú principal" className="flex-1">
                 <ul className="flex flex-col gap-1">
                   {siteConfig.navMenuItems.map((item) => {
-                    const Icon = NAV_ICONS[item.href] ?? FaInfoCircle;
+                    const Icon =
+                      (item.href in NAV_ICONS
+                        ? NAV_ICONS[item.href as NavHref]
+                        : null) ?? FaInfoCircle;
                     const current = isCurrent(item.href);
                     return (
                       <li key={item.href}>

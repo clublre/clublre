@@ -98,6 +98,17 @@ const nextConfig = {
      */
     viewTransition: true,
   },
+  /**
+   * React 19 + Next 16: opt into the React Compiler for
+   * automatic memoization. Stable in 19; safe for React Aria,
+   * HeroUI and most client components since they already mark
+   * pure renders. Drops most manual `useMemo` / `useCallback`
+   * in the codebase (we have a few in Navbar and ThemeToggle
+   * that can stay or be removed later).
+   */
+  reactCompiler: {
+    target: '19',
+  },
 };
 
 module.exports = nextConfig;
