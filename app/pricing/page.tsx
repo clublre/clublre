@@ -12,6 +12,7 @@ import {
 } from "@/components/ui";
 import { title } from "@/components/primitives";
 import { pricingTiers } from "@/data/club";
+import { cn } from "@/lib/utils";
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat("es-AR", {
@@ -19,6 +20,35 @@ const formatPrice = (price: number) =>
     currency: "ARS",
     maximumFractionDigits: 0,
   }).format(price);
+
+/**
+ * FAQ — the most common questions we get from prospective members.
+ * Uses native <details>/<summary> so it works without JS, is fully
+ * accessible (keyboard + screen-reader friendly), and the only
+ * client-side cost is the small CSS rotation on the +/- indicator.
+ */
+const FAQ_ITEMS = [
+  {
+    q: "¿Cómo me asocio al club?",
+    a: "Podés acercarte a nuestra sede de Av. Pellegrini 1500 de lunes a viernes de 9 a 21 h con tu DNI y una foto carnet. También podés escribirnos por Instagram para coordinar el trámite.",
+  },
+  {
+    q: "¿Los menores de edad pueden asociarse?",
+    a: "Sí. La cuota infantil es para menores de 12 años e incluye la escuela deportiva. Para asociar a un menor se requiere la presencia de un adulto responsable con DNI.",
+  },
+  {
+    q: "¿Qué incluye la cuota familiar?",
+    a: "La cuota familiar cubre a cuatro integrantes del grupo familiar e incluye pileta, todas las disciplinas y los eventos sociales del club.",
+  },
+  {
+    q: "¿Hay matrícula de ingreso?",
+    a: "No hay matrícula. Solo se abona el carnet de socio, que es un pago único anual, y la cuota mensual correspondiente al plan elegido.",
+  },
+  {
+    q: "¿Puedo probar una actividad antes de asociarme?",
+    a: "Sí, ofrecemos clases de prueba gratuitas en la mayoría de las disciplinas. Coordiná día y horario escribiendo a info@clublre.com.ar.",
+  },
+] as const;
 
 export default function PricingPage() {
   return (
@@ -95,6 +125,62 @@ export default function PricingPage() {
             * Los precios no incluyen el carnet de socio (pago único anual).
             Consultá por descuentos para grupos y empresas.
           </p>
+        </Container>
+      </Section>
+
+      {/* FAQ */}
+      <Section as='section' id='faq' spacing='lg'>
+        <Container size='md'>
+          <div className='mb-10 text-center'>
+            <Eyebrow className='mb-3 block' tone='sky'>
+              Preguntas frecuentes
+            </Eyebrow>
+            <h2 className={title({ size: 'md', class: 'block' })}>
+              Todo lo que necesitás saber
+            </h2>
+            <p className='text-default-600 mx-auto mt-3 max-w-xl'>
+              Si te queda alguna duda, escribinos por Instagram o al mail de
+              atención al socio y te respondemos a la brevedad.
+            </p>
+          </div>
+
+          <ul className='border-default-200 bg-surface divide-y divide-default-200 overflow-hidden rounded-2xl border shadow-club'>
+            {FAQ_ITEMS.map((item) => (
+              <li key={item.q}>
+                <details className='group'>
+                  <summary
+                    className={cn(
+                      'text-foreground hover:bg-default-100/60 flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium transition-colors',
+                      'marker:hidden list-none [&::-webkit-details-marker]:hidden',
+                    )}
+                  >
+                    <span>{item.q}</span>
+                    <span
+                      aria-hidden='true'
+                      className='bg-default-100 text-default-600 group-open:bg-primary group-open:text-primary-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors'
+                    >
+                      <svg
+                        className='size-3.5 transition-transform duration-200 group-open:rotate-45'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <path
+                          d='M12 5v14M5 12h14'
+                          stroke='currentColor'
+                          strokeLinecap='round'
+                          strokeWidth={2.5}
+                        />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className='text-default-700 px-5 pb-5 text-sm leading-relaxed'>
+                    {item.a}
+                  </div>
+                </details>
+              </li>
+            ))}
+          </ul>
         </Container>
       </Section>
     </>
