@@ -48,13 +48,13 @@ Tokens definidos en dos lugares (sincronizados):
 
 ### Patterns reutilizables (`components/patterns/`)
 
-| Componente | Uso |
-|---|---|
-| `<Section>` | Wrapper semántico de página (`variant` y `spacing` configurables). |
-| `<Container>` | Wrapper con max-width + padding consistente. |
-| `<Eyebrow>` | Label pequeño uppercase sobre un heading. |
-| `<CardClub>` | Card de marca con accent stripe opcional. |
-| `<BlurryBlob>` | Blobs animados decorativos para hero. |
+| Componente     | Uso                                                                |
+| -------------- | ------------------------------------------------------------------ |
+| `<Section>`    | Wrapper semántico de página (`variant` y `spacing` configurables). |
+| `<Container>`  | Wrapper con max-width + padding consistente.                       |
+| `<Eyebrow>`    | Label pequeño uppercase sobre un heading.                          |
+| `<CardClub>`   | Card de marca con accent stripe opcional.                          |
+| `<BlurryBlob>` | Blobs animados decorativos para hero.                              |
 
 ## Estructura
 

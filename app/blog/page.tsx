@@ -81,59 +81,51 @@ const formatDate = (iso: string) =>
 export default function BlogPage() {
   return (
     <>
-      <Section as="section" spacing="md">
+      <Section as='section' spacing='md'>
         <Container>
-          <Eyebrow tone="azul" className="mb-3 block">
+          <Eyebrow className='mb-3 block' tone='azul'>
             Novedades
           </Eyebrow>
           <h1
             className={title({
               size: "lg",
               class: "block max-w-3xl leading-[1.1]",
-            })}
-          >
+            })}>
             Blog del
             <span className={title({ color: "estu2" })}>club</span>
           </h1>
-          <p className="mt-4 max-w-2xl text-default-600">
+          <p className='mt-4 max-w-2xl text-default-600'>
             Novedades institucionales, resultados deportivos y todo lo que pasa
             en el club.
           </p>
         </Container>
       </Section>
 
-      <Section as="section" spacing="lg" variant="muted">
+      <Section as='section' spacing='lg' variant='muted'>
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className='grid gap-6 sm:grid-cols-2 lg:grid-cols-3'>
             {posts.map((post) => (
               <CardClub
                 key={post.slug}
                 accent={post.accent}
-                className="flex flex-col"
-              >
-                <div className="mb-3 flex items-center justify-between text-xs">
-                  <span className="rounded-full bg-estu-azul-50 px-2.5 py-1 font-medium uppercase tracking-wider text-estu-azul-700 dark:bg-estu-azul-900 dark:text-estu-azul-200">
+                className='flex flex-col'>
+                <div className='mb-3 flex items-center justify-between text-xs'>
+                  <span className='rounded-full bg-estu-azul-50 px-2.5 py-1 font-medium uppercase tracking-wider text-estu-azul-700 dark:bg-estu-azul-900 dark:text-estu-azul-200'>
                     {post.category}
                   </span>
-                  <time
-                    className="text-default-500"
-                    dateTime={post.date}
-                  >
+                  <time className='text-default-500' dateTime={post.date}>
                     {formatDate(post.date)}
                   </time>
                 </div>
-                <CardClubTitle className="hover:text-estu-azul">
-                  <NextLink href={`/blog/${post.slug}`}>
-                    {post.title}
-                  </NextLink>
+                <CardClubTitle className='hover:text-estu-azul'>
+                  <NextLink href={`/blog/${post.slug}`}>{post.title}</NextLink>
                 </CardClubTitle>
-                <CardClubBody className="mt-3 flex-grow">
+                <CardClubBody className='mt-3 grow'>
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-estu-azul hover:underline"
-                  href={`/blog/${post.slug}`}
-                >
+                  className='mt-4 inline-flex items-center gap-1 text-sm font-medium text-estu-azul hover:underline'
+                  href={`/blog/${post.slug}`}>
                   Leer más →
                 </NextLink>
               </CardClub>

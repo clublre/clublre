@@ -1,14 +1,18 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
+/**
+ * ESLint 9 flat config for Club LRE.
+ *
+ * Layers:
+ *  1. Global ignores.
+ *  2. next/core-web-vitals (native flat config shipped by Next 16).
+ *  3. next/typescript.
+ *  4. Project-specific rules.
+ *
+ * Note: `eslint-config-next` v16 already exports flat configs natively,
+ * so FlatCompat is no longer needed.
+ */
 const config = [
   {
     ignores: [
@@ -19,12 +23,17 @@ const config = [
       "next-env.d.ts",
       "*.config.js",
       "*.config.mjs",
+      "public/**",
     ],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
   {
     rules: {
-      "no-console": "warn",
+      // Console — only allow warn/error/info.
+      "no-console": ["warn", { allow: ["warn", "error", "info"] }],
+
+      // React hygiene.
       "react/self-closing-comp": "warn",
       "react/jsx-sort-props": [
         "warn",
@@ -35,6 +44,10 @@ const config = [
           reservedFirst: true,
         },
       ],
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+
+      // TypeScript hygiene.
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
@@ -43,8 +56,14 @@ const config = [
           argsIgnorePattern: "^_.*?$",
         },
       ],
-      "unused-imports/no-unused-imports": "warn",
-      "prettier/prettier": "warn",
+      "@typescript-eslint/consistent-type-imports": [
+        "warn",
+        { prefer: "type-imports", fixStyle: "inline-type-imports" },
+      ],
+
+      // Hooks.
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ];

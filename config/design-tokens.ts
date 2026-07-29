@@ -40,8 +40,7 @@ export const typography = {
   h4: "text-xl md:text-2xl font-semibold",
   body: "text-base md:text-lg leading-relaxed",
   small: "text-sm text-default-600",
-  eyebrow:
-    "text-xs uppercase tracking-[0.2em] font-medium text-default-500",
+  eyebrow: "text-xs uppercase tracking-[0.2em] font-medium text-default-500",
 } as const;
 
 /** Activities offered by the club (used across home + about pages). */

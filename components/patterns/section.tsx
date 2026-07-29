@@ -40,8 +40,7 @@ export function Section({
   return (
     <Tag
       className={cn(spacingMap[spacing], variantMap[variant], className)}
-      {...props}
-    >
+      {...props}>
       {children}
     </Tag>
   );

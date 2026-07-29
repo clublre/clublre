@@ -30,8 +30,7 @@ export function Eyebrow({
         toneMap[tone],
         className,
       )}
-      {...props}
-    >
+      {...props}>
       {children}
     </span>
   );

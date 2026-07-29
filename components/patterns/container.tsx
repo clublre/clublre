@@ -27,13 +27,8 @@ export function Container({
 }: ContainerProps) {
   return (
     <div
-      className={cn(
-        "mx-auto w-full px-6",
-        sizeMap[size],
-        className,
-      )}
-      {...props}
-    >
+      className={cn("mx-auto w-full px-6", sizeMap[size], className)}
+      {...props}>
       {children}
     </div>
   );

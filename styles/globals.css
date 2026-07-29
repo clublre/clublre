@@ -53,9 +53,10 @@
   --radius-xl: 1rem;
 
   /* Shadows */
-  --shadow-club: 0 4px 14px 0 rgb(0 9 160 / 0.12), 0 1px 4px 0 rgb(0 0 0 / 0.04);
-  --shadow-club-lg: 0 10px 40px 0 rgb(0 9 160 / 0.18),
-    0 4px 12px 0 rgb(0 0 0 / 0.06);
+  --shadow-club:
+    0 4px 14px 0 rgb(0 9 160 / 0.12), 0 1px 4px 0 rgb(0 0 0 / 0.04);
+  --shadow-club-lg:
+    0 10px 40px 0 rgb(0 9 160 / 0.18), 0 4px 12px 0 rgb(0 0 0 / 0.06);
 }
 
 /* --------------------------------------------------------------------------
@@ -186,7 +187,9 @@
 
   body {
     @apply min-h-screen bg-background font-sans text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 
   ::selection {

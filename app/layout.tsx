@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
+import { type Metadata, type Viewport } from "next";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
@@ -33,18 +33,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="es">
+    <html suppressHydrationWarning lang='es'>
       <head />
       <body
         className={clsx(
           "min-h-screen bg-background font-sans text-foreground antialiased",
           fontSans.variable,
-        )}
-      >
+        )}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <div className="relative flex min-h-screen flex-col">
+          <div className='relative flex min-h-screen flex-col'>
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <main className='grow'>{children}</main>
             <Footer />
           </div>
         </Providers>

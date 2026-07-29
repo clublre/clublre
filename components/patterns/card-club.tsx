@@ -42,10 +42,9 @@ export function CardClub({
           "ring-2 ring-estu-azul ring-offset-2 ring-offset-background",
         className,
       )}
-      {...props}
-    >
-      {media ? <div className="relative">{media}</div> : null}
-      <div className="relative p-6">{children}</div>
+      {...props}>
+      {media ? <div className='relative'>{media}</div> : null}
+      <div className='relative p-6'>{children}</div>
     </div>
   );
 }
@@ -67,8 +66,7 @@ export const CardClubTitle = ({
 }: HTMLAttributes<HTMLHeadingElement>) => (
   <h3
     className={cn("text-xl font-semibold text-foreground", className)}
-    {...props}
-  >
+    {...props}>
     {children}
   </h3>
 );
@@ -80,8 +78,7 @@ export const CardClubBody = ({
 }: HTMLAttributes<HTMLParagraphElement>) => (
   <p
     className={cn("text-sm leading-relaxed text-default-600", className)}
-    {...props}
-  >
+    {...props}>
     {children}
   </p>
 );

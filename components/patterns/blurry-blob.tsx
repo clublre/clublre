@@ -18,10 +18,9 @@ export default function BlurryBlob({
 }: BlobProps) {
   return (
     <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      <div className="relative h-full w-full">
+      aria-hidden='true'
+      className='pointer-events-none absolute inset-0 overflow-hidden'>
+      <div className='relative h-full w-full'>
         <div
           className={cn(
             "absolute -right-24 -top-28 h-72 w-72 animate-pop-blob rounded-full p-8 opacity-45 mix-blend-multiply blur-3xl filter",

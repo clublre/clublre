@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { type FC } from "react";
 import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 import { Switch } from "@heroui/react";
@@ -26,11 +26,10 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
       className={className}
       isSelected={isLight}
-      size="lg"
-      onChange={onChange}
-    >
-      <Switch.Control className="border-none bg-transparent group-data-[selected=true]:bg-transparent">
-        <Switch.Thumb className="bg-transparent shadow-none">
+      size='lg'
+      onChange={onChange}>
+      <Switch.Control className='border-none bg-transparent group-data-[selected=true]:bg-transparent'>
+        <Switch.Thumb className='bg-transparent shadow-none'>
           <Switch.Icon>
             {!isLight && !isSSR ? (
               <MoonFilledIcon size={22} />
