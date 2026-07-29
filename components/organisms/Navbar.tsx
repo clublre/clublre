@@ -4,8 +4,8 @@ import NextLink from "next/link";
 import { FaInstagram, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "@heroui/react";
-import clsx from "clsx";
 
+import { cn } from "@/lib/utils";
 import { Logo } from "@/components/icons";
 import { ThemeToggle } from "@/components/molecules/ThemeToggle";
 import { siteConfig } from "@/config/site";
@@ -75,7 +75,7 @@ export const Navbar = () => {
             {siteConfig.navMenuItems.map((item) => (
               <li key={item.href}>
                 <NextLink
-                  className={clsx(
+                  className={cn(
                     "block rounded-md px-3 py-2 text-base text-foreground transition-colors",
                     "hover:bg-default-100",
                   )}

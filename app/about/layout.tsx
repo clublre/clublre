@@ -3,11 +3,8 @@ export default function AboutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-lg text-center justify-center">
-        {children}
-      </div>
-    </section>
-  );
+  // Pass-through. Page-level layout is configured by each page's <Section />
+  // + <Container /> primitives — keeping this minimal avoids clipping content
+  // to max-w-lg.
+  return <>{children}</>;
 }

@@ -1,48 +1,64 @@
 # Club LRE
 
-> Sitio oficial del Club Los Rosarinos Estudiantil (CLUB L.R.E), una institución deportiva y social de Rosario, Argentina, fundada en 1943.
+> Sitio oficial del **Club Los Rosarinos Estudiantil** (CLUB L.R.E), una
+> institución deportiva y social de Rosario, Argentina, fundada en 1943.
 
-This file helps AI assistants and crawlers understand the project structure. For complete API documentation of the UI library used (HeroUI v3), see `https://heroui.com/llms.txt`.
+This file helps AI assistants and crawlers understand the project structure.
+For complete API documentation of the UI library used (HeroUI v3), see
+`https://heroui.com/llms.txt`.
 
 ## Project
 
 - **Type**: Next.js 16 (App Router) website
 - **UI library**: HeroUI v3 (`@heroui/react` + `@heroui/styles`)
-- **Styling**: Tailwind CSS v4 (CSS-based config, no JS)
-- **Language**: TypeScript 6
+- **Styling**: Tailwind CSS v4 (CSS-based config via `@theme`, no JS)
+- **Language**: TypeScript 6 (strict + noUncheckedIndexedAccess)
 - **Theme**: `next-themes` (light/dark), default dark
 - **Node**: 22.21.1 (see `.nvmrc`)
 
 ## Structure
 
 ```
-app/                  # Next.js App Router
-  layout.tsx          # Root layout (Navbar + Footer)
-  page.tsx            # Home (hero, activities, CTA)
-  about/              # About / history page
-  blog/               # Blog index (placeholder posts)
-  pricing/            # Membership pricing tiers
-  providers.tsx       # next-themes wrapper
+app/
+  layout.tsx          # Root layout (Navbar + Footer + Providers)
+  page.tsx            # Home (hero, actividades, CTA)
+  about/              # About page
+  blog/
+    page.tsx          # Blog index
+    [slug]/page.tsx   # Dynamic post page (typedRoutes-friendly)
+  pricing/            # Pricing tiers page
+  error.tsx           # Global error boundary
+  providers.tsx       # Client providers wrapper (next-themes only)
 components/
-  navbar.tsx          # Top navigation (HeroUI Link)
-  footer.tsx          # Site footer
-  theme-switch.tsx    # HeroUI Switch + next-themes
-  counter.tsx         # Demo Button component
-  icons.tsx           # SVG icons
-  patterns/           # Reusable design system primitives
-    section.tsx       # <Section> — semantic page section
-    container.tsx     # <Container> — fixed max-width wrapper
-    eyebrow.tsx       # <Eyebrow> — small uppercase label
-    card-club.tsx     # <CardClub> — branded card with optional accent
-    blurry-blob.tsx   # BlurryBlob — decorative animated background
+  icons.tsx           # Brand SVG icons
+  primitives.ts       # tailwind-variants helpers (title, subtitle)
+  counter.tsx         # Demo Button (NOT part of the design system)
+  atoms/              # Atomic design — atoms (single-purpose, no state)
+    IconButton.tsx    # HeroUI Button with isIconOnly + aria-label
+    index.ts
+  molecules/          # Atomic design — molecules (atoms + state/logic)
+    ThemeToggle.tsx   # IconButton + next-themes (sun/moon toggle)
+    index.ts
+  organisms/          # Atomic design — organisms (full sections)
+    Navbar.tsx        # Top navigation
+    Footer.tsx        # Site footer
+  ui/                 # Atomic design — UI primitives (layout & decorative)
+    Section.tsx       # <Section> — semantic page section
+    Container.tsx     # <Container> — fixed max-width wrapper
+    Eyebrow.tsx       # <Eyebrow> — small uppercase label
+    CardClub.tsx      # <CardClub> — branded card with optional accent
+    BlurryBlob.tsx    # Decorative animated background blobs
+    index.ts
 config/
-  site.ts             # Site metadata, nav items, social links
-  design-tokens.ts    # Brand colors, typography, spacing, activities
+  site.ts             # Site metadata, navItems, social links
+  design-tokens.ts    # TS mirror of CSS @theme tokens (brand + content)
   fonts.ts            # next/font configs (Inter, Fira Code)
 styles/
-  globals.css         # @import tailwindcss + @heroui/styles + @theme
-types/
-  index.ts            # IconSvgProps
+  globals.css         # @import tailwindcss + @heroui/styles
+                       # + Sky theme override (oklch 0.685 0.169 237)
+                       # + @theme block (brand tokens)
+public/
+  llms.txt            # this file
 ```
 
 ## Design system
@@ -50,42 +66,67 @@ types/
 Tokens are defined in two places (kept in sync):
 
 1. `styles/globals.css` — `@theme { ... }` block (Tailwind v4 native).
-2. `config/design-tokens.ts` — TypeScript constants for `tailwind-variants`.
+2. `config/design-tokens.ts` — TypeScript constants for code consumption.
 
 ### Brand palette
 
-- **`estu-azul`** `#0009A0` — primary brand blue.
-- **`estu-amarillo`** `#EEE457` — primary brand yellow.
-- Each has a 50–900 scale (`estu-azul-50` to `estu-azul-900`).
+- **Primary** — HeroUI **Sky** theme (cyan/blue). Override of `--accent`
+  in `styles/globals.css` `@layer base`. Use `bg-primary` /
+  `text-primary`, or Tailwind built-ins `bg-sky-*` / `text-sky-*`.
+- **Secondary** — `#EEE457` — `bg-amarillo` (decorative accent only).
 
-### Gradients
-
-- `gradient-estu-1` — blue → yellow.
-- `gradient-estu-2` — yellow → blue.
-- `gradient-estu-radial` — radial fade for hero backgrounds.
-
-### Surfaces (light/dark)
+### Surfaces (light/dark, switched via next-themes)
 
 - `bg-background` / `text-foreground` — page background and text.
 - `bg-surface` / `bg-surface-muted` — card / panel surfaces.
 - `border-default-200` — standard border.
+- `text-default-600`, `text-default-500` — neutral text scale.
+
+### Shadows & gradients (brand-specific)
+
+- `shadow-club` / `shadow-club-lg` — tinted with the sky accent.
+- `gradient-sky` — sky → yellow.
+- `gradient-amarillo` — yellow → white-ish.
+- `gradient-radial-sky` — radial fade for hero backgrounds.
 
 ## HeroUI v3 conventions
 
-- **No Provider** — components work without `<NextUIProvider>`.
-- **Compound components** — `Card.Header`, `Card.Content`, etc.
-- **Theme via `next-themes`** — HeroUI reads `data-theme` / `class="dark"`.
-- **Switch / Button / Link** are imported from `@heroui/react`.
+- **No Provider** — components work without `<NextUIProvider>`. Only
+  `next-themes` `ThemeProvider` is used.
+- **Compound API** — `Card.Header`, `Card.Body`, `Switch.Content`,
+  `Switch.Control`, `Switch.Thumb`, `Switch.Icon`.
+- **Theme via `next-themes`** — reads `class="dark"` on `<html>`.
+- **Button / Link / Switch** are imported from `@heroui/react`.
 
 ## Conventions
 
 - Spanish copy (`lang="es"`).
-- Tailwind utility classes; never inline styles.
-- Use patterns from `components/patterns/` rather than ad-hoc layouts.
-- Add new brand colours to **both** `globals.css` and `design-tokens.ts`.
+- Tailwind utility classes; never inline styles (`style={{...}}`).
+- Use primitives from `components/ui/`; new shared components go to
+  `components/atoms/` / `molecules/` / `ui/` / `organisms/`.
+- Tokens live in CSS `@theme` + mirrored TS constants in
+  `config/design-tokens.ts`.
+- `cn()` from `@/lib/utils` for conditional class strings (uses
+  tailwind-merge).
+- TypeScript strict; prefer `import type {...}` for type-only imports.
+- `Route` from `next` for `<Link href>` values; cast `as Route` only for
+  fragment URLs (e.g. `/#section`).
 
 ## Common tasks
 
-- **Add a page**: create `app/<route>/page.tsx`, import from `@/components/patterns`.
-- **Add a token**: edit `styles/globals.css` (`@theme` block) + `config/design-tokens.ts`.
-- **Add a navigation item**: edit `config/site.ts` (`navItems` + `navMenuItems`).
+- **Add a page**: create `app/<route>/page.tsx`, import from
+  `@/components/ui`.
+- **Add a token**: edit `styles/globals.css` (`@theme` block) +
+  `config/design-tokens.ts`.
+- **Add a navigation item**: edit `config/site.ts` (`navItems` +
+  `navMenuItems`).
+- **Add a reusable component** (atomic design):
+  - atom → `components/atoms/<Name>.tsx`
+  - molecule → `components/molecules/<Name>.tsx`
+  - UI primitive → `components/ui/<Name>.tsx`
+  - organism → `components/organisms/<Name>.tsx`
+- **Verify before commit**: `npm run type-check && npm run lint &&
+  npm run build`.
+- **MCP servers** available (auto-started by VS Code on demand):
+  `heroui-react`, `next-devtools`, `codebase-memory-mcp` (knowledge
+  graph of the codebase), `sequential-thinking`.

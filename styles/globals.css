@@ -109,6 +109,11 @@
   /* Secondary brand — Club LRE amarillo (kept as institution identity). */
   --color-amarillo: oklch(0.92 0.17 95);
 
+  /* Soft sky tokens — used for category pills, tags, chips.
+     These are accent-50 / accent-900 of the Sky palette. */
+  --color-sky-soft: color-mix(in oklch, var(--accent) 12%, transparent);
+  --color-sky-soft-fg: var(--accent);
+
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-fira-code), ui-monospace, monospace;
@@ -143,6 +148,9 @@
   --color-surface-tertiary: var(--surface-tertiary);
 
   --color-surface-muted: var(--surface-secondary);
+
+  --color-sky-soft: color-mix(in oklch, var(--accent) 14%, transparent);
+  --color-sky-soft-fg: var(--accent);
 
   --color-border: var(--border);
 

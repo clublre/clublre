@@ -48,7 +48,27 @@ Tokens definidos en dos lugares (sincronizados):
   built-in de Tailwind `bg-sky-*` / `text-sky-*`.
 - **Secondary** — `#EEE457` — `bg-amarillo` (acento decorativo).
 
-### Patterns reutilizables (`components/patterns/`)
+### Estructura atomic design
+
+```
+components/
+  icons.tsx           # Brand SVG icons
+  primitives.ts       # tailwind-variants helpers (title, subtitle)
+  counter.tsx         # Demo Button (NO es parte del design system)
+  atoms/              # Atomic — single-purpose, no state
+    IconButton.tsx    # HeroUI Button isIconOnly + aria-label
+  molecules/          # Atomic — atoms + state/logic
+    ThemeToggle.tsx   # IconButton + next-themes (sun/moon)
+  organisms/          # Atomic — full sections
+    Navbar.tsx
+    Footer.tsx
+  ui/                 # Atomic — UI primitives (layout & decorative)
+    Section.tsx       # <Section> — wrapper semántico con variant/spacing
+    Container.tsx     # <Container> — fixed max-width + padding
+    Eyebrow.tsx       # <Eyebrow> — small uppercase label
+    CardClub.tsx      # <CardClub> — branded card con accent stripe
+    BlurryBlob.tsx    # Blobs animados decorativos para hero
+```
 
 | Componente     | Uso                                                                |
 | -------------- | ------------------------------------------------------------------ |
@@ -57,37 +77,41 @@ Tokens definidos en dos lugares (sincronizados):
 | `<Eyebrow>`    | Label pequeño uppercase sobre un heading.                          |
 | `<CardClub>`   | Card de marca con accent stripe opcional.                          |
 | `<BlurryBlob>` | Blobs animados decorativos para hero.                              |
+| `IconButton`   | Atom wrapper sobre HeroUI Button con `isIconOnly` + `aria-label`. |
+| `ThemeToggle`  | Molecule que combina `IconButton` + `next-themes` para light/dark.  |
 
-## Estructura
+## Estructura del proyecto
 
 ```
 app/                  # Next.js App Router
   layout.tsx
   page.tsx            # Home (hero, actividades, CTA)
   about/              # Historia, valores, comisión
-  blog/               # Blog index
+  blog/               # Blog index + [slug]
   pricing/            # Cuotas
-  providers.tsx
-components/
-  navbar.tsx
-  footer.tsx
-  theme-switch.tsx
-  patterns/           # Design system primitives
+  providers.tsx       # next-themes wrapper (NO NextUIProvider)
 config/
-  site.ts
-  design-tokens.ts
-  fonts.ts
+  site.ts             # Nav items, metadata
+  design-tokens.ts    # TS tokens espejo de globals.css
+  fonts.ts            # next/font configs
+scripts/              # dev-clean.mjs, etc.
 styles/
   globals.css         # @import tailwindcss + @heroui/styles + @theme
 public/
   llms.txt            # Contexto para AI agents
+.github/              # Governance: AGENTS.md, copilot-instructions.md,
+                      # .instructions/*.md (TypeScript/Tailwind/HeroUI/Git),
+                      # agents/*.agent.md, prompts/*.prompt.md,
+                      # workflows/ci.yml
 ```
 
 ## Convenciones
 
 - **ES** para todo el copy (`lang="es"`).
-- **Tailwind utilities** — nunca inline styles.
-- **Patterns primero** — usar `<Section>`, `<Container>`, `<CardClub>` en vez de clases sueltas.
+- **Tailwind utilities** — nunca inline styles; nunca valores arbitrarios
+  (`bg-[#xxx]`).
+- **Atomic design** — nuevos componentes compartidos van en `atoms/`,
+  `molecules/`, `ui/` u `organisms/`. Nunca en la raíz de `components/`.
 - **Tokens duplicados** — cualquier color/space nuevo va en **ambos** `globals.css` y `design-tokens.ts`.
 
 ## AI tooling

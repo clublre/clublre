@@ -25,12 +25,12 @@
 | A button                    | `<Button>` from `@heroui/react`.                               |
 | A link to internal page     | `<NextLink href="...">` with `Route` type.                     |
 | A link to external URL      | Plain `<a>` with `target="_blank" rel="noopener noreferrer"`.  |
-| A card / panel              | `<CardClub>` from `@/components/patterns`.                     |
+| A card / panel              | `<CardClub>` from `@/components/ui`.                           |
 | A page section with padding | `<Section variant="..." spacing="...">`.                       |
 | A constrained-width wrapper | `<Container size="...">`.                                      |
-| An icon button              | `<button aria-label="...">` with react-icons child.            |
-| A switch / toggle           | `<Switch>` from `@heroui/react`.                               |
-| A nav bar                   | The existing `components/navbar.tsx` pattern (sticky `<nav>`). |
+| An icon button              | `<IconButton>` from `@/components/atoms/IconButton`.           |
+| A switch / toggle           | `<ThemeToggle>` from `@/components/molecules/ThemeToggle`.      |
+| A nav bar                   | The existing `components/organisms/Navbar.tsx` pattern.       |
 | A form input                | `<Input>` from `@heroui/react`.                                |
 
 If none of these fit, say so and propose a new pattern — don't invent

@@ -110,7 +110,7 @@ export default function BlogPage() {
                 accent={post.accent}
                 className='flex flex-col'>
                 <div className='mb-3 flex items-center justify-between text-xs'>
-                  <span className='rounded-full bg-sky-50 px-2.5 py-1 font-medium uppercase tracking-wider text-sky-700 dark:bg-sky-900 dark:text-sky-200'>
+                  <span className='rounded-full bg-sky-soft px-2.5 py-1 font-medium uppercase tracking-wider text-sky-soft-fg'>
                     {post.category}
                   </span>
                   <time className='text-default-500' dateTime={post.date}>

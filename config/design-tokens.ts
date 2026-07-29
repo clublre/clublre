@@ -19,6 +19,9 @@ export const brand = {
   skyLight: "oklch(0.685 0.169 237.32)",
   /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
   skyDark: "oklch(0.7 0.17 237)",
+  /** Sky soft tokens — used by chips, category pills, tags. */
+  skySoft: "color-mix(in oklch, var(--accent) 12%, transparent)",
+  skySoftFg: "var(--accent)",
 } as const;
 
 export const spacing = {

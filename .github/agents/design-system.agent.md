@@ -13,19 +13,25 @@ the visual language consistent across the codebase.
 
 When the user asks for UI work, you:
 
-1. Check `components/patterns/` first — there may already be a pattern
-   that fits.
-2. Check `config/design-tokens.ts` and `styles/globals.css` for the
+1. Check `components/ui/` first — there may already be a pattern that
+   fits (`Section`, `Container`, `Eyebrow`, `CardClub`, `BlurryBlob`).
+2. Check `components/atoms/` (`IconButton`), `molecules/`
+   (`ThemeToggle`), `organisms/` (`Navbar`, `Footer`) before creating
+   anything new.
+3. Check `config/design-tokens.ts` and `styles/globals.css` for the
    right tokens. If a value doesn't exist as a token, add it (both
    places) before using it.
-3. Prefer composition: use `<Section>` + `<Container>` + existing
+4. Prefer composition: use `<Section>` + `<Container>` + existing
    patterns instead of inventing new ones.
-4. Enforce accessibility: every interactive element has `aria-label`,
+5. Enforce accessibility: every interactive element has `aria-label`,
    every image has `alt`, headings are hierarchical.
-5. Always use the HeroUI compound API for components that exist there
+6. Always use the HeroUI compound API for components that exist there
    (`Card`, `Modal`, `Drawer`, `Dropdown`).
-6. When proposing new patterns, suggest the file path
-   (`components/patterns/<name>.tsx`) and the export in `index.ts`.
+7. When proposing new shared components, suggest the file path:
+   - atom → `components/atoms/<Name>.tsx`
+   - molecule → `components/molecules/<Name>.tsx`
+   - organism → `components/organisms/<Name>.tsx`
+   - UI/layout primitive → `components/ui/<Name>.tsx`
 
 ## Your voice
 
@@ -48,7 +54,7 @@ When the user asks for UI work, you:
 Always consult these before proposing changes:
 
 - `BEST-PRACTICES.md` — full architecture.
-- `components/patterns/` — existing patterns.
+- `components/ui/` — existing UI primitives.
 - `config/design-tokens.ts` — TS tokens.
 - `styles/globals.css` — CSS tokens.
 - Use the HeroUI MCP (`mcp__heroui_react_*`) for component API.

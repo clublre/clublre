@@ -10,23 +10,28 @@ these steps exactly.
 
 ## Before you start
 
-1. **Search first.** Check `components/patterns/`, `components/`, and
-   HeroUI v3 — does this already exist? If yes, use it.
+1. **Search first.** Check `components/ui/`, `components/atoms/`,
+   `components/molecules/`, `components/organisms/`, and HeroUI v3 —
+   does this already exist? If yes, use it.
 2. **Read** `BEST-PRACTICES.md` and `AGENTS.md`.
 
 ## If it's truly new
 
-1. **Pick a folder.**
-   - Reusable across pages → `components/patterns/<Name>.tsx` + export
-     in `index.ts`.
+1. **Pick a folder (atomic design).**
+   - Reusable across pages + interactive state / logic → atom
+     (`components/atoms/<Name>.tsx`) or molecule
+     (`components/molecules/<Name>.tsx`).
+   - Reusable across pages + layout / decorative → UI primitive
+     (`components/ui/<Name>.tsx`).
+   - Full page section → organism (`components/organisms/<Name>.tsx`).
    - Page-specific → `app/<route>/_components/<Name>.tsx` (underscore
      prefix = private to that route).
-2. **Use `cn()` and `tailwind-variants`** for variants. Don't use
+2. **Use `cn()` and `tailwind-variants`** for variants. Don't use raw
    `className={...}` ternaries.
 3. **Type the props with `VariantProps<typeof component>`** for
    variants.
-4. **Tokens only.** No arbitrary values. If you need a new color,
-   add it to `styles/globals.css` (`@theme`) and
+4. **Tokens only.** No arbitrary values (`bg-[#xxx]`). If you need a
+   new color, add it to `styles/globals.css` (`@theme`) and
    `config/design-tokens.ts`.
 5. **Server Component by default.** Only add `"use client"` if you
    really need state / effects.
@@ -70,7 +75,8 @@ export function Name({ className, variant, size, ...props }: NameProps) {
 
 ## After
 
-1. Export in `components/patterns/index.ts`.
+1. Export in the matching `index.ts` (atoms / molecules / ui /
+   organisms).
 2. If the component introduces new tokens, update `BEST-PRACTICES.md`.
 3. Run `npm run type-check && npm run lint && npm run build`.
 4. If the component is used on a page, verify it in the browser.

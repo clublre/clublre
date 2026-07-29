@@ -57,8 +57,8 @@ voice: warm, community-focused, no marketing fluff.
 - `app/about/page.tsx` — about.
 - `app/blog/page.tsx` + `app/blog/[slug]/page.tsx` — blog.
 - `app/pricing/page.tsx` — pricing.
-- `components/footer.tsx` — contact info, navigation labels.
-- `components/navbar.tsx` — nav items.
+- `components/organisms/Footer.tsx` — contact info, navigation labels.
+- `components/organisms/Navbar.tsx` — nav items.
 - `config/site.ts` — site metadata.
 
 ## How to write

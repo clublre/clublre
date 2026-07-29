@@ -30,8 +30,9 @@ For every PR or change, check:
 - [ ] No imports from `@nextui-org/*`.
 - [ ] Tokens added in `globals.css` are mirrored in
       `config/design-tokens.ts`.
-- [ ] Reusable UI added in `components/patterns/`, not
-      `components/`.
+- [ ] Reusable UI added in `components/ui/` /
+      `components/atoms/` / `components/molecules/` /
+      `components/organisms/` — never at the root of `components/`.
 - [ ] `Route` type used for `<Link href>` (when not a fragment URL).
 
 ### Styling
