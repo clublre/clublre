@@ -9,14 +9,51 @@ import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
 
+/** Public origin used for absolute metadata URLs (OG, Twitter, canonical). */
+const SITE_URL = 'https://clublre.com.ar';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  applicationName: siteConfig.name,
+  keywords: [
+    'Club Los Rosarinos Estudiantil',
+    'CLUB L.R.E',
+    'club deportivo Rosario',
+    'fútbol',
+    'básquet',
+    'natación',
+    'tenis',
+  ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: SITE_URL,
+    locale: 'es_AR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
   icons: {
     icon: '/logo.jpeg',
+    apple: '/logo.jpeg',
   },
 };
 
