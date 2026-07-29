@@ -43,7 +43,7 @@ type NavHref = keyof typeof NAV_ICONS;
  * Top-level site navigation.
  *
  * - Desktop (>= sm): brand + horizontal pill-style nav with icon + label
- *   (bg-primary/10 active state + hover bg-default-100) + theme toggle.
+ *   (bg-primary/10 active state + hover bg-foreground/10) + theme toggle.
  *   Instagram lives in the Footer (single source of truth for the social
  *   link) so we don't repeat it across the chrome.
  * - Mobile (< sm): brand + hamburger that opens a HeroUI `Drawer`
@@ -107,7 +107,7 @@ export const Navbar = () => {
                       'focus-visible:ring-primary focus-visible:ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                       current
                         ? 'bg-primary/10 text-primary'
-                        : 'text-default-600 hover:bg-default-100 hover:text-foreground',
+                        : 'text-default-600 hover:bg-foreground/10 hover:text-foreground',
                     )}
                     href={item.href}
                   >
@@ -169,7 +169,7 @@ export const Navbar = () => {
                 <ThemeToggle />
                 {/* Override the slot's absolute positioning so the close
                     button participates in the header's flex flow. */}
-                <Drawer.CloseTrigger className="text-default-600 hover:text-foreground hover:bg-default-100 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4" />
+                <Drawer.CloseTrigger className="text-default-600 hover:text-foreground hover:bg-foreground/10 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4" />
               </div>
             </Drawer.Header>
 
@@ -190,7 +190,7 @@ export const Navbar = () => {
                             'group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
                             current
                               ? 'bg-primary/10 text-primary'
-                              : 'text-default-700 hover:bg-default-100 hover:text-foreground',
+                              : 'text-default-700 hover:bg-foreground/10 hover:text-foreground',
                           )}
                           href={item.href}
                           onClick={() => setIsMenuOpen(false)}

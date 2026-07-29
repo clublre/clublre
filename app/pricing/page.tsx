@@ -155,14 +155,14 @@ export default function PricingPage() {
                 <details className="group">
                   <summary
                     className={cn(
-                      'text-foreground hover:bg-default-100/60 flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium transition-colors',
+                      'text-foreground hover:bg-foreground/5 flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium transition-colors',
                       'list-none marker:hidden [&::-webkit-details-marker]:hidden',
                     )}
                   >
                     <span>{item.q}</span>
                     <span
                       aria-hidden="true"
-                      className="bg-default-100 text-default-600 group-open:bg-primary group-open:text-primary-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors"
+                      className="bg-foreground/10 text-default-600 group-open:bg-primary group-open:text-primary-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors"
                     >
                       <svg
                         className="size-3.5 transition-transform duration-200 group-open:rotate-45"

@@ -50,7 +50,7 @@ export const IconButton: FC<IconButtonProps> = ({
         // Make the button truly square so the icon is visually centered.
         "min-w-0 p-0",
         // Use a hover background that contrasts both themes.
-        "data-[hover=true]:bg-default-100",
+        "data-[hover=true]:bg-foreground/10",
         className,
       )}
       isDisabled={isDisabled}
