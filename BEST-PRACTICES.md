@@ -52,11 +52,11 @@ Si necesitás un link externo, usá `<a target="_blank" rel="noopener noreferrer
 
 ```ts
 // ✅ bien
-import { Button, Link } from "@heroui/react";
-import { FaInstagram } from "react-icons/fa";
+import { Button, Link } from '@heroui/react';
+import { FaInstagram } from 'react-icons/fa';
 
 // ❌ evita rutas internas (no son tree-shakables)
-import { Button } from "@heroui/react/dist/components/button";
+import { Button } from '@heroui/react/dist/components/button';
 ```
 
 ### 1.4 Metadata
@@ -128,9 +128,9 @@ Usá `@/...` para imports absolutos. El mapping vive en `tsconfig.json`:
 Preferí `type` imports:
 
 ```ts
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode } from 'react';
 // o
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 ```
 
 ### 3.4 Props con variantes
@@ -335,6 +335,51 @@ npm run dev:clean -- restart  # idem + arrancar dev server de nuevo
 
 Si el dev server se comporta raro, corré `npm run dev:clean -- restart`
 y volvé a probar.
+
+---
+
+## 7.6 `codebase-memory` — opcional, no commiteado
+
+[`codebase-memory`](https://github.com/RagavRida/codebase-memory) es
+una CLI que analiza el codebase una vez y genera archivos de contexto
+auto-actualizados para 7 AI tools (Claude Code, Cursor, GitHub
+Copilot, Windsurf, Cline, Aider, Roo Code).
+
+### Por qué NO está commiteado
+
+`codebase-memory` genera archivos como `.claude/`, `.cursorrules`,
+`.windsurfrules`, `.clinerules`, `.roomodes`, `CLAUDE.md`,
+`CONVENTIONS.md` — **todos están en `.gitignore`**. Cada developer
+los regenera localmente con `codebase-memory analyze .`.
+
+El **único archivo que sí commiteamos** es `.github/copilot-instructions.md`
+(porque GitHub Copilot lo lee directamente desde el repo). Este archivo
+es custom y **no** es el auto-generado por codebase-memory.
+
+### Cuándo correrlo (opcional)
+
+- En una sesión larga, antes de empezar a tirar prompts, corré
+  `codebase-memory analyze .` una vez. Genera el contexto y el AI
+  funciona mejor.
+- Después de cambios grandes (renames, migraciones, nuevas features)
+  corré `codebase-memory update .` para hacer incremental.
+- Si querés desinstalarlo: `codebase-memory teardown`.
+
+### Setup (solo una vez, global)
+
+```bash
+npm install -g codebase-memory
+codebase-memory --help  # ver comandos
+```
+
+**No** correr `codebase-memory setup` — instala hooks globales de
+Claude Code que modifican tu sesión global.
+
+### Si querés commitear la salida
+
+Si decidís commitear la salida para que todo el equipo tenga el
+contexto, remové los entries de `.gitignore` correspondientes
+(sección `# codebase-memory`).
 
 ---
 

@@ -33,3 +33,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# codebase-memory — auto-generated context files for AI tools.
+# Regenerate locally with `npx codebase-memory analyze .`
+# (or install globally: `npm i -g codebase-memory`).
+# The .github/copilot-instructions.md is committed manually instead
+# since GitHub Copilot reads it from the repo.
+/.claude/
+.cursorrules
+.windsurfrules
+.clinerules
+.roomodes
+/CLAUDE.md
+/CONVENTIONS.md
+
+# OS
+.DS_Store
