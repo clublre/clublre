@@ -56,9 +56,13 @@ const securityHeaders = [
       "img-src 'self' data: blob:",
       "style-src 'self' 'unsafe-inline'",
       "font-src 'self' data:",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // vercel.live needed for Next 16 dev-mode feedback widget; it's
+      // already allowed in dev via the headers() dev-skip but adding
+      // it here as a defence-in-depth (some browsers / proxies can
+      // re-inject CSP headers after a redirect).
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
       // Vercel Live / Insights beacon + og.xyz type tooling.
-      "connect-src 'self' https://vitals.vercel-insights.com",
+      "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live wss://vercel.live",
       "frame-ancestors 'none'",
       'upgrade-insecure-requests',
     ].join('; '),
