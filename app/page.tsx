@@ -161,7 +161,7 @@ export default function HomePage() {
       {/* CTA */}
       <Section as="section" spacing="md">
         <Container>
-          <div className="from-primary via-primary/90 to-primary/70 text-primary-foreground shadow-club-lg relative overflow-hidden rounded-3xl bg-gradient-to-br p-10 text-center md:p-16">
+          <div className="from-primary via-primary/90 to-primary/70 text-primary-foreground shadow-club-lg relative overflow-hidden rounded-3xl bg-linear-to-br p-10 text-center md:p-16">
             {/* Decorative blurred shapes */}
             <div
               aria-hidden="true"

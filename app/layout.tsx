@@ -12,6 +12,38 @@ import { Footer } from '@/components/organisms/Footer';
 /** Public origin used for absolute metadata URLs (OG, Twitter, canonical). */
 const SITE_URL = 'https://clublre.com.ar';
 
+/**
+ * JSON-LD SportsClub payload for Google rich results.
+ *
+ * Sources verified via web search (2026-07-29):
+ * - Address:  Iriondo 375, S2122 Rosario  (Unilocal + Apple Maps)
+ * - Phone:    +54 341 435 1273            (Unilocal)
+ * - Social:   @clubestudiantilrosario    (Instagram)
+ *
+ * Rendered into the document as `<script type="application/ld+json">`
+ * below; `dangerouslySetInnerHTML` is safe here because the payload
+ * is built in code (no untrusted input).
+ */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  name: siteConfig.name,
+  alternateName: 'CLUB L.R.E',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo2.jpeg`,
+  description: siteConfig.description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Iriondo 375',
+    addressLocality: 'Rosario',
+    addressRegion: 'Santa Fe',
+    postalCode: 'S2122',
+    addressCountry: 'AR',
+  },
+  telephone: '+54 341 435 1273',
+  sameAs: [siteConfig.links.instagram],
+} as const;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -40,11 +72,15 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: SITE_URL,
     locale: 'es_AR',
+    // `app/opengraph-image.tsx` is auto-detected by Next 16 — we still
+    // declare it explicitly here so the link is visible at a glance.
+    images: ['/opengraph-image'],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.name,
     description: siteConfig.description,
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
@@ -78,6 +114,13 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
+        {/* JSON-LD for Google rich results — see `jsonLd` constant above.
+            Inlined as a string because schema.org payloads are static
+            and the source is code, not user input. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           {/* Skip link — visually hidden until focused, then keyboard-only
               users can jump straight to <main> without tabbing through

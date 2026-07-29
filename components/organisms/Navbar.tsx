@@ -63,7 +63,7 @@ export const Navbar = () => {
       <nav
         aria-label="Principal"
         className={cn(
-          'border-default-200/60 bg-background/70 supports-[backdrop-filter]:bg-background/60',
+          'border-default-200/60 bg-background/70 supports-backdrop-filter:bg-background/60',
           'sticky top-0 z-40 w-full border-b backdrop-blur-xl',
         )}
       >
