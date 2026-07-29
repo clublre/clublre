@@ -23,7 +23,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className='mb-4 flex items-center gap-2'>
-              <Logo />
+              <Logo aria-hidden="true" />
               <span className='font-bold text-foreground'>
                 {siteConfig.name}
               </span>
@@ -36,9 +36,9 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className='mb-3 text-sm font-semibold uppercase tracking-wider text-default-700'>
+            <h2 className='mb-3 text-sm font-semibold uppercase tracking-wider text-default-700'>
               Navegación
-            </h4>
+            </h2>
             <ul className='space-y-2 text-sm'>
               {siteConfig.navItems.map((item) => (
                 <li key={item.href}>
@@ -68,30 +68,40 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className='mb-3 text-sm font-semibold uppercase tracking-wider text-default-700'>
+            <h2 className='mb-3 text-sm font-semibold uppercase tracking-wider text-default-700'>
               Contacto
-            </h4>
+            </h2>
             <ul className='space-y-2 text-sm text-default-600'>
               <li className='flex items-start gap-2'>
-                <FaMapMarkerAlt className='mt-0.5 size-4 shrink-0 text-primary' />
+                <FaMapMarkerAlt aria-hidden="true" className='mt-0.5 size-4 shrink-0 text-primary' />
                 <span>Av. Pellegrini 1500, Rosario, Santa Fe</span>
               </li>
               <li className='flex items-center gap-2'>
-                <FaPhone className='size-4 shrink-0 text-primary' />
-                <span>+54 341 555 0000</span>
+                <FaPhone aria-hidden="true" className='size-4 shrink-0 text-primary' />
+                <a
+                  className='hover:text-primary transition-colors'
+                  href='tel:+543415550000'
+                >
+                  +54 341 555 0000
+                </a>
               </li>
               <li className='flex items-center gap-2'>
-                <FaEnvelope className='size-4 shrink-0 text-primary' />
-                <span>info@clublre.com.ar</span>
+                <FaEnvelope aria-hidden="true" className='size-4 shrink-0 text-primary' />
+                <a
+                  className='hover:text-primary transition-colors'
+                  href='mailto:info@clublre.com.ar'
+                >
+                  info@clublre.com.ar
+                </a>
               </li>
               <li className='flex items-center gap-2 pt-2'>
                 <a
-                  aria-label='Instagram'
+                  aria-label='Instagram (se abre en una pestaña nueva)'
                   className='text-default-600 transition-colors hover:text-primary'
                   href={siteConfig.links.instagram}
                   rel='noopener noreferrer'
                   target='_blank'>
-                  <FaInstagram className='size-5' />
+                  <FaInstagram aria-hidden="true" className='size-5' />
                 </a>
               </li>
             </ul>

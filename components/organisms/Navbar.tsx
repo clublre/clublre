@@ -1,12 +1,13 @@
 'use client';
 
 import NextLink from 'next/link';
-import { FaInstagram, FaBars, FaTimes } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 import { useState } from 'react';
 import { Link } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Icons';
+import { IconButton } from '@/components/atoms/IconButton';
 import { ThemeToggle } from '@/components/molecules/ThemeToggle';
 import { siteConfig } from '@/config/site';
 
@@ -72,16 +73,50 @@ export const Navbar = () => {
             <FaInstagram className="text-default-500 size-5" />
           </Link>
           <ThemeToggle />
-          <button
+          <IconButton
             aria-controls={MOBILE_MENU_ID}
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            className="text-default-700 hover:bg-default-100 rounded-md p-2 transition-colors"
-            type="button"
-            onClick={() => setIsMenuOpen((v) => !v)}
+            onPress={() => setIsMenuOpen((v) => !v)}
           >
-            {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </button>
+            {isMenuOpen ? (
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            ) : (
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6h16M4 12h16M4 18h16"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            )}
+          </IconButton>
         </div>
       </div>
 

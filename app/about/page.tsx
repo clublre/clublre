@@ -75,7 +75,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Comisión */}
-      <Section as='section' spacing='lg'>
+      <Section as='section' id='contacto' spacing='lg'>
         <Container>
           <div className='mb-12 text-center'>
             <Eyebrow className='mb-3 block' tone='sky'>

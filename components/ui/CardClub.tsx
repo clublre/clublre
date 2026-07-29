@@ -34,7 +34,7 @@ export function CardClub({
     <div
       className={cn(
         "group relative overflow-hidden rounded-xl border border-default-200 bg-surface shadow-club",
-        "transition-all duration-300 hover:-translate-y-1 hover:shadow-club-lg",
+        "transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-club-lg",
         accent &&
           "before:absolute before:inset-x-0 before:top-0 before:h-1 before:content-['']",
         accent && accentMap[accent],

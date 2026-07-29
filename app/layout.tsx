@@ -79,9 +79,20 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          {/* Skip link — visually hidden until focused, then keyboard-only
+              users can jump straight to <main> without tabbing through
+              the navbar. */}
+          <a
+            className="focus-visible:bg-primary focus-visible:text-primary-foreground sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:rounded-md focus-visible:px-3 focus-visible:py-1.5 focus-visible:text-sm focus-visible:font-semibold"
+            href="#main-content"
+          >
+            Saltar al contenido
+          </a>
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
-            <main className="grow">{children}</main>
+            <main className="grow" id="main-content" tabIndex={-1}>
+              {children}
+            </main>
             <Footer />
           </div>
         </Providers>
