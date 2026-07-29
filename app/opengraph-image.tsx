@@ -3,7 +3,9 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-/** Generated OG image dimensions — standard 1200x630 for OG/Twitter cards. */
+/**
+ * Generated OG image dimensions — standard 1200×630 for OG/Twitter cards.
+ */
 export const size = {
   width: 1200,
   height: 630,
@@ -11,9 +13,21 @@ export const size = {
 
 export const contentType = 'image/png';
 
-/** Accessibility text used by screen readers and platform previewers. */
+/**
+ * Accessibility text used by screen readers and platform previewers.
+ */
 export const alt =
   'Club Los Rosarinos Estudiantil — Club deportivo en Rosario, Santa Fe';
+
+/**
+ * Explicit Node.js runtime.
+ *
+ * Vercel defaults metadata routes to the Edge runtime, which lacks
+ * `node:fs`/`node:path`. Since we read `public/logo2.jpeg` to embed
+ * the shield as a data URI, we have to opt out of Edge and run this
+ * route on Node.
+ */
+export const runtime = 'nodejs';
 
 /**
  * `app/opengraph-image.tsx` — Next.js 16 file-based OG image route.
