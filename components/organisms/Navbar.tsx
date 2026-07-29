@@ -191,7 +191,7 @@ export const Navbar = () => {
       <Drawer.Backdrop isOpen={isMenuOpen} onOpenChange={setIsMenuOpen}>
         <Drawer.Content placement='right'>
           <Drawer.Dialog className='w-full max-w-sm'>
-            <Drawer.Header className='flex flex-row items-center justify-between gap-3 border-b border-default-100 px-5 py-4'>
+            <Drawer.Header className='flex flex-row items-center justify-between gap-3 border-b border-default-100'>
               <NextLink
                 aria-label={`Ir al inicio — ${siteConfig.name}`}
                 className='flex items-center gap-2.5 rounded-md'
@@ -209,7 +209,7 @@ export const Navbar = () => {
               <Drawer.CloseTrigger className='text-default-600 hover:text-foreground hover:bg-default-100 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4' />
             </Drawer.Header>
 
-            <Drawer.Body className='gap-6 p-5'>
+            <Drawer.Body className='gap-6'>
               {/* Section 1 — Páginas */}
               <section>
                 <Eyebrow className='mb-2 block px-1' tone='default'>
@@ -308,7 +308,7 @@ export const Navbar = () => {
               </section>
             </Drawer.Body>
 
-            <Drawer.Footer className='flex flex-col gap-3 border-t border-default-100 px-5 py-4'>
+            <Drawer.Footer className='flex flex-col gap-3 border-t border-default-100'>
               <div className='flex items-center justify-between gap-2'>
                 <Link
                   aria-label='Instagram (se abre en una pestaña nueva)'
