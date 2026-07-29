@@ -33,13 +33,13 @@ export function CardClub({
   return (
     <div
       className={cn(
-        // Minimal look: transparent border (kept for layout-stability
-        // if any caller toggles it on), shadow does the separation.
-        'group border-default-200/0 bg-surface shadow-club relative overflow-hidden rounded-xl border',
-        'hover:border-default-200/60 hover:shadow-club-lg transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1',
-        accent &&
-          "before:absolute before:inset-x-0 before:top-0 before:h-1 before:content-['']",
-        accent && accentMap[accent],
+        // Pure minimal look: no top stripe, no hover border. Only
+        // the shadow (resting) → shadow-club-lg (hover) gives the
+        // card its separation. The `accent` prop is accepted but
+        // currently a no-op; left in the API in case we want to
+        // re-introduce a subtle differentiation later.
+        'group border-default-200/0 bg-surface shadow-club rounded-xl border',
+        'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
         highlighted &&
           'ring-primary ring-offset-background ring-2 ring-offset-2',
         className,
