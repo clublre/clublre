@@ -11,7 +11,9 @@ export const title = tv({
   variants: {
     color: {
       violet: 'bg-gradient-to-r from-fuchsia-400 to-purple-500',
-      yellow: 'bg-gradient-to-r from-yellow-300 to-yellow-500',
+      // Cobalt — same family as the brand.amarillo token; now uses
+      // a dedicated gradient utility for text-clip variants.
+      cobalt: 'bg-gradient-to-r from-[#3A6BE0] to-[#1B4FCF]',
       sky: 'gradient-sky',
       cyan: 'bg-gradient-to-r from-cyan-400 to-cyan-500',
       green: 'bg-gradient-to-r from-green-400 to-green-500',
@@ -32,7 +34,7 @@ export const title = tv({
   },
   compoundVariants: [
     {
-      color: ['violet', 'yellow', 'sky', 'cyan', 'green', 'pink', 'amarillo'],
+      color: ['violet', 'cobalt', 'sky', 'cyan', 'green', 'pink', 'amarillo'],
       class: 'bg-clip-text text-transparent',
     },
   ],

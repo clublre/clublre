@@ -14,35 +14,37 @@
 
 export const brand = {
   /** Active HeroUI theme — single source of truth for the palette name. */
-  theme: "sky",
-  /** Secondary brand — Club LRE amarillo (accent / hover / CTA only). */
-  amarillo: "#EEE457",
+  theme: 'sky',
+  /** Secondary brand — Cobalt blue picked from the LRE escudo
+      palette (mid-tone between the logo's deep navy and the sky
+      primary). UX-friendly contrast on both surfaces. */
+  amarillo: '#1B4FCF',
   /** HeroUI Sky accent — light mode oklch (matches globals.css). */
-  skyLight: "oklch(0.685 0.169 237.32)",
+  skyLight: 'oklch(0.685 0.169 237.32)',
   /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
-  skyDark: "oklch(0.7 0.17 237)",
+  skyDark: 'oklch(0.7 0.17 237)',
 } as const;
 
 export const spacing = {
-  section: "py-16 md:py-24",
-  container: "px-6 mx-auto max-w-7xl",
+  section: 'py-16 md:py-24',
+  container: 'px-6 mx-auto max-w-7xl',
 } as const;
 
 export const radii = {
-  sm: "rounded-md",
-  md: "rounded-lg",
-  lg: "rounded-xl",
-  xl: "rounded-2xl",
-  full: "rounded-full",
+  sm: 'rounded-md',
+  md: 'rounded-lg',
+  lg: 'rounded-xl',
+  xl: 'rounded-2xl',
+  full: 'rounded-full',
 } as const;
 
 export const typography = {
-  display: "text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight",
-  h1: "text-4xl md:text-5xl font-bold tracking-tight",
-  h2: "text-3xl md:text-4xl font-semibold tracking-tight",
-  h3: "text-2xl md:text-3xl font-semibold",
-  h4: "text-xl md:text-2xl font-semibold",
-  body: "text-base md:text-lg leading-relaxed",
-  small: "text-sm text-default-600",
-  eyebrow: "text-xs uppercase tracking-[0.2em] font-medium text-default-500",
+  display: 'text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight',
+  h1: 'text-4xl md:text-5xl font-bold tracking-tight',
+  h2: 'text-3xl md:text-4xl font-semibold tracking-tight',
+  h3: 'text-2xl md:text-3xl font-semibold',
+  h4: 'text-xl md:text-2xl font-semibold',
+  body: 'text-base md:text-lg leading-relaxed',
+  small: 'text-sm text-default-600',
+  eyebrow: 'text-xs uppercase tracking-[0.2em] font-medium text-default-500',
 } as const;

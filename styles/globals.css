@@ -106,8 +106,13 @@
    (background, foreground, surface, border, focus) comes from HeroUI.
 */
 @theme {
-  /* Secondary brand — Club LRE amarillo (kept as institution identity). */
-  --color-amarillo: oklch(0.92 0.17 95);
+  /* Secondary brand — Cobalt blue picked from the LRE escudo palette
+     (between the deep navy and the sky primary). UX-friendly:
+     - ~7:1 contrast on white (AA Large + Normal)
+     - ~4.5:1 contrast on surface (AA Normal)
+     - Stays in the same hue family as primary so the brand feels
+       cohesive without competing for the "primary" slot. */
+  --color-amarillo: oklch(0.45 0.2 250);
 
   /* Soft sky tokens — used for category pills, tags, chips.
      Mirror of brand.skySoft / brand.skySoftFg in config/design-tokens.ts.
@@ -119,11 +124,12 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-fira-code), ui-monospace, monospace;
 
-  /* Radii */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
+  /* Radii — slightly tighter than Tailwind defaults to keep
+     the chrome feeling modern but not overly friendly. */
+  --radius-sm: 0.3125rem;
+  --radius-md: 0.4375rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.875rem;
 
   /* Shadows — tinted with the sky accent */
   --shadow-club:
