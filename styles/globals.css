@@ -131,11 +131,13 @@
   --radius-lg: 0.625rem;
   --radius-xl: 0.875rem;
 
-  /* Shadows — tinted with the sky accent */
+  /* Shadows — tinted with the sky accent, kept subtle for a
+     minimal look. The lg variant is reserved for hover/floating
+     surfaces so resting cards stay close to the page. */
   --shadow-club:
-    0 4px 14px 0 oklch(0.685 0.169 237 / 0.12), 0 1px 4px 0 rgb(0 0 0 / 0.04);
+    0 1px 2px 0 oklch(0.685 0.169 237 / 0.04), 0 2px 6px 0 rgb(0 0 0 / 0.04);
   --shadow-club-lg:
-    0 10px 40px 0 oklch(0.685 0.169 237 / 0.18), 0 4px 12px 0 rgb(0 0 0 / 0.06);
+    0 4px 12px 0 oklch(0.685 0.169 237 / 0.10), 0 2px 6px 0 rgb(0 0 0 / 0.06);
 }
 
 /* --------------------------------------------------------------------------
@@ -161,12 +163,26 @@
 
   --color-border: var(--border);
 
-  /* `default-*` — neutral text scale used across the app. */
+  /* `default-*` — neutral text scale.
+   *
+   * 100/200/300 used to alias surface/border tokens, which made
+   * `text-default-100` render dark grey on dark mode (invisible —
+   * it was the same dark grey as the bg). They are now proper
+   * foreground tints on the strongest end of the ramp.
+   *
+   * 400–700 keep their pre-existing semantics: an INVERSE ramp
+   * (here 700 is most opaque, 400 most faded). Consumers pick by
+   * intent — 100/200 for body text, 500/600 for secondary
+   * captions, 700 for emphasis.
+   *
+   * Worth refactoring to a clean monotonic ramp in a future pass
+   * — leaving as-is to avoid touching the 47 call sites that use
+   * these tokens today. */
   --color-default: var(--default);
   --color-default-foreground: var(--default-foreground);
-  --color-default-100: var(--default);
-  --color-default-200: var(--border);
-  --color-default-300: var(--border);
+  --color-default-100: color-mix(in oklch, var(--foreground) 92%, transparent);
+  --color-default-200: color-mix(in oklch, var(--foreground) 80%, transparent);
+  --color-default-300: color-mix(in oklch, var(--foreground) 68%, transparent);
   --color-default-400: color-mix(in oklch, var(--foreground) 30%, transparent);
   --color-default-500: color-mix(in oklch, var(--foreground) 45%, transparent);
   --color-default-600: color-mix(in oklch, var(--foreground) 60%, transparent);

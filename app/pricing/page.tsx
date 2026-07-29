@@ -77,7 +77,7 @@ export default function PricingPage() {
       </Section>
 
       {/* Pricing */}
-      <Section as="section" spacing="lg" variant="muted">
+      <Section as="section" spacing="lg" >
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
             {pricingTiers.map((tier) => (

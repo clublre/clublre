@@ -30,7 +30,7 @@ export default function BlogSlugError({
 
   return (
     <div className="py-16 md:py-24">
-      <Container size="md" className="text-center">
+      <Container className="text-center" size="md">
         <Eyebrow className="mb-4 block" tone="sky">
           Error al cargar el artículo
         </Eyebrow>

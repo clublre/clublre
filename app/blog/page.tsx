@@ -47,7 +47,7 @@ export default function BlogPage() {
         </Container>
       </Section>
 
-      <Section as="section" spacing="lg" variant="muted">
+      <Section as="section" spacing="lg" >
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {postsNewestFirst.map((post) => (

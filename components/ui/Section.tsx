@@ -14,7 +14,6 @@ const section = tv({
   variants: {
     variant: {
       default: 'bg-background',
-      muted: 'bg-surface-muted',
       gradient: 'gradient-radial-sky bg-background',
       transparent: 'bg-transparent',
     },

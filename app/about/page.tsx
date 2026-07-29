@@ -39,7 +39,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Valores */}
-      <Section as="section" spacing="lg" variant="muted">
+      <Section as="section" spacing="lg" >
         <Container>
           <div className="mb-12 text-center">
             <Eyebrow className="mb-3 block" tone="amarillo">

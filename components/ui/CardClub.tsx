@@ -33,8 +33,10 @@ export function CardClub({
   return (
     <div
       className={cn(
-        'group border-default-200 bg-surface shadow-club relative overflow-hidden rounded-xl border',
-        'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
+        // Minimal look: transparent border (kept for layout-stability
+        // if any caller toggles it on), shadow does the separation.
+        'group border-default-200/0 bg-surface shadow-club relative overflow-hidden rounded-xl border',
+        'hover:border-default-200/60 hover:shadow-club-lg transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1',
         accent &&
           "before:absolute before:inset-x-0 before:top-0 before:h-1 before:content-['']",
         accent && accentMap[accent],
