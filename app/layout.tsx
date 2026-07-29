@@ -47,10 +47,11 @@ const jsonLd = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: siteConfig.name,
+    default: 'CLUB L.R.E | Club deportivo en Rosario, Santa Fe',
     template: `%s - ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description:
+    'Club deportivo y social en Rosario con más de 80 años formando comunidad. Fútbol, básquet, natación, hockey, tenis, gimnasia y pileta climatizada para toda la familia.',
   applicationName: siteConfig.name,
   keywords: [
     'Club Los Rosarinos Estudiantil',
@@ -60,6 +61,11 @@ export const metadata: Metadata = {
     'básquet',
     'natación',
     'tenis',
+    'hockey',
+    'gimnasia',
+    'pileta',
+    'cuotas',
+    'asociarse',
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
@@ -68,8 +74,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: siteConfig.name,
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: 'Club Los Rosarinos Estudiantil — Deportes en Rosario',
+    description:
+      'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!',
     url: SITE_URL,
     locale: 'es_AR',
     // `app/opengraph-image.tsx` is auto-detected by Next 16 — we still
@@ -78,8 +85,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: 'Club Los Rosarinos Estudiantil — Deportes en Rosario',
+    description:
+      'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -106,7 +114,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="es">
+    <html
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      lang="es"
+    >
       <head />
       <body
         className={cn(
