@@ -1,8 +1,10 @@
 import NextLink from 'next/link';
+import { Button } from '@heroui/react';
 import { FaArrowLeft } from 'react-icons/fa';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { title } from '@/components/primitives';
 
 /**
  * Global 404 boundary.
@@ -17,18 +19,18 @@ export default function NotFound() {
       <Eyebrow className="mb-4 block" tone="sky">
         Error 404
       </Eyebrow>
-      <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+      <h1 className={title({ size: 'md', class: 'block' })}>
         Página no encontrada
       </h1>
       <p className="text-default-600 mx-auto mt-4 max-w-md">
         La página que buscás no existe o fue movida. Volvé al inicio y seguí
         explorando el club.
       </p>
-      <NextLink
-        className="bg-primary text-primary-foreground hover:bg-primary/90 mt-8 inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors"
-        href="/"
-      >
-        <FaArrowLeft size={12} /> Volver al inicio
+      <NextLink className="mt-8" href="/">
+        <Button className="font-semibold" size="md" variant="primary">
+          <FaArrowLeft aria-hidden="true" className="mr-2 size-3.5" />
+          Volver al inicio
+        </Button>
       </NextLink>
     </Container>
   );
