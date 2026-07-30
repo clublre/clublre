@@ -39,9 +39,9 @@ const STATS = [
     label: 'Socios activos',
   },
   {
-    icon: FaRunning,
-    value: '6',
-    label: 'Disciplinas federadas',
+    icon: FaShieldAlt,
+    value: '1959',
+    label: 'Año de fundación',
   },
   {
     icon: FaMapMarkerAlt,
@@ -157,9 +157,7 @@ export default function HomePage() {
                   <p className="text-foreground text-xl font-bold tracking-tight sm:text-2xl">
                     {stat.value}
                   </p>
-                  <p className="text-default-600 text-sm">
-                    {stat.label}
-                  </p>
+                  <p className="text-default-600 text-sm">{stat.label}</p>
                 </div>
               </div>
             ))}
@@ -171,14 +169,14 @@ export default function HomePage() {
       <Section as="section" id="actividades" spacing="lg">
         <Container>
           {/* Section header — centred (matches the hero + final CTA). */}
-          <div className="mb-12 mx-auto max-w-2xl text-center">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
             <Eyebrow className="mb-3 block" tone="sky">
               Nuestras disciplinas
             </Eyebrow>
             <h2 className={title({ size: 'md', class: 'block' })}>
               Actividades para todas las edades
             </h2>
-            <p className="text-default-600 mt-4 text-base">
+            <p className="text-default-600 mx-auto mt-4 max-w-xl text-base">
               Desde básquet federado y natación hasta karate, vóley y escuelas
               de iniciación deportiva.
             </p>
@@ -214,15 +212,6 @@ export default function HomePage() {
                   <CardClubBody className="grow">
                     {activity.description}
                   </CardClubBody>
-                  {/* Per-card micro-CTA — gives the card a clear action */}
-                  <NextLink
-                    aria-label={`Conocé más sobre ${activity.name}`}
-                    className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                    href={'/about#actividades' as Route}
-                  >
-                    Conocé más
-                    <FaArrowRight aria-hidden="true" className="size-3" />
-                  </NextLink>
                 </CardClub>
               );
             })}
