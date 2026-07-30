@@ -48,11 +48,15 @@ export default function BlogPage() {
         </Container>
       </Section>
 
-      <Section as="section" spacing="lg" >
+      <Section as="section" spacing="lg">
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {postsNewestFirst.map((post) => (
-              <CardClub key={post.slug} accent={post.accent} className="flex flex-col">
+              <CardClub
+                key={post.slug}
+                accent={post.accent}
+                className="flex flex-col"
+              >
                 <div className="mb-3 flex items-center justify-between text-xs">
                   <span className="bg-sky-soft text-sky-soft-fg rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
                     {post.category}

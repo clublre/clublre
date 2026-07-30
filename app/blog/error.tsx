@@ -50,7 +50,7 @@ export default function BlogSlugError({
             Reintentar
           </button>
           <NextLink
-            className="text-default-700 hover:text-primary border-default-200 hover:border-primary rounded-md border px-4 py-2 text-sm font-medium transition-colors"
+            className="text-default-700 hover:text-primary rounded-md px-4 py-2 text-sm font-medium transition-colors"
             href="/blog"
           >
             Ver todos los posts

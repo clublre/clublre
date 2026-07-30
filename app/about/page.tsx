@@ -39,7 +39,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Valores */}
-      <Section as="section" spacing="lg" >
+      <Section as="section" spacing="lg">
         <Container>
           <div className="mb-12 text-center">
             <Eyebrow className="mb-3 block" tone="amarillo">
@@ -49,8 +49,8 @@ export default function AboutPage() {
               Lo que nos define
             </h2>
             <p className="text-default-600 mx-auto mt-3 max-w-xl">
-              Comunidad, formación y tradición se construyen cada día en
-              cada actividad, cada clase y cada partido.
+              Comunidad, formación y tradición se construyen cada día en cada
+              actividad, cada clase y cada partido.
             </p>
           </div>
 
@@ -100,7 +100,7 @@ export default function AboutPage() {
             {commission.map((member) => (
               <li
                 key={member.role}
-                className="border-default-200 bg-surface shadow-club rounded-lg border p-5 transition-colors hover:border-sky-300"
+                className="bg-surface shadow-club rounded-lg p-5"
               >
                 <p className="text-default-500 text-xs font-medium tracking-wider uppercase">
                   {member.role}

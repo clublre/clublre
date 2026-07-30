@@ -149,7 +149,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <ul className="border-default-200 bg-surface divide-default-200 shadow-club divide-y overflow-hidden rounded-2xl border">
+          <ul className="bg-surface shadow-club divide-default-200 overflow-hidden rounded-2xl divide-y">
             {FAQ_ITEMS.map((item) => (
               <li key={item.q}>
                 <details className="group">
