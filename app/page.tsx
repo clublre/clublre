@@ -96,7 +96,9 @@ export default function HomePage() {
             style={{ viewTransitionName: 'page-title' }}
           >
             Más de 80 años{' '}
-            <span className={title({ color: 'sky' })}>formando comunidad</span>
+            <span className={title({ color: 'sky' })}>
+              formando comunidad
+            </span>
           </h1>
 
           <p
@@ -109,7 +111,7 @@ export default function HomePage() {
           </p>
 
           {/* Primary CTA + secondary text-link (no competing buttons) */}
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:items-baseline">
             <NextLink href={routes.pricing}>
               <Button
                 className="shadow-club-lg font-semibold"
@@ -121,7 +123,7 @@ export default function HomePage() {
               </Button>
             </NextLink>
             <NextLink
-              className="text-default-100 hover:text-foreground text-sm font-medium transition-colors sm:ml-2"
+              className="text-default-100 hover:text-foreground inline-flex items-baseline text-sm font-medium transition-colors sm:ml-2"
               href={routes.about}
             >
               o leé nuestra historia →
@@ -242,7 +244,7 @@ export default function HomePage() {
                   href={routes.blogPost(post.slug)}
                 >
                   <div className="text-default-500 mb-2 flex items-center gap-3 text-xs">
-                    <span className="bg-primary/10 text-primary rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
+                    <span className="bg-sky-soft text-sky-soft-fg rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
                       {post.category}
                     </span>
                     <time dateTime={post.date}>

@@ -53,7 +53,7 @@ export default function PricingPage() {
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
-            Elegí tu
+            Elegí tu{' '}
             <span className={title({ color: 'sky' })}>cuota</span>
           </h1>
           <p className="text-default-600 mx-auto mt-4 max-w-xl">
@@ -101,7 +101,7 @@ export default function PricingPage() {
                 </ul>
                 <NextLink
                   className="mt-auto block"
-                  href={`${routes.about}#contacto`}
+                  href={`${routes.about}#comision`}
                 >
                   <Button
                     className="w-full font-semibold"

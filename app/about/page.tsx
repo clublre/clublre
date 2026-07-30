@@ -60,7 +60,6 @@ export default function AboutPage() {
             description="Comunidad, formación y tradición se construyen cada día en cada actividad, cada clase y cada partido."
             eyebrow="Nuestros valores"
             heading="Lo que nos define"
-            tone="amarillo"
           />
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -90,7 +89,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Comisión */}
-      <Section as="section" id="contacto" spacing="lg">
+      <Section as="section" id="comision" spacing="lg">
         <Container>
           <SectionHeader
             description="Una comisión elegida por los socios, comprometida con la transparencia y el crecimiento del club."

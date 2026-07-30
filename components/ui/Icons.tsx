@@ -46,25 +46,14 @@ export const Logo: FC<LogoProps> = ({
 }) => (
   <Image
     alt="Club Los Rosarinos Estudiantil"
-    blurDataURL={LOGO_BLUR_DATA_URL}
     className={cnLogo(className)}
     height={size}
-    placeholder="blur"
     sizes={sizes}
     src="/logo2.jpeg"
     width={size}
     {...(priority ? { priority: true } : { loading: 'lazy' })}
   />
 );
-
-/**
- * Inline SVG used as the LCP `blurDataURL` for the logo. A 4x4 sky-500
- * square keeps the navbar height stable while the real JPEG decodes,
- * and avoids an extra network request that a remote placeholder would
- * add. Keep the base64 short — every byte counts in the navbar HTML.
- */
-const LOGO_BLUR_DATA_URL =
-  'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0IDQiPjxmaWxsIHJ1bGU9ImV2ZW5vZGQiIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiIGNsaXAtcGF0aD0iZW52ZW5vZGQiIGZpbGw9IiMwZWE1ZTkiLz48L3N2Zz4=';
 
 // Tiny className helper kept inline to avoid pulling `cn` from
 // `lib/utils` (which would create an awkward cross-folder import in

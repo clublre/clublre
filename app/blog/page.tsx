@@ -48,7 +48,7 @@ export default function BlogPage() {
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
-            Blog del
+            Blog del{' '}
             <span className={title({ color: 'sky' })}>club</span>
           </h1>
           <p className="text-default-600 mx-auto mt-4 max-w-2xl">

@@ -9,7 +9,7 @@ import { tv } from 'tailwind-variants';
  * so the gradient actually shows through the text.
  */
 export const title = tv({
-  base: 'tracking-tight inline font-semibold',
+  base: 'tracking-tight inline-block font-semibold text-balance',
   variants: {
     color: {
       sky: 'bg-gradient-to-r from-sky-500 to-blue-700',
