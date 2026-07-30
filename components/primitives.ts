@@ -22,7 +22,10 @@ export const title = tv({
     },
     size: {
       sm: 'text-3xl lg:text-4xl',
-      md: 'text-4xl lg:text-5xl leading-9',
+      // H2: 3xl on mobile so it's visibly smaller than H1 (4xl),
+      // scaling up to 5xl on desktop. The leading-9 (2.25rem)
+      // gives a confident, sub-heading rhythm.
+      md: 'text-3xl lg:text-5xl leading-9',
       lg: 'text-4xl lg:text-6xl',
     },
     fullWidth: {
