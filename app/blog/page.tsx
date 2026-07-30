@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { FaArrowRight } from 'react-icons/fa';
 import type { Route } from 'next';
 
 import {
@@ -26,21 +27,21 @@ export default function BlogPage() {
   return (
     <>
       <Section as="section" spacing="md">
-        <Container>
+        <Container className="text-center">
           <Eyebrow className="mb-3 block" tone="sky">
             Novedades
           </Eyebrow>
           <h1
             className={title({
               size: 'lg',
-              class: 'block max-w-3xl leading-[1.1]',
+              class: 'mx-auto block max-w-3xl leading-[1.1]',
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
             Blog del
             <span className={title({ color: 'sky' })}>club</span>
           </h1>
-          <p className="text-default-600 mt-4 max-w-2xl">
+          <p className="text-default-600 mx-auto mt-4 max-w-2xl">
             Novedades institucionales, resultados deportivos y todo lo que pasa
             en el club.
           </p>
@@ -51,11 +52,7 @@ export default function BlogPage() {
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {postsNewestFirst.map((post) => (
-              <CardClub
-                key={post.slug}
-                accent={post.accent}
-                className="flex flex-col"
-              >
+              <CardClub key={post.slug} accent={post.accent} className="flex flex-col">
                 <div className="mb-3 flex items-center justify-between text-xs">
                   <span className="bg-sky-soft text-sky-soft-fg rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
                     {post.category}
@@ -71,10 +68,11 @@ export default function BlogPage() {
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
-                  className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium hover:underline"
+                  className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
                   href={postHref(post.slug)}
                 >
-                  Leer más →
+                  Leer más
+                  <FaArrowRight aria-hidden="true" className="size-3" />
                 </NextLink>
               </CardClub>
             ))}

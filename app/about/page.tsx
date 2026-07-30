@@ -12,16 +12,16 @@ import { commission } from '@/data/club';
 export default function AboutPage() {
   return (
     <>
-      {/* Header */}
+      {/* Header — matches the home centred pattern. */}
       <Section as="section" spacing="md">
-        <Container>
+        <Container className="text-center">
           <Eyebrow className="mb-3 block" tone="sky">
             Sobre nosotros
           </Eyebrow>
           <h1
             className={title({
               size: 'lg',
-              class: 'block max-w-3xl leading-[1.1]',
+              class: 'mx-auto block max-w-3xl leading-[1.1]',
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
@@ -29,7 +29,7 @@ export default function AboutPage() {
             <br />
             <span className={title({ color: 'sky' })}>Rosario</span>
           </h1>
-          <p className="text-default-600 mt-6 max-w-2xl text-lg">
+          <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
             Fundado en 1943, el Club Los Rosarinos Estudiantil es una
             institución deportiva y social con más de 3.500 socios. A lo largo
             de ocho décadas, hemos sido parte de la vida de miles de familias
@@ -48,6 +48,10 @@ export default function AboutPage() {
             <h2 className={title({ size: 'md', class: 'block' })}>
               Lo que nos define
             </h2>
+            <p className="text-default-600 mx-auto mt-3 max-w-xl">
+              Comunidad, formación y tradición se construyen cada día en
+              cada actividad, cada clase y cada partido.
+            </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
