@@ -26,8 +26,10 @@ export function CardClub({
       className={cn(
         'group border-default-200/0 bg-surface shadow-club rounded-xl border',
         'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
-        highlighted &&
-          'ring-primary ring-offset-background ring-2 ring-offset-2',
+        // Highlighted (e.g. featured pricing tier): bump to the larger
+        // shadow so the card stands out in both light and dark without
+        // relying on a ring that gets lost against bg-surface.
+        highlighted && 'shadow-club-lg ring-primary ring-2 ring-offset-2 ring-offset-background',
         className,
       )}
       {...props}

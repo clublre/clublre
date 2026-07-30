@@ -48,8 +48,7 @@ export default function BlogPage() {
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
-            Blog del{' '}
-            <span className={title({ color: 'sky' })}>club</span>
+            Blog del <span className={title({ color: 'sky' })}>club</span>
           </h1>
           <p className="text-default-600 mx-auto mt-4 max-w-2xl">
             Novedades institucionales, resultados deportivos y todo lo que pasa
@@ -60,7 +59,7 @@ export default function BlogPage() {
 
       <Section as="section" spacing="lg">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {postsNewestFirst.map((post) => (
               <CardClub key={post.slug} className="flex flex-col">
                 <div className="mb-3 flex items-center justify-between text-xs">
@@ -80,7 +79,7 @@ export default function BlogPage() {
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
-                  className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                  className="text-primary hover:text-primary/80 mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium transition-colors"
                   href={routes.blogPost(post.slug)}
                 >
                   Leer artículo

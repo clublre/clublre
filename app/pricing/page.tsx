@@ -53,8 +53,7 @@ export default function PricingPage() {
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
-            Elegí tu{' '}
-            <span className={title({ color: 'sky' })}>cuota</span>
+            Elegí tu <span className={title({ color: 'sky' })}>cuota</span>
           </h1>
           <p className="text-default-600 mx-auto mt-4 max-w-xl">
             Planes para individuales, familias y menores. Sin matrícula, sin
@@ -66,7 +65,7 @@ export default function PricingPage() {
       {/* Pricing */}
       <Section as="section" spacing="lg">
         <Container>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid items-stretch gap-6 md:grid-cols-3">
             {pricingTiers.map((tier) => (
               <CardClub
                 key={tier.id}

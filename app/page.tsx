@@ -96,9 +96,7 @@ export default function HomePage() {
             style={{ viewTransitionName: 'page-title' }}
           >
             Más de 80 años{' '}
-            <span className={title({ color: 'sky' })}>
-              formando comunidad
-            </span>
+            <span className={title({ color: 'sky' })}>formando comunidad</span>
           </h1>
 
           <p
@@ -111,7 +109,7 @@ export default function HomePage() {
           </p>
 
           {/* Primary CTA + secondary text-link (no competing buttons) */}
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:items-baseline">
+          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:items-baseline sm:justify-center">
             <NextLink href={routes.pricing}>
               <Button
                 className="shadow-club-lg font-semibold"
