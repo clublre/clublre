@@ -1,23 +1,13 @@
-/**
- * Club LRE — Design tokens (TypeScript)
- *
- * Source of truth for tokens that live both in styles/globals.css
- * (`@theme`) and in code (tailwind-variants, inline `fill`, etc).
- *
- * Domain / editorial content (activities, commission, pricing tiers,
- * blog posts) lives in `data/` — not here. This file is purely
- * visual tokens + class-string helpers for tailwind-variants.
- *
- * Sky palette values are mirrored from `@layer base` in
- * styles/globals.css, where HeroUI's defaults are overridden.
- */
+// Design tokens — espejo TS de los `@theme` en `styles/globals.css`.
+// El contenido editorial (actividades, comisión, planes, posts) vive
+// en `data/` — este archivo es solo tokens visuales.
 
 export const brand = {
-  /** Active HeroUI theme — single source of truth for the palette name. */
+  /** Tema HeroUI activo — single source of truth para el nombre. */
   theme: 'sky',
-  /** HeroUI Sky accent — light mode oklch (matches globals.css). */
+  /** Sky accent light mode (matchea `globals.css`). */
   skyLight: 'oklch(0.685 0.169 237.32)',
-  /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
+  /** Sky accent dark mode (matchea `globals.css`). */
   skyDark: 'oklch(0.7 0.17 237)',
 } as const;
 

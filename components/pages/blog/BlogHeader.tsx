@@ -1,13 +1,9 @@
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
 
-/**
- * BlogHeader — eyebrow + h1 + tagline. Centred.
- *
- * Server component. Same `viewTransitionName: 'page-title'` pattern
- * as the home / pricing headers so the browser view-transitions API
- * can animate the heading across route changes.
- */
+/** Header del blog: eyebrow + h1 + tagline centrado. Mismo patrón
+ *  `viewTransitionName: 'page-title'` que home / pricing para
+ *  animar entre rutas. */
 export function BlogHeader() {
   return (
     <Section as="section" spacing="md">
@@ -22,7 +18,7 @@ export function BlogHeader() {
           })}
           style={{ viewTransitionName: 'page-title' }}
         >
-          Blog del{' '}
+          Noticias del{' '}
           <span className={title({ color: 'sky', size: 'lg' })}>club</span>
         </h1>
         <p className="text-default-600 mx-auto mt-4 max-w-2xl">

@@ -1,5 +1,5 @@
-// Sentry's Next.js SDK runs on the server via this file. It's the
-// official hook-in point: https://docs.sentry.io/platforms/javascript/guides/nextjs/
+// Sentry Next.js SDK corre en el server vía este archivo. Es el hook
+// oficial: https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 export async function register() {
   if (process.env['NEXT_RUNTIME'] === 'nodejs') {

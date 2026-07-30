@@ -271,19 +271,26 @@ Los tokens viven en `styles/globals.css` (`@theme` block) y se espejean en `conf
 Tokens actuales:
 
 - `--accent` (HeroUI Sky) — `bg-primary`, `text-primary`.
-- `--color-amarillo` — cobalto secundario (`bg-amarillo`, `text-amarillo`).
-- `--color-amarillo-soft` — variante más clara del cobalto, sólo para
-  fondos decorativos (ej. `BlurryBlob`). ~3:1 sobre blanco, **no usar
-  para texto**.
 - `--color-sky-soft` / `--color-sky-soft-fg` — chips, pills, categorías.
 - `--color-default-100` … `--color-default-700` — escala de texto neutro.
   Es una mezcla del foreground con opacidad, no una rampa monotónica.
+
+> **Cobalto (secondary)** — no se agrega como token custom. Usar
+> directamente Tailwind built-in `bg-blue-700` / `text-blue-700`. El
+> viejo `--color-amarillo` / `--color-amarillo-soft` está deprecated
+> (rompe por auto-referencia en `@theme inline`; ver §5.3).
 
 ### 5.3 Convenciones de clases
 
 - ✅ `bg-sky-*`, `bg-primary`, `text-default-600` (utility generada por tokens).
 - ✅ `shadow-club`, `shadow-club-lg` (custom shadow).
 - ✅ `gradient-sky`, `gradient-amarillo`, `gradient-radial-sky`.
+- ✅ **Preferir Tailwind built-in** (`bg-blue-700`, `bg-cyan-500`) por
+  sobre nombres custom. Si necesitás un valor fuera de la paleta,
+  agregá un token a `@theme` + `config/design-tokens.ts`.
+- ❌ **`bg-amarillo` / `bg-cobalt`** están deprecated. Pueden romper
+  por bugs de auto-referencia en `@theme inline` (ya pasó: `bg-amarillo/10`
+  rendereaba negro). Usar Tailwind built-in equivalente.
 - ⚠️ Evitá valores arbitrarios (`bg-[#0009A0]`). Si necesitás un valor, agregá un token.
 - ⚠️ Evitá inline styles. Solo `style={{ "--var": value }}` para pasar CSS vars a HeroUI.
 
@@ -681,11 +688,15 @@ Los assets visuales (OG image, favicons) viven como file-based routes
 
 ### 10.3 Pre-commit
 
-Antes de commit:
+Antes de commit (solo si el usuario lo pide — ver §5.3 / AGENTS.md
+"Validation cadence"):
 
 ```bash
 npm run type-check && npm run lint
 ```
+
+Por default no se corren validaciones en cada cambio. Sí se corren
+en handoff o cuando el cambio es high-risk.
 
 ---
 

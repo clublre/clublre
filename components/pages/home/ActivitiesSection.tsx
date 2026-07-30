@@ -1,13 +1,4 @@
-import type { IconType } from 'react-icons';
-import {
-  FaBasketballBall,
-  FaFistRaised,
-  FaRunning,
-  FaShieldAlt,
-  FaSwimmer,
-  FaTableTennis,
-  FaVolleyballBall,
-} from 'react-icons/fa';
+import type { FC } from 'react';
 
 import {
   Section,
@@ -17,26 +8,31 @@ import {
   CardClubHeader,
   CardClubTitle,
   CardClubBody,
+  BasketballIcon,
+  VolleyballIcon,
+  PingPongIcon,
+  SwimmingIcon,
+  HandFistIcon,
+  MedalIcon,
 } from '@/components/ui';
 import { activities } from '@/data/club';
 
-/** Per-activity icon. Single source of truth so cards stay
- *  visually consistent (proper FA6 weight, no emojis). */
-const ACTIVITY_ICONS: Record<string, { icon: IconType }> = {
-  basquet: { icon: FaBasketballBall },
-  natacion: { icon: FaSwimmer },
-  gimnasia: { icon: FaFistRaised },
-  voley: { icon: FaVolleyballBall },
-  'tenis-de-mesa': { icon: FaTableTennis },
-  karate: { icon: FaShieldAlt },
+/** Ícono por actividad (phosphor vía iconify). Single source of truth
+ *  para mantener consistencia visual y tener el catálogo completo
+ *  de deportes que lucide no cubre. */
+type IconComponent = FC<{ className?: string; 'aria-hidden'?: boolean }>;
+
+const ACTIVITY_ICONS: Record<string, { icon: IconComponent }> = {
+  basquet: { icon: BasketballIcon },
+  natacion: { icon: SwimmingIcon },
+  gimnasia: { icon: MedalIcon },
+  voley: { icon: VolleyballIcon },
+  'tenis-de-mesa': { icon: PingPongIcon },
+  karate: { icon: HandFistIcon },
 };
 
-/**
- * ActivitiesSection — full list of activities offered by the
- * club. Renders a SectionHeader (eyebrow + heading + description)
- * followed by a 3-col grid of CardClubs with the activity's icon,
- * name and description.
- */
+/** Sección con la lista completa de actividades del club.
+ *  SectionHeader + grid de 3 columnas con CardClub por actividad. */
 export function ActivitiesSection() {
   return (
     <Section as="section" id="actividades" spacing="lg">
@@ -49,7 +45,7 @@ export function ActivitiesSection() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {activities.map((activity) => {
-            const meta = ACTIVITY_ICONS[activity.id] ?? { icon: FaRunning };
+            const meta = ACTIVITY_ICONS[activity.id] ?? { icon: MedalIcon };
             const Icon = meta.icon;
             return (
               <CardClub key={activity.id} className="flex flex-col">

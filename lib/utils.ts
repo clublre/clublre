@@ -1,12 +1,9 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-/**
- * `cn` — Tailwind class-name merge helper.
- *
- * Combines `clsx` (conditional classes) with `twMerge` (deduplicates
- * conflicting Tailwind utilities, later class wins).
- */
+/** `cn` — helper de merge de clases Tailwind. Combina `clsx`
+ *  (clases condicionales) con `twMerge` (deduplica utilities
+ *  que conflictúan, gana la última). */
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }

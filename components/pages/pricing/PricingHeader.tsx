@@ -1,18 +1,10 @@
 import { Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
 
-/**
- * PricingHeader — eyebrow + h1 + tagline. Centred.
- *
- * Server component. Returns a fragment (no <Section>/<Container>)
- * so the page can compose it together with <PricingTiers /> inside
- * the same section — that's intentional design (shared padding so
- * they read as one block).
- *
- * The h1 carries `viewTransitionName: 'page-title'` so the browser
- * view-transitions API can animate the heading across route
- * changes.
- */
+/** Header de pricing: eyebrow + h1 + tagline centrado. Server component
+ *  que devuelve un fragment para que la página lo componga con
+ *  `<PricingTiers />` dentro de la misma sección (padding compartido).
+ *  El h1 lleva `viewTransitionName: 'page-title'`. */
 export function PricingHeader() {
   return (
     <div className="mb-12 text-center md:mb-16">

@@ -10,13 +10,10 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 
-/**
- * Route-segment error boundary for `/blog/[slug]`.
- *
- * Lives inside the blog segment so a thrown error there can't
- * crash the whole layout (Navbar / Footer stay alive, only the
- * post body is replaced with this fallback).
- */
+// Error boundary de segmento para `/blog/[slug]`. Vive dentro del
+// segmento blog para que un error ahí no rompa el layout entero
+// (Navbar / Footer siguen vivos, solo el body del post se reemplaza).
+
 export default function BlogSlugError({
   error,
   reset,

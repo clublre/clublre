@@ -5,16 +5,9 @@ import { cn } from '@/lib/utils';
 import { Eyebrow } from './Eyebrow';
 import { title } from '@/components/primitives';
 
-/**
- * SectionHeader — shared layout for the eyebrow + heading + optional
- * description that opens every page section. Centralises the rhythm
- * (margin-bottom, max-width, alignment) so pages can stop hand-rolling
- * four near-identical blocks.
- *
- * Use inside a <Section>; the bottom margin is sized to match the
- * spacing scale used across the app (`mb-10` for narrow descriptions,
- * `mb-12` for grids).
- */
+/** Header compartido: eyebrow + título + descripción opcional.
+ *  Usar dentro de un <Section>; el margin-bottom sigue la escala
+ *  de spacing de la app. */
 const sectionHeader = tv({
   base: 'mx-auto',
   variants: {
@@ -43,16 +36,15 @@ const sectionHeader = tv({
 
 export interface SectionHeaderProps
   extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof sectionHeader> {
-  /** Small uppercase label above the heading. */
+  /** Label uppercase arriba del título. */
   eyebrow: string;
-  /** Section heading — renders as <h2> by default. */
+  /** Título de la sección — renderiza como `<h2>` por default. */
   heading: ReactNode;
-  /** Tone of the eyebrow. Defaults to `sky`. */
-  tone?: 'default' | 'sky' | 'amarillo';
-  /** Optional body copy below the heading. */
+  /** Tono del eyebrow. Default: `sky`. */
+  tone?: 'default' | 'sky';
+  /** Copia opcional debajo del título. */
   description?: ReactNode;
-  /** Optional trailing slot — used by the home page for the
-   *  "Ver todos los posts" link. */
+  /** Slot trailing opcional (ej. link "Ver todos"). */
   trailing?: ReactNode;
 }
 

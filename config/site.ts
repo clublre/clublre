@@ -2,28 +2,26 @@ import type { Route } from 'next';
 
 export type SiteConfig = typeof siteConfig;
 
-/**
- * Internal routes use Next.js `Route` so `typedRoutes` accepts them.
- * External URLs (instagram, etc.) are plain strings.
- */
+// Rutas internas usan `Route` de Next para que `typedRoutes` las valide.
+// URLs externas (instagram, etc.) son strings planos.
 type NavItem = { label: string; href: Route };
 
 export const siteConfig = {
   name: 'CLUB L.R.E',
   description: 'Club Los Rosarinos Estudiantil',
-  /** Public origin used by metadata, sitemap, robots, and JSON-LD.
-   *  Keep this in sync with the canonical domain — Next 16 will
-   *  reject the build if `metadataBase` is unreachable in production. */
+  /** Origen público usado por metadata, sitemap, robots y JSON-LD.
+   *  Mantenerlo en sync con el dominio canónico. */
   url: 'https://clublre.com.ar',
   navItems: [
     { label: 'Inicio', href: '/' },
     { label: 'El Club', href: '/about' },
+    { label: 'Noticias', href: '/blog' },
     { label: 'Cuotas', href: '/pricing' },
   ] as ReadonlyArray<NavItem>,
   navMenuItems: [
     { label: 'Inicio', href: '/' },
     { label: 'El Club', href: '/about' },
-    { label: 'Blog', href: '/blog' },
+    { label: 'Noticias', href: '/blog' },
     { label: 'Cuotas', href: '/pricing' },
   ] as ReadonlyArray<NavItem>,
   links: {

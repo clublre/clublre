@@ -1,18 +1,11 @@
 'use client';
 
-/**
- * Route-segment loading UI for `/blog/[slug]`.
- *
- * Triggered automatically by Next.js while the route segment is
- * being prepared. We render the real post layout inside
- * `<phantom-ui loading>` so the shimmer blocks match the actual
- * geometry (title length, paragraph widths, etc.) once the Web
- * Component measures the DOM. The placeholder text is invisible
- * thanks to the `ssr.css` import in the root layout.
- */
+// Loading UI para `/blog/[slug]`. Renderiza el layout real del post
+// dentro de `<phantom-ui loading>` para que los shimmer blocks matcheen
+// la geometría real (largo del título, ancho de párrafos).
 
 import NextLink from 'next/link';
-import { FaArrowLeft } from 'react-icons/fa';
+import { ArrowLeft } from '@/components/ui';
 
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
@@ -32,7 +25,8 @@ export default function BlogSlugLoading() {
             className="text-default-600 hover:text-primary mb-6 inline-flex items-center gap-2 text-sm"
             href={routes.blog}
           >
-            <FaArrowLeft aria-hidden="true" size={12} /> Volver al blog
+            <ArrowLeft aria-hidden="true" height={12} width={12} /> Volver al
+            blog
           </NextLink>
           <Eyebrow className="mb-3 block" tone="sky">
             Categoría del artículo · fecha del artículo

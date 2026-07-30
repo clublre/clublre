@@ -16,13 +16,12 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Send the error (and any recovered digest from Next) to Sentry
-    // so we actually know about problems in production. `error.digest`
-    // is the stable id surfaced in the App Router.
+    // Mandamos el error a Sentry para enterarnos de problemas en
+    // producción. `error.digest` es el id estable del App Router.
     Sentry.captureException(error, {
       tags: { boundary: 'app/error' },
     });
-    // Still log locally so devs see it in the browser console.
+    // Log local para devs en consola del browser.
     console.error('[ErrorBoundary]', error);
   }, [error]);
 

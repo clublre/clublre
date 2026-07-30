@@ -1,57 +1,54 @@
-import type { IconType } from 'react-icons';
-import { FaMapMarkerAlt, FaShieldAlt, FaUsers } from 'react-icons/fa';
+import type { FC } from 'react';
+import { Calendar, MapPin, Users } from '@/components/ui';
 
 import { Section, Container } from '@/components/ui';
 
-/** Trust strip — quick social proof between hero and activities.
- *  Single source of truth so the strip renders consistently and
- *  copy changes are local to this file. */
+/** Trust strip — social proof rápido entre hero y actividades.
+ *  Single source of truth para que el strip se vea consistente y
+ *  los cambios de copy sean locales a este archivo. */
 const STATS: ReadonlyArray<{
-  icon: IconType;
+  icon: FC<{ className?: string }>;
   value: string;
   label: string;
 }> = [
   {
-    icon: FaUsers,
+    icon: Users,
     value: '3.500+',
     label: 'Socios activos',
   },
   {
-    icon: FaShieldAlt,
+    icon: Calendar,
     value: '1959',
     label: 'Año de fundación',
   },
   {
-    icon: FaMapMarkerAlt,
+    icon: MapPin,
     value: 'Iriondo 375',
     label: 'Rosario, Santa Fe',
   },
 ] as const;
 
-/**
- * TrustStrip — three stats in a single card, sits between the
- * hero and the activities list. Plain div (not CardClub) because
- * CardClub wraps children in a padded div, which breaks the
- * internal grid of hairlines between the three cells.
- */
+/** Tres stats en una sola card, entre hero y actividades. Plain div
+ *  (no CardClub) porque CardClub envuelve hijos en un div padded,
+ *  lo que rompe el grid interno con hairlines entre celdas. */
 export function TrustStrip() {
   return (
     <Section as="section" spacing="md">
       <Container size="sm">
-        <div className="bg-surface shadow-club grid gap-6 overflow-hidden rounded-xl sm:grid-cols-3 sm:gap-px">
+        <div className="bg-surface shadow-club grid gap-3 overflow-hidden rounded-xl p-3 sm:grid-cols-3 sm:gap-px sm:p-0">
           {STATS.map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center gap-2 px-6 py-2 text-center sm:py-6"
+              className="flex items-center gap-3 px-3 py-2 text-left sm:flex-col sm:items-center sm:gap-2 sm:px-6 sm:py-6 sm:text-center"
             >
-              <span className="bg-primary/10 text-primary inline-flex size-12 shrink-0 items-center justify-center rounded-xl">
-                <stat.icon aria-hidden="true" className="size-5" />
+              <span className="bg-primary/10 text-primary inline-flex size-20 shrink-0 items-center justify-center rounded-xl">
+                <stat.icon aria-hidden="true" className="size-10" />
               </span>
-              <div>
-                <p className="text-foreground text-xl font-bold tracking-tight sm:text-2xl">
+              <div className="min-w-0">
+                <p className="text-foreground text-3xl font-bold sm:text-2xl">
                   {stat.value}
                 </p>
-                <p className="text-default-600 text-sm">{stat.label}</p>
+                <p className="text-default-600 sm:text-sm">{stat.label}</p>
               </div>
             </div>
           ))}

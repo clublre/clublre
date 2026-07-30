@@ -1,42 +1,28 @@
 'use client';
 
-/**
- * FaqAccordion — collapsible FAQ group built on HeroUI's `Accordion`.
- *
- * `Accordion` is the semantically correct primitive for a list of
- * related items (faq, settings panels, etc.) and ships a built-in
- * chevron + dividers between items, which would otherwise need to
- * be hand-rolled with <details>/<summary>. Server components
- * can't render it directly because Accordion uses client hooks.
- *
- * The surface container, background, and spacing live in the
- * page so this component stays focused on the items themselves.
- *
- * Pass an array of `{ question, answer }` to render. Defaults to
- * `variant="default"` + the keyboard / focus behaviour that the
- * user expects from a real FAQ.
- */
+// FAQ colapsable sobre el `Accordion` de HeroUI. Necesita `'use client'`
+// porque Accordion usa hooks internos.
 
 import { Accordion } from '@heroui/react';
 
 export interface FaqItem {
-  /** Unique key — used by React and by the Accordion's expansion state. */
+  /** Key único — lo usa React y el estado de expansión del Accordion. */
   id: string;
-  /** Question text shown in the trigger. */
+  /** Pregunta visible en el trigger. */
   question: string;
-  /** Answer body revealed when the item is expanded. */
+  /** Respuesta que se revela al expandir. */
   answer: string;
 }
 
 export interface FaqAccordionProps {
   items: ReadonlyArray<FaqItem>;
-  /** Allow expanding several items at once. Default: only one open at a time. */
+  /** Permite expandir varios items a la vez. Default: uno solo. */
   allowMultiple?: boolean;
-  /** Tailwind classes merged into the root `<Accordion>`. */
+  /** Clases mergeadas al `<Accordion>` raíz. */
   className?: string;
-  /** Tailwind classes merged into each item's trigger. */
+  /** Clases mergeadas al trigger de cada item. */
   triggerClassName?: string;
-  /** Tailwind classes merged into each item's panel body. */
+  /** Clases mergeadas al body del panel de cada item. */
   bodyClassName?: string;
 }
 
@@ -64,10 +50,9 @@ export function FaqAccordion({
               }
             >
               <span className="grow">{item.question}</span>
-              {/* Indicator rendered last so flexbox pins the chevron
-                  to the right edge of the trigger. The internal
-                  ChevronDown rotates 180deg when the item is
-                  expanded (HeroUI handles the state via React-Aria). */}
+              {/* Indicator al final para que flex lo clave al borde
+                  derecho del trigger. ChevronDown rota 180° al
+                  expandirlo (lo maneja HeroUI via React-Aria). */}
               <Accordion.Indicator className="text-default-600 shrink-0 transition-transform" />
             </Accordion.Trigger>
           </Accordion.Heading>

@@ -1,16 +1,10 @@
-/**
- * FAQ — the most common questions we get from prospective members.
- *
- * Kept separate from the page component so editors (or a future CMS
- * adapter) can update copy without touching JSX. The page renders
- * each item with native <details>/<summary> so it works without JS
- * and stays accessible (keyboard + screen-reader friendly).
- */
+// FAQ — preguntas frecuentes. Separado del componente de página para
+// que editores (o un futuro CMS) puedan actualizar copy sin tocar JSX.
 
 export interface FaqItem {
-  /** Question text shown in the collapsible summary. */
+  /** Pregunta visible en el summary colapsable. */
   q: string;
-  /** Answer body revealed when the item is open. */
+  /** Respuesta revelada al abrir. */
   a: string;
 }
 

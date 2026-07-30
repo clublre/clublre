@@ -6,16 +6,9 @@ import {
 } from '@/components/ui';
 import { faqItems } from '@/data/faq';
 
-/**
- * PricingFaq — frequently-asked questions section.
- *
- * Server component. The accordion items take stable `id`s (index +
- * question text) so React doesn't churn DOM nodes if the list order
- * ever changes.
- *
- * `id="faq"` on the section anchors any "scroll to FAQ" CTA coming
- * from another part of the site.
- */
+/** Sección de preguntas frecuentes. Server component. Los items
+ *  llevan `id` estable (índice + texto) para que React no churn DOM
+ *  si el orden cambia. `id="faq"` ancla CTAs externos. */
 export function PricingFaq() {
   return (
     <Section as="section" id="faq" spacing="lg">

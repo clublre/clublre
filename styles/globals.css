@@ -1,28 +1,12 @@
-/* ==========================================================================
-   Club LRE - Global Styles
-   Tailwind CSS v4 + HeroUI v3 (Sky theme) + Design System
-
-   Sections:
-   1. Imports
-   2. HeroUI theme overrides (Sky palette)
-   3. Tailwind v4 @theme block (brand tokens, typography, radii)
-   4. Tailwind v4 @theme inline (semantic aliases)
-   5. Brand gradients + shadows + keyframes
-   6. Base layer
-   ========================================================================== */
+/* Club LRE — Tailwind CSS v4 + HeroUI v3 (Sky theme) */
 
 @import 'tailwindcss';
 @import '@heroui/styles';
 
-/* --------------------------------------------------------------------------
-   2. HeroUI theme — Sky palette override
-   --------------------------------------------------------------------------
-   HeroUI ships a default indigo accent (oklch 0.62 0.195 253.83). We
-   override `--accent` (and the values that derive from it) with the
-   Sky palette so all HeroUI components pick up the new primary colour
-   without us touching `bg-background`, `text-foreground`, `border-border`,
-   etc. directly.
-*/
+/* Override del theme de HeroUI al palette Sky. HeroUI defaultea a un
+   indigo (oklch 0.62 0.195 253.83); reseteamos `--accent` (y los
+   valores que derivan) para que todos los componentes de HeroUI
+   levanten el primary nuevo sin tocar `bg-background`, etc. */
 @layer base {
   /* Light mode */
   :root,
@@ -98,19 +82,15 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   3. Tailwind v4 @theme — brand tokens (Tailwind utilities)
-   --------------------------------------------------------------------------
-   Project-level surfaces (surface-muted, default-*) live here —
-   everything else (background, foreground, surface, border, focus)
-   comes from HeroUI. Brand secondary uses Tailwind built-in `blue-*`
-   (cobalt maps to blue-700; lighter variants use blue-400/500) so
-   we don't reinvent the palette.
-*/
+/* Tokens de marca para utilities de Tailwind. Las superficies
+   project-level (surface-muted, default-*) viven acá; el resto
+   (background, foreground, surface, border, focus) viene de HeroUI.
+   El secondary usa `blue-*` built-in (cobalto → blue-700; variantes
+   claras blue-400/500) para no inventar la paleta. */
 @theme {
-  /* Soft sky tokens — used for category pills, tags, chips.
-     Mirror of brand.skySoft / brand.skySoftFg in config/design-tokens.ts.
-     Keep the alpha at 14% so CSS and TS agree exactly. */
+  /* Soft sky — usado para pills, tags, chips.
+     Espejo de brand.skySoft / brand.skySoftFg en `config/design-tokens.ts`.
+     Mantener el alpha en 14% para que CSS y TS coincidan exacto. */
   --color-sky-soft: color-mix(in oklch, var(--accent) 14%, transparent);
   --color-sky-soft-fg: var(--accent);
 
@@ -118,29 +98,25 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-fira-code), ui-monospace, monospace;
 
-  /* Radii — slightly tighter than Tailwind defaults to keep
-     the chrome feeling modern but not overly friendly. */
+  /* Radii — un toque más cerrados que los defaults de Tailwind
+     para que el chrome se sienta moderno pero no overly friendly. */
   --radius-sm: 0.3125rem;
   --radius-md: 0.4375rem;
   --radius-lg: 0.625rem;
   --radius-xl: 0.875rem;
 
-  /* Shadows — tinted with the sky accent, kept subtle for a
-     minimal look. The lg variant is reserved for hover/floating
-     surfaces so resting cards stay close to the page. */
+  /* Shadows — tintados con el sky accent, sutiles. La variante lg
+     se reserva para hover/floating surfaces; las cards en reposo
+     quedan cerca de la página. */
   --shadow-club:
     0 1px 2px 0 oklch(0.685 0.169 237 / 0.04), 0 2px 6px 0 rgb(0 0 0 / 0.04);
   --shadow-club-lg:
     0 4px 12px 0 oklch(0.685 0.169 237 / 0.1), 0 2px 6px 0 rgb(0 0 0 / 0.06);
 }
 
-/* --------------------------------------------------------------------------
-   4. Tailwind v4 @theme inline — semantic aliases
-   --------------------------------------------------------------------------
-   These aliases let us write `bg-background`, `text-foreground`,
-   `bg-surface-muted`, `text-default-600` etc. and have them resolve to
-   the HeroUI CSS vars.
-*/
+/* Aliases semánticos: nos dejan escribir `bg-background`,
+   `text-foreground`, `text-default-600`, etc. resolviendo a las
+   CSS vars de HeroUI. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -157,21 +133,9 @@
 
   --color-border: var(--border);
 
-  /* `default-*` — neutral text scale.
-   *
-   * 100/200/300 used to alias surface/border tokens, which made
-   * `text-default-100` render dark grey on dark mode (invisible —
-   * it was the same dark grey as the bg). They are now proper
-   * foreground tints on the strongest end of the ramp.
-   *
-   * 400–700 keep their pre-existing semantics: an INVERSE ramp
-   * (here 700 is most opaque, 400 most faded). Consumers pick by
-   * intent — 100/200 for body text, 500/600 for secondary
-   * captions, 700 for emphasis.
-   *
-   * Worth refactoring to a clean monotonic ramp in a future pass
-   * — leaving as-is to avoid touching the 47 call sites that use
-   * these tokens today. */
+  /* `default-*` — escala neutra de texto. La rampa es INTENSA al revés
+     (700 más opaco, 400 más faded). Consumers eligen por intención:
+     100/200 body, 500/600 captions secundarios, 700 emphasis. */
   --color-default: var(--default);
   --color-default-foreground: var(--default-foreground);
   --color-default-100: color-mix(in oklch, var(--foreground) 92%, transparent);
@@ -182,16 +146,13 @@
   --color-default-600: color-mix(in oklch, var(--foreground) 60%, transparent);
   --color-default-700: color-mix(in oklch, var(--foreground) 75%, transparent);
 
-  /* Primary mirrors the HeroUI accent for utility-class parity. */
+  /* Primary espejo del HeroUI accent para parity de utility class. */
   --color-primary: var(--accent);
   --color-primary-foreground: var(--accent-foreground);
 }
 
-/* --------------------------------------------------------------------------
-   5. Shadows, keyframes, utilities
-   -------------------------------------------------------------------------- */
-/* Hero radial glow — uses the HeroUI accent CSS var directly so
-   light/dark modes stay in sync without a parallel token. */
+/* Hero radial glow — usa la CSS var del accent de HeroUI directamente
+   para que light/dark queden en sync sin un token paralelo. */
 .gradient-radial-sky {
   background-image: radial-gradient(
     ellipse at top,
@@ -208,13 +169,10 @@
   box-shadow: var(--shadow-club-lg);
 }
 
-/* Gradient border — sky to blue. Uses the modern mask-composite
-   technique (the older `bg-gradient + p-px` trick leaks on
-   corners and reads as a "double border"). The ::before is
-   masked to a 2px ring and pushed to z-index -1 so the
-   children sit above it. `isolation: isolate` scopes the
-   stacking context so the negative z-index doesn't escape the
-   card. */
+/* Gradient border sky→blue usando mask-composite (el viejo truco
+   `bg-gradient + p-px` filtra en las esquinas y se lee como doble
+   borde). El ::before se mask-ea a un ring de 2px y se empuja a
+   z-index -1. `isolation: isolate` scope el stacking context. */
 @layer utilities {
   .gradient-border-sky {
     position: relative;
@@ -243,12 +201,9 @@
   }
 }
 
-/* Scale on press (better-ui skill, principle #9).
- * Targets every interactive primitive we use: HeroUI Button
- * (data-slot="button"), our IconButton, the Drawer.CloseTrigger,
- * and any plain <button> / NextLink. Subtle 0.97 scale gives
- * tactile feedback without crossing into "exaggerated".
- * No transition delay — fires instantly on press. */
+/* Scale on press — targets HeroUI Button (`data-slot="button"`),
+   nuestro IconButton, el Drawer.CloseTrigger y cualquier `<button>`
+   / NextLink. Scale 0.97 sutil para feedback táctil sin exagerar. */
 button:not(:disabled):active,
 [data-slot='button']:not(:disabled):active,
 a[href]:active {
@@ -296,21 +251,17 @@ a[href] {
   }
 }
 
-/* --------------------------------------------------------------------------
-   6. Base
-   -------------------------------------------------------------------------- */
 @layer base {
   html {
     color-scheme: light dark;
     scroll-behavior: smooth;
-    /* Offset anchored-section jumps for the sticky navbar. */
+    /* Offset de jumps a secciones ancladas para la navbar sticky. */
     scroll-padding-top: 5rem;
   }
 
-  /* Honor users that prefer reduced motion: drop infinite animations,
-     instant smooth scrolling, and opt out of the View Transitions
-     API cross-fade (still allows the URL change to happen so the
-     navigation completes, just instantly). */
+  /* Honor a `prefers-reduced-motion`: cortar animaciones infinitas,
+     scroll smooth instantáneo y opt-out del cross-fade de View
+     Transitions (la nav sigue ocurriendo, solo sin animación). */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

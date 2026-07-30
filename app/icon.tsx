@@ -3,11 +3,9 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-/**
- * `app/icon.tsx` — Next 16 favicon route. Next picks this up
- * automatically (better than the legacy `public/favicon.ico`)
- * and serves a 32×32 PNG sized right for browser tabs + bookmarks.
- */
+// `app/icon.tsx` — favicon route de Next 16 (32×32 PNG). Next lo toma
+// automático (mejor que el legacy `public/favicon.ico`).
+
 export const size = {
   width: 32,
   height: 32,
@@ -15,10 +13,8 @@ export const size = {
 
 export const contentType = 'image/png';
 
-/**
- * Crop the actual LRE shield to a 32×32 favicon. Single-pass load
- * through Node `fs` reads the asset once per build (static route).
- */
+// Carga del escudo vía `fs` de Node — single-pass por build (ruta static).
+
 export default async function Icon() {
   const logoData = await readFile(join(process.cwd(), 'public', 'logo2.jpeg'));
   const logoSrc = `data:image/jpeg;base64,${logoData.toString('base64')}`;
@@ -36,7 +32,6 @@ export default async function Icon() {
         background: '#fff',
       }}
     >
-      {}
       <img
         alt="CLUB L.R.E"
         height={32}

@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Badge, Button } from '@heroui/react';
-import { FaCheck } from 'react-icons/fa';
+import { Check } from '@/components/ui';
 
 import { CardClub, CardClubTitle, CardClubBody } from '@/components/ui';
 import { pricingTiers } from '@/data/club';
@@ -13,18 +13,9 @@ const formatPrice = (price: number) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-/**
- * PricingTiers — 3-column grid of pricing cards.
- *
- * Server component. Reads `pricingTiers` from `data/club.ts` directly
- * so the page stays a pure composition root. `formatPrice` lives here
- * (private to this file) since it's only used in the pricing card.
- *
- * Layout note: on mobile cards stack and the CTA sits right under
- * the feature list; from md up, `items-stretch` + `md:mt-auto` pins
- * every CTA to the bottom of the tallest sibling so all three CTAs
- * line up horizontally.
- */
+/** Grid de 3 columnas con los planes de cuota. Server component que
+ *  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
+ *  `md:mt-auto` alinea los CTAs al fondo del card más alto. */
 export function PricingTiers() {
   return (
     <>
@@ -61,7 +52,7 @@ export function PricingTiers() {
                   key={feature}
                   className="text-default-700 flex items-start gap-2 text-sm"
                 >
-                  <FaCheck className="text-primary mt-0.5 size-4 shrink-0" />
+                  <Check className="text-primary mt-0.5 size-4 shrink-0" />
                   <span>{feature}</span>
                 </li>
               ))}

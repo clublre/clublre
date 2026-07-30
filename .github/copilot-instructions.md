@@ -15,6 +15,15 @@
 - **Don't auto-apply.** When suggesting code in chat, prefix with
   "Suggested:" if it's a non-trivial change.
 - **TypeScript first.** Always show types in suggestions.
+- **Comments in Spanish.** JSDoc, headers, and inline comments are
+  written in Spanish. Variable / prop / type names and UI strings
+  stay in English (ecosystem). Keep comments minimal: only "why",
+  not "what"; no commented-out code blocks.
+- **Don't commit or push without explicit user authorization.**
+  "dale" / "ok" / "listo" are acknowledgments, not authorizations.
+  Ask before `git commit` / `git push`.
+- **Don't run lint/type-check on every change.** Only on explicit
+  request, before handoff, or on high-risk changes.
 
 ---
 
@@ -46,8 +55,14 @@ When generating a class string that includes a brand color:
 // ✅
 className = 'bg-sky-500 text-white hover:bg-sky-600';
 
+// ✅ cobalto secundario
+className = 'bg-blue-700 text-white hover:bg-blue-800';
+
 // ❌
 className = 'bg-[#0009A0]';
+
+// ❌ deprecated — puede romper por auto-referencia en @theme inline
+className = 'bg-amarillo/10 text-amarillo';
 ```
 
 When you need a value that isn't in the palette, **add it to

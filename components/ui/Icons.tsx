@@ -1,43 +1,37 @@
+// Iconos de marca + iconos temáticos/nav. Todo el código consume
+// este módulo en vez de tocar @iconify/react directamente.
+
 import type { FC, SVGProps } from 'react';
+import type { IconProps as IconifyIconProps } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import Image from 'next/image';
 
-/**
- * Props shared by every brand SVG icon. Inlined here (rather than in
- * a top-level `types/` barrel) because only this file consumes them.
- */
+/** Props base para los SVG icons. */
 export interface IconSvgProps extends SVGProps<SVGSVGElement> {
   size?: number;
 }
 
-/**
- * Props for the brand logo. Narrower than {@link IconSvgProps} because
- * the logo is an image, not an SVG — SVG-specific event handlers
- * (`onCopy` on `SVGSVGElement`, etc.) don't apply.
- */
+/** Wrapper interno que prepende la colección `ph:` (phosphor). */
+type IconProps = Omit<IconifyIconProps, 'icon'> & {
+  icon: string;
+};
+
+const Phosphor = ({ icon, ...rest }: IconProps) => (
+  <Icon aria-hidden="true" icon={`ph:${icon}`} {...rest} />
+);
+
+/** Props del escudo del club. */
 export interface LogoProps {
-  /** Render width AND height in pixels (square). */
+  /** Ancho Y alto en píxeles (cuadrado). */
   size?: number;
   className?: string;
-  /**
-   * Pass `priority` for above-the-fold placements (Navbar brand on
-   * first paint). Other positions — Footer, deep-linked pages — get
-   * lazy loading by default which avoids redundant preload work
-   * for an asset the user has already cached.
-   */
+  /** Marcar como `priority` en posiciones above-the-fold (ej. Navbar). */
   priority?: boolean;
-  /**
-   * Explicit responsive sizes hint (passed through to next/image)
-   * so the browser can pick the right resolution from the source-set.
-   */
+  /** Hint responsive pasado a `next/image` para elegir resolución. */
   sizes?: string;
 }
 
-/**
- * Brand shield — the actual Club LRE escudo, served from
- * `/public/logo2.jpeg` and routed through `next/image` so Next can
- * resize/cache it. The logo already contains its own brand colours
- * (navy + sky + gold) so no theme adaptation is needed.
- */
+/** Escudo del club — se sirve desde `/public/logo2.jpeg` vía `next/image`. */
 export const Logo: FC<LogoProps> = ({
   size = 36,
   className,
@@ -55,18 +49,90 @@ export const Logo: FC<LogoProps> = ({
   />
 );
 
-// Tiny className helper kept inline to avoid pulling `cn` from
-// `lib/utils` (which would create an awkward cross-folder import in
-// this lightweight icon module).
+// Helper inline para evitar importar `cn` (mantiene este módulo
+// liviano y sin dependencia cruzada a `lib/utils`).
 function cnLogo(cls?: string): string {
   return ['h-auto w-auto rounded-full', cls].filter(Boolean).join(' ');
 }
 
-/**
- * Outline sun icon — used by ThemeToggle in light mode.
- * Lucide-style: a circle with 8 rays around it, drawn with stroke.
- * Replaces the previous filled variant for a lighter visual weight.
- */
+// Iconos de tema + navegación.
+export const ArrowLeft = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="arrow-left" {...p} />
+);
+export const ArrowRight = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="arrow-right" {...p} />
+);
+export const ArrowUp = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="arrow-up" {...p} />
+);
+export const Menu = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="list" {...p} />
+);
+export const Home = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="house" {...p} />
+);
+export const Info = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="info" {...p} />
+);
+export const Newspaper = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="newspaper" {...p} />
+);
+export const Tags = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="tag" {...p} />
+);
+export const Phone = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="phone" {...p} />
+);
+export const MapPin = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="map-pin-area" {...p} />
+);
+export const Users = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="users-three" {...p} />
+);
+export const Calendar = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="calendar-heart" {...p} />
+);
+export const Check = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="check" {...p} />
+);
+export const Shield = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="shield" {...p} />
+);
+export const Quote = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="quotes" {...p} />
+);
+
+// Iconos de actividades (deportes).
+
+export const BasketballIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="basketball" {...p} />
+);
+export const VolleyballIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="volleyball" {...p} />
+);
+export const PingPongIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="ping-pong" {...p} />
+);
+export const SwimmingIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="person-simple-swim" {...p} />
+);
+export const HandFistIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="hand-waving" {...p} />
+);
+export const MedalIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="person-simple-run" {...p} />
+);
+
+// Icono de marca (Instagram — versión phosphor, sin SVG custom).
+
+export const InstagramIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Icon aria-hidden="true" icon="ph:instagram-logo" {...p} />
+);
+
+// SVGs inline para los huecos donde phosphor no tiene el icono.
+
+// Sol outline — usado por ThemeToggle en modo claro. Variante custom
+// para mantener el grosor fino que tenía la versión anterior.
 export const SunIcon: FC<IconSvgProps> = ({
   size = 24,
   width,
@@ -99,9 +165,7 @@ export const SunIcon: FC<IconSvgProps> = ({
   </svg>
 );
 
-/**
- * HeroUI MoonFilledIcon — used by ThemeToggle in dark mode.
- */
+// Luna llena — usada por ThemeToggle en modo oscuro.
 export const MoonFilledIcon: FC<IconSvgProps> = ({
   size = 24,
   width,

@@ -88,8 +88,16 @@ BEST-PRACTICES.md       # The architectural bible — read it first
 
 - ✅ Use Tailwind utility classes generated from tokens.
 - ✅ Brand tokens: `bg-sky-*` / `text-primary` (HeroUI Sky theme via
-  `@accent`), `bg-amarillo` (secondary), `gradient-sky`,
+  `@accent`), `bg-blue-*` (cobalto secundario), `gradient-sky`,
   `shadow-club`, `shadow-club-lg`.
+- ✅ **Prefer Tailwind built-in palettes** (`bg-sky-500`,
+  `bg-blue-700`) por sobre nombres custom de la marca. Si necesitás
+  un valor fuera de la paleta, agregalo a `globals.css` (`@theme`) +
+  `config/design-tokens.ts` y usá el utility generado.
+- ❌ Nombres custom como `bg-amarillo` / `bg-cobalt` están
+  **deprecated** — pueden romper por bugs de auto-referencia en
+  `@theme inline`. Migrar a Tailwind built-in o al token equivalente
+  ya definido.
 - ❌ No inline `style={{ color: '#...' }}`. Use utility classes.
 - ❌ No `bg-[#abc]` arbitrary values — add a token to `globals.css` and
   `design-tokens.ts` instead.
@@ -157,15 +165,21 @@ undefined`.
 
 ### Comments
 
-- JSDoc only for non-obvious APIs, exported helpers, or component
-  variants.
-- No "what" comments (`// loop through items`). Comments explain "why".
-- Use Spanish for user-facing copy, English for code/comments.
+- JSDoc breve (1–2 líneas) solo para APIs exportadas, helpers
+  públicos o variantes de componentes.
+- Comentarios inline solo cuando explican **por qué** algo no obvio
+  (workaround, quirk, decisión de diseño). Nunca "qué" hace el
+  código.
+- **Idioma**: comentarios, JSDoc y headers de archivo van en
+  **español**. Nombres de variables / props / tipos / strings de UI
+  en inglés (es lo que entiende el ecosistema).
+- Sin código comentado (HTML/JSX) — borrar, no dejar `<!-- … -->`.
+- Sin bloque JSDoc multi-párrafo justificando cada decisión —
+  mantener el bloque escueto.
 
 ### File headers
 
-Every file should have a one-line top-level comment if its purpose isn't
-obvious from the name. Example:
+Una sola línea arriba si el propósito no es obvio del nombre. Ej:
 
 ```ts
 // Theme-aware navbar — uses next-themes for dark mode toggling.
@@ -187,6 +201,30 @@ obvious from the name. Example:
    error. Fix the actual type error.
 7. Don't change the `--color-estu-*` palette without consulting the
    club (these are the brand colors).
+8. **Don't commit or push without explicit user authorization.**
+   Frases como "dale", "ok", "listo" no son autorizaciones — son
+   acknowledgment. Pedir confirmación antes de `git commit` /
+   `git push` si el usuario no lo pidió explícito.
+9. **Don't run lint/type-check on every change by default.** Solo
+   cuando el usuario lo pide, en handoff, o cuando el cambio es
+   high-risk (refactor cross-cutting, upgrade de deps, etc).
+
+## Validation cadence
+
+Por default: editar + commitear sin correr `npm run lint` /
+`npm run type-check` en cada cambio. Razones:
+
+- Iteración más rápida cuando se hacen muchos cambios chicos.
+- ESLint puede tener falsos positivos que distraen.
+
+Cuándo SÍ correr validaciones:
+
+- Antes de un handoff (PR, pedir review).
+- Después de cambios high-risk (refactor cross-cutting, upgrade de
+  deps, tocar `tsconfig.json` / `next.config.js`).
+- Cuando el usuario lo pide explícito.
+
+Si el build de producción falla, ahí sí — `npm run build`.
 
 ---
 
@@ -197,6 +235,9 @@ npm run type-check     # tsc --noEmit
 npm run lint           # eslint .
 npm run build          # next build (catches SSR/RSC issues)
 ```
+
+> Solo correr si el usuario lo pide o en handoff. No es parte del
+> flujo por default — ver §"Validation cadence" arriba.
 
 If a UI change, also smoke-test in browser via `npm run dev`.
 

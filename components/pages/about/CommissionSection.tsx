@@ -1,13 +1,9 @@
 import { Section, Container, SectionHeader, Eyebrow } from '@/components/ui';
 import { commission } from '@/data/club';
 
-/**
- * CommissionSection — board of directors grid.
- *
- * Server component. Reads `commission` from `data/club.ts` so the
- * roster can be edited in one place. `id="comision"` on the section
- * anchors the "#comision" hash link used by the pricing tier CTAs.
- */
+/** Sección de comisión directiva. Lee `commission` de `data/club.ts`
+ *  para que el roster sea editable en un solo lugar. `id="comision"`
+ *  ancla el link `#comision` usado por los CTAs de los planes. */
 export function CommissionSection() {
   return (
     <Section as="section" id="comision" spacing="lg">

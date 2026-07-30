@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import NextLink from 'next/link';
-import { FaArrowLeft } from 'react-icons/fa';
+import { ArrowLeft } from '@/components/ui';
 
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           className="text-default-600 hover:text-primary mb-6 inline-flex items-center gap-2 text-sm"
           href={routes.blog}
         >
-          <FaArrowLeft size={12} /> Volver al blog
+          <ArrowLeft height={12} width={12} /> Volver al blog
         </NextLink>
         <Eyebrow className="mb-3 block" tone="sky">
           {post.category} ·{' '}

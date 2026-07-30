@@ -1,17 +1,9 @@
 'use client';
 
-/**
- * Root loading UI — Next.js renders this while any segment without
- * its own `loading.tsx` is being prepared (home, about, pricing).
- * Segment-specific overrides (e.g. `app/blog/loading.tsx` for the
- * post detail) take precedence inside their own subtree.
- *
- * Wraps a representative section header in `<phantom-ui loading>` so
- * the shimmer blocks match the real geometry instead of guessing.
- * The placeholder text inside the slot is invisible by default
- * (overridden by `ssr.css` imported in the root layout), so nothing
- * flashes before the Web Component hydrates and measures the DOM.
- */
+// Loading raíz — Next.js lo renderiza mientras se prepara cualquier
+// segmento sin su propio `loading.tsx` (home, about, pricing).
+// Envuelve un section header en `<phantom-ui loading>` para que los
+// shimmer blocks matcheen la geometría real en vez de adivinar.
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';

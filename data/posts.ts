@@ -1,35 +1,21 @@
-/**
- * Blog posts — single source of truth.
- *
- * Used by both `app/blog/page.tsx` (index) and `app/blog/[slug]/page.tsx`
- * (post detail). Keeping the data here avoids duplication and drift
- * between the two pages.
- *
- * In production this should be replaced with a CMS adapter
- * (Sanity / Contentful / markdown files / DB). The exported shape is
- * the contract the rest of the app relies on.
- *
- * The category lives on the listing row; the `body` lives only on the
- * detail row. `excerpt` is derived from the first sentence of `body`
- * to avoid duplication.
- */
+// Posts del blog — single source of truth para index y detail.
+// En producción debería venir de un CMS (Sanity / Contentful / MD / DB).
 
 export interface BlogPost {
-  /** URL slug. Used as the `[slug]` route param and as a `Route` after concat. */
+  /** Slug URL — usado como route param `[slug]`. */
   slug: string;
-  /** Display title. */
+  /** Título visible. */
   title: string;
-  /** ISO date (YYYY-MM-DD). */
+  /** Fecha ISO (YYYY-MM-DD). */
   date: string;
-  /** Category label (display only, no i18n). */
+  /** Categoría (display only, sin i18n). */
   category: string;
-  /** Short excerpt shown on the index. Falls back to the first 140 chars of `body`. */
+  /** Excerpt corto para el index. */
   excerpt: string;
-  /** Full body shown on the detail page. */
+  /** Body completo para la página de detalle. */
   body: string;
 }
 
-/** Order matters — sorted by `date` desc on the index page. */
 export const posts: ReadonlyArray<BlogPost> = [
   {
     slug: 'apertura-pileta-2026',
@@ -87,12 +73,12 @@ export const posts: ReadonlyArray<BlogPost> = [
   },
 ];
 
-/** Index of posts by slug — O(1) lookup for the detail page. */
+// Index por slug — lookup O(1) para la página de detalle.
 export const postsBySlug: Readonly<Record<string, BlogPost>> = Object.freeze(
   Object.fromEntries(posts.map((p) => [p.slug, p])),
 );
 
-/** Sorted newest-first. */
+// Sorted newest-first.
 export const postsNewestFirst: ReadonlyArray<BlogPost> = Object.freeze(
   [...posts].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)),
 );

@@ -1,4 +1,4 @@
-// Edge runtime entry for Sentry.
+// Entrada de Sentry para el runtime Edge.
 import * as Sentry from '@sentry/nextjs';
 
 const SENTRY_DSN = process.env['NEXT_PUBLIC_SENTRY_DSN'];

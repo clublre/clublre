@@ -7,11 +7,9 @@ import { ActivitiesSection } from '@/components/pages/home/ActivitiesSection';
 import { LatestPosts } from '@/components/pages/home/LatestPosts';
 import { FinalCta } from '@/components/pages/home/FinalCta';
 
-/**
- * Home — composes the five home-only sections plus the page's
- * ambient lighting preset. AmbientBlobs renders LAST so the
- * screen-blend has the full content as backdrop.
- */
+// Home — compone las secciones de la home + AmbientBlobs al final
+// para que el screen-blend tenga todo el contenido como backdrop.
+
 export default function HomePage() {
   const latestPosts = postsNewestFirst.slice(0, 3);
 

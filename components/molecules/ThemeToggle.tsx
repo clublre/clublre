@@ -9,20 +9,12 @@ import { MoonFilledIcon, SunIcon } from '@/components/ui/Icons';
 
 export interface ThemeToggleProps {
   className?: string;
-  /** Visual size of the icon. */
+  /** Tamaño visual del ícono. */
   size?: 'sm' | 'md' | 'lg';
 }
 
-/**
- * ThemeToggle — light/dark toggle rendered as an icon-only button.
- *
- * Molecule: composes `IconButton` (atom) with `next-themes`.
- * Shows the sun icon when in light mode (click → dark) and the moon
- * icon when in dark mode (click → light).
- *
- * The icon colour follows `text-default-700` so it stays visible on
- * both light and dark surfaces without any bg-transparent hack.
- */
+/** Toggle claro/oscuro como botón icon-only. Molécula: compone
+ *  `IconButton` con `next-themes`. Muestra sol en light y luna en dark. */
 export const ThemeToggle: FC<ThemeToggleProps> = ({
   className,
   size = 'md',
@@ -44,6 +36,8 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
       variant="ghost"
       onPress={onPress}
     >
+      {/* `text-default-700` mantiene el ícono visible en ambos temas
+          sin necesidad de `bg-transparent`. */}
       <span
         aria-hidden="true"
         className="text-default-700 group-data-[hover=true]:text-foreground inline-flex transition-colors"

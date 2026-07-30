@@ -1,13 +1,9 @@
+// Variantes de heading (`title` + `subtitle`) reutilizables.
+// Los colores usan solo paletas Tailwind built-in (sky, blue, etc.)
+// para no introducir tokens de marca custom.
+
 import { tv } from 'tailwind-variants';
 
-/**
- * Heading variants — Club LRE
- *
- * Color variants use Tailwind built-in palettes only (sky, blue, etc.)
- * so the heading text matches the rest of the site without custom
- * brand tokens. Compound variant adds `bg-clip-text text-transparent`
- * so the gradient actually shows through the text.
- */
 export const title = tv({
   base: 'tracking-tight inline-block font-semibold text-balance',
   variants: {
@@ -20,12 +16,12 @@ export const title = tv({
       pink: 'bg-gradient-to-r from-pink-400 to-rose-500',
     },
     size: {
-      sm: 'text-3xl lg:text-4xl',
-      // H2: 3xl on mobile so it's visibly smaller than H1 (4xl),
-      // scaling up to 5xl on desktop. The leading-9 (2.25rem)
-      // gives a confident, sub-heading rhythm.
-      md: 'text-3xl lg:text-5xl leading-9',
-      lg: 'text-4xl lg:text-6xl',
+      sm: 'text-3xl lg:text-4xl leading-tight',
+      // H2: 3xl en mobile para ser visiblemente más chico que H1,
+      // escalando a 5xl en desktop. leading-[1.15] da aire al
+      // envolver a dos líneas.
+      md: 'text-3xl lg:text-5xl leading-[1.15]',
+      lg: 'text-4xl lg:text-6xl leading-tight',
     },
     fullWidth: {
       true: 'w-full block',
@@ -37,10 +33,9 @@ export const title = tv({
   compoundVariants: [
     {
       color: ['sky', 'blue', 'violet', 'cyan', 'green', 'pink'],
-      // leading-[inherit] keeps the gradient span on the same baseline
-      // rhythm as the parent heading; without it the inline-block
-      // span develops its own line-height and reads as visually
-      // smaller than the plain text next to it.
+      // leading-[inherit] mantiene el span del gradiente en la
+      // misma línea base que el heading padre; sin esto el span
+      // inline-block desarrolla su propio line-height.
       class: 'bg-clip-text text-transparent leading-[inherit]',
     },
   ],

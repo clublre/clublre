@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Chip } from '@heroui/react';
-import { FaArrowRight } from 'react-icons/fa';
+import { ArrowRight } from '@/components/ui';
 
 import { Section, Container, SectionHeader } from '@/components/ui';
 import type { BlogPost } from '@/data/posts';
@@ -11,14 +11,10 @@ interface LatestPostsProps {
   posts: ReadonlyArray<BlogPost>;
 }
 
-/**
- * LatestPosts — pulls the most recent blog posts onto the home
- * page to surface editorial content. Drives SEO (internal links
- * + fresh content signals) and keeps the site feeling alive
- * between posts. `posts` is passed in as a prop so the home
- * page can decide which slice to render (newest 3) without
- * this component reaching into the data layer.
- */
+/** Posts más recientes del blog en la home. Aporta SEO (links
+ *  internos + señal de contenido fresco) y mantiene el sitio vivo
+ *  entre publicaciones. Recibe `posts` por prop para que la home
+ *  decida el slice sin que este componente toque la capa de datos. */
 export function LatestPosts({ posts }: LatestPostsProps) {
   return (
     <Section as="section" spacing="lg">
@@ -32,7 +28,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
               href={routes.blog}
             >
               Ver todos los posts
-              <FaArrowRight aria-hidden="true" className="size-3" />
+              <ArrowRight aria-hidden="true" className="size-3" />
             </NextLink>
           }
         />
@@ -72,7 +68,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
                 </p>
                 <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">
                   Leer artículo
-                  <FaArrowRight
+                  <ArrowRight
                     aria-hidden="true"
                     className="size-3 transition-transform group-hover:translate-x-0.5"
                   />

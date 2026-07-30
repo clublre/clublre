@@ -1,5 +1,5 @@
-// UI primitives — layout and decorative components.
-// These compose atoms and molecules but are themselves shared across pages.
+// Barrel de UI primitives — componentes de layout y decoración
+// compartidos entre páginas.
 
 export { Section } from './Section';
 export { Container } from './Container';
@@ -14,3 +14,30 @@ export {
   CardClubBody,
 } from './CardClub';
 export { default as BlurryBlob } from './BlurryBlob';
+export {
+  Logo,
+  InstagramIcon,
+  SunIcon,
+  MoonFilledIcon,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Menu,
+  Home,
+  Info,
+  Newspaper,
+  Tags,
+  Phone,
+  MapPin,
+  Users,
+  Calendar,
+  Check,
+  Shield,
+  Quote,
+  BasketballIcon,
+  VolleyballIcon,
+  PingPongIcon,
+  SwimmingIcon,
+  HandFistIcon,
+  MedalIcon,
+} from './Icons';

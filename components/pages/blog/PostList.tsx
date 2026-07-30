@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Chip } from '@heroui/react';
-import { FaArrowRight } from 'react-icons/fa';
+import { ArrowRight } from '@/components/ui';
 
 import {
   Section,
@@ -19,17 +19,11 @@ const formatDate = (iso: string) =>
     day: 'numeric',
   }).format(new Date(iso));
 
-/**
- * PostList — index page grid of all blog posts.
- *
- * Server component. Reads `postsNewestFirst` from `data/posts.ts`
- * directly (sorted desc at module load) and renders each as a
- * CardClub with category chip, full date, title and excerpt.
- *
- * Title is wrapped in a NextLink via CardClubTitle so the whole
- * card is clickable from the title region, with a separate
- * "Leer artículo" CTA at the bottom anchored to /blog/[slug].
- */
+/** Grid con todos los posts del blog. Server component que lee
+ *  `postsNewestFirst` directo de `data/posts.ts`. El título va
+ *  wrappeado en NextLink dentro de CardClubTitle para que toda
+ *  la zona del título sea clickeable, más el CTA "Leer artículo"
+ *  abajo anclado a `/blog/[slug]`. */
 export function PostList() {
   return (
     <Section as="section" spacing="lg">
@@ -61,7 +55,7 @@ export function PostList() {
                 href={routes.blogPost(post.slug)}
               >
                 Leer artículo
-                <FaArrowRight aria-hidden="true" className="size-3" />
+                <ArrowRight aria-hidden="true" className="size-3" />
               </NextLink>
             </CardClub>
           ))}

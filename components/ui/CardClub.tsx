@@ -3,22 +3,15 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
-  /** Highlight the card (used for featured pricing tiers). */
+  /** Resalta la card (usado en planes de cuota destacados). */
   highlighted?: boolean;
-  /** Optional media slot rendered above the body. */
+  /** Slot opcional para media arriba del body. */
   media?: ReactNode;
 }
 
-/**
- * CardClub — branded card for activities, pricing tiers, blog posts.
- *
- * Stays a plain `<div>` (not the HeroUI Card) because the site's
- * visual treatment uses brand-specific shadows and a custom
- * `highlighted` flag that doesn't map to any HeroUI Card prop
- * one-to-one. Wrapping `<Card>` here added an extra DOM layer
- * (Card.Header + Card.Content) that broke the existing
- * `flex flex-col` / `mt-auto` layouts in pricing and blog cards.
- */
+/** Card de marca para actividades, planes y posts. Se queda en `<div>`
+ *  en lugar de `<Card>` de HeroUI porque el `highlighted` y los
+ *  shadows custom no mapean 1:1 a las props de HeroUI. */
 export function CardClub({
   highlighted = false,
   media,
@@ -38,11 +31,8 @@ export function CardClub({
       {...props}
     >
       {media ? <div className="relative">{media}</div> : null}
-      {/* Inner padded wrapper is `flex grow flex-col` so it fills the
-          card height (via flex-grow) and lays out its children in a
-          flex column. That makes `mt-auto` on a child CTA actually
-          work — pinning the button to the bottom even when sibling
-          cards in the grid have less content. */}
+      {/* Wrapper interno con `flex grow flex-col` para que `mt-auto`
+          en un hijo (ej. CTA) lo clave al fondo de la card. */}
       <div className="relative flex grow flex-col p-5 sm:p-6">{children}</div>
     </div>
   );

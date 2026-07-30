@@ -1,19 +1,14 @@
 import NextLink from 'next/link';
 import { Button } from '@heroui/react';
-import { FaArrowLeft } from 'react-icons/fa';
+import { ArrowLeft } from '@/components/ui';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 
-/**
- * Global 404 boundary.
- *
- * Renders automatically when `notFound()` is called from any Server
- * Component or when a route doesn't match. Matches the Club LRE
- * visual language (eyebrow + heading + body + CTA).
- */
+/** 404 global. Se renderiza cuando se llama a `notFound()` desde
+ *  cualquier Server Component o cuando una ruta no matchea. */
 export default function NotFound() {
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
@@ -29,7 +24,7 @@ export default function NotFound() {
       </p>
       <NextLink className="mt-8" href={routes.home}>
         <Button className="font-semibold" size="md" variant="primary">
-          <FaArrowLeft aria-hidden="true" className="mr-2 size-3.5" />
+          <ArrowLeft aria-hidden="true" className="mr-2 size-3.5" />
           Volver al inicio
         </Button>
       </NextLink>

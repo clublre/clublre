@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.{css,tsx,ts}"
+applyTo: '**/*.{css,tsx,ts}'
 ---
 
 # Tailwind CSS v4 rules
@@ -20,8 +20,9 @@ file with Tailwind classes.
   `--focus` / `--link` (overridden in `@layer base` in
   `globals.css`). Use the utility `bg-primary` / `text-primary` /
   `border-primary`, or Tailwind built-in `bg-sky-*` / `text-sky-*`.
-- **Secondary** — `--color-amarillo` (utility `bg-amarillo`,
-  `text-amarillo`). Used as accent / hover only.
+- **Secondary** (cobalto) — usar Tailwind built-in `bg-blue-700` /
+  `text-blue-700`. No agregar `bg-amarillo` ni nombres custom:
+  rompen por auto-referencia en `@theme inline`.
 - Surfaces: `bg-background`, `bg-surface`, `bg-surface-muted`,
   `border-border`, `text-foreground` — all derived from HeroUI vars.
 - Defaults: `text-default-600`, `text-default-500`, `border-default-200`.
@@ -46,11 +47,11 @@ If you need a value that isn't a token yet:
 
 ```ts
 // design-tokens.ts
-export const rojo = "#D33F49";
+export const rojo = '#D33F49';
 ```
 
 ```tsx
-<div className='bg-estu-rojo-500' />
+<div className="bg-estu-rojo-500" />
 ```
 
 ## Don't use arbitrary values
@@ -97,13 +98,13 @@ Don't reorder — import order matters for Tailwind v4.
 ## Use `cn()` for conditional classes
 
 ```tsx
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 <button
   className={cn(
-    "px-4 py-2 rounded-md",
-    isActive && "bg-sky-500 text-white",
-    isDisabled && "opacity-50 cursor-not-allowed",
+    'rounded-md px-4 py-2',
+    isActive && 'bg-sky-500 text-white',
+    isDisabled && 'cursor-not-allowed opacity-50',
   )}
 />;
 ```

@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*"
+applyTo: '**/*'
 ---
 
 # Git & commit conventions
@@ -46,11 +46,23 @@ npm run type-check
 npm run lint
 ```
 
+> Solo correr si el usuario lo pide o en handoff. No es parte del
+> flujo por default — ver `AGENTS.md` §"Validation cadence".
+
 If UI changed, also smoke-test in browser:
 
 ```bash
 npm run dev  # then visit localhost:3000
 ```
+
+## Authorization for commit / push
+
+- **No commitear ni pushear sin orden explícita del usuario.**
+  Frases como "dale", "ok", "listo", "perfect" son **acknowledgments**,
+  no autorizaciones. Pedir confirmación antes de `git commit` /
+  `git push` si el usuario no lo pidió explícito.
+- Autorizaciones válidas (no exhaustivo): "commitea", "hacé commit",
+  "commit", "pusheá", "subilo", "mandá los commits", "yes please commit".
 
 ## Don't commit
 

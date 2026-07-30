@@ -7,14 +7,9 @@ import {
   CardClubBody,
 } from '@/components/ui';
 
-/**
- * ValuesGrid — three-card grid showcasing the club's core values.
- *
- * Server component. Static content (Comunidad, Formación, Tradición)
- * lives directly here because it's editorial copy that changes
- * rarely and would only be extracted to data/ when the site gains
- * a CMS.
- */
+/** Grid de 3 cards con los valores centrales del club. El copy
+ *  editorial vive directo acá (cambia poco); se movería a `data/`
+ *  cuando el sitio gane un CMS. */
 export function ValuesGrid() {
   return (
     <Section as="section" spacing="lg">

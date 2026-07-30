@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
-// Pre-hydration CSS for `<phantom-ui loading>` — hides the placeholder
-// text until the Web Component measures the DOM and overlays shimmer
-// blocks. No JS dependency at this stage.
+// CSS pre-hidratación para `<phantom-ui loading>`: oculta el texto
+// placeholder hasta que el Web Component mida el DOM y superponga
+// los shimmer blocks.
 import '@aejkatappaja/phantom-ui/ssr.css';
 import { type Metadata, type Viewport } from 'next';
 
@@ -13,22 +13,10 @@ import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
 
-/**
- * JSON-LD SportsClub payload for Google rich results.
- *
- * Sources verified via web search (2026-07-29):
- * - Address:  Iriondo 375, S2122 Rosario  (Unilocal + Apple Maps)
- * - Phone:    +54 341 435 1273            (Unilocal)
- * - Social:   @clubestudiantilrosario    (Instagram)
- *
- * The `@id` gives the entity a stable identifier so Google can
- * deduplicate the SportsClub across crawls (and link it to the
- * Knowledge Graph if the club ever gets one).
- *
- * Rendered into the document as `<script type="application/ld+json">`
- * below; `dangerouslySetInnerHTML` is safe here because the payload
- * is built in code (no untrusted input).
- */
+// Payload JSON-LD SportsClub para rich results de Google.
+// El `@id` da una identidad estable para que Google deduplique
+// la entidad entre crawls. `dangerouslySetInnerHTML` es seguro
+// porque el payload se construye en código (sin input del usuario).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@id': `${siteConfig.url}/#club`,
@@ -85,8 +73,8 @@ export const metadata: Metadata = {
       'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!',
     url: siteConfig.url,
     locale: 'es_AR',
-    // `app/opengraph-image.tsx` is auto-detected by Next 16 — we still
-    // declare it explicitly here so the link is visible at a glance.
+    // `app/opengraph-image.tsx` es auto-detectado por Next 16; lo
+    // declaramos explícito para que el link sea visible a simple vista.
     images: ['/opengraph-image'],
   },
   twitter: {
@@ -128,9 +116,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {/* JSON-LD for Google rich results — see `jsonLd` constant above.
-            Inlined as a string because schema.org payloads are static
-            and the source is code, not user input. */}
+        {/* JSON-LD para Google rich results — ver constante `jsonLd` arriba. */}
         <script
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           type="application/ld+json"
@@ -142,9 +128,9 @@ export default function RootLayout({
             enableSystem: true,
           }}
         >
-          {/* Skip link — visually hidden until focused, then keyboard-only
-              users can jump straight to <main> without tabbing through
-              the navbar. */}
+          {/* Skip link — oculto visualmente hasta recibir focus, permite a
+              usuarios de teclado saltar directo al `<main>` sin tabular
+              por la navbar. */}
           <a
             className="focus-visible:bg-primary focus-visible:text-primary-foreground sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:rounded-md focus-visible:px-3 focus-visible:py-1.5 focus-visible:text-sm focus-visible:font-semibold"
             href="#main-content"
@@ -152,9 +138,9 @@ export default function RootLayout({
             Saltar al contenido
           </a>
 
-          {/* Per-page ambient lighting lives inside each route's
-              composition via <AmbientBlobs preset="..." /> so every
-              page picks its own light direction. */}
+          {/* Ambient lighting por página se monta dentro de cada ruta
+              vía `<AmbientBlobs preset="..." />` para que cada página
+              elija su propia dirección de luz. */}
 
           <div className="relative flex min-h-screen flex-col">
             <Navbar />

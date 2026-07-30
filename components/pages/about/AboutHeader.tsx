@@ -1,13 +1,8 @@
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
 
-/**
- * AboutHeader — eyebrow + h1 + intro paragraph. Centred.
- *
- * Server component. Same `viewTransitionName: 'page-title'` pattern
- * as home / pricing / blog so the browser view-transitions API can
- * animate the heading across route changes.
- */
+/** Header de about: eyebrow + h1 + intro centrado. Mismo patrón
+ *  `viewTransitionName: 'page-title'` que el resto de headers. */
 export function AboutHeader() {
   return (
     <Section as="section" spacing="md">

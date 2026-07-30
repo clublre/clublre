@@ -77,7 +77,9 @@ production.
 - **Primary** — HeroUI **Sky** theme (cyan/blue). Override of `--accent`
   in `styles/globals.css` `@layer base`. Use `bg-primary` /
   `text-primary`, or Tailwind built-ins `bg-sky-*` / `text-sky-*`.
-- **Secondary** — `#EEE457` — `bg-amarillo` (decorative accent only).
+- **Secondary** (cobalto) — Tailwind built-in `bg-blue-700` /
+  `text-blue-700`. No usar `bg-amarillo` ni otros nombres custom:
+  pueden romper por auto-referencia en `@theme inline`.
 
 ### Surfaces (light/dark, switched via next-themes)
 
@@ -105,7 +107,14 @@ production.
 ## Conventions
 
 - Spanish copy (`lang="es"`).
+- **Comments in Spanish** — JSDoc, headers and inline comments in
+  Spanish. Variable / prop / type names and UI strings in English.
+  Comments explain "why", not "what"; no commented-out code.
 - Tailwind utility classes; never inline styles (`style={{...}}`).
+- **Prefer Tailwind built-in palettes** (`bg-sky-*`, `bg-blue-*`)
+  over custom brand names. Custom tokens only when no Tailwind
+  equivalent exists; declare in CSS `@theme` + mirror in
+  `config/design-tokens.ts`.
 - Use primitives from `components/ui/`; new shared components go to
   `components/atoms/` / `molecules/` / `ui/` / `organisms/`.
 - Tokens live in CSS `@theme` + mirrored TS constants in
@@ -115,6 +124,10 @@ production.
 - TypeScript strict; prefer `import type {...}` for type-only imports.
 - `Route` from `next` for `<Link href>` values; cast `as Route` only for
   fragment URLs (e.g. `/#section`).
+- **Don't commit or push without explicit authorization.**
+  Acknowledgments ("dale", "ok") are not authorizations.
+- **Don't run lint/type-check on every change.** Only on explicit
+  request, before handoff, or on high-risk changes.
 
 ## Common tasks
 

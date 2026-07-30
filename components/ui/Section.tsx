@@ -3,12 +3,8 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 import { cn } from '@/lib/utils';
 
-/**
- * Section — semantic page section wrapper.
- * Centralises vertical spacing and background variants so pages stay
- * consistent. Built on tailwind-variants so the public API can be
- * extended with `VariantProps<typeof section>`.
- */
+/** Wrapper semántico de sección. Centraliza spacing y variantes
+ *  de fondo para mantener consistencia entre páginas. */
 const section = tv({
   base: '',
   variants: {
@@ -32,7 +28,7 @@ const section = tv({
 
 export interface SectionProps
   extends HTMLAttributes<HTMLElement>, VariantProps<typeof section> {
-  /** Render as `<section>` (default) or another element. */
+  /** Renderiza como `<section>` (default) u otro elemento. */
   as?: 'section' | 'div' | 'article' | 'main';
 }
 

@@ -1,16 +1,9 @@
 'use client';
+import type { FC } from 'react';
 
 import NextLink from 'next/link';
-import {
-  FaHome,
-  FaInfoCircle,
-  FaNewspaper,
-  FaTags,
-  FaBars,
-  FaArrowRight,
-} from 'react-icons/fa';
-import type { IconType } from 'react-icons';
 import { useMemo } from 'react';
+import { ArrowRight, Home, Info, Menu, Newspaper, Tags } from '@/components/ui';
 import { usePathname } from 'next/navigation';
 import { Badge, Button, Drawer } from '@heroui/react';
 
@@ -22,52 +15,30 @@ import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
-/**
- * Icon for each nav href. Kept module-level (no hooks) so both the
- * desktop nav and the drawer can reference icons by lookup without
- * re-rendering the icon tree.
- *
- * `as const` locks the keys to a literal union so lookup with
- * `noPropertyAccessFromIndexSignature: true` typechecks without a
- * cast and the fallback (`?? FaInfoCircle`) is reachable only
- * for entries TS doesn't know about at compile time.
- */
+// Mapeo href → ícono. Module-level para que desktop y drawer
+// puedan consultar sin re-renderizar el árbol de íconos.
 const NAV_ICONS = {
-  '/': FaHome,
-  '/about': FaInfoCircle,
-  '/blog': FaNewspaper,
-  '/pricing': FaTags,
-} as const satisfies Record<string, IconType>;
+  '/': Home,
+  '/about': Info,
+  '/blog': Newspaper,
+  '/pricing': Tags,
+} as const satisfies Record<string, FC<{ className?: string }>>;
 
 type NavHref = keyof typeof NAV_ICONS;
 
-/**
- * Top-level site navigation.
- *
- * - Desktop (>= sm): brand + horizontal pill-style nav with icon + label
- *   (bg-primary/10 active state + hover bg-foreground/10) + theme toggle.
- *   Instagram lives in the Footer (single source of truth for the social
- *   link) so we don't repeat it across the chrome.
- * - Mobile (< sm): brand + hamburger that opens a HeroUI `Drawer`
- *   sliding from the right. The drawer carries the nav list (with
- *   rounded-xl active pill + "Activa" badge for the current route)
- *   + a primary CTA "Hacete socio" pointing at /pricing, plus the
- *   theme toggle in the header.
- *
- * Active-route state is exposed via `aria-current="page"` for
- * assistive tech; mirrored visually by a sky-tinted pill on both
- * the desktop nav and the drawer.
- */
+/** Nav principal del sitio.
+ *  - Desktop (>= sm): marca + nav pill horizontal + theme toggle.
+ *  - Mobile (< sm): marca + hamburguesa que abre un `Drawer` de HeroUI.
+ *  Estado de ruta activa expuesto con `aria-current="page"`. */
 export const Navbar = () => {
-  // Mobile menu state lives in the UI store so future command
-  // palette / keyboard shortcut can drive the drawer without
-  // prop-drilling through the layout tree.
+  // Estado del menú mobile en el UI store para permitir que un futuro
+  // command palette / shortcut dispare el drawer sin prop-drilling.
   const isMenuOpen = useUiStore((s) => s.mobileMenuOpen);
   const openMobileMenu = useUiStore((s) => s.openMobileMenu);
   const closeMobileMenu = useUiStore((s) => s.closeMobileMenu);
   const pathname = usePathname();
 
-  /** Fragment-only URLs (`/#x`) are never marked current. */
+  /** URLs con fragmento (`/#x`) nunca se marcan como current. */
   const isCurrent = useMemo(
     () => (href: string) => !href.includes('#') && pathname === href,
     [pathname],
@@ -78,7 +49,7 @@ export const Navbar = () => {
       <nav
         aria-label="Principal"
         className={cn(
-          'bg-background/70 supports-backdrop-filter:bg-background/60 shadow-sm',
+          'bg-background/70 supports-backdrop-filter:bg-background/60 border-b',
           'sticky top-0 z-40 w-full backdrop-blur-xl',
         )}
       >
@@ -90,17 +61,14 @@ export const Navbar = () => {
             href={routes.home}
             onClick={closeMobileMenu}
           >
-            {/* priority + sizes for the LCP image on first paint */}
-            <Logo priority size={28} sizes="(max-width: 640px) 28px, 28px" />
-            <span className="text-foreground hidden text-sm font-bold tracking-tight sm:inline">
-              {siteConfig.name}
-            </span>
+            {/* priority + sizes para el LCP image en first paint */}
+            <Logo priority size={32} sizes="(max-width: 640px) 28px, 28px" />
           </NextLink>
 
-          {/* Desktop nav — pill style with bg-primary/10 active state.
-              Kept as a semantic <ul>/<li>/<NextLink> (vs HeroUI Tabs) so
-              that screen readers announce a navigation list and
-              `aria-current="page"` keeps working for the active route. */}
+          {/* Nav desktop — pill style con bg-primary/10 en estado activo.
+              Mantenido como `<ul>/<li>/<NextLink>` semántico para que
+              los lectores de pantalla anuncien una lista de nav y
+              `aria-current="page"` siga funcionando. */}
           <ul className="hidden items-center gap-1 sm:flex">
             {siteConfig.navItems.map((item) => {
               const Icon = NAV_ICONS[item.href as NavHref];
@@ -136,12 +104,12 @@ export const Navbar = () => {
             })}
           </ul>
 
-          {/* Desktop right side */}
+          {/* Lado derecho desktop */}
           <div className="hidden items-center gap-1 sm:flex">
             <ThemeToggle />
           </div>
 
-          {/* Mobile right side — only the hamburger trigger. */}
+          {/* Lado derecho mobile — solo el trigger de hamburguesa */}
           <div className="flex items-center sm:hidden">
             <IconButton
               aria-label="Abrir menú de navegación"
@@ -149,13 +117,13 @@ export const Navbar = () => {
               variant="ghost"
               onPress={openMobileMenu}
             >
-              <FaBars aria-hidden="true" className="size-5" />
+              <Menu aria-hidden="true" className="size-5" />
             </IconButton>
           </div>
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Drawer mobile */}
       <Drawer.Backdrop
         isOpen={isMenuOpen}
         onOpenChange={(open) => {
@@ -171,16 +139,13 @@ export const Navbar = () => {
                 href={routes.home}
                 onClick={closeMobileMenu}
               >
-                <Logo size={28} />
-                <span className="text-foreground text-sm font-bold tracking-tight">
-                  {siteConfig.name}
-                </span>
+                <Logo size={32} />
               </NextLink>
-              {/* Right cluster: theme toggle to the left of close. */}
+              {/* Cluster derecho: theme toggle a la izquierda del close. */}
               <div className="flex items-center gap-1">
                 <ThemeToggle />
-                {/* Override the slot's absolute positioning so the close
-                    button participates in the header's flex flow. */}
+                {/* Override del absolute positioning del slot para que
+                    el close button participe del flex flow del header. */}
                 <Drawer.CloseTrigger className="text-default-600 hover:text-foreground hover:bg-foreground/10 relative top-auto right-auto inline-flex size-9 items-center justify-center rounded-md transition-colors [&_svg]:size-4" />
               </div>
             </Drawer.Header>
@@ -192,7 +157,7 @@ export const Navbar = () => {
                     const Icon =
                       (item.href in NAV_ICONS
                         ? NAV_ICONS[item.href as NavHref]
-                        : null) ?? FaInfoCircle;
+                        : null) ?? Info;
                     const current = isCurrent(item.href);
                     return (
                       <li key={item.href}>
@@ -248,10 +213,7 @@ export const Navbar = () => {
                     variant="primary"
                   >
                     Hacete socio
-                    <FaArrowRight
-                      aria-hidden="true"
-                      className="ml-1 size-3.5"
-                    />
+                    <ArrowRight aria-hidden="true" className="ml-1 size-3.5" />
                   </Button>
                 </NextLink>
               </div>

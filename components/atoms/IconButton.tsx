@@ -9,30 +9,24 @@ type HeroUIVariant =
   'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'danger';
 
 export interface IconButtonProps {
-  /** Accessible label — required for icon-only buttons. */
+  /** Label accesible — obligatorio en botones icon-only. */
   'aria-label': string;
-  /** Icon or any node rendered inside the button. */
+  /** Ícono o cualquier nodo dentro del botón. */
   children: ReactNode;
-  /** Visual variant (HeroUI). Defaults to `ghost` for nav bar usage. */
+  /** Variante visual (HeroUI). Default: `ghost` para nav bar. */
   variant?: HeroUIVariant;
-  /** Size token. */
+  /** Tamaño. */
   size?: 'sm' | 'md' | 'lg';
-  /** Press handler. */
+  /** Handler de click. */
   onPress?: () => void;
-  /** Disabled flag. */
+  /** Disabled. */
   isDisabled?: boolean;
-  /** Optional className for one-off overrides. */
+  /** className para overrides puntuales. */
   className?: string;
 }
 
-/**
- * IconButton — square button that renders a single icon.
- *
- * Atomic-level primitive built on top of HeroUI's `Button` with
- * `isIconOnly`. Use for nav toggles, theme switches, social links, etc.
- *
- * Always supply `aria-label` — icon-only buttons have no visible text.
- */
+/** Botón cuadrado con un solo ícono. Atomo sobre `Button` de HeroUI
+ *  con `isIconOnly`. Siempre pasar `aria-label`. */
 export const IconButton: FC<IconButtonProps> = ({
   'aria-label': ariaLabel,
   children,
@@ -47,9 +41,9 @@ export const IconButton: FC<IconButtonProps> = ({
       isIconOnly
       aria-label={ariaLabel}
       className={cn(
-        // Make the button truly square so the icon is visually centered.
+        // Botón realmente cuadrado para centrar el ícono visualmente.
         'min-w-0 p-0',
-        // Use a hover background that contrasts both themes.
+        // Hover bg que contrasta en ambos temas.
         'data-[hover=true]:bg-foreground/10',
         className,
       )}

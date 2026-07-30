@@ -3,11 +3,10 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-/**
- * `app/apple-icon.tsx` — 180×180 PNG used by iOS Safari when the
- * site is added to the home screen (and most share-sheet previews
- * on iMessage / Slack iOS). Centered shield, no fancy chrome.
- */
+// `app/apple-icon.tsx` — PNG 180×180 usado por iOS Safari cuando se
+// agrega el sitio a la home screen (y la mayoría de share-sheet
+// previews en iMessage / Slack iOS). Escudo centrado.
+
 export const size = {
   width: 180,
   height: 180,
@@ -34,7 +33,6 @@ export default async function AppleIcon() {
         background: '#fff',
       }}
     >
-      {}
       <img
         alt="CLUB L.R.E"
         height={180}

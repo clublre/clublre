@@ -1,16 +1,14 @@
 import { cn } from '@/lib/utils';
 
 interface BlobProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** First blob colour — usually the brand sky. */
+  /** Color del primer blob — suele ser sky de la marca. */
   firstBlobColor?: string;
-  /** Second blob colour — usually the brand cobalt (was amarillo). */
+  /** Color del segundo blob — suele ser blue (cobalto). */
   secondBlobColor?: string;
 }
 
-/**
- * BlurryBlob — decorative animated background blobs using brand colours.
- * Used inside hero sections.
- */
+/** Blobs animados decorativos con colores de marca. Usar dentro de
+ *  secciones hero. */
 export default function BlurryBlob({
   className,
   firstBlobColor = 'bg-sky-300',

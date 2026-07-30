@@ -49,7 +49,9 @@ vive en `data/` y se reemplaza por un CMS en producción.
 - **Primary** — HeroUI **Sky** theme (cyan/blue). Override de `--accent`
   en `styles/globals.css`. Usá `bg-primary` / `text-primary` o los utilities
   built-in de Tailwind `bg-sky-*` / `text-sky-*`.
-- **Secondary** — `#EEE457` — `bg-amarillo` (acento decorativo).
+- **Secondary** (cobalto) — Tailwind built-in `bg-blue-700` /
+  `text-blue-700`. **No usar `bg-amarillo`** ni nombres custom: pueden
+  romper por auto-referencia en `@theme inline`.
 
 ### Estructura atomic design
 

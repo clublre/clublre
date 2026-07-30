@@ -1,23 +1,9 @@
 import { cn } from '@/lib/utils';
 
-/**
- * AmbientBlobs — per-page ambient lighting layer.
- *
- * Two radial blobs (heavy blur-3xl, low alpha) rendered AFTER
- * the page content with mix-blend-screen. The blend screen-
- * multiplies the backdrop: where a blob overlaps the dark bg
- * it lightens to a soft sky tint, where it overlaps white
- * text the screen result stays white (text stays readable).
- *
- * Implementation notes:
- * - absolute inset-0 (not fixed, not z-indexed) keeps the
- *   wrapper in the body stacking context so mix-blend can
- *   reach the content behind it.
- * - Rendered after sections in each page so it paints on
- *   top and has sections as part of the blend backdrop.
- * - pointer-events-none + aria-hidden so it never blocks
- *   clicks or screen reader output.
- */
+// Capa de iluminación ambiente por página: dos blobs radiales con
+// blur-3xl y alpha bajo, renderizados con mix-blend-screen.
+// `pointer-events-none` + `aria-hidden` para no bloquear clicks ni
+// lectores de pantalla.
 
 export type AmbientPreset = 'home' | 'pricing' | 'blog' | 'about';
 
@@ -36,44 +22,44 @@ const PRESETS: Record<AmbientPreset, ReadonlyArray<BlobConfig>> = {
     },
     {
       position: 'bottom-0 -right-32',
-      color: 'bg-blue-700/15',
+      color: 'bg-blue-700/10',
       size: 'h-[32rem] w-[32rem]',
     },
   ],
   pricing: [
     {
       position: 'top-1/4 -right-32',
-      color: 'bg-cyan-400/12',
+      color: 'bg-cyan-400/8',
       size: 'h-[30rem] w-[30rem]',
     },
     {
       position: '-bottom-32 left-1/4',
-      color: 'bg-sky-500/12',
+      color: 'bg-sky-500/8',
       size: 'h-[28rem] w-[28rem]',
     },
   ],
   blog: [
     {
-      position: '-top-32 left-1/3',
-      color: 'bg-sky-300/12',
+      position: '-top-32 left-1/4',
+      color: 'bg-sky-300/8',
       size: 'h-[26rem] w-[26rem]',
     },
     {
       position: 'bottom-1/3 -left-32',
-      color: 'bg-blue-600/12',
+      color: 'bg-blue-600/8',
       size: 'h-[30rem] w-[30rem]',
     },
   ],
   about: [
     {
-      position: 'top-1/4 -left-32',
-      color: 'bg-sky-500/15',
-      size: 'h-[30rem] w-[30rem]',
+      position: 'top-0 left-1/2',
+      color: 'bg-sky-500/4',
+      size: 'h-[40rem] w-[40rem]',
     },
     {
-      position: '-bottom-24 right-1/4',
-      color: 'bg-cyan-400/12',
-      size: 'h-[28rem] w-[28rem]',
+      position: 'bottom-0 right-1/2',
+      color: 'bg-cyan-400/2',
+      size: 'h-[40rem] w-[40rem]',
     },
   ],
 };

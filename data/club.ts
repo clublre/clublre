@@ -1,15 +1,7 @@
-/**
- * Club LRE — Domain data.
- *
- * Editorial / business content lives here, separate from the design
- * tokens in `config/design-tokens.ts`. When we wire a CMS, the data
- * modules in `data/` become thin adapters; the design tokens stay
- * static source-of-truth.
- *
- * Atomic-design note: these are imported directly by the organisms
- * (Navbar / Footer) and pages that render them. They're not React
- * components and they don't go through the components/ tree.
- */
+// Domain data del club — separado de los tokens visuales en
+// `config/design-tokens.ts`. Cuando se wire un CMS, los módulos de
+// `data/` quedan como adapters delgados; los tokens siguen siendo
+// source-of-truth estático.
 
 export interface Activity {
   id: string;
@@ -32,7 +24,7 @@ export interface PricingTier {
   highlighted: boolean;
 }
 
-/** Activities offered by the club (used across home + about pages). */
+/** Actividades que ofrece el club (usadas en home + about). */
 export const activities: ReadonlyArray<Activity> = [
   {
     id: 'voley',
@@ -78,7 +70,7 @@ export const activities: ReadonlyArray<Activity> = [
   },
 ] as const;
 
-/** Commission / directiva (placeholder — would come from CMS). */
+/** Comisión directiva (placeholder — vendría del CMS). */
 export const commission: ReadonlyArray<CommissionMember> = [
   { role: 'Presidente', name: 'Juan Pérez' },
   { role: 'Vicepresidente', name: 'María González' },
@@ -87,7 +79,7 @@ export const commission: ReadonlyArray<CommissionMember> = [
   { role: 'Vocal', name: 'Pedro Rodríguez' },
 ] as const;
 
-/** Pricing tiers (placeholder — would come from CMS). */
+/** Planes de cuota (placeholder — vendría del CMS). */
 export const pricingTiers: ReadonlyArray<PricingTier> = [
   {
     id: 'individual',

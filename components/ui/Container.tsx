@@ -3,12 +3,8 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 import { cn } from '@/lib/utils';
 
-/**
- * Container — fixed max-width wrapper with horizontal padding.
- * Use inside <Section> for consistent gutters across breakpoints.
- * Built on tailwind-variants so the public API is derived from
- * `VariantProps<typeof container>`.
- */
+/** Wrapper de max-width fijo con padding horizontal. Usar dentro
+ *  de `<Section>` para gutters consistentes entre breakpoints. */
 const container = tv({
   base: 'mx-auto w-full px-6',
   variants: {

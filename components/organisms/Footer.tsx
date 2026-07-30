@@ -1,43 +1,21 @@
 import NextLink from 'next/link';
-import {
-  FaInstagram,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaArrowUp,
-} from 'react-icons/fa';
+import { ArrowUp, MapPin, Phone } from '@/components/ui';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Logo } from '@/components/ui/Icons';
+import { Logo, InstagramIcon } from '@/components/ui/Icons';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
 const year = new Date().getFullYear();
 
-/**
- * Footer — global site footer.
- *
- * Layout (top → bottom):
- *   1. Main grid (2 cols on md+): brand + contact.
- *   2. Bottom bar: copyright + scroll-to-top.
- *
- * The earlier "Sumate al club" CTA strip was removed because it
- * duplicated the final CTA on the home page (same eyebrow, same
- * heading, same destination). The Footer's job is now to close the
- * page with contact info, not to relaunch the conversion message.
- *
- * Decorative icons carry `aria-hidden`; the parent <a> carries the
- * accessible label.
- */
+/** Footer global del sitio. Grid de 2 columnas (marca + contacto)
+ *  y barra inferior con copyright + scroll-to-top. */
 export function Footer() {
   return (
     <footer className="bg-surface-muted">
-      {/* Main grid — 2 columns: brand on the left, contact on the
-          right. After dropping the Navegación column the 12-col grid
-          was wasted specificity; a simple 2-col feels right and lets
-          each block breathe. */}
-      <Container className="py-12 md:py-16">
+      <Container className="pt-6 pb-8 md:pt-10 md:pb-10">
         <div className="grid gap-10 md:grid-cols-2">
           {/* Brand */}
           <div>
@@ -64,14 +42,14 @@ export function Footer() {
             </Eyebrow>
             <ul className="text-default-600 space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
-                <FaMapMarkerAlt
+                <MapPin
                   aria-hidden="true"
                   className="text-primary mt-0.5 size-4 shrink-0"
                 />
                 <span>Iriondo 375, S2122 Rosario, Santa Fe</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <FaPhone
+                <Phone
                   aria-hidden="true"
                   className="text-primary size-4 shrink-0"
                 />
@@ -83,7 +61,7 @@ export function Footer() {
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <FaInstagram
+                <InstagramIcon
                   aria-hidden="true"
                   className="text-primary size-4 shrink-0"
                 />
@@ -118,7 +96,7 @@ export function Footer() {
               )}
               href="#top"
             >
-              <FaArrowUp aria-hidden="true" className="size-3" />
+              <ArrowUp aria-hidden="true" className="size-3" />
               Arriba
             </a>
           </div>

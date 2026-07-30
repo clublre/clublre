@@ -76,7 +76,7 @@ const card = tv({
   variants: {
     accent: {
       sky: 'before:bg-sky-500',
-      amarillo: 'before:bg-amarillo',
+      blue: 'before:bg-blue-700',
     },
   },
 });
