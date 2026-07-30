@@ -120,16 +120,6 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-
-            {/* Hours — placeholder until the club confirms */}
-            <div className="bg-foreground/5 mt-5 rounded-lg p-3">
-              <p className="text-default-500 text-xs font-semibold tracking-wider uppercase">
-                Horarios a confirmar
-              </p>
-              <p className="text-default-600 mt-1 text-sm italic">
-                Consultar por Instagram o Facebook
-              </p>
-            </div>
           </div>
         </div>
       </Container>

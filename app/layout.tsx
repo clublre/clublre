@@ -9,9 +9,6 @@ import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
 
-/** Public origin used for absolute metadata URLs (OG, Twitter, canonical). */
-const SITE_URL = 'https://clublre.com.ar';
-
 /**
  * JSON-LD SportsClub payload for Google rich results.
  *
@@ -20,17 +17,22 @@ const SITE_URL = 'https://clublre.com.ar';
  * - Phone:    +54 341 435 1273            (Unilocal)
  * - Social:   @clubestudiantilrosario    (Instagram)
  *
+ * The `@id` gives the entity a stable identifier so Google can
+ * deduplicate the SportsClub across crawls (and link it to the
+ * Knowledge Graph if the club ever gets one).
+ *
  * Rendered into the document as `<script type="application/ld+json">`
  * below; `dangerouslySetInnerHTML` is safe here because the payload
  * is built in code (no untrusted input).
  */
 const jsonLd = {
   '@context': 'https://schema.org',
+  '@id': `${siteConfig.url}/#club`,
   '@type': 'SportsClub',
   name: siteConfig.name,
   alternateName: 'CLUB L.R.E',
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo2.jpeg`,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/logo2.jpeg`,
   description: siteConfig.description,
   address: {
     '@type': 'PostalAddress',
@@ -45,7 +47,7 @@ const jsonLd = {
 } as const;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: 'CLUB L.R.E | Club deportivo en Rosario, Santa Fe',
     template: `%s - ${siteConfig.name}`,
@@ -77,7 +79,7 @@ export const metadata: Metadata = {
     title: 'Club Los Rosarinos Estudiantil — Deportes en Rosario',
     description:
       'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!',
-    url: SITE_URL,
+    url: siteConfig.url,
     locale: 'es_AR',
     // `app/opengraph-image.tsx` is auto-detected by Next 16 — we still
     // declare it explicitly here so the link is visible at a glance.

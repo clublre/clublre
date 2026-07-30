@@ -11,6 +11,10 @@ type NavItem = { label: string; href: Route };
 export const siteConfig = {
   name: 'CLUB L.R.E',
   description: 'Club Los Rosarinos Estudiantil',
+  /** Public origin used by metadata, sitemap, robots, and JSON-LD.
+   *  Keep this in sync with the canonical domain — Next 16 will
+   *  reject the build if `metadataBase` is unreachable in production. */
+  url: 'https://clublre.com.ar',
   navItems: [
     { label: 'Inicio', href: '/' },
     { label: 'El Club', href: '/about' },

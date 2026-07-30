@@ -702,7 +702,20 @@ para iteraciones futuras. Cada item incluye: contexto, motivación,
 stack propuesto y esfuerzo estimado. No abrir PRs hasta que se
 defina un milestone.
 
-### 12.1 Tests unitarios + integration (Vitest + Testing Library)
+> **Estado al 2026-07-30:** §12.1 (tests) y §12.2 (Storybook) están
+> **pospuestos por decisión del equipo**. La info del stack y el
+> esfuerzo estimado se conserva como referencia futura; cualquier
+> reactivaión debe pasar por un milestone explícito. §12.3 sigue
+> abierta como brainstorm.
+
+### 12.1 Tests unitarios + integration (Vitest + Testing Library) — 🟡 POSPUESTO
+
+> **Pospuesto.** El sitio es chico, 100% estático, sin auth ni
+> endpoints; el ROI de tests automatizados no compensa el setup en
+> el corto plazo. Si más adelante se agrega CMS, autenticación de
+> socios o formularios de contacto, este item vuelve a la mesa.
+> Mientras tanto, las verificaciones manuales son `npm run
+> type-check && npm run lint` antes de cada handoff.
 
 **Por qué ahora no:** el sitio es 100% estático (`output: "export"`
 en `next.config.js`), sin endpoints, sin auth, sin estado
@@ -765,7 +778,13 @@ vitest.setup.ts
 
 **Esfuerzo estimado:** 1 sprint (3–5 días).
 
-### 12.2 Storybook (visual docs + Chromatic)
+### 12.2 Storybook (visual docs + Chromatic) — 🟡 POSPUESTO
+
+> **Pospuesto.** La superficie UI es pequeña (Navbar, Footer,
+> SectionHeader, CardClub). Storybook paga su costo de setup cuando
+> hay muchos organismos y variantes; hoy el catálogo es manejable
+> desde el dev server. Si la superficie crece (>10 organismos o
+> variantes por componente), este item vuelve a la mesa.
 
 **Por qué ahora no:** todo el UI es estático y los organismos son
 pocos (Navbar, Footer). Cuando crezca la superficie (blog index,

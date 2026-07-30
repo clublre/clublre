@@ -1,38 +1,40 @@
 import type { MetadataRoute } from 'next';
 
+import { siteConfig } from '@/config/site';
 import { posts } from '@/data/posts';
 
 /**
  * Sitemap — Next.js generates /sitemap.xml from this file.
  *
  * Static routes are listed explicitly. Blog posts are pulled from the
- * data layer so adding a post in `data/posts.ts` is enough.
+ * data layer so adding a post in `data/posts.ts` is enough. The base
+ * URL is the canonical origin from `config/site.ts` so metadata,
+ * sitemap, and robots stay aligned.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://clublre.com.ar';
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/`,
+      url: `${siteConfig.url}/`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${siteConfig.url}/about`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${siteConfig.url}/blog`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/pricing`,
+      url: `${siteConfig.url}/pricing`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.9,
@@ -40,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const blogPosts: MetadataRoute.Sitemap = posts.map((p) => ({
-    url: `${baseUrl}/blog/${p.slug}`,
+    url: `${siteConfig.url}/blog/${p.slug}`,
     lastModified: new Date(p.date),
     changeFrequency: 'monthly',
     priority: 0.6,
