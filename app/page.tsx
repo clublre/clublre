@@ -148,16 +148,16 @@ export default function HomePage() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="flex items-center gap-4 px-6 py-6 sm:py-8"
+                className="flex flex-col items-center gap-2 px-6 py-6 text-center sm:py-8"
               >
                 <span className="bg-primary/10 text-primary inline-flex size-12 shrink-0 items-center justify-center rounded-xl">
                   <stat.icon aria-hidden="true" className="size-5" />
                 </span>
-                <div className="min-w-0">
+                <div>
                   <p className="text-foreground text-xl font-bold tracking-tight sm:text-2xl">
                     {stat.value}
                   </p>
-                  <p className="text-default-600 truncate text-sm">
+                  <p className="text-default-600 text-sm">
                     {stat.label}
                   </p>
                 </div>
@@ -170,17 +170,15 @@ export default function HomePage() {
       {/* ───────────── Actividades ───────────── */}
       <Section as="section" id="actividades" spacing="lg">
         <Container>
-          {/* Section header — eyebrow + h2 + subtitle + count */}
-          <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <Eyebrow className="mb-3 block" tone="sky">
-                Nuestras disciplinas
-              </Eyebrow>
-              <h2 className={title({ size: 'md', class: 'block' })}>
-                Actividades para todas las edades
-              </h2>
-            </div>
-            <p className="text-default-600 max-w-md text-base sm:text-right">
+          {/* Section header — centred (matches the hero + final CTA). */}
+          <div className="mb-12 mx-auto max-w-2xl text-center">
+            <Eyebrow className="mb-3 block" tone="sky">
+              Nuestras disciplinas
+            </Eyebrow>
+            <h2 className={title({ size: 'md', class: 'block' })}>
+              Actividades para todas las edades
+            </h2>
+            <p className="text-default-600 mt-4 text-base">
               Desde básquet federado y natación hasta karate, vóley y escuelas
               de iniciación deportiva.
             </p>
@@ -239,17 +237,15 @@ export default function HomePage() {
        * site feeling alive between posts. */}
       <Section as="section" spacing="lg">
         <Container>
-          <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <Eyebrow className="mb-3 block" tone="sky">
-                Novedades
-              </Eyebrow>
-              <h2 className={title({ size: 'md', class: 'block' })}>
-                Lo último del club
-              </h2>
-            </div>
+          <div className="mb-12 text-center">
+            <Eyebrow className="mb-3 block" tone="sky">
+              Novedades
+            </Eyebrow>
+            <h2 className={title({ size: 'md', class: 'block' })}>
+              Lo último del club
+            </h2>
             <NextLink
-              className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+              className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
               href={'/blog' as Route}
             >
               Ver todos los posts
