@@ -8,6 +8,7 @@ import {
   Container,
   Eyebrow,
   SectionHeader,
+  FaqDisclosure,
   CardClub,
   CardClubTitle,
   CardClubBody,
@@ -15,7 +16,6 @@ import {
 import { title } from '@/components/primitives';
 import { pricingTiers } from '@/data/club';
 import { faqItems } from '@/data/faq';
-import { cn } from '@/lib/utils';
 import { routes } from '@/lib/routes';
 
 export const metadata: Metadata = {
@@ -131,40 +131,10 @@ export default function PricingPage() {
             spacing="md"
           />
 
-          <ul className="bg-surface shadow-club divide-default-200 divide-y overflow-hidden rounded-2xl">
+          <ul className="bg-surface shadow-club overflow-hidden rounded-2xl">
             {faqItems.map((item) => (
               <li key={item.q}>
-                <details className="group">
-                  <summary
-                    className={cn(
-                      'text-foreground hover:bg-foreground/5 flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-medium transition-colors',
-                      'list-none marker:hidden [&::-webkit-details-marker]:hidden',
-                    )}
-                  >
-                    <span>{item.q}</span>
-                    <span
-                      aria-hidden="true"
-                      className="bg-foreground/10 text-default-600 group-open:bg-primary group-open:text-primary-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-full transition-colors"
-                    >
-                      <svg
-                        className="size-3.5 transition-transform duration-200 group-open:rotate-45"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M12 5v14M5 12h14"
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeWidth={2.5}
-                        />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-default-700 px-5 pb-5 text-sm leading-relaxed">
-                    {item.a}
-                  </div>
-                </details>
+                <FaqDisclosure answer={item.a} question={item.q} />
               </li>
             ))}
           </ul>

@@ -11,8 +11,13 @@ interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * CardClub — branded card for activities, pricing tiers, blog posts.
- * Minimal look: shadow-only separation, no top stripe or border.
- * Optional `media` slot for icons or images.
+ *
+ * Stays a plain `<div>` (not the HeroUI Card) because the site's
+ * visual treatment uses brand-specific shadows and a custom
+ * `highlighted` flag that doesn't map to any HeroUI Card prop
+ * one-to-one. Wrapping `<Card>` here added an extra DOM layer
+ * (Card.Header + Card.Content) that broke the existing
+ * `flex flex-col` / `mt-auto` layouts in pricing and blog cards.
  */
 export function CardClub({
   highlighted = false,
@@ -26,10 +31,8 @@ export function CardClub({
       className={cn(
         'group border-default-200/0 bg-surface shadow-club rounded-xl border',
         'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
-        // Highlighted (e.g. featured pricing tier): bump to the larger
-        // shadow so the card stands out in both light and dark without
-        // relying on a ring that gets lost against bg-surface.
-        highlighted && 'shadow-club-lg ring-primary ring-2 ring-offset-2 ring-offset-background',
+        highlighted &&
+          'shadow-club-lg ring-primary ring-offset-background ring-2 ring-offset-2',
         className,
       )}
       {...props}
