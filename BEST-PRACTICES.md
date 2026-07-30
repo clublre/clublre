@@ -268,6 +268,17 @@ Tailwind v4 **no usa `tailwind.config.js`**. Todo está en `globals.css` con `@t
 
 Los tokens viven en `styles/globals.css` (`@theme` block) y se espejean en `config/design-tokens.ts` para uso en código TS. **Domain data** (activities, commission, pricing tiers, blog posts) vive en `data/` y se reemplaza por un CMS en producción — no se mezcla con los tokens visuales.
 
+Tokens actuales:
+
+- `--accent` (HeroUI Sky) — `bg-primary`, `text-primary`.
+- `--color-amarillo` — cobalto secundario (`bg-amarillo`, `text-amarillo`).
+- `--color-amarillo-soft` — variante más clara del cobalto, sólo para
+  fondos decorativos (ej. `BlurryBlob`). ~3:1 sobre blanco, **no usar
+  para texto**.
+- `--color-sky-soft` / `--color-sky-soft-fg` — chips, pills, categorías.
+- `--color-default-100` … `--color-default-700` — escala de texto neutro.
+  Es una mezcla del foreground con opacidad, no una rampa monotónica.
+
 ### 5.3 Convenciones de clases
 
 - ✅ `bg-sky-*`, `bg-primary`, `text-default-600` (utility generada por tokens).
@@ -335,6 +346,7 @@ components/
     Section.tsx
     Container.tsx
     Eyebrow.tsx
+    SectionHeader.tsx
     CardClub.tsx
     BlurryBlob.tsx
     index.ts
@@ -897,6 +909,61 @@ Antes de cada release taggeado:
    - JSON-LD `<script type="application/ld+json">` con `@type: SportsClub`
 4. Linter de opengraph.xyz → score 7/7 verde en description y title.
 5. Lighthouse → Performance ≥ 95, Accessibility = 100, Best Practices = 100.
+
+---
+
+## 14. Cross-discipline design reviews
+
+Las instrucciones en `.github/instructions/interface-better-*.instructions.md`
+incluyen un orquestador (`better-interface`) que revisa la UI a través de
+los seis dominios: accesibilidad, layout, writing, typography, colors y ui.
+Se aplica en modo `full` (15 findings cap) o `quick` (5 findings cap) y
+produce un reporte consolidado con severidad compartida (HIGH / MEDIUM /
+LOW), ubicación `path:line`, y una tabla de "considered but rejected" para
+hacer visible la restraint.
+
+### Workflow
+
+1. Cargar las 6 instrucciones de better-* (orquestador + 5 owners).
+2. Recon del stack (Next / HeroUI / Tailwind / tokens / viewports).
+3. Revisar en este orden — los fallos fundacionales no deben quedar
+   tapados por polish:
+   1. better-accessibility
+   2. better-layout
+   3. better-writing
+   4. better-typography
+   5. better-colors
+   6. better-ui
+4. Consolidar findings — una causa raíz = un finding, sin duplicar.
+5. Verificar lo verificable (tsc, lint, build, browser preview).
+6. Cerrar con un verdict: `Block` / `Needs changes` / `Approve`.
+
+### Principios no negociables
+
+- **Read-only por default.** Un review no edita código salvo que el
+  usuario también pida implementar los hallazgos.
+- **Citar `path:line`** en cada finding. Sin ubicación exacta, no es
+  finding — es opinión.
+- **Encontrar el system, no el síntoma.** Una causa raíz (token mal
+  definido, prop dead) gana sobre la misma falla repetida 5 veces.
+- **Mostrar restraint.** La tabla "considered but rejected" deja
+  explícitas las decisiones que NO se tomaron y por qué.
+
+### Tokens descubiertos durante reviews
+
+| Token | Hallazgo | Acción |
+| --- | --- | --- |
+| `--color-amarillo-soft` | `bg-[#3A6BE0]` en `BlurryBlob` y `text-[#1B4FCF]` en `Eyebrow` violaban la regla "no arbitrary hex" | Agregado a `@theme` + `@theme inline` + alias TS en `config/design-tokens.ts` |
+| `<SectionHeader>` primitive | 4 páginas duplicaban el bloque `eyebrow + h2 + descripción` con variantes de `mb-10`/`mb-12` | Extraído a `components/ui/SectionHeader.tsx` con variants de `align`, `width`, `spacing` |
+
+### Hallazgos históricos
+
+- **2026-07-30 — full review (better-interface).** Reporte inicial:
+  `Needs changes` (1 HIGH + 7 MEDIUM + 2 LOW). HIGH #1 cerrado:
+  `role="alert"` + `aria-live="assertive"` en `app/error.tsx` y
+  `app/blog/error.tsx`. 7 de 7 MEDIUM y 2 de 2 LOW atendidos en commits
+  `0f270c2`, `5b97d67`, `9cd37d8`, `c1b3314`, `7bacc71`. Verdict final:
+  `Approve`.
 
 ---
 
