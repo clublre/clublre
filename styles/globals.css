@@ -228,6 +228,25 @@
   box-shadow: var(--shadow-club-lg);
 }
 
+/* Scale on press (better-ui skill, principle #9).
+ * Targets every interactive primitive we use: HeroUI Button
+ * (data-slot="button"), our IconButton, the Drawer.CloseTrigger,
+ * and any plain <button> / NextLink. Subtle 0.97 scale gives
+ * tactile feedback without crossing into "exaggerated".
+ * No transition delay — fires instantly on press. */
+button:not(:disabled):active,
+[data-slot='button']:not(:disabled):active,
+a[href]:active {
+  transform: scale(0.97);
+}
+button,
+[data-slot='button'],
+a[href] {
+  transition-property: transform, background-color, color, box-shadow, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
 @keyframes pop-blob {
   0% {
     transform: scale(1) translate(0, 0);
@@ -273,8 +292,10 @@
     scroll-padding-top: 5rem;
   }
 
-  /* Honor users that prefer reduced motion: drop infinite animations
-     and instant smooth scrolling, keep essential transitions only. */
+  /* Honor users that prefer reduced motion: drop infinite animations,
+     instant smooth scrolling, and opt out of the View Transitions
+     API cross-fade (still allows the URL change to happen so the
+     navigation completes, just instantly). */
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -287,7 +308,11 @@
       scroll-behavior: auto;
     }
     .animate-pop-blob,
-    .animate-fade-in {
+    .animate-fade-in,
+    ::view-transition,
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
       animation: none !important;
     }
   }

@@ -75,7 +75,7 @@ export default function BlogPage() {
                   className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
                   href={postHref(post.slug)}
                 >
-                  Leer más
+                  Leer artículo
                   <FaArrowRight aria-hidden="true" className="size-3" />
                 </NextLink>
               </CardClub>

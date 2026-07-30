@@ -271,7 +271,7 @@ export default function HomePage() {
                     {post.excerpt}
                   </p>
                   <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">
-                    Leer más
+                    Leer artículo
                     <FaArrowRight
                       aria-hidden="true"
                       className="size-3 transition-transform group-hover:translate-x-0.5"
