@@ -37,7 +37,11 @@ export const title = tv({
   compoundVariants: [
     {
       color: ['sky', 'blue', 'violet', 'cyan', 'green', 'pink'],
-      class: 'bg-clip-text text-transparent',
+      // leading-[inherit] keeps the gradient span on the same baseline
+      // rhythm as the parent heading; without it the inline-block
+      // span develops its own line-height and reads as visually
+      // smaller than the plain text next to it.
+      class: 'bg-clip-text text-transparent leading-[inherit]',
     },
   ],
 });

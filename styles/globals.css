@@ -208,6 +208,41 @@
   box-shadow: var(--shadow-club-lg);
 }
 
+/* Gradient border — sky to blue. Uses the modern mask-composite
+   technique (the older `bg-gradient + p-px` trick leaks on
+   corners and reads as a "double border"). The ::before is
+   masked to a 2px ring and pushed to z-index -1 so the
+   children sit above it. `isolation: isolate` scopes the
+   stacking context so the negative z-index doesn't escape the
+   card. */
+@layer utilities {
+  .gradient-border-sky {
+    position: relative;
+    isolation: isolate;
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+  }
+  .gradient-border-sky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+      to right,
+      oklch(0.749 0.154 231.65),
+      oklch(0.603 0.197 257.84)
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
 /* Scale on press (better-ui skill, principle #9).
  * Targets every interactive primitive we use: HeroUI Button
  * (data-slot="button"), our IconButton, the Drawer.CloseTrigger,

@@ -151,6 +151,11 @@ export default function RootLayout({
           >
             Saltar al contenido
           </a>
+
+          {/* Per-page ambient lighting lives inside each route's
+              composition via <AmbientBlobs preset="..." /> so every
+              page picks its own light direction. */}
+
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="grow" id="main-content" tabIndex={-1}>

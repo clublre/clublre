@@ -100,12 +100,13 @@ Components live under `components/` classified by atomic-design
 level. **New shared components go in the right bucket — not in the
 root.**
 
-| Level         | Folder       | Example                                                     | Rule of thumb                                       |
-| ------------- | ------------ | ----------------------------------------------------------- | --------------------------------------------------- |
-| **atoms**     | `atoms/`     | `IconButton`                                                | Single-purpose, no state. Wraps a HeroUI primitive. |
-| **molecules** | `molecules/` | `ThemeToggle`                                               | Atom + state/logic (e.g. `next-themes`).            |
-| **organisms** | `organisms/` | `Navbar`, `Footer`                                          | Full sections of the page.                          |
-| **ui**        | `ui/`        | `Section`, `Container`, `CardClub`, `Eyebrow`, `BlurryBlob` | Layout / decorative primitives shared across pages. |
+| Level         | Folder             | Example                                                     | Rule of thumb                                                                                       |
+| ------------- | ------------------ | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **atoms**     | `atoms/`           | `IconButton`                                                | Single-purpose, no state. Wraps a HeroUI primitive.                                                 |
+| **molecules** | `molecules/`       | `ThemeToggle`                                               | Atom + state/logic (e.g. `next-themes`).                                                            |
+| **organisms** | `organisms/`       | `Navbar`, `Footer`                                          | Full chrome sections shared across routes.                                                          |
+| **ui**        | `ui/`              | `Section`, `Container`, `CardClub`, `Eyebrow`, `BlurryBlob` | Layout / decorative primitives shared across pages.                                                 |
+| **pages**     | `pages/{feature}/` | `pages/home/Hero`, `pages/pricing/PricingCard`              | Page-specific sections. One folder per route/feature. Composition root for that route's `page.tsx`. |
 
 - ✅ Page sections use `<Section>` + `<Container>` from
   `@/components/ui`.

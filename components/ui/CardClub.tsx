@@ -29,7 +29,7 @@ export function CardClub({
   return (
     <div
       className={cn(
-        'group border-default-200/0 bg-surface shadow-club rounded-xl border',
+        'group border-default-200/0 bg-surface shadow-club flex flex-col rounded-xl border',
         'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
         highlighted &&
           'shadow-club-lg ring-primary ring-offset-background ring-2 ring-offset-2',
@@ -38,7 +38,12 @@ export function CardClub({
       {...props}
     >
       {media ? <div className="relative">{media}</div> : null}
-      <div className="relative p-6">{children}</div>
+      {/* Inner padded wrapper is `flex grow flex-col` so it fills the
+          card height (via flex-grow) and lays out its children in a
+          flex column. That makes `mt-auto` on a child CTA actually
+          work — pinning the button to the bottom even when sibling
+          cards in the grid have less content. */}
+      <div className="relative flex grow flex-col p-5 sm:p-6">{children}</div>
     </div>
   );
 }

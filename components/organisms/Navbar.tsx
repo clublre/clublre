@@ -10,14 +10,15 @@ import {
   FaArrowRight,
 } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { Button, Drawer } from '@heroui/react';
+import { Badge, Button, Drawer } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Icons';
 import { IconButton } from '@/components/atoms/IconButton';
 import { ThemeToggle } from '@/components/molecules/ThemeToggle';
+import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
@@ -58,7 +59,12 @@ type NavHref = keyof typeof NAV_ICONS;
  * the desktop nav and the drawer.
  */
 export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Mobile menu state lives in the UI store so future command
+  // palette / keyboard shortcut can drive the drawer without
+  // prop-drilling through the layout tree.
+  const isMenuOpen = useUiStore((s) => s.mobileMenuOpen);
+  const openMobileMenu = useUiStore((s) => s.openMobileMenu);
+  const closeMobileMenu = useUiStore((s) => s.closeMobileMenu);
   const pathname = usePathname();
 
   /** Fragment-only URLs (`/#x`) are never marked current. */
@@ -82,7 +88,7 @@ export const Navbar = () => {
             aria-label={`Ir al inicio — ${siteConfig.name}`}
             className="focus-visible:ring-primary focus-visible:ring-offset-background flex items-center gap-2.5 rounded-md transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
             href={routes.home}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={closeMobileMenu}
           >
             {/* priority + sizes for the LCP image on first paint */}
             <Logo priority size={28} sizes="(max-width: 640px) 28px, 28px" />
@@ -141,7 +147,7 @@ export const Navbar = () => {
               aria-label="Abrir menú de navegación"
               size="md"
               variant="ghost"
-              onPress={() => setIsMenuOpen(true)}
+              onPress={openMobileMenu}
             >
               <FaBars aria-hidden="true" className="size-5" />
             </IconButton>
@@ -150,7 +156,12 @@ export const Navbar = () => {
       </nav>
 
       {/* Mobile drawer */}
-      <Drawer.Backdrop isOpen={isMenuOpen} onOpenChange={setIsMenuOpen}>
+      <Drawer.Backdrop
+        isOpen={isMenuOpen}
+        onOpenChange={(open) => {
+          if (!open) closeMobileMenu();
+        }}
+      >
         <Drawer.Content placement="right">
           <Drawer.Dialog className="w-full max-w-sm">
             <Drawer.Header className="flex flex-row items-center justify-between gap-2">
@@ -158,7 +169,7 @@ export const Navbar = () => {
                 aria-label={`Ir al inicio — ${siteConfig.name}`}
                 className="flex items-center gap-2.5 rounded-md"
                 href={routes.home}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 <Logo size={28} />
                 <span className="text-foreground text-sm font-bold tracking-tight">
@@ -194,7 +205,7 @@ export const Navbar = () => {
                               : 'text-default-700 hover:bg-foreground/10 hover:text-foreground',
                           )}
                           href={item.href}
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={closeMobileMenu}
                         >
                           <Icon
                             aria-hidden="true"
@@ -207,12 +218,15 @@ export const Navbar = () => {
                           />
                           <span>{item.label}</span>
                           {current ? (
-                            <span
+                            <Badge
                               aria-hidden="true"
-                              className="text-primary-foreground bg-primary ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase"
+                              className="ml-auto tracking-wider uppercase"
+                              color="accent"
+                              size="sm"
+                              variant="primary"
                             >
                               Activa
-                            </span>
+                            </Badge>
                           ) : null}
                         </NextLink>
                       </li>
@@ -226,7 +240,7 @@ export const Navbar = () => {
                 <NextLink
                   className="block"
                   href={routes.pricing}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={closeMobileMenu}
                 >
                   <Button
                     className="w-full font-semibold"

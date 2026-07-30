@@ -5,7 +5,8 @@ export { Section } from './Section';
 export { Container } from './Container';
 export { Eyebrow } from './Eyebrow';
 export { SectionHeader } from './SectionHeader';
-export { FaqDisclosure } from './FaqDisclosure';
+export { FaqAccordion } from './FaqAccordion';
+export { AmbientBlobs, type AmbientPreset } from './AmbientBlobs';
 export {
   CardClub,
   CardClubHeader,
