@@ -114,6 +114,13 @@
        cohesive without competing for the "primary" slot. */
   --color-amarillo: oklch(0.45 0.2 250);
 
+  /* Lighter cobalt variant for decorative backgrounds (blobs, soft
+     tints). Sits between `--color-amarillo` and white so the blob
+     on the hero still reads as "brand secondary" without going
+     dark. ~3:1 contrast on white — used only on decorative
+     surfaces, never for text. */
+  --color-amarillo-soft: oklch(0.62 0.18 250);
+
   /* Soft sky tokens — used for category pills, tags, chips.
      Mirror of brand.skySoft / brand.skySoftFg in config/design-tokens.ts.
      Keep the alpha at 14% so CSS and TS agree exactly. */
@@ -160,6 +167,9 @@
 
   --color-sky-soft: color-mix(in oklch, var(--accent) 14%, transparent);
   --color-sky-soft-fg: var(--accent);
+
+  --color-amarillo: var(--color-amarillo);
+  --color-amarillo-soft: var(--color-amarillo-soft);
 
   --color-border: var(--border);
 

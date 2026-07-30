@@ -23,6 +23,9 @@ export const brand = {
   skyLight: 'oklch(0.685 0.169 237.32)',
   /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
   skyDark: 'oklch(0.7 0.17 237)',
+  /** Lighter cobalt variant for decorative backgrounds. Matches
+   *  `--color-amarillo-soft` in styles/globals.css. */
+  amarilloSoft: 'oklch(0.62 0.18 250)',
 } as const;
 
 export const spacing = {
