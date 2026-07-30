@@ -1,42 +1,60 @@
-import { Container } from '@/components/ui/Container';
+'use client';
 
 /**
  * Route-segment loading UI for `/blog/[slug]`.
  *
  * Triggered automatically by Next.js while the route segment is
- * being prepared. We render an inert skeleton with the same
- * typographic rhythm as the final post so the perceived layout
- * stays stable between the spinner state and the hydrated content.
+ * being prepared. We render the real post layout inside
+ * `<phantom-ui loading>` so the shimmer blocks match the actual
+ * geometry (title length, paragraph widths, etc.) once the Web
+ * Component measures the DOM. The placeholder text is invisible
+ * thanks to the `ssr.css` import in the root layout.
  */
+
+import NextLink from 'next/link';
+import { FaArrowLeft } from 'react-icons/fa';
+
+import { Section, Container, Eyebrow } from '@/components/ui';
+import { title } from '@/components/primitives';
+import { routes } from '@/lib/routes';
+
 export default function BlogSlugLoading() {
   return (
-    <div className="py-16 md:py-24">
+    <Section spacing="lg">
       <Container size="md">
-        <div
-          aria-hidden
-          className="bg-default-200 mb-6 inline-block h-3 w-32 animate-pulse rounded"
-        />
-        <div
-          aria-hidden
-          className="bg-default-300 mb-3 inline-block h-3 w-24 animate-pulse rounded"
-        />
-        <div
-          aria-hidden
-          className="bg-default-200 mb-8 h-12 w-3/4 animate-pulse rounded"
-        />
-        <div
-          aria-hidden
-          className="bg-default-200 mb-3 h-4 w-full animate-pulse rounded"
-        />
-        <div
-          aria-hidden
-          className="bg-default-200 mb-3 h-4 w-11/12 animate-pulse rounded"
-        />
-        <div
-          aria-hidden
-          className="bg-default-200 mb-3 h-4 w-10/12 animate-pulse rounded"
-        />
+        <phantom-ui
+          loading
+          animation="shimmer"
+          duration={1.5}
+          loading-label="Cargando artículo"
+        >
+          <NextLink
+            className="text-default-600 hover:text-primary mb-6 inline-flex items-center gap-2 text-sm"
+            href={routes.blog}
+          >
+            <FaArrowLeft aria-hidden="true" size={12} /> Volver al blog
+          </NextLink>
+          <Eyebrow className="mb-3 block" tone="sky">
+            Categoría del artículo · fecha del artículo
+          </Eyebrow>
+          <h1
+            className={title({
+              size: 'lg',
+              class: 'block leading-[1.1]',
+            })}
+          >
+            Título del artículo que estamos cargando
+          </h1>
+          <p className="text-default-600 mt-6 text-base leading-relaxed md:text-lg">
+            Primer párrafo del artículo con suficiente texto para que el shimmer
+            block tenga un ancho similar al contenido real.
+          </p>
+          <p className="text-default-600 mt-4 text-base leading-relaxed md:text-lg">
+            Segundo párrafo que también será medido por phantom-ui para generar
+            un bloque shimmer encima.
+          </p>
+        </phantom-ui>
       </Container>
-    </div>
+    </Section>
   );
 }

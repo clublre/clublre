@@ -15,6 +15,7 @@
     "mcp:index": "codebase-memory-mcp cli index_repository --repo-path ."
   },
   "dependencies": {
+    "@aejkatappaja/phantom-ui": "^1.4.0",
     "@heroui/react": "^3.2.2",
     "@heroui/styles": "^3.2.2",
     "@react-aria/ssr": "^3.9.4",

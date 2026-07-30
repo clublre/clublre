@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import { Button } from '@heroui/react';
 import {
   FaInstagram,
   FaMapMarkerAlt,
@@ -20,9 +19,13 @@ const year = new Date().getFullYear();
  * Footer — global site footer.
  *
  * Layout (top → bottom):
- *   1. CTA strip: "Sumate al club" with a HeroUI primary button.
- *   2. Main grid (12 cols on md+): brand + nav + contact.
- *   3. Bottom bar: copyright + scroll-to-top.
+ *   1. Main grid (2 cols on md+): brand + contact.
+ *   2. Bottom bar: copyright + scroll-to-top.
+ *
+ * The earlier "Sumate al club" CTA strip was removed because it
+ * duplicated the final CTA on the home page (same eyebrow, same
+ * heading, same destination). The Footer's job is now to close the
+ * page with contact info, not to relaunch the conversion message.
  *
  * Decorative icons carry `aria-hidden`; the parent <a> carries the
  * accessible label.
@@ -30,31 +33,6 @@ const year = new Date().getFullYear();
 export function Footer() {
   return (
     <footer className="bg-surface-muted">
-      {/* CTA strip */}
-      <div>
-        <Container className="flex flex-col items-start justify-between gap-6 py-10 md:flex-row md:items-center md:py-12">
-          <div className="max-w-2xl">
-            <Eyebrow className="mb-2 block" tone="sky">
-              Sumate al club
-            </Eyebrow>
-            <h2 className="text-foreground text-2xl font-bold tracking-tight md:text-3xl">
-              Tres generaciones ya pasaron por acá.
-            </h2>
-            <p className="text-default-600 mt-2 text-base">
-              Conocé nuestras cuotas y empezá a disfrutar del club hoy mismo.
-            </p>
-          </div>
-          <NextLink className="shrink-0" href={routes.pricing}>
-            <Button size="lg" variant="primary">
-              Ver cuotas
-              <span aria-hidden="true" className="ml-1">
-                →
-              </span>
-            </Button>
-          </NextLink>
-        </Container>
-      </div>
-
       {/* Main grid — 2 columns: brand on the left, contact on the
           right. After dropping the Navegación column the 12-col grid
           was wasted specificity; a simple 2-col feels right and lets

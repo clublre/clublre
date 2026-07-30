@@ -715,7 +715,7 @@ defina un milestone.
 > el corto plazo. Si más adelante se agrega CMS, autenticación de
 > socios o formularios de contacto, este item vuelve a la mesa.
 > Mientras tanto, las verificaciones manuales son `npm run
-> type-check && npm run lint` antes de cada handoff.
+type-check && npm run lint` antes de cada handoff.
 
 **Por qué ahora no:** el sitio es 100% estático (`output: "export"`
 en `next.config.js`), sin endpoints, sin auth, sin estado
@@ -983,6 +983,95 @@ hacer visible la restraint.
   `app/blog/error.tsx`. 7 de 7 MEDIUM y 2 de 2 LOW atendidos en commits
   `0f270c2`, `5b97d67`, `9cd37d8`, `c1b3314`, `7bacc71`. Verdict final:
   `Approve`.
+
+---
+
+## 15. Skeleton loaders con `<phantom-ui>`
+
+`@aejkatappaja/phantom-ui` es un **Web Component Lit universal**
+(~8 kB minzipped, MIT) que envuelve cualquier subtree y genera
+shimmer placeholders midiendo el DOM real con `getBoundingClientRect`.
+Funciona en React, Vue, Svelte, Angular, Solid, Qwik o vanilla JS,
+pero acá lo consumimos desde React vía JSX typings.
+
+El sitio lo usa como reemplazo de los `<div className="animate-pulse">`
+hand-rolled — el shimmer se ajusta automáticamente a las dimensiones
+reales del contenido (no a aproximaciones nuestras), lo que evita
+layout shift cuando llega la data.
+
+### Setup (hecho una vez)
+
+1. **Dependencia** en `package.json`:
+   `"@aejkatappaja/phantom-ui": "^1.4.0"`.
+2. **`phantom-ui.d.ts`** en la raíz del proyecto — type-augment de
+   `react/jsx-runtime.JSX.IntrinsicElements` para que TypeScript
+   reconozca `<phantom-ui>` en JSX.
+3. **`import '@aejkatappaja/phantom-ui/ssr.css'`** en `app/layout.tsx`
+   — pre-hydration CSS que oculta el contenido placeholder hasta
+   que el Web Component se active.
+4. Los `loading.tsx` deben ser `'use client'` porque el componente
+   usa APIs de browser.
+
+### Uso básico
+
+```tsx
+'use client';
+<phantom-ui animation="shimmer" duration={1.5} loading loading-label="Cargando">
+  {/* contenido real con placeholders invisibles */}
+  <h1>Título</h1>
+  <p>Párrafo de ejemplo…</p>
+</phantom-ui>;
+```
+
+Atributos clave:
+
+| Atributo        | Default    | Uso                                       |
+| --------------- | ---------- | ----------------------------------------- |
+| `loading`       | `false`    | Mostrar shimmer o no                      |
+| `animation`     | `shimmer`  | `shimmer`, `pulse`, `breathe`, `solid`    |
+| `duration`      | `1.5`      | Segundos por ciclo                        |
+| `stagger`       | `0`        | Delay entre bloques (en s)                |
+| `reveal`        | `0`        | Fade-out cuando termina la carga          |
+| `count`         | `1`        | Repetir un template N veces (listas)      |
+| `mode`          | `skeleton` | `skeleton` (oculta) o `overlay` (refresh) |
+| `loading-label` | `Loading`  | `aria-label` accesible                    |
+
+### Cuándo usarlo
+
+✅ **Loading UI de segments** (`loading.tsx`) que reflejan un layout real.
+✅ **Listas con data fetching** futuro (eventos, fixtures, resultados) —
+`count={n}` repite el template mientras carga.
+✅ **Refresh states** con `mode="overlay"` — no oculta el contenido previo,
+le pasa una luz por encima.
+
+❌ **NO** para spinners de botón (usa un `<Spinner>` de HeroUI).
+❌ **NO** para loading de páginas 100% server-rendered sin data
+fetching (no necesitás shimmer).
+❌ **NO** metas el navbar o footer dentro de `<phantom-ui loading>` —
+esos ya están en cache post-redirect.
+
+### Trade-offs honestos
+
+- **+** Perceived performance: el layout no salta cuando llega la data.
+- **+** DX: un solo componente, sin sincronizar skeleton ↔ UI real.
+- **+** Accesible: `aria-busy`, `loading-label`, `prefers-reduced-motion`
+  honrado automáticamente.
+- **-** ~11 kB de runtime (phantom-ui + Lit) al cliente.
+- **-** `'use client'` boundary en cada `loading.tsx`.
+- **-** Si el contenido es 100% SSR estático, el shimmer no aporta
+  valor (la página ya está en HTML).
+
+### Convenciones del proyecto
+
+- **Naming del slot**: el texto dentro de `<phantom-ui loading>`
+  sigue siendo copy real (título, párrafo); el `ssr.css` lo oculta.
+  No escribir "Cargando…" dos veces.
+- **Loading embebido en componentes**: usar `<phantom-ui loading>`
+  directo. NO crear wrappers tipo `<CardLoading>` — el componente real
+  ya es el template del skeleton.
+- **Color del shimmer**: dejar el default `rgba(128,128,128,0.3)`.
+  Si hace falta contrastar más, exponer `shimmer-color` desde el
+  design token (`--foreground` con alpha) en `globals.css`.
 
 ---
 

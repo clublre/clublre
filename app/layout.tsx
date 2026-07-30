@@ -1,4 +1,8 @@
 import '@/styles/globals.css';
+// Pre-hydration CSS for `<phantom-ui loading>` — hides the placeholder
+// text until the Web Component measures the DOM and overlays shimmer
+// blocks. No JS dependency at this stage.
+import '@aejkatappaja/phantom-ui/ssr.css';
 import { type Metadata, type Viewport } from 'next';
 
 import { Providers } from './Providers';
