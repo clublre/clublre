@@ -12,6 +12,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Logo } from '@/components/ui/Icons';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
+import { routes } from '@/lib/routes';
 
 const year = new Date().getFullYear();
 
@@ -43,7 +44,7 @@ export function Footer() {
               Conocé nuestras cuotas y empezá a disfrutar del club hoy mismo.
             </p>
           </div>
-          <NextLink className="shrink-0" href="/pricing">
+          <NextLink className="shrink-0" href={routes.pricing}>
             <Button size="lg" variant="primary">
               Ver cuotas
               <span aria-hidden="true" className="ml-1">
@@ -65,7 +66,7 @@ export function Footer() {
             <NextLink
               aria-label={`Ir al inicio — ${siteConfig.name}`}
               className="mb-4 inline-flex items-center gap-2.5"
-              href="/"
+              href={routes.home}
             >
               <Logo size={32} sizes="32px" />
               <span className="text-foreground font-bold tracking-tight">

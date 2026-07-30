@@ -15,17 +15,10 @@
 export const brand = {
   /** Active HeroUI theme — single source of truth for the palette name. */
   theme: 'sky',
-  /** Secondary brand — Cobalt blue picked from the LRE escudo
-      palette (mid-tone between the logo's deep navy and the sky
-      primary). UX-friendly contrast on both surfaces. */
-  amarillo: '#1B4FCF',
   /** HeroUI Sky accent — light mode oklch (matches globals.css). */
   skyLight: 'oklch(0.685 0.169 237.32)',
   /** HeroUI Sky accent — dark mode oklch (matches globals.css). */
   skyDark: 'oklch(0.7 0.17 237)',
-  /** Lighter cobalt variant for decorative backgrounds. Matches
-   *  `--color-amarillo-soft` in styles/globals.css. */
-  amarilloSoft: 'oklch(0.62 0.18 250)',
 } as const;
 
 export const spacing = {

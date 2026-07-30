@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import NextLink from 'next/link';
 import { Button } from '@heroui/react';
 import { FaCheck } from 'react-icons/fa';
@@ -13,7 +14,21 @@ import {
 } from '@/components/ui';
 import { title } from '@/components/primitives';
 import { pricingTiers } from '@/data/club';
+import { faqItems } from '@/data/faq';
 import { cn } from '@/lib/utils';
+import { routes } from '@/lib/routes';
+
+export const metadata: Metadata = {
+  title: 'Cuotas 2026 — Planes y precios',
+  description:
+    'Conocé los planes individuales, familiares y para menores del Club Los Rosarinos Estudiantil. Sin matrícula, sin sorpresas.',
+  openGraph: {
+    title: 'Cuotas 2026 — Club Los Rosarinos Estudiantil',
+    description:
+      'Planes individuales, familiares y para menores. Sin matrícula, sin sorpresas.',
+    url: '/pricing',
+  },
+};
 
 const formatPrice = (price: number) =>
   new Intl.NumberFormat('es-AR', {
@@ -21,35 +36,6 @@ const formatPrice = (price: number) =>
     currency: 'ARS',
     maximumFractionDigits: 0,
   }).format(price);
-
-/**
- * FAQ — the most common questions we get from prospective members.
- * Uses native <details>/<summary> so it works without JS, is fully
- * accessible (keyboard + screen-reader friendly), and the only
- * client-side cost is the small CSS rotation on the +/- indicator.
- */
-const FAQ_ITEMS = [
-  {
-    q: '¿Cómo me asocio al club?',
-    a: 'Podés acercarte a nuestra sede de Iriondo 375, Rosario, de lunes a viernes con tu DNI y una foto carnet. También podés escribirnos por Instagram para coordinar el trámite.',
-  },
-  {
-    q: '¿Los menores de edad pueden asociarse?',
-    a: 'Sí. La cuota infantil es para menores de 12 años e incluye la escuela deportiva. Para asociar a un menor se requiere la presencia de un adulto responsable con DNI.',
-  },
-  {
-    q: '¿Qué incluye la cuota familiar?',
-    a: 'La cuota familiar cubre a cuatro integrantes del grupo familiar e incluye pileta, todas las disciplinas y los eventos sociales del club.',
-  },
-  {
-    q: '¿Hay matrícula de ingreso?',
-    a: 'No hay matrícula. Solo se abona el carnet de socio, que es un pago único anual, y la cuota mensual correspondiente al plan elegido.',
-  },
-  {
-    q: '¿Puedo probar una actividad antes de asociarme?',
-    a: 'Sí, ofrecemos clases de prueba gratuitas en la mayoría de las disciplinas. Coordiná día y horario escribiéndonos por Instagram a @clubestudiantilrosario.',
-  },
-] as const;
 
 export default function PricingPage() {
   return (
@@ -90,7 +76,7 @@ export default function PricingPage() {
                 <div className="mb-4 flex items-baseline justify-between">
                   <CardClubTitle>{tier.name}</CardClubTitle>
                   {tier.highlighted ? (
-                    <span className="bg-amarillo text-primary-foreground rounded-full px-2.5 py-1 text-xs font-semibold tracking-wider uppercase">
+                    <span className="rounded-full bg-blue-700 px-2.5 py-1 text-xs font-semibold tracking-wider text-white uppercase">
                       Popular
                     </span>
                   ) : null}
@@ -113,7 +99,10 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
-                <NextLink className="mt-auto block" href="/about#contacto">
+                <NextLink
+                  className="mt-auto block"
+                  href={`${routes.about}#contacto`}
+                >
                   <Button
                     className="w-full font-semibold"
                     size="md"
@@ -144,7 +133,7 @@ export default function PricingPage() {
           />
 
           <ul className="bg-surface shadow-club divide-default-200 divide-y overflow-hidden rounded-2xl">
-            {FAQ_ITEMS.map((item) => (
+            {faqItems.map((item) => (
               <li key={item.q}>
                 <details className="group">
                   <summary

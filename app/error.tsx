@@ -35,9 +35,7 @@ export default function Error({
       <Eyebrow className="mb-4 block" tone="sky">
         Error 500
       </Eyebrow>
-      <h1 className={title({ size: 'md', class: 'block' })}>
-        Algo salió mal
-      </h1>
+      <h1 className={title({ size: 'md', class: 'block' })}>Algo salió mal</h1>
       <p className="text-default-600 mx-auto mt-4 max-w-md">
         Ocurrió un error inesperado al cargar esta página. Probá de nuevo o
         volvé al inicio.

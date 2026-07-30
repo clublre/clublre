@@ -6,6 +6,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Section, Container, Eyebrow } from '@/components/ui';
 import { title } from '@/components/primitives';
 import { posts, postsBySlug } from '@/data/posts';
+import { routes } from '@/lib/routes';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -44,7 +45,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       <Container size="md">
         <NextLink
           className="text-default-600 hover:text-primary mb-6 inline-flex items-center gap-2 text-sm"
-          href="/blog"
+          href={routes.blog}
         >
           <FaArrowLeft size={12} /> Volver al blog
         </NextLink>

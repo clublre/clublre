@@ -42,8 +42,7 @@ const sectionHeader = tv({
 });
 
 export interface SectionHeaderProps
-  extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof sectionHeader> {
+  extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof sectionHeader> {
   /** Small uppercase label above the heading. */
   eyebrow: string;
   /** Section heading — renders as <h2> by default. */
@@ -70,7 +69,10 @@ export function SectionHeader({
   ...props
 }: SectionHeaderProps) {
   return (
-    <div className={cn(sectionHeader({ align, width, spacing }), className)} {...props}>
+    <div
+      className={cn(sectionHeader({ align, width, spacing }), className)}
+      {...props}
+    >
       <Eyebrow className="mb-3 block" tone={tone}>
         {eyebrow}
       </Eyebrow>

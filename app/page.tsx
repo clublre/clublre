@@ -30,7 +30,7 @@ import { title, subtitle } from '@/components/primitives';
 import { activities } from '@/data/club';
 import { postsNewestFirst } from '@/data/posts';
 import { cn } from '@/lib/utils';
-import type { Route } from 'next';
+import { routes } from '@/lib/routes';
 
 /** Trust strip — quick social proof between hero and activities. */
 const STATS = [
@@ -110,7 +110,7 @@ export default function HomePage() {
 
           {/* Primary CTA + secondary text-link (no competing buttons) */}
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <NextLink href="/pricing">
+            <NextLink href={routes.pricing}>
               <Button
                 className="shadow-club-lg font-semibold"
                 size="lg"
@@ -122,7 +122,7 @@ export default function HomePage() {
             </NextLink>
             <NextLink
               className="text-default-100 hover:text-foreground text-sm font-medium transition-colors sm:ml-2"
-              href={'/about' as Route}
+              href={routes.about}
             >
               o leé nuestra historia →
             </NextLink>
@@ -184,10 +184,7 @@ export default function HomePage() {
               };
               const Icon = meta.icon;
               return (
-                <CardClub
-                  key={activity.id}
-                  className="flex flex-col"
-                >
+                <CardClub key={activity.id} className="flex flex-col">
                   <CardClubHeader>
                     <span
                       aria-hidden="true"
@@ -195,7 +192,7 @@ export default function HomePage() {
                         'inline-flex size-10 items-center justify-center rounded-lg',
                         meta.accent === 'sky'
                           ? 'bg-primary/10 text-primary'
-                          : 'bg-amarillo/10 text-amarillo',
+                          : 'bg-blue-700/10 text-blue-700',
                       )}
                     >
                       <Icon className="size-5" />
@@ -225,7 +222,7 @@ export default function HomePage() {
             trailing={
               <NextLink
                 className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                href={'/blog' as Route}
+                href={routes.blog}
               >
                 Ver todos los posts
                 <FaArrowRight aria-hidden="true" className="size-3" />
@@ -242,7 +239,7 @@ export default function HomePage() {
                     'group bg-surface shadow-club relative flex h-full flex-col overflow-hidden rounded-xl p-6',
                     'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5',
                   )}
-                  href={`/blog/${post.slug}` as Route}
+                  href={routes.blogPost(post.slug)}
                 >
                   <div className="text-default-500 mb-2 flex items-center gap-3 text-xs">
                     <span className="bg-primary/10 text-primary rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
@@ -310,7 +307,7 @@ export default function HomePage() {
                 disfrutar del club hoy mismo.
               </p>
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <NextLink href="/pricing">
+                <NextLink href={routes.pricing}>
                   <Button className="font-semibold" size="lg" variant="primary">
                     Quiero asociarme
                     <FaArrowRight aria-hidden="true" className="ml-2 size-4" />

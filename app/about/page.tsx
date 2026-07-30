@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import {
   Section,
   Container,
@@ -9,6 +11,18 @@ import {
 } from '@/components/ui';
 import { title } from '@/components/primitives';
 import { commission } from '@/data/club';
+
+export const metadata: Metadata = {
+  title: 'El Club — Nuestra historia',
+  description:
+    'Fundado en 1943, el Club Los Rosarinos Estudiantil es una institución deportiva y social con más de 3.500 socios. Conocé nuestra historia, valores y comisión directiva.',
+  openGraph: {
+    title: 'El Club — Club Los Rosarinos Estudiantil',
+    description:
+      'Más de 80 años formando comunidad en Rosario. Conocé nuestra historia, valores y comisión directiva.',
+    url: '/about',
+  },
+};
 
 export default function AboutPage() {
   return (

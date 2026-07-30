@@ -5,6 +5,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
+import { routes } from '@/lib/routes';
 
 /**
  * Global 404 boundary.
@@ -26,7 +27,7 @@ export default function NotFound() {
         La página que buscás no existe o fue movida. Volvé al inicio y seguí
         explorando el club.
       </p>
-      <NextLink className="mt-8" href="/">
+      <NextLink className="mt-8" href={routes.home}>
         <Button className="font-semibold" size="md" variant="primary">
           <FaArrowLeft aria-hidden="true" className="mr-2 size-3.5" />
           Volver al inicio

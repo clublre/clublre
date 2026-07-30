@@ -1,6 +1,6 @@
+import type { Metadata } from 'next';
 import NextLink from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
-import type { Route } from 'next';
 
 import {
   Section,
@@ -12,9 +12,19 @@ import {
 } from '@/components/ui';
 import { title } from '@/components/primitives';
 import { postsNewestFirst } from '@/data/posts';
+import { routes } from '@/lib/routes';
 
-/** Build a typed blog post route from a slug. */
-const postHref = (slug: string): Route => `/blog/${slug}` as Route;
+export const metadata: Metadata = {
+  title: 'Blog — Novedades del club',
+  description:
+    'Novedades institucionales, resultados deportivos y todo lo que pasa en el Club Los Rosarinos Estudiantil.',
+  openGraph: {
+    title: 'Blog — Club Los Rosarinos Estudiantil',
+    description:
+      'Novedades institucionales, resultados deportivos y todo lo que pasa en el club.',
+    url: '/blog',
+  },
+};
 
 const formatDate = (iso: string) =>
   new Intl.DateTimeFormat('es-AR', {
@@ -52,10 +62,7 @@ export default function BlogPage() {
         <Container>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {postsNewestFirst.map((post) => (
-              <CardClub
-                key={post.slug}
-                className="flex flex-col"
-              >
+              <CardClub key={post.slug} className="flex flex-col">
                 <div className="mb-3 flex items-center justify-between text-xs">
                   <span className="bg-sky-soft text-sky-soft-fg rounded-full px-2.5 py-1 font-medium tracking-wider uppercase">
                     {post.category}
@@ -65,14 +72,16 @@ export default function BlogPage() {
                   </time>
                 </div>
                 <CardClubTitle className="hover:text-primary">
-                  <NextLink href={postHref(post.slug)}>{post.title}</NextLink>
+                  <NextLink href={routes.blogPost(post.slug)}>
+                    {post.title}
+                  </NextLink>
                 </CardClubTitle>
                 <CardClubBody className="mt-3 grow">
                   {post.excerpt}
                 </CardClubBody>
                 <NextLink
                   className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
-                  href={postHref(post.slug)}
+                  href={routes.blogPost(post.slug)}
                 >
                   Leer artículo
                   <FaArrowRight aria-hidden="true" className="size-3" />

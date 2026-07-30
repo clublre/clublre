@@ -101,26 +101,13 @@
 /* --------------------------------------------------------------------------
    3. Tailwind v4 @theme — brand tokens (Tailwind utilities)
    --------------------------------------------------------------------------
-   Only the brand secondary (amarillo) and the project-level surfaces
-   (surface-muted, default-*) live here — everything else
-   (background, foreground, surface, border, focus) comes from HeroUI.
+   Project-level surfaces (surface-muted, default-*) live here —
+   everything else (background, foreground, surface, border, focus)
+   comes from HeroUI. Brand secondary uses Tailwind built-in `blue-*`
+   (cobalt maps to blue-700; lighter variants use blue-400/500) so
+   we don't reinvent the palette.
 */
 @theme {
-  /* Secondary brand — Cobalt blue picked from the LRE escudo palette
-     (between the deep navy and the sky primary). UX-friendly:
-     - ~7:1 contrast on white (AA Large + Normal)
-     - ~4.5:1 contrast on surface (AA Normal)
-     - Stays in the same hue family as primary so the brand feels
-       cohesive without competing for the "primary" slot. */
-  --color-amarillo: oklch(0.45 0.2 250);
-
-  /* Lighter cobalt variant for decorative backgrounds (blobs, soft
-     tints). Sits between `--color-amarillo` and white so the blob
-     on the hero still reads as "brand secondary" without going
-     dark. ~3:1 contrast on white — used only on decorative
-     surfaces, never for text. */
-  --color-amarillo-soft: oklch(0.62 0.18 250);
-
   /* Soft sky tokens — used for category pills, tags, chips.
      Mirror of brand.skySoft / brand.skySoftFg in config/design-tokens.ts.
      Keep the alpha at 14% so CSS and TS agree exactly. */
@@ -168,9 +155,6 @@
   --color-sky-soft: color-mix(in oklch, var(--accent) 14%, transparent);
   --color-sky-soft-fg: var(--accent);
 
-  --color-amarillo: var(--color-amarillo);
-  --color-amarillo-soft: var(--color-amarillo-soft);
-
   --color-border: var(--border);
 
   /* `default-*` — neutral text scale.
@@ -204,28 +188,14 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. Brand gradients, shadows, keyframes, utilities
+   5. Shadows, keyframes, utilities
    -------------------------------------------------------------------------- */
-.gradient-amarillo {
-  background-image: linear-gradient(
-    to right,
-    var(--color-amarillo),
-    oklch(0.92 0.17 95 / 0.7)
-  );
-}
-
-.gradient-sky {
-  background-image: linear-gradient(
-    to right,
-    var(--accent),
-    var(--color-amarillo)
-  );
-}
-
+/* Hero radial glow — uses the HeroUI accent CSS var directly so
+   light/dark modes stay in sync without a parallel token. */
 .gradient-radial-sky {
   background-image: radial-gradient(
     ellipse at top,
-    oklch(0.685 0.169 237 / 0.18),
+    color-mix(in oklch, var(--accent) 18%, transparent),
     transparent 60%
   );
 }
@@ -335,8 +305,8 @@ a[href] {
   }
 
   ::selection {
-    background: var(--color-amarillo);
-    color: var(--foreground);
+    background: var(--color-primary);
+    color: var(--accent-foreground);
   }
 
   *:focus-visible {

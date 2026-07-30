@@ -19,6 +19,7 @@ import { Logo } from '@/components/ui/Icons';
 import { IconButton } from '@/components/atoms/IconButton';
 import { ThemeToggle } from '@/components/molecules/ThemeToggle';
 import { siteConfig } from '@/config/site';
+import { routes } from '@/lib/routes';
 
 /**
  * Icon for each nav href. Kept module-level (no hooks) so both the
@@ -80,7 +81,7 @@ export const Navbar = () => {
           <NextLink
             aria-label={`Ir al inicio — ${siteConfig.name}`}
             className="focus-visible:ring-primary focus-visible:ring-offset-background flex items-center gap-2.5 rounded-md transition-opacity hover:opacity-80 focus-visible:opacity-80 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
-            href="/"
+            href={routes.home}
             onClick={() => setIsMenuOpen(false)}
           >
             {/* priority + sizes for the LCP image on first paint */}
@@ -156,7 +157,7 @@ export const Navbar = () => {
               <NextLink
                 aria-label={`Ir al inicio — ${siteConfig.name}`}
                 className="flex items-center gap-2.5 rounded-md"
-                href="/"
+                href={routes.home}
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Logo size={28} />
@@ -224,7 +225,7 @@ export const Navbar = () => {
               <div className="mt-auto">
                 <NextLink
                   className="block"
-                  href="/pricing"
+                  href={routes.pricing}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Button

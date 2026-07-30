@@ -3,22 +3,21 @@ import { tv } from 'tailwind-variants';
 /**
  * Heading variants — Club LRE
  *
- * Color variants reference the brand gradients defined in globals.css
- * (gradient-sky, gradient-amarillo) or Tailwind built-in palettes.
+ * Color variants use Tailwind built-in palettes only (sky, blue, etc.)
+ * so the heading text matches the rest of the site without custom
+ * brand tokens. Compound variant adds `bg-clip-text text-transparent`
+ * so the gradient actually shows through the text.
  */
 export const title = tv({
   base: 'tracking-tight inline font-semibold',
   variants: {
     color: {
+      sky: 'bg-gradient-to-r from-sky-500 to-blue-700',
+      blue: 'bg-gradient-to-r from-blue-500 to-blue-700',
       violet: 'bg-gradient-to-r from-fuchsia-400 to-purple-500',
-      // Cobalt — same family as the brand.amarillo token; now uses
-      // a dedicated gradient utility for text-clip variants.
-      cobalt: 'bg-gradient-to-r from-[#3A6BE0] to-[#1B4FCF]',
-      sky: 'gradient-sky',
       cyan: 'bg-gradient-to-r from-cyan-400 to-cyan-500',
       green: 'bg-gradient-to-r from-green-400 to-green-500',
       pink: 'bg-gradient-to-r from-pink-400 to-rose-500',
-      amarillo: 'gradient-amarillo',
     },
     size: {
       sm: 'text-3xl lg:text-4xl',
@@ -37,7 +36,7 @@ export const title = tv({
   },
   compoundVariants: [
     {
-      color: ['violet', 'cobalt', 'sky', 'cyan', 'green', 'pink', 'amarillo'],
+      color: ['sky', 'blue', 'violet', 'cyan', 'green', 'pink'],
       class: 'bg-clip-text text-transparent',
     },
   ],

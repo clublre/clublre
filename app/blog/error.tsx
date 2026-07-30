@@ -8,6 +8,7 @@ import NextLink from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
+import { routes } from '@/lib/routes';
 
 /**
  * Route-segment error boundary for `/blog/[slug]`.
@@ -31,11 +32,7 @@ export default function BlogSlugError({
   }, [error]);
 
   return (
-    <div
-      aria-live="assertive"
-      className="py-16 md:py-24"
-      role="alert"
-    >
+    <div aria-live="assertive" className="py-16 md:py-24" role="alert">
       <Container className="text-center" size="md">
         <Eyebrow className="mb-4 block" tone="sky">
           Error al cargar el artículo
@@ -56,7 +53,7 @@ export default function BlogSlugError({
           >
             Reintentar
           </Button>
-          <NextLink href="/blog">
+          <NextLink href={routes.blog}>
             <Button className="font-semibold" size="md" variant="outline">
               Ver todos los posts
             </Button>

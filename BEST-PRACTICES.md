@@ -951,10 +951,10 @@ hacer visible la restraint.
 
 ### Tokens descubiertos durante reviews
 
-| Token | Hallazgo | Acción |
-| --- | --- | --- |
-| `--color-amarillo-soft` | `bg-[#3A6BE0]` en `BlurryBlob` y `text-[#1B4FCF]` en `Eyebrow` violaban la regla "no arbitrary hex" | Agregado a `@theme` + `@theme inline` + alias TS en `config/design-tokens.ts` |
-| `<SectionHeader>` primitive | 4 páginas duplicaban el bloque `eyebrow + h2 + descripción` con variantes de `mb-10`/`mb-12` | Extraído a `components/ui/SectionHeader.tsx` con variants de `align`, `width`, `spacing` |
+| Token                       | Hallazgo                                                                                            | Acción                                                                                   |
+| --------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `--color-amarillo-soft`     | `bg-[#3A6BE0]` en `BlurryBlob` y `text-[#1B4FCF]` en `Eyebrow` violaban la regla "no arbitrary hex" | Agregado a `@theme` + `@theme inline` + alias TS en `config/design-tokens.ts`            |
+| `<SectionHeader>` primitive | 4 páginas duplicaban el bloque `eyebrow + h2 + descripción` con variantes de `mb-10`/`mb-12`        | Extraído a `components/ui/SectionHeader.tsx` con variants de `align`, `width`, `spacing` |
 
 ### Hallazgos históricos
 

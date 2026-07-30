@@ -14,7 +14,7 @@ const eyebrow = tv({
     tone: {
       default: 'text-default-500',
       sky: 'text-primary',
-      amarillo: 'text-amarillo',
+      amarillo: 'text-blue-700',
     },
   },
   defaultVariants: {
