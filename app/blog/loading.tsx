@@ -1,5 +1,4 @@
 import { Container } from '@/components/ui/Container';
-import { Eyebrow } from '@/components/ui/Eyebrow';
 
 /**
  * Route-segment loading UI for `/blog/[slug]`.
