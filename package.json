@@ -1,19 +1,4 @@
 {
-  "name": "clublre",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "dev:turbo": "next dev --turbo",
-    "dev:clean": "node ./scripts/dev-clean.mjs",
-    "build": "next build",
-    "analyze": "next build && next experimental-analyze -o",
-    "start": "next start",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "type-check": "tsc --noEmit",
-    "mcp:index": "codebase-memory-mcp cli index_repository --repo-path ."
-  },
   "dependencies": {
     "@aejkatappaja/phantom-ui": "^1.4.0",
     "@heroui/react": "^3.2.2",
@@ -52,5 +37,23 @@
     "tailwind-variants": "^0.3.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^6.0.0"
-  }
+  },
+  "engines": {
+    "node": "22.21.1"
+  },
+  "name": "clublre",
+  "private": true,
+  "scripts": {
+    "analyze": "next build && next experimental-analyze -o",
+    "build": "next build",
+    "dev": "next dev",
+    "dev:clean": "node ./scripts/dev-clean.mjs",
+    "dev:turbo": "next dev --turbo",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "mcp:index": "codebase-memory-mcp cli index_repository --repo-path .",
+    "start": "next start",
+    "type-check": "tsc --noEmit"
+  },
+  "version": "0.1.0"
 }
