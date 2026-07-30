@@ -11,8 +11,6 @@
  * components and they don't go through the components/ tree.
  */
 
-export type PostAccent = 'sky' | 'amarillo' | 'gradient';
-
 export interface Activity {
   id: string;
   name: string;

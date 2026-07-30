@@ -9,12 +9,10 @@
  * (Sanity / Contentful / markdown files / DB). The exported shape is
  * the contract the rest of the app relies on.
  *
- * The accent + category lives on the listing row; the `body` lives
- * only on the detail row. `excerpt` is derived from the first sentence
- * of `body` to avoid duplication.
+ * The category lives on the listing row; the `body` lives only on the
+ * detail row. `excerpt` is derived from the first sentence of `body`
+ * to avoid duplication.
  */
-
-export type PostAccent = 'sky' | 'amarillo' | 'gradient';
 
 export interface BlogPost {
   /** URL slug. Used as the `[slug]` route param and as a `Route` after concat. */
@@ -25,8 +23,6 @@ export interface BlogPost {
   date: string;
   /** Category label (display only, no i18n). */
   category: string;
-  /** Accent stripe colour for the listing card. */
-  accent: PostAccent;
   /** Short excerpt shown on the index. Falls back to the first 140 chars of `body`. */
   excerpt: string;
   /** Full body shown on the detail page. */
@@ -40,7 +36,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Apertura de la pileta 2026',
     date: '2026-01-15',
     category: 'Institucional',
-    accent: 'sky',
     excerpt:
       'Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.',
     body: 'Volvemos a abrir las puertas de la pileta climatizada. Conocé horarios, valores y novedades para esta temporada.',
@@ -50,7 +45,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Torneo interno de básquet 2026',
     date: '2026-02-02',
     category: 'Básquet',
-    accent: 'amarillo',
     excerpt:
       'Se viene una nueva edición del clásico torneo interno de básquet. Inscripciones abiertas para todas las categorías.',
     body: 'Se viene una nueva edición del clásico torneo interno de básquet. Inscripciones abiertas para todas las categorías.',
@@ -60,7 +54,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Escuela de básquet juvenil',
     date: '2026-02-20',
     category: 'Básquet',
-    accent: 'sky',
     excerpt:
       'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
     body: 'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
@@ -70,7 +63,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Colonia de verano 2026',
     date: '2025-12-01',
     category: 'Eventos',
-    accent: 'gradient',
     excerpt:
       'Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.',
     body: 'Un verano distinto para los más chicos: deportes, pileta, talleres y excursiones en un solo lugar.',
@@ -80,7 +72,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Karate: nuevo cinturón negro 2026',
     date: '2026-03-05',
     category: 'Karate',
-    accent: 'amarillo',
     excerpt:
       'Conocé a los nuevos cinturones negros de la escuela de karate del club formados en el ciclo 2025-2026.',
     body: 'Conocé a los nuevos cinturones negros de la escuela de karate del club formados en el ciclo 2025-2026.',
@@ -90,7 +81,6 @@ export const posts: ReadonlyArray<BlogPost> = [
     title: 'Mejoras en las instalaciones',
     date: '2026-03-18',
     category: 'Institucional',
-    accent: 'gradient',
     excerpt:
       'Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.',
     body: 'Repavimentación de canchas, nuevos vestuarios y renovación del salón principal. Conocé el plan de obras.',

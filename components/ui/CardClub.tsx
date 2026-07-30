@@ -3,27 +3,18 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
-  /** Optional accent stripe along the top edge. */
-  accent?: 'sky' | 'amarillo' | 'gradient';
   /** Highlight the card (used for featured pricing tiers). */
   highlighted?: boolean;
   /** Optional media slot rendered above the body. */
   media?: ReactNode;
 }
 
-const accentMap = {
-  sky: 'before:bg-primary',
-  amarillo: 'before:bg-amarillo',
-  gradient: 'before:gradient-sky',
-};
-
 /**
  * CardClub — branded card for activities, pricing tiers, blog posts.
- * Optional accent stripe at the top + optional `media` slot for icons
- * or images.
+ * Minimal look: shadow-only separation, no top stripe or border.
+ * Optional `media` slot for icons or images.
  */
 export function CardClub({
-  accent,
   highlighted = false,
   media,
   className,
@@ -33,11 +24,6 @@ export function CardClub({
   return (
     <div
       className={cn(
-        // Pure minimal look: no top stripe, no hover border. Only
-        // the shadow (resting) → shadow-club-lg (hover) gives the
-        // card its separation. The `accent` prop is accepted but
-        // currently a no-op; left in the API in case we want to
-        // re-introduce a subtle differentiation later.
         'group border-default-200/0 bg-surface shadow-club rounded-xl border',
         'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
         highlighted &&

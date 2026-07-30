@@ -54,7 +54,6 @@ export default function BlogPage() {
             {postsNewestFirst.map((post) => (
               <CardClub
                 key={post.slug}
-                accent={post.accent}
                 className="flex flex-col"
               >
                 <div className="mb-3 flex items-center justify-between text-xs">
