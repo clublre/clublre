@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         >
           {post.title}
         </h1>
-        <p className="text-default-700 mt-6 text-lg leading-relaxed">
+        <p className="text-default-600 mt-6 text-base leading-relaxed md:text-lg">
           {post.body}
         </p>
         <p className="text-default-500 mt-6 text-sm">

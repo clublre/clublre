@@ -19,6 +19,7 @@ import {
   Section,
   Container,
   Eyebrow,
+  SectionHeader,
   CardClub,
   CardClubHeader,
   CardClubTitle,
@@ -169,18 +170,11 @@ export default function HomePage() {
       <Section as="section" id="actividades" spacing="lg">
         <Container>
           {/* Section header — centred (matches the hero + final CTA). */}
-          <div className="mx-auto mb-12 max-w-2xl text-center">
-            <Eyebrow className="mb-3 block" tone="sky">
-              Nuestras disciplinas
-            </Eyebrow>
-            <h2 className={title({ size: 'md', class: 'block' })}>
-              Actividades para todas las edades
-            </h2>
-            <p className="text-default-600 mx-auto mt-4 max-w-xl text-base">
-              Desde básquet federado y natación hasta karate, vóley y escuelas
-              de iniciación deportiva.
-            </p>
-          </div>
+          <SectionHeader
+            description="Desde básquet federado y natación hasta karate, vóley y escuelas de iniciación deportiva."
+            eyebrow="Nuestras disciplinas"
+            heading="Actividades para todas las edades"
+          />
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {activities.map((activity) => {
@@ -192,7 +186,6 @@ export default function HomePage() {
               return (
                 <CardClub
                   key={activity.id}
-                  accent={meta.accent}
                   className="flex flex-col"
                 >
                   <CardClubHeader>
@@ -226,21 +219,19 @@ export default function HomePage() {
        * site feeling alive between posts. */}
       <Section as="section" spacing="lg">
         <Container>
-          <div className="mb-12 text-center">
-            <Eyebrow className="mb-3 block" tone="sky">
-              Novedades
-            </Eyebrow>
-            <h2 className={title({ size: 'md', class: 'block' })}>
-              Lo último del club
-            </h2>
-            <NextLink
-              className="text-primary hover:text-primary/80 mt-4 inline-flex items-center gap-1 text-sm font-medium transition-colors"
-              href={'/blog' as Route}
-            >
-              Ver todos los posts
-              <FaArrowRight aria-hidden="true" className="size-3" />
-            </NextLink>
-          </div>
+          <SectionHeader
+            eyebrow="Últimas novedades"
+            heading="Lo último del club"
+            trailing={
+              <NextLink
+                className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-sm font-medium transition-colors"
+                href={'/blog' as Route}
+              >
+                Ver todos los posts
+                <FaArrowRight aria-hidden="true" className="size-3" />
+              </NextLink>
+            }
+          />
 
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map((post) => (

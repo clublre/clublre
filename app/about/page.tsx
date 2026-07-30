@@ -2,6 +2,7 @@ import {
   Section,
   Container,
   Eyebrow,
+  SectionHeader,
   CardClub,
   CardClubTitle,
   CardClubBody,
@@ -41,35 +42,29 @@ export default function AboutPage() {
       {/* Valores */}
       <Section as="section" spacing="lg">
         <Container>
-          <div className="mb-12 text-center">
-            <Eyebrow className="mb-3 block" tone="amarillo">
-              Nuestros valores
-            </Eyebrow>
-            <h2 className={title({ size: 'md', class: 'block' })}>
-              Lo que nos define
-            </h2>
-            <p className="text-default-600 mx-auto mt-3 max-w-xl">
-              Comunidad, formación y tradición se construyen cada día en cada
-              actividad, cada clase y cada partido.
-            </p>
-          </div>
+          <SectionHeader
+            description="Comunidad, formación y tradición se construyen cada día en cada actividad, cada clase y cada partido."
+            eyebrow="Nuestros valores"
+            heading="Lo que nos define"
+            tone="amarillo"
+          />
 
           <div className="grid gap-6 md:grid-cols-3">
-            <CardClub accent="sky">
+            <CardClub>
               <CardClubTitle>Comunidad</CardClubTitle>
               <CardClubBody>
                 Un espacio donde las familias rosarinas crecen juntas,
                 compartiendo deporte, recreación y amistad.
               </CardClubBody>
             </CardClub>
-            <CardClub accent="amarillo">
+            <CardClub>
               <CardClubTitle>Formación</CardClubTitle>
               <CardClubBody>
                 Escuelas deportivas federadas con entrenadores formados y
                 seguimiento personalizado para cada edad.
               </CardClubBody>
             </CardClub>
-            <CardClub accent="gradient">
+            <CardClub>
               <CardClubTitle>Tradición</CardClubTitle>
               <CardClubBody>
                 Más de 80 años de historia formando campeones dentro y fuera de
@@ -83,18 +78,11 @@ export default function AboutPage() {
       {/* Comisión */}
       <Section as="section" id="contacto" spacing="lg">
         <Container>
-          <div className="mb-12 text-center">
-            <Eyebrow className="mb-3 block" tone="sky">
-              Comisión directiva
-            </Eyebrow>
-            <h2 className={title({ size: 'md', class: 'block' })}>
-              Quienes conducen el club
-            </h2>
-            <p className="text-default-600 mx-auto mt-3 max-w-xl">
-              Una comisión elegida por los socios, comprometida con la
-              transparencia y el crecimiento del club.
-            </p>
-          </div>
+          <SectionHeader
+            description="Una comisión elegida por los socios, comprometida con la transparencia y el crecimiento del club."
+            eyebrow="Comisión directiva"
+            heading="Quienes conducen el club"
+          />
 
           <ul className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {commission.map((member) => (

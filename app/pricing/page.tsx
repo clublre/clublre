@@ -6,6 +6,7 @@ import {
   Section,
   Container,
   Eyebrow,
+  SectionHeader,
   CardClub,
   CardClubTitle,
   CardClubBody,
@@ -83,7 +84,6 @@ export default function PricingPage() {
             {pricingTiers.map((tier) => (
               <CardClub
                 key={tier.id}
-                accent={tier.highlighted ? 'gradient' : 'sky'}
                 className="flex flex-col"
                 highlighted={tier.highlighted}
               >
@@ -136,18 +136,12 @@ export default function PricingPage() {
       {/* FAQ */}
       <Section as="section" id="faq" spacing="lg">
         <Container size="md">
-          <div className="mb-10 text-center">
-            <Eyebrow className="mb-3 block" tone="sky">
-              Preguntas frecuentes
-            </Eyebrow>
-            <h2 className={title({ size: 'md', class: 'block' })}>
-              Todo lo que necesitás saber
-            </h2>
-            <p className="text-default-600 mx-auto mt-3 max-w-xl">
-              Si te queda alguna duda, escribinos por Instagram o al mail de
-              atención al socio y te respondemos a la brevedad.
-            </p>
-          </div>
+          <SectionHeader
+            description="Si te queda alguna duda, escribinos por Instagram o al mail de atención al socio y te respondemos a la brevedad."
+            eyebrow="Preguntas frecuentes"
+            heading="Todo lo que necesitás saber"
+            spacing="md"
+          />
 
           <ul className="bg-surface shadow-club divide-default-200 divide-y overflow-hidden rounded-2xl">
             {FAQ_ITEMS.map((item) => (
