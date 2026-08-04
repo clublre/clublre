@@ -1,6 +1,5 @@
 'use client';
 
-import NextLink from 'next/link';
 import { Button, Modal } from '@heroui/react';
 
 import { type Listing, type Member } from '@/data/marketplace';
@@ -68,18 +67,14 @@ export function ContactDialog({
             >
               Cancelar
             </Button>
-            <NextLink
-              href={link as unknown as never}
+            <a
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium"
+              href={link}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Button size="md" variant="primary">
-                Abrir{' '}
-                {listing.contactPreference === 'whatsapp'
-                  ? 'WhatsApp'
-                  : 'email'}
-              </Button>
-            </NextLink>
+              Abrir {listing.contactPreference === 'whatsapp' ? 'WhatsApp' : 'email'}
+            </a>
           </Modal.Footer>
         </Modal.Dialog>
       </Modal.Container>
@@ -89,4 +84,4 @@ export function ContactDialog({
 
 /** Helper expuesto para que el detalle de publicación pueda armar
  *  el link directo sin tener que renderizar el modal. */
-export const buildContactLink = waLink;
+e

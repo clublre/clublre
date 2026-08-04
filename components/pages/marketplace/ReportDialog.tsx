@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import type { Key } from '@heroui/react';
 import { Button, ListBox, Modal, Select, TextArea } from '@heroui/react';
 
 import { type Listing, type ReportReason } from '@/data/marketplace';
@@ -114,6 +113,3 @@ export function ReportDialog({
     </Modal.Backdrop>
   );
 }
-
-// Tipos auxiliares para que TS no se queje del import no usado.
-export type _ReportKey = Key;
