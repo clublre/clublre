@@ -85,10 +85,7 @@ export function MembersTable() {
               <th className="px-4 py-3 font-medium" scope="col">
                 Antigüedad
               </th>
-              <th
-                className="px-4 py-3 text-right font-medium"
-                scope="col"
-              >
+              <th className="px-4 py-3 text-right font-medium" scope="col">
                 Acciones
               </th>
             </tr>

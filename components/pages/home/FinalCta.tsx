@@ -17,7 +17,7 @@ export function FinalCta() {
   return (
     <Section as="section" spacing="md">
       <Container>
-        <Card className="bg-sky-500/10 relative overflow-hidden p-10 text-center shadow-none! md:p-16">
+        <Card className="relative overflow-hidden bg-sky-500/10 p-10 text-center shadow-none! md:p-16">
           {/* Watermark del escudo — centrado, crop circular, muy
               desaturado para que se lea como textura de marca en vez
               de imagen compitiendo con el contenido. */}

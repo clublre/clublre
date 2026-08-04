@@ -73,7 +73,8 @@ export function ContactDialog({
               rel="noopener noreferrer"
               target="_blank"
             >
-              Abrir {listing.contactPreference === 'whatsapp' ? 'WhatsApp' : 'email'}
+              Abrir{' '}
+              {listing.contactPreference === 'whatsapp' ? 'WhatsApp' : 'email'}
             </a>
           </Modal.Footer>
         </Modal.Dialog>
