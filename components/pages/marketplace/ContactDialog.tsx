@@ -81,7 +81,3 @@ export function ContactDialog({
     </Modal.Backdrop>
   );
 }
-
-/** Helper expuesto para que el detalle de publicación pueda armar
- *  el link directo sin tener que renderizar el modal. */
-e
