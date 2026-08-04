@@ -10,8 +10,8 @@ import { postsNewestFirst } from '@/data/posts';
 import { Hero } from '@/components/pages/home/Hero';
 import { TrustStrip } from '@/components/pages/home/TrustStrip';
 import { ActivitiesSection } from '@/components/pages/home/ActivitiesSection';
-import { PricingTiers } from '@/components/sections/pricing/PricingTiers';
-import { PricingFaq } from '@/components/sections/pricing/PricingFaq';
+import { PricingTiers } from '@/components/pages/home/PricingTiers';
+import { PricingFaq } from '@/components/pages/home/PricingFaq';
 import { LatestPosts } from '@/components/pages/home/LatestPosts';
 import { FinalCta } from '@/components/pages/home/FinalCta';
 
