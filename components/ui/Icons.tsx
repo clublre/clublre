@@ -102,6 +102,29 @@ export const Storefront = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="storefront" {...p} />
 );
 
+// Iconos de roles — usados por el organigrama de comisión directiva.
+export const Crown = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="crown" {...p} />
+);
+export const UserCircle = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="user-circle" {...p} />
+);
+export const Notebook = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="notebook" {...p} />
+);
+export const Wallet = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="wallet" {...p} />
+);
+export const Calculator = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="calculator" {...p} />
+);
+export const Trophy = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="trophy" {...p} />
+);
+export const User = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="user" {...p} />
+);
+
 // Iconos de actividades (deportes).
 
 export const BasketballIcon = (p: Omit<IconProps, 'icon'>) => (

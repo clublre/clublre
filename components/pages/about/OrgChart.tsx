@@ -1,25 +1,24 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   Background,
-  Controls,
-  MarkerType,
-  MiniMap,
-  Position,
   ReactFlow,
+  useReactFlow,
   type Edge,
   type Node,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
+import { Button } from '@heroui/react';
+
 import { commission, type CommissionMember } from '@/data/club';
 import { OrgNode, type OrgNodeData } from './OrgNode';
 
-const NODE_WIDTH = 220;
-const NODE_HEIGHT = 76;
+const NODE_WIDTH = 232;
+const NODE_HEIGHT = 80;
 const H_GAP = 32;
-const V_GAP = 80;
+const V_GAP = 96;
 
 /**
  * Construye nodos y edges para el organigrama a partir del array
@@ -33,13 +32,12 @@ const V_GAP = 80;
 function buildOrgGraph(
   members: ReadonlyArray<CommissionMember>,
 ): { nodes: Node<OrgNodeData>[]; edges: Edge[] } {
-  const byId = new Map(members.map((m) => [m.id, m] as const));
   const root = members.find((m) => !m.reportsTo);
   if (!root) {
     return { nodes: [], edges: [] };
   }
 
-  // Construimos el árbol por niveles (BFS).
+  // BFS para armar niveles.
   const levels: CommissionMember[][] = [];
   const queue: { node: CommissionMember; depth: number }[] = [
     { node: root, depth: 0 },
@@ -56,7 +54,6 @@ function buildOrgGraph(
     }
   }
 
-  // Posicionamos cada nivel.
   const nodes: Node<OrgNodeData>[] = [];
   const edges: Edge[] = [];
   const levelWidths: number[] = levels.map(
@@ -75,17 +72,14 @@ function buildOrgGraph(
         type: 'org',
         position: { x, y },
         data: { member, isRoot: depth === 0 },
-        sourcePosition: Position.Bottom,
-        targetPosition: Position.Top,
       });
-      if (member.reportsTo && byId.has(member.reportsTo)) {
+      if (member.reportsTo) {
         edges.push({
           id: `${member.reportsTo}-${member.id}`,
           source: member.reportsTo,
           target: member.id,
           type: 'smoothstep',
-          animated: false,
-          markerEnd: { type: MarkerType.ArrowClosed, color: '#0ea5e9' },
+          markerEnd: { type: 'arrowclosed' as never },
           style: { stroke: '#0ea5e9', strokeWidth: 1.5 },
         });
       }
@@ -96,6 +90,50 @@ function buildOrgGraph(
 }
 
 const nodeTypes = { org: OrgNode };
+
+/** Controles custom — reemplaza `<Controls>` de react-flow con la
+ *  estética del repo: panel flotante compacto, buttons ghost. */
+function OrgControls() {
+  const { zoomIn, zoomOut, fitView } = useReactFlow();
+  const onFit = useCallback(() => {
+    void fitView({ padding: 0.2, duration: 300 });
+  }, [fitView]);
+  return (
+    <div className="shadow-club absolute right-3 bottom-3 z-10 flex gap-1 rounded-lg bg-surface/95 p-1 ring-1 ring-default-200 backdrop-blur">
+      <Button
+        isIconOnly
+        aria-label="Acercar"
+        size="sm"
+        variant="ghost"
+        onPress={() => {
+          void zoomIn({ duration: 150 });
+        }}
+      >
+        +
+      </Button>
+      <Button
+        isIconOnly
+        aria-label="Alejar"
+        size="sm"
+        variant="ghost"
+        onPress={() => {
+          void zoomOut({ duration: 150 });
+        }}
+      >
+        −
+      </Button>
+      <Button
+        isIconOnly
+        aria-label="Restablecer zoom"
+        size="sm"
+        variant="ghost"
+        onPress={onFit}
+      >
+        ⤢
+      </Button>
+    </div>
+  );
+}
 
 /**
  * Wrapper client del organigrama. Se importa via `next/dynamic` desde
@@ -109,7 +147,7 @@ export function OrgChart() {
   );
 
   return (
-    <div className="bg-surface shadow-club h-[520px] overflow-hidden rounded-2xl border border-default-200">
+    <div className="shadow-club relative h-[520px] overflow-hidden rounded-2xl bg-surface">
       <ReactFlow
         fitView
         defaultEdgeOptions={{ type: 'smoothstep' }}
@@ -121,20 +159,9 @@ export function OrgChart() {
         nodes={nodes}
         proOptions={{ hideAttribution: true }}
       >
-        <Background color="#cbd5e1" gap={16} size={1} />
-        <Controls
-          className="!bg-surface !border-default-200"
-          position="bottom-right"
-          showInteractive={false}
-        />
-        <MiniMap
-          pannable
-          zoomable
-          className="!bg-surface !border-default-200"
-          maskColor="rgba(14, 165, 233, 0.08)"
-          position="bottom-left"
-        />
+        <Background color="#e2e8f0" gap={20} size={1} />
       </ReactFlow>
+      <OrgControls />
     </div>
   );
 }
