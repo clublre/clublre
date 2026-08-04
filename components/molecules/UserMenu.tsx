@@ -48,9 +48,6 @@ export function UserMenu() {
         >
           {initials(member.fullName)}
         </span>
-        <span className="ml-2 hidden text-sm font-medium sm:inline">
-          {member.fullName.split(' ')[0]}
-        </span>
       </Button>
       <Dropdown.Popover>
         <Dropdown.Menu
