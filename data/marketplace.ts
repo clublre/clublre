@@ -451,11 +451,6 @@ export const seedAudit: ReadonlyArray<AuditEntry> = [
 
 // ----- Helpers -----
 
-export const findMember = (
-  id: string,
-  members: ReadonlyArray<Member>,
-): Member | undefined => members.find((m) => m.id === id);
-
 export const findCategory = (
   id: string,
   cats: ReadonlyArray<Category>,

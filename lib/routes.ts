@@ -6,14 +6,10 @@
 import type { Route } from 'next';
 
 import { type posts } from '@/data/posts';
-import { type Member } from '@/data/marketplace';
 
 /** Union de todos los slugs de posts existentes — derivado de la capa
  *  de datos, así agregar un post amplía automáticamente el set aceptado. */
 export type PostSlug = (typeof posts)[number]['slug'];
-
-/** Id de un miembro — string para que la maqueta no acople tipos. */
-export type MemberId = Member['id'];
 
 export const routes = {
   home: '/' as Route,

@@ -77,9 +77,6 @@ export const Info = (p: Omit<IconProps, 'icon'>) => (
 export const Newspaper = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="newspaper" {...p} />
 );
-export const Tags = (p: Omit<IconProps, 'icon'>) => (
-  <Phosphor icon="tag" {...p} />
-);
 export const Phone = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="phone" {...p} />
 );
@@ -103,9 +100,6 @@ export const Quote = (p: Omit<IconProps, 'icon'>) => (
 );
 export const Storefront = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="storefront" {...p} />
-);
-export const UserCircle = (p: Omit<IconProps, 'icon'>) => (
-  <Phosphor icon="user-circle" {...p} />
 );
 
 // Iconos de actividades (deportes).
