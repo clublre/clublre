@@ -1,0 +1,23 @@
+# CODEOWNERS — Club LRE
+# Reglas de revisión por path. El último patrón que matchea gana.
+# Pedir review a los owners listados para los archivos que toquen.
+
+# Default: nadie es owner estricto (equipo chico, no bloquear PRs).
+# Reemplazar `@owner` por el handle real cuando haya reviewers asignados.
+*                       @CheizeX
+
+# Stack y configuración crítica
+/package.json           @CheizeX
+/next.config.js         @CheizeX
+/tsconfig.json          @CheizeX
+/eslint.config.mjs      @CheizeX
+/postcss.config.mjs     @CheizeX
+/styles/globals.css     @CheizeX
+/config/                @CheizeX
+
+# App Router y rutas
+/app/                   @CheizeX
+
+# Componentes compartidos y design system
+/components/            @CheizeX
+/components/ui/         @CheizeX
