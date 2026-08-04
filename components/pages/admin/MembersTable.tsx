@@ -70,12 +70,27 @@ export function MembersTable() {
         <table className="w-full text-left text-sm">
           <thead className="text-default-500 text-xs tracking-wider uppercase">
             <tr>
-              <th className="px-4 py-3 font-medium">Nombre</th>
-              <th className="px-4 py-3 font-medium">Email</th>
-              <th className="px-4 py-3 font-medium">Rol</th>
-              <th className="px-4 py-3 font-medium">Estado</th>
-              <th className="px-4 py-3 font-medium">Antigüedad</th>
-              <th className="px-4 py-3 text-right font-medium">Acciones</th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Nombre
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Email
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Rol
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Estado
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Antigüedad
+              </th>
+              <th
+                className="px-4 py-3 text-right font-medium"
+                scope="col"
+              >
+                Acciones
+              </th>
             </tr>
           </thead>
           <tbody className="divide-default-200/60 divide-y">

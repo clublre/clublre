@@ -37,10 +37,18 @@ export function AuditLog() {
       <table className="w-full text-left text-sm">
         <thead className="text-default-500 text-xs tracking-wider uppercase">
           <tr>
-            <th className="px-4 py-3 font-medium">Fecha</th>
-            <th className="px-4 py-3 font-medium">Actor</th>
-            <th className="px-4 py-3 font-medium">Acción</th>
-            <th className="px-4 py-3 font-medium">Nota</th>
+            <th className="px-4 py-3 font-medium" scope="col">
+              Fecha
+            </th>
+            <th className="px-4 py-3 font-medium" scope="col">
+              Actor
+            </th>
+            <th className="px-4 py-3 font-medium" scope="col">
+              Acción
+            </th>
+            <th className="px-4 py-3 font-medium" scope="col">
+              Nota
+            </th>
           </tr>
         </thead>
         <tbody className="divide-default-200/60 divide-y">
