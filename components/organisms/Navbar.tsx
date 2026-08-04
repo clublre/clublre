@@ -3,7 +3,14 @@ import type { FC } from 'react';
 
 import NextLink from 'next/link';
 import { useMemo } from 'react';
-import { ArrowRight, Home, Info, Menu, Newspaper, Tags } from '@/components/ui';
+import {
+  ArrowRight,
+  Home,
+  Info,
+  Menu,
+  Newspaper,
+  Storefront,
+} from '@/components/ui/Icons';
 import { usePathname } from 'next/navigation';
 import { Badge, Button, Drawer } from '@heroui/react';
 
@@ -11,6 +18,8 @@ import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Icons';
 import { IconButton } from '@/components/atoms/IconButton';
 import { ThemeToggle } from '@/components/molecules/ThemeToggle';
+import { SignInTrigger, UserMenu } from '@/components/molecules/UserMenu';
+import { useAuthStore } from '@/stores/auth-store';
 import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
@@ -21,7 +30,7 @@ const NAV_ICONS = {
   '/': Home,
   '/about': Info,
   '/blog': Newspaper,
-  '/pricing': Tags,
+  '/marketplace': Storefront,
 } as const satisfies Record<string, FC<{ className?: string }>>;
 
 type NavHref = keyof typeof NAV_ICONS;
@@ -36,7 +45,25 @@ export const Navbar = () => {
   const isMenuOpen = useUiStore((s) => s.mobileMenuOpen);
   const openMobileMenu = useUiStore((s) => s.openMobileMenu);
   const closeMobileMenu = useUiStore((s) => s.closeMobileMenu);
+  const session = useAuthStore((s) => s.session);
   const pathname = usePathname();
+
+  /** Items visibles según sesión — los `memberOnly` solo aparecen
+   *  para socios logueados. */
+  const visibleNavItems = useMemo(
+    () =>
+      siteConfig.navItems.filter(
+        (item) => !item.memberOnly || session !== null,
+      ),
+    [session],
+  );
+  const visibleNavMenuItems = useMemo(
+    () =>
+      siteConfig.navMenuItems.filter(
+        (item) => !item.memberOnly || session !== null,
+      ),
+    [session],
+  );
 
   /** URLs con fragmento (`/#x`) nunca se marcan como current. */
   const isCurrent = useMemo(
@@ -70,7 +97,7 @@ export const Navbar = () => {
               los lectores de pantalla anuncien una lista de nav y
               `aria-current="page"` siga funcionando. */}
           <ul className="hidden items-center gap-1 sm:flex">
-            {siteConfig.navItems.map((item) => {
+            {visibleNavItems.map((item) => {
               const Icon = NAV_ICONS[item.href as NavHref];
               const current = isCurrent(item.href);
               return (
@@ -106,6 +133,7 @@ export const Navbar = () => {
 
           {/* Lado derecho desktop */}
           <div className="hidden items-center gap-1 sm:flex">
+            {session ? <UserMenu /> : <SignInTrigger />}
             <ThemeToggle />
           </div>
 
@@ -153,7 +181,7 @@ export const Navbar = () => {
             <Drawer.Body className="flex flex-col gap-4">
               <nav aria-label="Menú principal" className="flex-1">
                 <ul className="flex flex-col gap-1">
-                  {siteConfig.navMenuItems.map((item) => {
+                  {visibleNavMenuItems.map((item) => {
                     const Icon =
                       (item.href in NAV_ICONS
                         ? NAV_ICONS[item.href as NavHref]
@@ -204,7 +232,7 @@ export const Navbar = () => {
               <div className="mt-auto">
                 <NextLink
                   className="block"
-                  href={routes.pricing}
+                  href={session ? routes.marketplaceNew : routes.login}
                   onClick={closeMobileMenu}
                 >
                   <Button
@@ -212,7 +240,7 @@ export const Navbar = () => {
                     size="md"
                     variant="primary"
                   >
-                    Hacete socio
+                    {session ? 'Publicar' : 'Ingresá'}
                     <ArrowRight aria-hidden="true" className="ml-1 size-3.5" />
                   </Button>
                 </NextLink>

@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Button } from '@heroui/react';
-import { ArrowLeft } from '@/components/ui';
+import { ArrowLeft } from '@/components/ui/Icons';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';

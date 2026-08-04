@@ -101,6 +101,12 @@ export const Shield = (p: Omit<IconProps, 'icon'>) => (
 export const Quote = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="quotes" {...p} />
 );
+export const Storefront = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="storefront" {...p} />
+);
+export const UserCircle = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="user-circle" {...p} />
+);
 
 // Iconos de actividades (deportes).
 

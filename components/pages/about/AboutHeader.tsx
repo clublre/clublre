@@ -1,4 +1,6 @@
-import { Section, Container, Eyebrow } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 
 /** Header de about: eyebrow + h1 + intro centrado. Mismo patrón

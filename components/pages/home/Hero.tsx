@@ -1,8 +1,11 @@
 import NextLink from 'next/link';
 import { Button } from '@heroui/react';
-import { ArrowRight, Shield } from '@/components/ui';
+import { ArrowRight, Shield } from '@/components/ui/Icons';
 
-import { Section, Container, Eyebrow, BlurryBlob } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import BlurryBlob from '@/components/ui/BlurryBlob';
 import { title, subtitle } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 
@@ -53,7 +56,7 @@ export function Hero() {
 
         {/* CTA primario + link secundario (sin botones compitiendo) */}
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:items-baseline sm:justify-center">
-          <NextLink href={routes.pricing}>
+          <NextLink href={routes.homeCuotas}>
             <Button
               className="shadow-club-lg font-semibold"
               size="lg"

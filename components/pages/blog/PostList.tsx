@@ -1,14 +1,10 @@
 import NextLink from 'next/link';
 import { Chip } from '@heroui/react';
-import { ArrowRight } from '@/components/ui';
+import { ArrowRight } from '@/components/ui/Icons';
 
-import {
-  Section,
-  Container,
-  CardClub,
-  CardClubTitle,
-  CardClubBody,
-} from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { CardClub, CardClubTitle, CardClubBody } from '@/components/ui/CardClub';
 import { postsNewestFirst } from '@/data/posts';
 import { routes } from '@/lib/routes';
 

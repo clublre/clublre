@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 // `pointer-events-none` + `aria-hidden` para no bloquear clicks ni
 // lectores de pantalla.
 
-export type AmbientPreset = 'home' | 'pricing' | 'blog' | 'about';
+export type AmbientPreset = 'home' | 'blog' | 'about';
 
 interface BlobConfig {
   position: string;
@@ -24,18 +24,6 @@ const PRESETS: Record<AmbientPreset, ReadonlyArray<BlobConfig>> = {
       position: 'bottom-0 -right-32',
       color: 'bg-blue-700/10',
       size: 'h-[32rem] w-[32rem]',
-    },
-  ],
-  pricing: [
-    {
-      position: 'top-1/4 -right-32',
-      color: 'bg-cyan-400/8',
-      size: 'h-[30rem] w-[30rem]',
-    },
-    {
-      position: '-bottom-32 left-1/4',
-      color: 'bg-sky-500/8',
-      size: 'h-[28rem] w-[28rem]',
     },
   ],
   blog: [

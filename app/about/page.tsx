@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { AmbientBlobs } from '@/components/ui';
+import { AmbientBlobs } from '@/components/ui/AmbientBlobs';
 import { AboutHeader } from '@/components/pages/about/AboutHeader';
 import { ValuesGrid } from '@/components/pages/about/ValuesGrid';
 import { CommissionSection } from '@/components/pages/about/CommissionSection';

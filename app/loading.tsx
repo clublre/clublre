@@ -1,9 +1,7 @@
 'use client';
 
-// Loading raíz — Next.js lo renderiza mientras se prepara cualquier
-// segmento sin su propio `loading.tsx` (home, about, pricing).
-// Envuelve un section header en `<phantom-ui loading>` para que los
-// shimmer blocks matcheen la geometría real en vez de adivinar.
+// Loading UI raíz — Next.js lo renderiza mientras se prepara
+// cualquier segmento sin su propio `loading.tsx`.
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';

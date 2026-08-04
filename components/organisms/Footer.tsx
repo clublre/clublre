@@ -1,5 +1,5 @@
 import NextLink from 'next/link';
-import { ArrowUp, MapPin, Phone } from '@/components/ui';
+import { ArrowUp, MapPin, Phone } from '@/components/ui/Icons';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';

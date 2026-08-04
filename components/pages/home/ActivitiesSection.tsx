@@ -1,20 +1,10 @@
 import type { FC } from 'react';
 
-import {
-  Section,
-  Container,
-  SectionHeader,
-  CardClub,
-  CardClubHeader,
-  CardClubTitle,
-  CardClubBody,
-  BasketballIcon,
-  VolleyballIcon,
-  PingPongIcon,
-  SwimmingIcon,
-  HandFistIcon,
-  MedalIcon,
-} from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { CardClub, CardClubHeader, CardClubTitle, CardClubBody } from '@/components/ui/CardClub';
+import { BasketballIcon, VolleyballIcon, PingPongIcon, SwimmingIcon, HandFistIcon, MedalIcon } from '@/components/ui/Icons';
 import { activities } from '@/data/club';
 
 /** Ícono por actividad (phosphor vía iconify). Single source of truth

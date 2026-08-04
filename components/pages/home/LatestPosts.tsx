@@ -1,8 +1,10 @@
 import NextLink from 'next/link';
 import { Chip } from '@heroui/react';
-import { ArrowRight } from '@/components/ui';
+import { ArrowRight } from '@/components/ui/Icons';
 
-import { Section, Container, SectionHeader } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import type { BlogPost } from '@/data/posts';
 import { cn } from '@/lib/utils';
 import { routes } from '@/lib/routes';

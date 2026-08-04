@@ -1,4 +1,7 @@
-import { Section, Container, SectionHeader, Eyebrow } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 import { commission } from '@/data/club';
 
 /** Sección de comisión directiva. Lee `commission` de `data/club.ts`

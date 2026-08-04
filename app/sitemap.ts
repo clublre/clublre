@@ -5,8 +5,8 @@ import { posts } from '@/data/posts';
 
 /** Sitemap — Next.js genera `/sitemap.xml` desde este archivo.
  *  Las rutas estáticas se listan explícitas y los posts se pullan
- *  de la capa de datos para que alcanzante con agregar uno en
- *  `data/posts.ts`. */
+ *  de la capa de datos. Las rutas privadas (auth, cuenta,
+ *  marketplace, admin) se excluyen explícitamente. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -28,12 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
-    },
-    {
-      url: `${siteConfig.url}/pricing`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
     },
   ];
 

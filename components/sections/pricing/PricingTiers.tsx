@@ -1,8 +1,12 @@
 import NextLink from 'next/link';
 import { Badge, Button } from '@heroui/react';
-import { Check } from '@/components/ui';
 
-import { CardClub, CardClubTitle, CardClubBody } from '@/components/ui';
+import {
+  CardClub,
+  CardClubTitle,
+  CardClubBody,
+} from '@/components/ui/CardClub';
+import { Check } from '@/components/ui/Icons';
 import { pricingTiers } from '@/data/club';
 import { routes } from '@/lib/routes';
 
@@ -15,7 +19,9 @@ const formatPrice = (price: number) =>
 
 /** Grid de 3 columnas con los planes de cuota. Server component que
  *  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
- *  `md:mt-auto` alinea los CTAs al fondo del card más alto. */
+ *  `md:mt-auto` alinea los CTAs al fondo del card más alto.
+ *
+ *  Vive como sección `id="cuotas"` en la landing (`app/page.tsx`). */
 export function PricingTiers() {
   return (
     <>
@@ -57,10 +63,7 @@ export function PricingTiers() {
                 </li>
               ))}
             </ul>
-            <NextLink
-              className="mt-6 block md:mt-auto"
-              href={`${routes.about}#comision`}
-            >
+            <NextLink className="mt-6 block md:mt-auto" href={routes.login}>
               <Button
                 className="w-full font-semibold"
                 size="md"

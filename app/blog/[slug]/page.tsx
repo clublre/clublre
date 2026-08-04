@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import NextLink from 'next/link';
-import { ArrowLeft } from '@/components/ui';
+import { ArrowLeft } from '@/components/ui/Icons';
 
-import { Section, Container, Eyebrow } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 import { posts, postsBySlug } from '@/data/posts';
 import { routes } from '@/lib/routes';

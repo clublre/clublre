@@ -1,11 +1,7 @@
-import {
-  Section,
-  Container,
-  SectionHeader,
-  CardClub,
-  CardClubTitle,
-  CardClubBody,
-} from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { SectionHeader } from '@/components/ui/SectionHeader';
+import { CardClub, CardClubTitle, CardClubBody } from '@/components/ui/CardClub';
 
 /** Grid de 3 cards con los valores centrales del club. El copy
  *  editorial vive directo acá (cambia poco); se movería a `data/`

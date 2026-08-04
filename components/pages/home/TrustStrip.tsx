@@ -1,7 +1,8 @@
 import type { FC } from 'react';
-import { Calendar, MapPin, Users } from '@/components/ui';
+import { Calendar, MapPin, Users } from '@/components/ui/Icons';
 
-import { Section, Container } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
 
 /** Trust strip — social proof rápido entre hero y actividades.
  *  Single source of truth para que el strip se vea consistente y

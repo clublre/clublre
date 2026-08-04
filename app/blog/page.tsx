@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { AmbientBlobs } from '@/components/ui';
+import { AmbientBlobs } from '@/components/ui/AmbientBlobs';
 import { BlogHeader } from '@/components/pages/blog/BlogHeader';
 import { PostList } from '@/components/pages/blog/PostList';
 

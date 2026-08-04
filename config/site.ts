@@ -4,7 +4,11 @@ export type SiteConfig = typeof siteConfig;
 
 // Rutas internas usan `Route` de Next para que `typedRoutes` las valide.
 // URLs externas (instagram, etc.) son strings planos.
-type NavItem = { label: string; href: Route };
+type NavItem = {
+  label: string;
+  href: Route; /** Solo visible para socios logueados. */
+  memberOnly?: boolean;
+};
 
 export const siteConfig = {
   name: 'CLUB L.R.E',
@@ -16,13 +20,13 @@ export const siteConfig = {
     { label: 'Inicio', href: '/' },
     { label: 'El Club', href: '/about' },
     { label: 'Noticias', href: '/blog' },
-    { label: 'Cuotas', href: '/pricing' },
+    { label: 'Entre Socios', href: '/marketplace', memberOnly: true },
   ] as ReadonlyArray<NavItem>,
   navMenuItems: [
     { label: 'Inicio', href: '/' },
     { label: 'El Club', href: '/about' },
     { label: 'Noticias', href: '/blog' },
-    { label: 'Cuotas', href: '/pricing' },
+    { label: 'Entre Socios', href: '/marketplace', memberOnly: true },
   ] as ReadonlyArray<NavItem>,
   links: {
     instagram: 'https://www.instagram.com/clubestudiantilrosario/',

@@ -1,9 +1,12 @@
 import NextLink from 'next/link';
 import Image from 'next/image';
 import { Button, Card, Link } from '@heroui/react';
-import { ArrowRight, Quote } from '@/components/ui';
+import { ArrowRight, Quote } from '@/components/ui/Icons';
 
-import { Section, Container, Eyebrow, InstagramIcon } from '@/components/ui';
+import { Section } from '@/components/ui/Section';
+import { Container } from '@/components/ui/Container';
+import { Eyebrow } from '@/components/ui/Eyebrow';
+import { InstagramIcon } from '@/components/ui/Icons';
 import { routes } from '@/lib/routes';
 
 /** CTA principal al final de la home. Plain div con `.gradient-border-sky`
@@ -42,11 +45,12 @@ export function FinalCta() {
               Tres generaciones ya pasaron por acá.
             </h2>
             <p className="text-default-600 mx-auto mb-8 max-w-xl text-base md:text-lg">
-              Te invitamos a ser parte. Conocé nuestras cuotas y empezá a
-              disfrutar del club hoy mismo.
+              Te invitamos a ser parte. Iniciá sesión con tu cuenta de socio o
+              enviá tu solicitud de alta y la comisión directiva la aprueba en
+              1–3 días hábiles.
             </p>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <NextLink href={routes.pricing}>
+              <NextLink href={routes.login}>
                 <Button className="font-semibold" size="lg" variant="primary">
                   Quiero asociarme
                   <ArrowRight aria-hidden="true" className="ml-2 size-4" />
