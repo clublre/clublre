@@ -11,8 +11,17 @@ export interface Activity {
 }
 
 export interface CommissionMember {
+  /** Identificador único para construir el árbol de organigrama. */
+  id: string;
+  /** Cargo dentro del club (Presidente, Vocal titular, etc.). */
   role: string;
+  /** Nombre completo de la persona. */
   name: string;
+  /**
+   * `id` del miembro del cual depende directamente. Si está ausente
+   * se considera nodo raíz del organigrama. Una sola raíz permitida.
+   */
+  reportsTo?: string;
 }
 
 export interface PricingTier {
@@ -71,12 +80,67 @@ export const activities: ReadonlyArray<Activity> = [
 ] as const;
 
 /** Comisión directiva (placeholder — vendría del CMS). */
+/**
+ * Comisión directiva — modelada como árbol (id + reportsTo).
+ * El organigrama en `components/pages/about/CommissionSection` lo
+ * renderiza con `@xyflow/react`. Mantener jerarquía explícita en los
+ * datos (en lugar de agrupar por nivel) facilita futuros cambios y
+ * refleja la realidad organizativa.
+ */
 export const commission: ReadonlyArray<CommissionMember> = [
-  { role: 'Presidente', name: 'Juan Pérez' },
-  { role: 'Vicepresidente', name: 'María González' },
-  { role: 'Secretario', name: 'Carlos López' },
-  { role: 'Tesorero', name: 'Ana Martínez' },
-  { role: 'Vocal', name: 'Pedro Rodríguez' },
+  { id: 'presidente', role: 'Presidente', name: 'Juan Pérez' },
+
+  {
+    id: 'vicepresidente',
+    role: 'Vicepresidente',
+    name: 'María González',
+    reportsTo: 'presidente',
+  },
+  {
+    id: 'secretario',
+    role: 'Secretario',
+    name: 'Carlos López',
+    reportsTo: 'presidente',
+  },
+  {
+    id: 'tesorero',
+    role: 'Tesorero',
+    name: 'Ana Martínez',
+    reportsTo: 'presidente',
+  },
+
+  {
+    id: 'vocal-1',
+    role: 'Vocal titular',
+    name: 'Pedro Rodríguez',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-2',
+    role: 'Vocal titular',
+    name: 'Lucía Fernández',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-3',
+    role: 'Vocal suplente',
+    name: 'Diego Sánchez',
+    reportsTo: 'tesorero',
+  },
+
+  // Subcomisiones — dependen de la presidencia.
+  {
+    id: 'sub-hacienda',
+    role: 'Subcomisión de Hacienda',
+    name: 'Roberto Díaz',
+    reportsTo: 'presidente',
+  },
+  {
+    id: 'sub-deportes',
+    role: 'Subcomisión de Deportes',
+    name: 'Sofía Romero',
+    reportsTo: 'presidente',
+  },
 ] as const;
 
 /** Planes de cuota (placeholder — vendría del CMS). */
