@@ -133,10 +133,10 @@ export function MyListings({ ownerId }: MyListingsProps) {
                   Editar
                 </NextLink>
                 {listing.status === 'published' && (
-                  <button
-                    className="text-default-600 hover:text-foreground text-sm font-medium"
-                    type="button"
-                    onClick={() =>
+                  <Button
+                    size="sm"
+                    variant="tertiary"
+                    onPress={() =>
                       setListingStatus(
                         listing.id,
                         'archived',
@@ -146,13 +146,14 @@ export function MyListings({ ownerId }: MyListingsProps) {
                     }
                   >
                     Archivar
-                  </button>
+                  </Button>
                 )}
                 {listing.status === 'archived' && (
-                  <button
-                    className="text-primary hover:text-primary/80 text-sm font-medium"
-                    type="button"
-                    onClick={() =>
+                  <Button
+                    className="text-primary"
+                    size="sm"
+                    variant="tertiary"
+                    onPress={() =>
                       setListingStatus(
                         listing.id,
                         'published',
@@ -162,7 +163,7 @@ export function MyListings({ ownerId }: MyListingsProps) {
                     }
                   >
                     Reactivar
-                  </button>
+                  </Button>
                 )}
               </div>
             </CardClub>

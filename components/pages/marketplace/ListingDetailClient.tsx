@@ -189,13 +189,14 @@ export function ListingDetailClient({
 
         {!isOwner && (
           <p className="mt-6 text-center">
-            <button
-              className="text-default-500 hover:text-default-700 text-xs underline"
-              type="button"
-              onClick={() => setReportOpen(true)}
+            <Button
+              className="text-default-500 data-[hover]:text-default-700 text-xs underline"
+              size="sm"
+              variant="tertiary"
+              onPress={() => setReportOpen(true)}
             >
               Reportar esta publicación
-            </button>
+            </Button>
           </p>
         )}
       </Container>
