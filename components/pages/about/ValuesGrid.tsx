@@ -26,7 +26,7 @@ export function ValuesGrid() {
             explícito per taste-skill §6 ("three equal card columns"). */}
         <div className="grid items-stretch gap-6 md:grid-cols-3 md:grid-rows-2">
           <Reveal className="h-full">
-            <CardClub className="md:col-span-2 md:row-span-2 h-full">
+            <CardClub className="h-full md:col-span-2 md:row-span-2">
               <CardClubTitle>Comunidad</CardClubTitle>
               <CardClubBody>
                 Un espacio donde las familias rosarinas crecen juntas,
@@ -49,8 +49,8 @@ export function ValuesGrid() {
             <CardClub className="h-full">
               <CardClubTitle>Tradición</CardClubTitle>
               <CardClubBody>
-                Más de 80 años de historia formando campeones dentro y fuera de la
-                cancha.
+                Más de 80 años de historia formando campeones dentro y fuera de
+                la cancha.
               </CardClubBody>
             </CardClub>
           </Reveal>

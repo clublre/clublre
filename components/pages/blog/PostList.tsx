@@ -68,7 +68,9 @@ export function PostList() {
                     {post.title}
                   </NextLink>
                 </CardClubTitle>
-                <CardClubBody className="mt-3 grow">{post.excerpt}</CardClubBody>
+                <CardClubBody className="mt-3 grow">
+                  {post.excerpt}
+                </CardClubBody>
                 <NextLink
                   className="text-primary hover:text-primary/80 mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium transition-colors"
                   href={routes.blogPost(post.slug)}

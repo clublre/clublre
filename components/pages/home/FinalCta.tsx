@@ -35,40 +35,40 @@ export function FinalCta() {
               pinte arriba del bg decorativo + watermark. */}
           <Reveal>
             <div className="relative">
-            <Quote
-              aria-hidden="true"
-              className="text-primary/40 mx-auto mb-4 size-10"
-            />
+              <Quote
+                aria-hidden="true"
+                className="text-primary/40 mx-auto mb-4 size-10"
+              />
 
-            <Eyebrow className="mb-4 block" tone="sky">
-              Sumate al club
-            </Eyebrow>
-            <h2 className="text-foreground mx-auto mb-4 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-              Tres generaciones ya pasaron por acá.
-            </h2>
-            <p className="text-default-600 mx-auto mb-8 max-w-xl text-base md:text-lg">
-              Te invitamos a ser parte. Iniciá sesión con tu cuenta de socio o
-              enviá tu solicitud de alta y la comisión directiva la aprueba en
-              1–3 días hábiles.
-            </p>
-            <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <NextLink href={routes.login}>
-                <Button className="font-semibold" size="lg" variant="primary">
-                  Quiero asociarme
-                  <ArrowRight aria-hidden="true" className="ml-2 size-4" />
-                </Button>
-              </NextLink>
-              <Link
-                aria-label="Instagram (se abre en una pestaña nueva)"
-                className="text-default-600 hover:text-foreground inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
-                href="https://www.instagram.com/clubestudiantilrosario/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <InstagramIcon aria-hidden="true" className="size-4" />
-                @clubestudiantilrosario
-              </Link>
-            </div>
+              <Eyebrow className="mb-4 block" tone="sky">
+                Sumate al club
+              </Eyebrow>
+              <h2 className="text-foreground mx-auto mb-4 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
+                Tres generaciones ya pasaron por acá.
+              </h2>
+              <p className="text-default-600 mx-auto mb-8 max-w-xl text-base md:text-lg">
+                Te invitamos a ser parte. Iniciá sesión con tu cuenta de socio o
+                enviá tu solicitud de alta y la comisión directiva la aprueba en
+                1–3 días hábiles.
+              </p>
+              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <NextLink href={routes.login}>
+                  <Button className="font-semibold" size="lg" variant="primary">
+                    Quiero asociarme
+                    <ArrowRight aria-hidden="true" className="ml-2 size-4" />
+                  </Button>
+                </NextLink>
+                <Link
+                  aria-label="Instagram (se abre en una pestaña nueva)"
+                  className="text-default-600 hover:text-foreground inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+                  href="https://www.instagram.com/clubestudiantilrosario/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <InstagramIcon aria-hidden="true" className="size-4" />
+                  @clubestudiantilrosario
+                </Link>
+              </div>
             </div>
           </Reveal>
         </Card>

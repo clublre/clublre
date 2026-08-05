@@ -29,7 +29,12 @@ interface RevealProps extends HTMLAttributes<HTMLDivElement> {
  *   <Reveal delay={100}>Card</Reveal>
  *   <Reveal delay={i * 80}>...</Reveal>
  */
-export function Reveal({ delay = 0, className, children, ...props }: RevealProps) {
+export function Reveal({
+  delay = 0,
+  className,
+  children,
+  ...props
+}: RevealProps) {
   const ref = useReveal<HTMLDivElement>();
 
   return (

@@ -58,8 +58,8 @@ export function Hero() {
               class: 'text-default-100 mx-auto mt-6 max-w-xl text-center',
             })}
           >
-            Deportes, recreación y vida social para toda la familia en el corazón
-            de Rosario.
+            Deportes, recreación y vida social para toda la familia en el
+            corazón de Rosario.
           </p>
         </Reveal>
 

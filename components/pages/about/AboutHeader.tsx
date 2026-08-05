@@ -30,10 +30,10 @@ export function AboutHeader() {
         </Reveal>
         <Reveal delay={220}>
           <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
-            Fundado en 1943, el Club Los Rosarinos Estudiantil es una institución
-            deportiva y social con más de 3.500 socios. A lo largo de ocho
-            décadas, hemos sido parte de la vida de miles de familias rosarinas,
-            formando deportistas y generando comunidad.
+            Fundado en 1943, el Club Los Rosarinos Estudiantil es una
+            institución deportiva y social con más de 3.500 socios. A lo largo
+            de ocho décadas, hemos sido parte de la vida de miles de familias
+            rosarinas, formando deportistas y generando comunidad.
           </p>
         </Reveal>
       </Container>

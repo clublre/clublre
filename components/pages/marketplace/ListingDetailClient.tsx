@@ -10,6 +10,7 @@ import { Section } from '@/components/ui/Section';
 import { title } from '@/components/primitives';
 import { ContactDialog } from '@/components/pages/marketplace/ContactDialog';
 import { ReportDialog } from '@/components/pages/marketplace/ReportDialog';
+import { Reveal } from '@/components/ui/Reveal';
 import {
   type Listing,
   type Member,
@@ -117,74 +118,78 @@ export function ListingDetailClient({
           {listing.description}
         </p>
 
-        <div className="bg-surface shadow-club mt-8 grid gap-4 rounded-2xl p-6 sm:grid-cols-3">
-          <div>
-            <dt className="text-default-500 text-xs tracking-wider uppercase">
-              Precio
-            </dt>
-            <dd className="text-foreground text-2xl font-bold">
-              {listing.priceMode === 'free'
-                ? 'Gratis'
-                : listing.priceMode === 'contact'
-                  ? 'A convenir'
-                  : listing.price !== null
-                    ? formatPrice(listing.price)
-                    : '—'}
-            </dd>
-            <p className="text-default-500 text-xs">
-              {PRICE_MODE_LABEL[listing.priceMode]}
-            </p>
-          </div>
-          <div>
-            <dt className="text-default-500 text-xs tracking-wider uppercase">
-              Zona
-            </dt>
-            <dd className="text-foreground text-base font-semibold">
-              {listing.zone}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-default-500 text-xs tracking-wider uppercase">
-              Publicada
-            </dt>
-            <dd className="text-foreground text-base font-medium">
-              {formatDate(listing.createdAt)}
-            </dd>
-          </div>
-        </div>
-
-        {owner && (
-          <div className="bg-surface shadow-club mt-6 flex items-center justify-between gap-4 rounded-2xl p-5">
+        <Reveal delay={200}>
+          <div className="bg-surface shadow-club mt-8 grid gap-4 rounded-2xl p-6 sm:grid-cols-3">
             <div>
-              <Eyebrow className="mb-1 block" tone="default">
-                Vendedor
-              </Eyebrow>
-              <p className="text-foreground text-base font-semibold">
-                {owner.fullName} {owner.lastInitial}.
-              </p>
+              <dt className="text-default-500 text-xs tracking-wider uppercase">
+                Precio
+              </dt>
+              <dd className="text-foreground text-2xl font-bold">
+                {listing.priceMode === 'free'
+                  ? 'Gratis'
+                  : listing.priceMode === 'contact'
+                    ? 'A convenir'
+                    : listing.price !== null
+                      ? formatPrice(listing.price)
+                      : '—'}
+              </dd>
               <p className="text-default-500 text-xs">
-                Socio desde {formatDate(owner.memberSince)}
+                {PRICE_MODE_LABEL[listing.priceMode]}
               </p>
             </div>
-            {isOwner ? (
-              <NextLink
-                className="font-semibold"
-                href={routes.marketplaceEdit(listing.id)}
-              >
-                <Button size="md" variant="outline">
-                  Editar publicación
-                </Button>
-              </NextLink>
-            ) : (
-              <Button
-                size="md"
-                variant="primary"
-                onPress={() => setContactOpen(true)}
-              >
-                Contactar
-              </Button>
-            )}
+            <div>
+              <dt className="text-default-500 text-xs tracking-wider uppercase">
+                Zona
+              </dt>
+              <dd className="text-foreground text-base font-semibold">
+                {listing.zone}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-default-500 text-xs tracking-wider uppercase">
+                Publicada
+              </dt>
+              <dd className="text-foreground text-base font-medium">
+                {formatDate(listing.createdAt)}
+              </dd>
+            </div>
           </div>
+        </Reveal>
+
+        {owner && (
+          <Reveal delay={300}>
+            <div className="bg-surface shadow-club mt-6 flex items-center justify-between gap-4 rounded-2xl p-5">
+              <div>
+                <Eyebrow className="mb-1 block" tone="default">
+                  Vendedor
+                </Eyebrow>
+                <p className="text-foreground text-base font-semibold">
+                  {owner.fullName} {owner.lastInitial}.
+                </p>
+                <p className="text-default-500 text-xs">
+                  Socio desde {formatDate(owner.memberSince)}
+                </p>
+              </div>
+              {isOwner ? (
+                <NextLink
+                  className="font-semibold"
+                  href={routes.marketplaceEdit(listing.id)}
+                >
+                  <Button size="md" variant="outline">
+                    Editar publicación
+                  </Button>
+                </NextLink>
+              ) : (
+                <Button
+                  size="md"
+                  variant="primary"
+                  onPress={() => setContactOpen(true)}
+                >
+                  Contactar
+                </Button>
+              )}
+            </div>
+          </Reveal>
         )}
 
         {!isOwner && (

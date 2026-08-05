@@ -12,6 +12,7 @@ import { siteConfig } from '@/config/site';
 import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
+import { ScrollProgress } from '@/components/ui/ScrollProgress';
 
 // Payload JSON-LD SportsClub para rich results de Google.
 // El `@id` da una identidad estable para que Google deduplique
@@ -142,6 +143,7 @@ export default function RootLayout({
               vía `<AmbientBlobs preset="..." />` para que cada página
               elija su propia dirección de luz. */}
 
+          <ScrollProgress />
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="grow" id="main-content" tabIndex={-1}>
