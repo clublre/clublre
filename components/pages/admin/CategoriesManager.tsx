@@ -16,6 +16,11 @@ const TYPE_LABEL = {
 export function CategoriesManager() {
   return (
     <div className="bg-surface shadow-club overflow-hidden rounded-2xl">
+      {categories.length === 0 ? (
+        <div className="text-default-600 px-6 py-12 text-center text-sm">
+          No hay categorías todavía.
+        </div>
+      ) : (
       <table className="w-full text-left text-sm">
         <thead className="text-default-500 text-xs tracking-wider uppercase">
           <tr>
@@ -51,6 +56,7 @@ export function CategoriesManager() {
           ))}
         </tbody>
       </table>
+      )}
     </div>
   );
 }

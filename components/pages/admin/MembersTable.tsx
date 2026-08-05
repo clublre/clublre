@@ -67,6 +67,11 @@ export function MembersTable() {
       </div>
 
       <div className="bg-surface shadow-club overflow-hidden rounded-2xl">
+        {visible.length === 0 ? (
+          <div className="text-default-600 px-6 py-12 text-center text-sm">
+            No hay socios en este estado.
+          </div>
+        ) : (
         <table className="w-full text-left text-sm">
           <thead className="text-default-500 text-xs tracking-wider uppercase">
             <tr>
@@ -176,6 +181,7 @@ export function MembersTable() {
             ))}
           </tbody>
         </table>
+        )}
       </div>
     </div>
   );

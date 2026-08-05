@@ -44,7 +44,7 @@ export const IconButton: FC<IconButtonProps> = ({
         // Botón realmente cuadrado para centrar el ícono visualmente.
         'min-w-0 p-0',
         // Hover bg que contrasta en ambos temas.
-        'data-[hover=true]:bg-foreground/10',
+        'data-hover=true:bg-foreground/10',
         className,
       )}
       isDisabled={isDisabled}

@@ -40,7 +40,7 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
           sin necesidad de `bg-transparent`. */}
       <span
         aria-hidden="true"
-        className="text-default-700 group-data-[hover=true]:text-foreground inline-flex transition-colors"
+        className="text-default-700 group-data-hover:text-foreground inline-flex transition-colors"
       >
         {isLight ? <SunIcon size={20} /> : <MoonFilledIcon size={20} />}
       </span>

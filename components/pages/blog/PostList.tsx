@@ -21,6 +21,23 @@ const formatDate = (iso: string) =>
  *  la zona del título sea clickeable, más el CTA "Leer artículo"
  *  abajo anclado a `/blog/[slug]`. */
 export function PostList() {
+  if (postsNewestFirst.length === 0) {
+    return (
+      <Section as="section" spacing="lg">
+        <Container size="md">
+          <div className="bg-surface shadow-club rounded-2xl p-10 text-center">
+            <p className="text-default-700 text-base font-medium">
+              Todavía no hay notas publicadas.
+            </p>
+            <p className="text-default-500 mt-2 text-sm">
+              Volvé en unos días — estamos preparando contenido nuevo.
+            </p>
+          </div>
+        </Container>
+      </Section>
+    );
+  }
+
   return (
     <Section as="section" spacing="lg">
       <Container>

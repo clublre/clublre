@@ -190,7 +190,7 @@ export function ListingDetailClient({
         {!isOwner && (
           <p className="mt-6 text-center">
             <Button
-              className="text-default-500 data-hover:text-default-700 text-xs underline"
+              className="text-default-500 data-hover:text-default-700 focus-visible:text-default-700 text-xs underline"
               size="sm"
               variant="tertiary"
               onPress={() => setReportOpen(true)}
