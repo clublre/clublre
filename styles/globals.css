@@ -302,6 +302,39 @@ a[href] {
   }
 }
 
+/* Custom scrollbar — sutil, branded, en tokens del theme.
+   Firefox nativamente respeta `scrollbar-*`; WebKit requiere los
+   pseudo-elementos. Track invisible, thumb minimal. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--default-300) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--default-300);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--default-500);
+}
+
+/* `*::-webkit-scrollbar-button` oculto — evita los botones de
+   "scroll to top/bottom" que aparecen en algunos Linux themes. */
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
 /* Scroll reveal — manejado por `useReveal` + `<Reveal>` (lib/use-reveal.ts,
    components/ui/Reveal.tsx). El estado inicial es hidden; al entrar en
    viewport el hook agrega `data-revealed="true"` y el CSS hace la

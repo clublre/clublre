@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useIsSSR } from '@react-aria/ssr';
 
@@ -14,7 +14,11 @@ export interface ThemeToggleProps {
 }
 
 /** Toggle claro/oscuro como botón icon-only. Molécula: compone
- *  `IconButton` con `next-themes`. Muestra sol en light y luna en dark. */
+ *  `IconButton` con `next-themes`. Muestra sol en light y luna en dark.
+ *
+ *  Al alternar, el ícono rota 360° y se desvanece brevemente — anima
+ *  el cambio de tema con feedback visual. Después settleamos al ícono
+ *  destino (sol o luna) con un fade-in. */
 export const ThemeToggle: FC<ThemeToggleProps> = ({
   className,
   size = 'md',
@@ -24,8 +28,21 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
 
   const isLight = theme === 'light' || isSSR;
 
+  // Al click, `spinning` va true por ~500ms. El CSS rota el ícono
+  // 360° y aprovecha ese intervalo para switchear el sol/luna.
+  const [spinning, setSpinning] = useState(false);
+
+  // Si el tema cambia externamente (system, devtools), resync.
+  useEffect(() => {
+    setSpinning(false);
+  }, [theme]);
+
   const onPress = () => {
+    if (spinning) return;
+    setSpinning(true);
     setTheme(isLight ? 'dark' : 'light');
+    // Damos tiempo al icon a rotar antes de cambiar la silueta.
+    window.setTimeout(() => setSpinning(false), 600);
   };
 
   return (
@@ -36,13 +53,20 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
       variant="ghost"
       onPress={onPress}
     >
-      {/* `text-default-700` mantiene el ícono visible en ambos temas
-          sin necesidad de `bg-transparent`. */}
       <span
         aria-hidden="true"
         className="text-default-700 group-data-hover:text-foreground inline-flex transition-colors"
       >
-        {isLight ? <SunIcon size={20} /> : <MoonFilledIcon size={20} />}
+        <span
+          className={
+            'motion-reduce:transition-none inline-flex ' +
+            (spinning
+              ? 'rotate-180 opacity-0 transition-all duration-500 ease-in-out'
+              : 'rotate-0 opacity-100 transition-all duration-300 ease-out')
+          }
+        >
+          {isLight ? <SunIcon size={20} /> : <MoonFilledIcon size={20} />}
+        </span>
       </span>
     </IconButton>
   );

@@ -13,6 +13,7 @@ import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
+import { BackToTop } from '@/components/ui/BackToTop';
 
 // Payload JSON-LD SportsClub para rich results de Google.
 // El `@id` da una identidad estable para que Google deduplique
@@ -144,6 +145,7 @@ export default function RootLayout({
               elija su propia dirección de luz. */}
 
           <ScrollProgress />
+          <BackToTop />
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
             <main className="grow" id="main-content" tabIndex={-1}>
