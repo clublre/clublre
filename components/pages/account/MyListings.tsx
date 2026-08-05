@@ -81,12 +81,12 @@ export function MyListings({ ownerId }: MyListingsProps) {
   }
 
   return (
-    <ul className="grid gap-4 sm:grid-cols-2">
+    <ul className="grid items-stretch gap-4 sm:grid-cols-2">
       {listings.map((listing) => {
         const cat = findCategory(listing.categoryId, categories);
         return (
-          <li key={listing.id}>
-            <CardClub>
+          <li key={listing.id} className="h-full">
+            <CardClub className="h-full">
               <div className="mb-2 flex items-center justify-between gap-2 text-xs">
                 <Chip
                   className="tracking-wider uppercase"

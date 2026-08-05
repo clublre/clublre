@@ -10,6 +10,7 @@ import {
   type MarketplaceFilterState,
 } from '@/components/pages/marketplace/MarketplaceFilters';
 import { ListingCard } from '@/components/pages/marketplace/ListingCard';
+import { Reveal } from '@/components/ui/Reveal';
 import { useMarketplaceStore } from '@/stores/marketplace-store';
 import { useAuthStore } from '@/stores/auth-store';
 import { type Listing, type ListingStatus } from '@/data/marketplace';
@@ -77,13 +78,15 @@ export function MarketplaceBrowser() {
       {visible.length === 0 ? (
         <EmptyState />
       ) : (
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((listing: Listing) => (
-            <li key={listing.id}>
-              <ListingCard
-                listing={listing}
-                owner={memberById.get(listing.ownerId)}
-              />
+        <ul className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((listing: Listing, i) => (
+            <li key={listing.id} className="h-full">
+              <Reveal delay={Math.min(i * 60, 480)} className="h-full">
+                <ListingCard
+                  listing={listing}
+                  owner={memberById.get(listing.ownerId)}
+                />
+              </Reveal>
             </li>
           ))}
         </ul>

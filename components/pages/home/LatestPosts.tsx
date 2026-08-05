@@ -36,10 +36,10 @@ export function LatestPosts({ posts }: LatestPostsProps) {
           }
         />
 
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
-            <li key={post.slug}>
-              <Reveal delay={i * 80}>
+            <li key={post.slug} className="h-full">
+              <Reveal delay={i * 80} className="h-full">
                 <NextLink
                   aria-label={`Leer ${post.title}`}
                   className={cn(

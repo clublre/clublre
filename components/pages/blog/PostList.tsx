@@ -4,6 +4,7 @@ import { ArrowRight } from '@/components/ui/Icons';
 
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
+import { Reveal } from '@/components/ui/Reveal';
 import {
   CardClub,
   CardClubTitle,
@@ -46,35 +47,40 @@ export function PostList() {
     <Section as="section" spacing="lg">
       <Container>
         <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {postsNewestFirst.map((post) => (
-            <CardClub key={post.slug} className="flex flex-col">
-              <div className="mb-3 flex items-center justify-between text-xs">
-                <Chip
-                  className="tracking-wider uppercase"
-                  color="accent"
-                  size="sm"
-                  variant="soft"
+          {postsNewestFirst.map((post, i) => (
+            <Reveal key={post.slug} delay={i * 80} className="h-full">
+              <CardClub className="group flex h-full flex-col">
+                <div className="mb-3 flex items-center justify-between text-xs">
+                  <Chip
+                    className="tracking-wider uppercase"
+                    color="accent"
+                    size="sm"
+                    variant="soft"
+                  >
+                    {post.category}
+                  </Chip>
+                  <time className="text-default-500" dateTime={post.date}>
+                    {formatDate(post.date)}
+                  </time>
+                </div>
+                <CardClubTitle className="hover:text-primary">
+                  <NextLink href={routes.blogPost(post.slug)}>
+                    {post.title}
+                  </NextLink>
+                </CardClubTitle>
+                <CardClubBody className="mt-3 grow">{post.excerpt}</CardClubBody>
+                <NextLink
+                  className="text-primary hover:text-primary/80 mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium transition-colors"
+                  href={routes.blogPost(post.slug)}
                 >
-                  {post.category}
-                </Chip>
-                <time className="text-default-500" dateTime={post.date}>
-                  {formatDate(post.date)}
-                </time>
-              </div>
-              <CardClubTitle className="hover:text-primary">
-                <NextLink href={routes.blogPost(post.slug)}>
-                  {post.title}
+                  Leer artículo
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="size-3 transition-transform group-hover:translate-x-0.5"
+                  />
                 </NextLink>
-              </CardClubTitle>
-              <CardClubBody className="mt-3 grow">{post.excerpt}</CardClubBody>
-              <NextLink
-                className="text-primary hover:text-primary/80 mt-auto inline-flex items-center gap-1 pt-4 text-sm font-medium transition-colors"
-                href={routes.blogPost(post.slug)}
-              >
-                Leer artículo
-                <ArrowRight aria-hidden="true" className="size-3" />
-              </NextLink>
-            </CardClub>
+              </CardClub>
+            </Reveal>
           ))}
         </div>
       </Container>

@@ -34,13 +34,13 @@ export function ActivitiesSection() {
           heading="Actividades para todas las edades"
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {activities.map((activity, i) => {
             const meta = ACTIVITY_ICONS[activity.id] ?? { icon: MedalIcon };
             const Icon = meta.icon;
             return (
-              <Reveal key={activity.id} delay={i * 80}>
-                <CardClub className="group flex flex-col">
+              <Reveal key={activity.id} delay={i * 80} className="h-full">
+                <CardClub className="group flex h-full flex-col">
                   <CardClubHeader>
                     <span
                       aria-hidden="true"
