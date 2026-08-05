@@ -6,6 +6,7 @@ import { ArrowRight, Quote } from '@/components/ui/Icons';
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Reveal } from '@/components/ui/Reveal';
 import { InstagramIcon } from '@/components/ui/Icons';
 import { routes } from '@/lib/routes';
 
@@ -32,7 +33,8 @@ export function FinalCta() {
 
           {/* Contenido en su propia capa de stacking para que siempre
               pinte arriba del bg decorativo + watermark. */}
-          <div className="relative">
+          <Reveal>
+            <div className="relative">
             <Quote
               aria-hidden="true"
               className="text-primary/40 mx-auto mb-4 size-10"
@@ -67,7 +69,8 @@ export function FinalCta() {
                 @clubestudiantilrosario
               </Link>
             </div>
-          </div>
+            </div>
+          </Reveal>
         </Card>
       </Container>
     </Section>

@@ -21,41 +21,41 @@ export function CategoriesManager() {
           No hay categorías todavía.
         </div>
       ) : (
-      <table className="w-full text-left text-sm">
-        <thead className="text-default-500 text-xs tracking-wider uppercase">
-          <tr>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Categoría
-            </th>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Tipo
-            </th>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Icono
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-default-200/60 divide-y">
-          {categories.map((c) => (
-            <tr key={c.id}>
-              <td className="px-4 py-3 font-medium">{c.name}</td>
-              <td className="px-4 py-3">
-                <Chip
-                  className="tracking-wider uppercase"
-                  color="default"
-                  size="sm"
-                  variant="soft"
-                >
-                  {TYPE_LABEL[c.type]}
-                </Chip>
-              </td>
-              <td className="text-default-500 px-4 py-3 font-mono text-xs">
-                {c.icon}
-              </td>
+        <table className="w-full text-left text-sm">
+          <thead className="text-default-500 text-xs tracking-wider uppercase">
+            <tr>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Categoría
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Tipo
+              </th>
+              <th className="px-4 py-3 font-medium" scope="col">
+                Icono
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-default-200/60 divide-y">
+            {categories.map((c) => (
+              <tr key={c.id}>
+                <td className="px-4 py-3 font-medium">{c.name}</td>
+                <td className="px-4 py-3">
+                  <Chip
+                    className="tracking-wider uppercase"
+                    color="default"
+                    size="sm"
+                    variant="soft"
+                  >
+                    {TYPE_LABEL[c.type]}
+                  </Chip>
+                </td>
+                <td className="text-default-500 px-4 py-3 font-mono text-xs">
+                  {c.icon}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

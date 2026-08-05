@@ -1,6 +1,7 @@
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/ui/Reveal';
 import { CommissionGrid } from './CommissionGrid';
 
 /** Sección de comisión directiva. Renderiza un grid moderno de
@@ -17,7 +18,9 @@ export function CommissionSection() {
           heading="Quienes conducen el club"
         />
 
-        <CommissionGrid />
+        <Reveal>
+          <CommissionGrid />
+        </Reveal>
       </Container>
     </Section>
   );

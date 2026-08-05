@@ -1,6 +1,7 @@
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
+import { Reveal } from '@/components/ui/Reveal';
 import { title } from '@/components/primitives';
 
 /** Header de about: eyebrow + h1 + intro centrado. Mismo patrón
@@ -9,26 +10,32 @@ export function AboutHeader() {
   return (
     <Section as="section" spacing="md">
       <Container className="text-center">
-        <Eyebrow className="mb-3 block" tone="sky">
-          Sobre nosotros
-        </Eyebrow>
-        <h1
-          className={title({
-            size: 'lg',
-            class: 'mx-auto block max-w-3xl leading-[1.1]',
-          })}
-          style={{ viewTransitionName: 'page-title' }}
-        >
-          Una historia ligada a
-          <br />
-          <span className={title({ color: 'sky', size: 'lg' })}>Rosario</span>
-        </h1>
-        <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
-          Fundado en 1943, el Club Los Rosarinos Estudiantil es una institución
-          deportiva y social con más de 3.500 socios. A lo largo de ocho
-          décadas, hemos sido parte de la vida de miles de familias rosarinas,
-          formando deportistas y generando comunidad.
-        </p>
+        <Reveal>
+          <Eyebrow className="mb-3 block" tone="sky">
+            Sobre nosotros
+          </Eyebrow>
+        </Reveal>
+        <Reveal delay={120}>
+          <h1
+            className={title({
+              size: 'lg',
+              class: 'mx-auto block max-w-3xl leading-[1.1]',
+            })}
+            style={{ viewTransitionName: 'page-title' }}
+          >
+            Una historia ligada a
+            <br />
+            <span className={title({ color: 'sky', size: 'lg' })}>Rosario</span>
+          </h1>
+        </Reveal>
+        <Reveal delay={220}>
+          <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
+            Fundado en 1943, el Club Los Rosarinos Estudiantil es una institución
+            deportiva y social con más de 3.500 socios. A lo largo de ocho
+            décadas, hemos sido parte de la vida de miles de familias rosarinas,
+            formando deportistas y generando comunidad.
+          </p>
+        </Reveal>
       </Container>
     </Section>
   );

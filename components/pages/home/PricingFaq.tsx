@@ -1,6 +1,7 @@
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/ui/Reveal';
 import { FaqAccordion } from '@/components/ui/FaqAccordion';
 import { faqItems } from '@/data/faq';
 
@@ -20,13 +21,15 @@ export function PricingFaq() {
           spacing="md"
         />
 
-        <FaqAccordion
-          items={faqItems.map((item, index) => ({
-            id: `${index}-${item.q}`,
-            question: item.q,
-            answer: item.a,
-          }))}
-        />
+        <Reveal>
+          <FaqAccordion
+            items={faqItems.map((item, index) => ({
+              id: `${index}-${item.q}`,
+              question: item.q,
+              answer: item.a,
+            }))}
+          />
+        </Reveal>
       </Container>
     </Section>
   );

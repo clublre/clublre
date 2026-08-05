@@ -72,115 +72,115 @@ export function MembersTable() {
             No hay socios en este estado.
           </div>
         ) : (
-        <table className="w-full text-left text-sm">
-          <thead className="text-default-500 text-xs tracking-wider uppercase">
-            <tr>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Nombre
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Email
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Rol
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Estado
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Antigüedad
-              </th>
-              <th className="px-4 py-3 text-right font-medium" scope="col">
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-default-200/60 divide-y">
-            {visible.map((m) => (
-              <tr key={m.id}>
-                <td className="px-4 py-3 font-medium">
-                  {m.fullName} {m.lastInitial}.
-                </td>
-                <td className="text-default-600 px-4 py-3">{m.email}</td>
-                <td className="px-4 py-3">
-                  <RoleBadge role={m.role} />
-                </td>
-                <td className="px-4 py-3">
-                  <StatusBadge status={m.accountStatus} />
-                </td>
-                <td className="text-default-600 px-4 py-3 text-xs">
-                  {formatDate(m.memberSince)}
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex justify-end gap-2">
-                    {m.accountStatus === 'pending' && (
-                      <>
+          <table className="w-full text-left text-sm">
+            <thead className="text-default-500 text-xs tracking-wider uppercase">
+              <tr>
+                <th className="px-4 py-3 font-medium" scope="col">
+                  Nombre
+                </th>
+                <th className="px-4 py-3 font-medium" scope="col">
+                  Email
+                </th>
+                <th className="px-4 py-3 font-medium" scope="col">
+                  Rol
+                </th>
+                <th className="px-4 py-3 font-medium" scope="col">
+                  Estado
+                </th>
+                <th className="px-4 py-3 font-medium" scope="col">
+                  Antigüedad
+                </th>
+                <th className="px-4 py-3 text-right font-medium" scope="col">
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-default-200/60 divide-y">
+              {visible.map((m) => (
+                <tr key={m.id}>
+                  <td className="px-4 py-3 font-medium">
+                    {m.fullName} {m.lastInitial}.
+                  </td>
+                  <td className="text-default-600 px-4 py-3">{m.email}</td>
+                  <td className="px-4 py-3">
+                    <RoleBadge role={m.role} />
+                  </td>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={m.accountStatus} />
+                  </td>
+                  <td className="text-default-600 px-4 py-3 text-xs">
+                    {formatDate(m.memberSince)}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex justify-end gap-2">
+                      {m.accountStatus === 'pending' && (
+                        <>
+                          <Button
+                            className="font-semibold"
+                            size="sm"
+                            variant="primary"
+                            onPress={() =>
+                              currentMember && approve(m.id, currentMember.id)
+                            }
+                          >
+                            Aprobar
+                          </Button>
+                          <Button
+                            className="font-semibold"
+                            size="sm"
+                            variant="danger"
+                            onPress={() =>
+                              currentMember &&
+                              reject(m.id, currentMember.id, 'Sin padrón')
+                            }
+                          >
+                            Rechazar
+                          </Button>
+                        </>
+                      )}
+                      {m.accountStatus === 'active' &&
+                        !isAdminRole(m) &&
+                        currentMember?.role === 'admin' && (
+                          <Button
+                            className="font-semibold"
+                            size="sm"
+                            variant="danger"
+                            onPress={() =>
+                              currentMember &&
+                              suspend(m.id, currentMember.id, 'Suspendido')
+                            }
+                          >
+                            Suspender
+                          </Button>
+                        )}
+                      {m.accountStatus === 'suspended' && (
                         <Button
                           className="font-semibold"
                           size="sm"
-                          variant="primary"
+                          variant="outline"
                           onPress={() =>
                             currentMember && approve(m.id, currentMember.id)
                           }
                         >
-                          Aprobar
-                        </Button>
-                        <Button
-                          className="font-semibold"
-                          size="sm"
-                          variant="danger"
-                          onPress={() =>
-                            currentMember &&
-                            reject(m.id, currentMember.id, 'Sin padrón')
-                          }
-                        >
-                          Rechazar
-                        </Button>
-                      </>
-                    )}
-                    {m.accountStatus === 'active' &&
-                      !isAdminRole(m) &&
-                      currentMember?.role === 'admin' && (
-                        <Button
-                          className="font-semibold"
-                          size="sm"
-                          variant="danger"
-                          onPress={() =>
-                            currentMember &&
-                            suspend(m.id, currentMember.id, 'Suspendido')
-                          }
-                        >
-                          Suspender
+                          Reactivar
                         </Button>
                       )}
-                    {m.accountStatus === 'suspended' && (
-                      <Button
-                        className="font-semibold"
-                        size="sm"
-                        variant="outline"
-                        onPress={() =>
-                          currentMember && approve(m.id, currentMember.id)
-                        }
-                      >
-                        Reactivar
-                      </Button>
-                    )}
-                    {m.accountStatus === 'rejected' && (
-                      <Chip
-                        className="tracking-wider uppercase"
-                        color="default"
-                        size="sm"
-                        variant="soft"
-                      >
-                        Cerrado
-                      </Chip>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                      {m.accountStatus === 'rejected' && (
+                        <Chip
+                          className="tracking-wider uppercase"
+                          color="default"
+                          size="sm"
+                          variant="soft"
+                        >
+                          Cerrado
+                        </Chip>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
       </div>
     </div>

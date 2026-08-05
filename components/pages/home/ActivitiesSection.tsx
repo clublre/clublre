@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/ui/Reveal';
 import { CardClub, CardClubHeader, CardClubTitle, CardClubBody } from '@/components/ui/CardClub';
 import { BasketballIcon, VolleyballIcon, PingPongIcon, SwimmingIcon, HandFistIcon, MedalIcon } from '@/components/ui/Icons';
 import { activities } from '@/data/club';
@@ -34,24 +35,26 @@ export function ActivitiesSection() {
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {activities.map((activity) => {
+          {activities.map((activity, i) => {
             const meta = ACTIVITY_ICONS[activity.id] ?? { icon: MedalIcon };
             const Icon = meta.icon;
             return (
-              <CardClub key={activity.id} className="flex flex-col">
-                <CardClubHeader>
-                  <span
-                    aria-hidden="true"
-                    className="bg-primary/10 text-primary inline-flex size-10 items-center justify-center rounded-lg"
-                  >
-                    <Icon className="size-5" />
-                  </span>
-                  <CardClubTitle>{activity.name}</CardClubTitle>
-                </CardClubHeader>
-                <CardClubBody className="grow">
-                  {activity.description}
-                </CardClubBody>
-              </CardClub>
+              <Reveal key={activity.id} delay={i * 80}>
+                <CardClub className="group flex flex-col">
+                  <CardClubHeader>
+                    <span
+                      aria-hidden="true"
+                      className="bg-primary/10 text-primary inline-flex size-10 items-center justify-center rounded-lg transition-transform group-hover:scale-110 group-hover:rotate-3"
+                    >
+                      <Icon className="size-5" />
+                    </span>
+                    <CardClubTitle>{activity.name}</CardClubTitle>
+                  </CardClubHeader>
+                  <CardClubBody className="grow">
+                    {activity.description}
+                  </CardClubBody>
+                </CardClub>
+              </Reveal>
             );
           })}
         </div>

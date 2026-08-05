@@ -1,6 +1,7 @@
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { Reveal } from '@/components/ui/Reveal';
 import {
   CardClub,
   CardClubTitle,
@@ -24,29 +25,35 @@ export function ValuesGrid() {
             las otras dos comparten la columna derecha. Anti-pattern
             explícito per taste-skill §6 ("three equal card columns"). */}
         <div className="grid gap-6 md:grid-cols-3 md:grid-rows-2">
-          <CardClub className="md:col-span-2 md:row-span-2">
-            <CardClubTitle>Comunidad</CardClubTitle>
-            <CardClubBody>
-              Un espacio donde las familias rosarinas crecen juntas,
-              compartiendo deporte, recreación y amistad. Tres generaciones
-              pasaron por nuestras instalaciones y cientos de historias
-              empezaron acá.
-            </CardClubBody>
-          </CardClub>
-          <CardClub>
-            <CardClubTitle>Formación</CardClubTitle>
-            <CardClubBody>
-              Escuelas deportivas federadas con entrenadores formados y
-              seguimiento personalizado para cada edad.
-            </CardClubBody>
-          </CardClub>
-          <CardClub>
-            <CardClubTitle>Tradición</CardClubTitle>
-            <CardClubBody>
-              Más de 80 años de historia formando campeones dentro y fuera de la
-              cancha.
-            </CardClubBody>
-          </CardClub>
+          <Reveal>
+            <CardClub className="md:col-span-2 md:row-span-2">
+              <CardClubTitle>Comunidad</CardClubTitle>
+              <CardClubBody>
+                Un espacio donde las familias rosarinas crecen juntas,
+                compartiendo deporte, recreación y amistad. Tres generaciones
+                pasaron por nuestras instalaciones y cientos de historias
+                empezaron acá.
+              </CardClubBody>
+            </CardClub>
+          </Reveal>
+          <Reveal delay={120}>
+            <CardClub>
+              <CardClubTitle>Formación</CardClubTitle>
+              <CardClubBody>
+                Escuelas deportivas federadas con entrenadores formados y
+                seguimiento personalizado para cada edad.
+              </CardClubBody>
+            </CardClub>
+          </Reveal>
+          <Reveal delay={220}>
+            <CardClub>
+              <CardClubTitle>Tradición</CardClubTitle>
+              <CardClubBody>
+                Más de 80 años de historia formando campeones dentro y fuera de la
+                cancha.
+              </CardClubBody>
+            </CardClub>
+          </Reveal>
         </div>
       </Container>
     </Section>

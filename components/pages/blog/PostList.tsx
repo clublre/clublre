@@ -4,7 +4,11 @@ import { ArrowRight } from '@/components/ui/Icons';
 
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
-import { CardClub, CardClubTitle, CardClubBody } from '@/components/ui/CardClub';
+import {
+  CardClub,
+  CardClubTitle,
+  CardClubBody,
+} from '@/components/ui/CardClub';
 import { postsNewestFirst } from '@/data/posts';
 import { routes } from '@/lib/routes';
 
