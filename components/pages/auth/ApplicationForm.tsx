@@ -2,10 +2,20 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Input, TextArea } from '@heroui/react';
+import {
+  Button,
+  Description,
+  FieldError,
+  Input,
+  InputGroup,
+  Label,
+  TextArea,
+  TextField,
+} from '@heroui/react';
 
 import { useAuthStore } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
+import { Envelope, MapPin, User } from '@/components/ui/Icons';
 
 /** Formulario de solicitud de alta — paso previo al login. */
 export function ApplicationForm() {
@@ -47,40 +57,65 @@ export function ApplicationForm() {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-      <Input
-        required
-        name="fullName"
-        placeholder="Juan Pérez"
-        value={fullName}
-        onChange={(e) => setFullName(e.target.value)}
-      />
-      <Input
-        required
-        autoComplete="email"
-        name="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        required
-        name="zone"
-        placeholder="Rosario — Pichincha"
-        value={zone}
-        onChange={(e) => setZone(e.target.value)}
-      />
-      <TextArea
-        name="note"
-        placeholder="Contanos brevemente por qué te querés asociar."
-        rows={3}
-        value={note}
-        onChange={(e) => setNote(e.target.value)}
-      />
-      {error ? (
-        <p className="text-danger text-sm" role="alert">
-          {error}
-        </p>
-      ) : null}
+      <TextField isRequired fullWidth name="fullName">
+        <Label>Nombre completo</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Prefix>
+            <User className="text-muted size-4" />
+          </InputGroup.Prefix>
+          <InputGroup.Input
+            placeholder="Juan Pérez"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
+
+      <TextField isRequired fullWidth name="email">
+        <Label>Email</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Prefix>
+            <Envelope className="text-muted size-4" />
+          </InputGroup.Prefix>
+          <InputGroup.Input
+            autoComplete="email"
+            placeholder="socio@email.com"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </InputGroup>
+        <Description>
+          Te contactaremos por acá para resolver la solicitud.
+        </Description>
+      </TextField>
+
+      <TextField isRequired fullWidth name="zone">
+        <Label>Zona</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Prefix>
+            <MapPin className="text-muted size-4" />
+          </InputGroup.Prefix>
+          <InputGroup.Input
+            placeholder="Rosario — Pichincha"
+            value={zone}
+            onChange={(e) => setZone(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
+
+      <TextField fullWidth name="note">
+        <Label>Mensaje opcional</Label>
+        <TextArea
+          placeholder="Contanos brevemente por qué te querés asociar."
+          rows={3}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+        />
+      </TextField>
+
+      {error ? <FieldError>{error}</FieldError> : null}
+
       <Button
         className="font-semibold"
         isPending={isPending}

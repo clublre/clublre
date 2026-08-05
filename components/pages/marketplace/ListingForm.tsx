@@ -2,7 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Input, ListBox, Select, TextArea } from '@heroui/react';
+import {
+  Button,
+  Input,
+  InputGroup,
+  Label,
+  ListBox,
+  Select,
+  TextArea,
+  TextField,
+} from '@heroui/react';
 
 import {
   type Listing,
@@ -14,6 +23,7 @@ import {
 import { useAuthStore } from '@/stores/auth-store';
 import { useMarketplaceStore } from '@/stores/marketplace-store';
 import { routes } from '@/lib/routes';
+import { MapPin, Phone } from '@/components/ui/Icons';
 
 interface ListingFormProps {
   /** Cuando se pasa, la página está en modo edición. */
@@ -186,22 +196,25 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select.Popover>
       </Select>
 
-      <Input
-        required
-        name="title"
-        placeholder="Botines de básquet talle 42 — casi nuevos"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <TextField isRequired fullWidth name="title">
+        <Label>Título</Label>
+        <Input
+          placeholder="Botines de básquet talle 42 — casi nuevos"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </TextField>
 
-      <TextArea
-        maxLength={600}
-        name="description"
-        placeholder="Contá detalles, estado, motivo de venta, etc."
-        rows={3}
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+      <TextField fullWidth name="description">
+        <Label>Descripción</Label>
+        <TextArea
+          maxLength={600}
+          placeholder="Contá detalles, estado, motivo de venta, etc."
+          rows={3}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </TextField>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Select
@@ -281,24 +294,35 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select>
 
         {priceMode !== 'free' && priceMode !== 'contact' && (
-          <Input
-            required
-            inputMode="numeric"
-            name="price"
-            placeholder="35000"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+          <TextField isRequired fullWidth name="price">
+            <Label>Precio</Label>
+            <InputGroup fullWidth>
+              <InputGroup.Prefix>$</InputGroup.Prefix>
+              <InputGroup.Input
+                inputMode="numeric"
+                placeholder="35000"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <InputGroup.Suffix>ARS</InputGroup.Suffix>
+            </InputGroup>
+          </TextField>
         )}
       </div>
 
-      <Input
-        required
-        name="zone"
-        placeholder="Rosario — Pichincha"
-        value={zone}
-        onChange={(e) => setZone(e.target.value)}
-      />
+      <TextField isRequired fullWidth name="zone">
+        <Label>Zona</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Prefix>
+            <MapPin className="text-muted size-4" />
+          </InputGroup.Prefix>
+          <InputGroup.Input
+            placeholder="Rosario — Pichincha"
+            value={zone}
+            onChange={(e) => setZone(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
 
       <Select
         aria-label="Canal de contacto"
@@ -326,19 +350,25 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select.Popover>
       </Select>
 
-      <Input
-        required
-        aria-label={
-          contactPreference === 'whatsapp' ? 'Número de WhatsApp' : 'Email'
-        }
-        placeholder={
-          contactPreference === 'whatsapp'
-            ? '+54 9 341 555 1234'
-            : 'socio@example.com'
-        }
-        value={contactHandle}
-        onChange={(e) => setContactHandle(e.target.value)}
-      />
+      <TextField isRequired fullWidth name="contactHandle">
+        <Label>
+          {contactPreference === 'whatsapp' ? 'Número de WhatsApp' : 'Email'}
+        </Label>
+        <InputGroup fullWidth>
+          <InputGroup.Prefix>
+            <Phone className="text-muted size-4" />
+          </InputGroup.Prefix>
+          <InputGroup.Input
+            placeholder={
+              contactPreference === 'whatsapp'
+                ? '+54 9 341 555 1234'
+                : 'socio@example.com'
+            }
+            value={contactHandle}
+            onChange={(e) => setContactHandle(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
 
       {error ? (
         <p className="text-danger text-sm" role="alert">

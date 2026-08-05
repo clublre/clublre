@@ -124,6 +124,21 @@ export const Trophy = (p: Omit<IconProps, 'icon'>) => (
 export const User = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="user" {...p} />
 );
+export const Gear = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="gear" {...p} />
+);
+export const Plus = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="plus" {...p} />
+);
+export const SignOut = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="sign-out" {...p} />
+);
+export const SignIn = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="sign-in" {...p} />
+);
+export const Envelope = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="envelope" {...p} />
+);
 
 // Iconos de actividades (deportes).
 

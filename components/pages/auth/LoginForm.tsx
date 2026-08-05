@@ -2,10 +2,18 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Input } from '@heroui/react';
+import {
+  Button,
+  FieldError,
+  Input,
+  InputGroup,
+  Label,
+  TextField,
+} from '@heroui/react';
 
 import { useAuthStore } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
+import { Envelope } from '@/components/ui/Icons';
 
 /** Formulario de login mockeado — Google OAuth simulado y email. */
 export function LoginForm() {
@@ -65,22 +73,22 @@ export function LoginForm() {
       </div>
 
       <form className="flex flex-col gap-3" onSubmit={onEmail}>
-        <Input
-          required
-          aria-label="Email"
-          autoComplete="email"
-          disabled={isPending}
-          name="email"
-          placeholder="socio@example.com"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {error ? (
-          <p className="text-danger text-sm" role="alert">
-            {error}
-          </p>
-        ) : null}
+        <TextField isRequired fullWidth isDisabled={isPending} name="email">
+          <Label>Email</Label>
+          <InputGroup fullWidth>
+            <InputGroup.Prefix>
+              <Envelope className="text-muted size-4" />
+            </InputGroup.Prefix>
+            <InputGroup.Input
+              autoComplete="email"
+              placeholder="socio@example.com"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputGroup>
+        </TextField>
+        {error ? <FieldError>{error}</FieldError> : null}
         <Button
           className="font-semibold"
           isPending={isPending}

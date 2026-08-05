@@ -1,16 +1,18 @@
 'use client';
 
-// UserMenu — dropdown para socios logueados. Slot derecho de la
-// navbar cuando hay sesión. Combina `Dropdown` de HeroUI v3 con
-// el estado del store de auth.
+// UserMenu — dropdown del socio logueado. Slot derecho de la navbar.
+// Sigue el patrón HeroUI v3: trigger con `<Avatar>`, header con avatar +
+// nombre + email en el popover, items con icono a la derecha.
+// El chip de rol va en una fila propia debajo del bloque de user
+// (no metido dentro del info del avatar).
 
-import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, Dropdown, Label } from '@heroui/react';
+import { Avatar, Chip, Dropdown, Label } from '@heroui/react';
 
 import { useAuthStore, useCurrentMember } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
-import { RoleBadge } from '@/components/atoms/StatusBadge';
+import { Gear, Plus, SignIn, SignOut, User } from '@/components/ui/Icons';
+import type { Role } from '@/data/marketplace';
 
 const initials = (name: string): string => {
   const parts = name.trim().split(/\s+/);
@@ -19,6 +21,18 @@ const initials = (name: string): string => {
   const first = parts[0]?.[0] ?? '';
   const last = parts[parts.length - 1]?.[0] ?? '';
   return (first + last).toUpperCase();
+};
+
+const ROLE_CHIP: Record<
+  Role,
+  {
+    label: string;
+    color: 'default' | 'accent' | 'success' | 'warning' | 'danger';
+  }
+> = {
+  member: { label: 'Socio', color: 'default' },
+  moderator: { label: 'Moderador', color: 'accent' },
+  admin: { label: 'Administrador', color: 'accent' },
 };
 
 /** Menú de usuario — visible cuando hay sesión activa. */
@@ -34,49 +48,106 @@ export function UserMenu() {
     router.push(routes.home);
   };
 
+  const initialsLabel = initials(member.fullName);
+  const roleChip = ROLE_CHIP[member.role];
+
   return (
     <Dropdown>
-      <Button
+      <Dropdown.Trigger
         aria-label={`Menú de ${member.fullName}`}
-        className="hover:bg-foreground/10 px-2"
-        size="md"
-        variant="ghost"
+        className="hover:bg-foreground/10 rounded-full transition-transform data-pressed:scale-95"
       >
-        <span
-          aria-hidden="true"
-          className="bg-primary/10 text-primary inline-flex size-8 items-center justify-center rounded-full text-sm font-semibold"
-        >
-          {initials(member.fullName)}
-        </span>
-      </Button>
-      <Dropdown.Popover>
+        <Avatar className="cursor-pointer" size="sm">
+          {/* Sin `src` en la maqueta — `Fallback` siempre renderiza. */}
+          <Avatar.Fallback
+            className="bg-primary/15 text-primary font-semibold"
+            delayMs={0}
+          >
+            {initialsLabel}
+          </Avatar.Fallback>
+        </Avatar>
+      </Dropdown.Trigger>
+      <Dropdown.Popover className="w-64 rounded-md!">
+        {/* Header: avatar + nombre + email. NO es un Menu.Item. */}
+        <div className="flex items-center gap-3 px-4 pt-4 pb-2">
+          <Avatar size="sm">
+            <Avatar.Fallback
+              className="bg-primary/15 text-primary font-semibold"
+              delayMs={0}
+            >
+              {initialsLabel}
+            </Avatar.Fallback>
+          </Avatar>
+          <div className="flex min-w-0 flex-col">
+            <p className="text-foreground truncate text-sm leading-5 font-semibold">
+              {member.fullName}
+            </p>
+            <p className="text-default-500 truncate text-xs leading-none">
+              {member.email}
+            </p>
+          </div>
+        </div>
+
+        {/* Chip de rol — debajo del bloque user, en su propia fila. */}
+        <div className="px-4 pb-3">
+          <Chip
+            // className="tracking-wider"
+            color="accent"
+            size="sm"
+            variant="soft"
+          >
+            {roleChip.label}
+          </Chip>
+        </div>
+
         <Dropdown.Menu
+          aria-label="Acciones de cuenta"
+          className="pb-4"
           onAction={(key) => {
             if (key === 'sign-out') onSignOut();
           }}
         >
-          <Dropdown.Item id="profile" textValue="profile">
-            <div className="flex flex-col gap-0.5 py-1">
-              <Label className="font-semibold">{member.fullName}</Label>
-              <span className="text-default-500 text-xs">{member.email}</span>
-              <span className="mt-1">
-                <RoleBadge role={member.role} />
-              </span>
+          <Dropdown.Item
+            href={routes.account}
+            id="cuenta"
+            textValue="Mi cuenta"
+          >
+            <div className="flex w-full items-center justify-between gap-2">
+              <Label>Mi cuenta</Label>
+              <User className="text-foreground size-4" />
             </div>
           </Dropdown.Item>
-          <Dropdown.Item href={routes.account} id="cuenta">
-            Mi cuenta
-          </Dropdown.Item>
-          <Dropdown.Item href={routes.marketplaceNew} id="publicar">
-            Publicar
+          <Dropdown.Item
+            href={routes.marketplaceNew}
+            id="publicar"
+            textValue="Publicar"
+          >
+            <div className="flex w-full items-center justify-between gap-2">
+              <Label>Publicar</Label>
+              <Plus className="text-foreground size-4" />
+            </div>
           </Dropdown.Item>
           {(member.role === 'admin' || member.role === 'moderator') && (
-            <Dropdown.Item href={routes.admin} id="admin">
-              Administración
+            <Dropdown.Item
+              href={routes.admin}
+              id="admin"
+              textValue="Administración"
+            >
+              <div className="flex w-full items-center justify-between gap-2">
+                <Label>Administración</Label>
+                <Gear className="text-foreground size-4" />
+              </div>
             </Dropdown.Item>
           )}
-          <Dropdown.Item id="sign-out" textValue="sign-out" variant="danger">
-            Cerrar sesión
+          <Dropdown.Item
+            id="sign-out"
+            textValue="Cerrar sesión"
+            variant="danger"
+          >
+            <div className="flex w-full items-center justify-between gap-2">
+              <Label>Cerrar sesión</Label>
+              <SignOut className="text-danger size-4" />
+            </div>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Popover>
@@ -84,14 +155,47 @@ export function UserMenu() {
   );
 }
 
-/** Trigger link al login — slot derecho de la navbar cuando NO hay sesión. */
+/** Trigger avatar cuando NO hay sesión — ofrece login + registro. */
 export function SignInTrigger() {
   return (
-    <NextLink
-      className="hover:bg-foreground/10 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors"
-      href={routes.login}
-    >
-      Ingresar
-    </NextLink>
+    <Dropdown>
+      <Dropdown.Trigger
+        aria-label="Iniciar sesión"
+        className="hover:bg-foreground/10 rounded-full transition-transform data-pressed:scale-95"
+      >
+        <Avatar className="cursor-pointer" size="sm">
+          <Avatar.Fallback
+            className="bg-primary/15 text-primary font-semibold"
+            delayMs={0}
+          >
+            <User className="size-4" />
+          </Avatar.Fallback>
+        </Avatar>
+      </Dropdown.Trigger>
+      <Dropdown.Popover className="w-56">
+        <Dropdown.Menu aria-label="Acciones de cuenta">
+          <Dropdown.Item
+            href={routes.login}
+            id="login"
+            textValue="Iniciar sesión"
+          >
+            <div className="flex w-full items-center justify-between gap-2">
+              <Label>Iniciar sesión</Label>
+              <SignIn className="text-foreground size-4" />
+            </div>
+          </Dropdown.Item>
+          <Dropdown.Item
+            href={routes.registro}
+            id="registro"
+            textValue="Registrarme"
+          >
+            <div className="flex w-full items-center justify-between gap-2">
+              <Label>Registrarme</Label>
+              <Plus className="text-foreground size-4" />
+            </div>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown.Popover>
+    </Dropdown>
   );
 }
