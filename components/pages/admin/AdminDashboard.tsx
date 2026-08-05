@@ -57,7 +57,7 @@ export function AdminDashboard() {
   ).length;
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5">
       <StatCard
         hint="Esperando aprobación de la comisión"
         href={routes.adminUsers}

@@ -260,4 +260,5 @@ If a UI change, also smoke-test in browser via `npm run dev`.
 - `BEST-PRACTICES.md` — full architectural guide.
 - `.github/copilot-instructions.md` — Copilot-specific additions.
 - `.github/instructions/*.instructions.md` — scoped rules per area.
+  - `taste-skill-coordination.instructions.md` — cómo conviven las reglas de taste-skill con las de este repo.
 - `.github/agents/*.agent.md` — specialised agent personas.

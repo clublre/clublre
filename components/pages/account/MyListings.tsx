@@ -119,7 +119,7 @@ export function MyListings({ ownerId }: MyListingsProps) {
               <p className="text-default-500 mt-1 text-xs">
                 {formatDate(listing.createdAt)}
               </p>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-4 flex flex-wrap items-center gap-3">
                 <NextLink
                   className="text-primary hover:text-primary/80 text-sm font-medium"
                   href={routes.marketplaceItem(listing.id)}

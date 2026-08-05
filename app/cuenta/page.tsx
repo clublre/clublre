@@ -52,8 +52,7 @@ export default function AccountPage() {
   const yearsAsMember = Math.max(
     1,
     Math.floor(
-      (Date.parse(new Date().toString()) -
-        new Date(member.memberSince).getTime()) /
+      (Date.now() - new Date(member.memberSince).getTime()) /
         (365 * 24 * 60 * 60 * 1000),
     ),
   );

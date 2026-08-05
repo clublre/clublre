@@ -9,6 +9,7 @@ import {
   UserCircle,
   Wallet,
 } from '@/components/ui/Icons';
+import { cn } from '@/lib/utils';
 import { commission, type CommissionMember } from '@/data/club';
 
 /** Mapeo rol → icono + tono. Presidente usa un crown distintivo. */
@@ -57,11 +58,11 @@ function MemberCard({
 
   return (
     <article
-      className={[
+      className={cn(
         'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-all duration-300',
-        // Base: subtle surface con depth via bg + border + soft shadow
-        'bg-default-50 dark:bg-default-900/40',
-        'ring-default-200/70 dark:ring-default-100/15 ring-1',
+        // Base: subtle surface con depth via bg + ring + soft shadow.
+        // `bg-surface-secondary` adapta light/dark sin tocar `dark:`.
+        'bg-surface-secondary ring-default-200/70 ring-1',
         'shadow-sm hover:-translate-y-1 hover:shadow-lg',
         // Ring hover: emerge al tono del cargo
         isRoot
@@ -69,50 +70,50 @@ function MemberCard({
           : tone === 'sky'
             ? 'hover:ring-sky-500/40 dark:hover:ring-sky-400/30'
             : 'hover:ring-default-300 dark:hover:ring-default-100/40',
-      ].join(' ')}
+      )}
     >
       {/* Glow gradient al hover (decorativo) */}
       <div
         aria-hidden="true"
-        className={[
+        className={cn(
           'pointer-events-none absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100',
           isRoot
             ? 'bg-gradient-to-br from-sky-500/10 via-transparent to-sky-500/5'
             : tone === 'sky'
               ? 'bg-gradient-to-br from-sky-500/8 via-transparent to-sky-500/3'
               : 'from-foreground/5 to-foreground/0 bg-gradient-to-br via-transparent',
-        ].join(' ')}
+        )}
       />
 
       {/* Header: avatar + role icon accent */}
       <div className="flex items-start justify-between">
         <div
           aria-hidden="true"
-          className={[
+          className={cn(
             'flex items-center justify-center rounded-full ring-2 transition-transform group-hover:scale-105',
             isRoot ? 'size-16' : 'size-12',
             tone === 'sky'
               ? 'bg-gradient-to-br from-sky-400/30 via-sky-500/20 to-sky-600/25 text-sky-700 ring-sky-500/30 dark:from-sky-400/20 dark:via-sky-500/15 dark:to-sky-600/15 dark:text-sky-200 dark:ring-sky-400/25'
               : 'from-foreground/15 via-foreground/10 to-foreground/5 text-foreground/80 ring-foreground/15 dark:from-foreground/10 dark:via-foreground/5 dark:to-foreground/0 bg-gradient-to-br',
-          ].join(' ')}
+          )}
         >
           <span
-            className={[
+            className={cn(
               'font-semibold tracking-tight',
               isRoot ? 'text-xl' : 'text-base',
-            ].join(' ')}
+            )}
           >
             {initials}
           </span>
         </div>
         <div
           aria-hidden="true"
-          className={[
+          className={cn(
             'flex size-8 items-center justify-center rounded-lg transition-colors',
             tone === 'sky'
               ? 'bg-sky-500/10 text-sky-500/70 group-hover:bg-sky-500/15 group-hover:text-sky-500'
               : 'bg-foreground/5 text-foreground/40 group-hover:bg-foreground/10 group-hover:text-foreground/70',
-          ].join(' ')}
+          )}
         >
           <Icon aria-hidden="true" className="size-4" />
         </div>
@@ -121,20 +122,20 @@ function MemberCard({
       {/* Body: role + nombre */}
       <div className="flex-1">
         <p
-          className={[
+          className={cn(
             'text-[10px] font-semibold tracking-wider uppercase',
             tone === 'sky'
               ? 'text-sky-600/80 dark:text-sky-300/80'
-              : 'text-foreground/50 dark:text-foreground/50',
-          ].join(' ')}
+              : 'text-foreground/50',
+          )}
         >
           {member.role}
         </p>
         <h3
-          className={[
+          className={cn(
             'text-foreground mt-1.5 font-semibold tracking-tight',
             isRoot ? 'text-2xl' : 'text-lg',
-          ].join(' ')}
+          )}
         >
           {member.name}
         </h3>
@@ -173,7 +174,7 @@ export function CommissionGrid() {
       {/* Línea conectora sutil */}
       <div
         aria-hidden="true"
-        className="from-default-300 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
+        className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
       />
 
       {/* Nivel 1 — 5 miembros directos */}
@@ -187,7 +188,7 @@ export function CommissionGrid() {
       {level2.length > 0 && (
         <div
           aria-hidden="true"
-          className="from-default-300 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
+          className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
         />
       )}
 

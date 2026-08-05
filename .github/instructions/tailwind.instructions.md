@@ -66,6 +66,24 @@ export const rojo = '#D33F49';
 <div className="p-3" />
 ```
 
+## `!important` modifier — SUFFIX in v4
+
+Tailwind v4 invirtió la sintaxis del `!important` con respecto a v3:
+
+```tsx
+// ✅ v4 (este repo): `!` al final, después del valor
+<div className="rounded-md! bg-red-500! hover:bg-red-600/50!" />
+
+// ❌ v3 syntax — todavía compila por compatibilidad pero está deprecada
+<div className="!rounded-md !bg-red-500 hover:!bg-red-600/50" />
+```
+
+Regla: **`!` va al final del utility, no al principio**. Esto es distinto
+de cómo lo hacía v3 (donde `!` era prefijo) y es un error fácil de meter
+si uno viene de v3 o de conocimiento viejo del framework. Si ves
+`!algo-algo` con `!` al principio en código nuevo, corregirlo a `algo!`
+antes de commit.
+
 ## Dark mode
 
 - Tailwind v4 + `next-themes` with `attribute="class"` and

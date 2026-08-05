@@ -24,10 +24,12 @@ export function Hero() {
       <BlurryBlob />
 
       <Container className="animate-fade-in relative z-10 text-center">
-        {/* Eyebrow con escudo — establece la marca desde el primer pixel */}
-        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 backdrop-blur-sm">
+        {/* Eyebrow con escudo — frosted glass con tokens que se adaptan
+            a light/dark. `bg-surface/60` + `border-default-200/40` +
+            `backdrop-blur-md` funcionan en ambos temas. */}
+        <div className="bg-surface/60 border-default-200/40 mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 backdrop-blur-md">
           <Shield aria-hidden="true" className="text-primary size-3.5" />
-          <Eyebrow className="text-default-100 m-0" tone="default">
+          <Eyebrow className="text-foreground m-0" tone="default">
             Club Los Rosarinos Estudiantil
           </Eyebrow>
         </div>

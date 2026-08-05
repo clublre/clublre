@@ -112,7 +112,6 @@ export function MembersTable() {
                       <>
                         <Button
                           className="font-semibold"
-
                           size="sm"
                           variant="primary"
                           onPress={() =>
@@ -123,9 +122,8 @@ export function MembersTable() {
                         </Button>
                         <Button
                           className="font-semibold"
-
                           size="sm"
-                          variant="primary"
+                          variant="danger"
                           onPress={() =>
                             currentMember &&
                             reject(m.id, currentMember.id, 'Sin padrón')
@@ -140,9 +138,8 @@ export function MembersTable() {
                       currentMember?.role === 'admin' && (
                         <Button
                           className="font-semibold"
-
                           size="sm"
-                          variant="outline"
+                          variant="danger"
                           onPress={() =>
                             currentMember &&
                             suspend(m.id, currentMember.id, 'Suspendido')
@@ -154,7 +151,6 @@ export function MembersTable() {
                     {m.accountStatus === 'suspended' && (
                       <Button
                         className="font-semibold"
-
                         size="sm"
                         variant="outline"
                         onPress={() =>

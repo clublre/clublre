@@ -86,6 +86,7 @@ export function ReportDialog({
             <TextArea
               aria-label="Detalle del reporte"
               maxLength={500}
+              placeholder="Opcional — contanos qué pasa con esta publicación."
               rows={4}
               value={detail}
               onChange={(e) => setDetail(e.target.value)}

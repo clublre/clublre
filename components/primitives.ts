@@ -8,12 +8,12 @@ export const title = tv({
   base: 'tracking-tight inline-block font-semibold text-balance',
   variants: {
     color: {
+      // Solo los dos acentos de marca — ver AGENTS.md §2 y
+      // `.github/instructions/taste-skill-coordination.instructions.md` §2.
+      // Variantes "AI-purple/pink/cyan/green" removidas: son
+      // explícitamente anti-pattern per taste-skill §0.D.
       sky: 'bg-gradient-to-r from-sky-500 to-blue-700',
       blue: 'bg-gradient-to-r from-blue-500 to-blue-700',
-      violet: 'bg-gradient-to-r from-fuchsia-400 to-purple-500',
-      cyan: 'bg-gradient-to-r from-cyan-400 to-cyan-500',
-      green: 'bg-gradient-to-r from-green-400 to-green-500',
-      pink: 'bg-gradient-to-r from-pink-400 to-rose-500',
     },
     size: {
       sm: 'text-3xl lg:text-4xl leading-tight',
@@ -32,7 +32,7 @@ export const title = tv({
   },
   compoundVariants: [
     {
-      color: ['sky', 'blue', 'violet', 'cyan', 'green', 'pink'],
+      color: ['sky', 'blue'],
       // leading-[inherit] mantiene el span del gradiente en la
       // misma línea base que el heading padre; sin esto el span
       // inline-block desarrolla su propio line-height.

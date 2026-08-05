@@ -5,6 +5,8 @@ interface BlobProps extends React.HTMLAttributes<HTMLDivElement> {
   firstBlobColor?: string;
   /** Color del segundo blob — suele ser blue (cobalto). */
   secondBlobColor?: string;
+  /** Clases mergeadas al contenedor externo (no a los blobs). */
+  className?: string;
 }
 
 /** Blobs animados decorativos con colores de marca. Usar dentro de
@@ -17,20 +19,21 @@ export default function BlurryBlob({
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className={cn(
+        'pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen',
+        className,
+      )}
     >
       <div className="relative h-full w-full">
         <div
           className={cn(
-            'animate-pop-blob absolute -top-28 -right-24 h-72 w-72 rounded-full p-8 opacity-45 mix-blend-multiply blur-3xl filter',
-            className,
+            'animate-pop-blob absolute -top-28 -right-24 h-72 w-72 rounded-full p-8 opacity-45 blur-3xl filter',
             firstBlobColor,
           )}
         />
         <div
           className={cn(
-            'animate-pop-blob absolute -top-64 -left-40 h-72 w-72 rounded-full p-8 opacity-45 mix-blend-multiply blur-3xl filter',
-            className,
+            'animate-pop-blob absolute -top-64 -left-40 h-72 w-72 rounded-full p-8 opacity-45 blur-3xl filter',
             secondBlobColor,
           )}
         />
