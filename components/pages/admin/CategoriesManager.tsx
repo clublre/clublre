@@ -1,6 +1,6 @@
 'use client';
 
-import { Chip } from '@heroui/react';
+import { Chip, Table } from '@heroui/react';
 
 import { categories } from '@/data/marketplace';
 
@@ -12,51 +12,45 @@ const TYPE_LABEL = {
 
 /** Manager de categorías — sólo lectura en la maqueta. En
  *  producción este componente tendría un form para alta / baja
- *  + drag & drop para reordenar. */
+ *  + drag & drop para reordenar. Built sobre HeroUI v3 Table. */
 export function CategoriesManager() {
   return (
-    <div className="bg-surface shadow-club overflow-hidden rounded-2xl">
-      {categories.length === 0 ? (
-        <div className="text-default-600 px-6 py-12 text-center text-sm">
-          No hay categorías todavía.
-        </div>
-      ) : (
-        <table className="w-full text-left text-sm">
-          <thead className="text-default-500 text-xs tracking-wider uppercase">
-            <tr>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Categoría
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Tipo
-              </th>
-              <th className="px-4 py-3 font-medium" scope="col">
-                Icono
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-default-200/60 divide-y">
+    <Table aria-label="Lista de categorías">
+      <Table.ScrollContainer>
+        <Table.Content className="min-w-125">
+          <Table.Header>
+            <Table.Column isRowHeader>Categoría</Table.Column>
+            <Table.Column>Tipo</Table.Column>
+            <Table.Column>Icono</Table.Column>
+          </Table.Header>
+          <Table.Body
+            renderEmptyState={() => (
+              <div className="text-default-600 py-12 text-center text-sm">
+                No hay categorías todavía.
+              </div>
+            )}
+          >
             {categories.map((c) => (
-              <tr key={c.id}>
-                <td className="px-4 py-3 font-medium">{c.name}</td>
-                <td className="px-4 py-3">
+              <Table.Row key={c.id} id={c.id}>
+                <Table.Cell className="font-medium">{c.name}</Table.Cell>
+                <Table.Cell>
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color="default"
                     size="sm"
                     variant="soft"
                   >
                     {TYPE_LABEL[c.type]}
                   </Chip>
-                </td>
-                <td className="text-default-500 px-4 py-3 font-mono text-xs">
+                </Table.Cell>
+                <Table.Cell className="text-default-500 font-mono text-xs">
                   {c.icon}
-                </td>
-              </tr>
+                </Table.Cell>
+              </Table.Row>
             ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+          </Table.Body>
+        </Table.Content>
+      </Table.ScrollContainer>
+    </Table>
   );
 }

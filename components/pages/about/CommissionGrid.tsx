@@ -167,7 +167,7 @@ export function CommissionGrid() {
       {/* Presidente — card featured, centrada */}
       <div className="flex justify-center">
         <div className="w-full max-w-sm">
-          <MemberCard member={root} isRoot />
+          <MemberCard isRoot member={root} />
         </div>
       </div>
 
@@ -180,7 +180,7 @@ export function CommissionGrid() {
       {/* Nivel 1 — 5 miembros directos */}
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {level1.map((member) => (
-          <MemberCard key={member.id} member={member} isRoot={false} />
+          <MemberCard key={member.id} isRoot={false} member={member} />
         ))}
       </div>
 
@@ -196,7 +196,7 @@ export function CommissionGrid() {
       {level2.length > 0 && (
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:mx-auto lg:max-w-3xl">
           {level2.map((member) => (
-            <MemberCard key={member.id} member={member} isRoot={false} />
+            <MemberCard key={member.id} isRoot={false} member={member} />
           ))}
         </div>
       )}

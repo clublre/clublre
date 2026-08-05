@@ -12,7 +12,7 @@ import {
   Storefront,
 } from '@/components/ui/Icons';
 import { usePathname } from 'next/navigation';
-import { Badge, Button, Drawer } from '@heroui/react';
+import { Button, Drawer } from '@heroui/react';
 
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/ui/Icons';
@@ -137,8 +137,10 @@ export const Navbar = () => {
             <ThemeToggle />
           </div>
 
-          {/* Lado derecho mobile — solo el trigger de hamburguesa */}
-          <div className="flex items-center sm:hidden">
+          {/* Lado derecho mobile — avatar + hamburguesa. El ThemeToggle
+              vive en el Drawer.Header, no hace falta duplicarlo acá. */}
+          <div className="flex items-center gap-1 sm:hidden">
+            {session ? <UserMenu /> : <SignInTrigger />}
             <IconButton
               aria-label="Abrir menú de navegación"
               size="md"
@@ -181,14 +183,22 @@ export const Navbar = () => {
             <Drawer.Body className="flex flex-col gap-4">
               <nav aria-label="Menú principal" className="flex-1">
                 <ul className="flex flex-col gap-1">
-                  {visibleNavMenuItems.map((item) => {
+                  {visibleNavMenuItems.map((item, i) => {
                     const Icon =
                       (item.href in NAV_ICONS
                         ? NAV_ICONS[item.href as NavHref]
                         : null) ?? Info;
                     const current = isCurrent(item.href);
                     return (
-                      <li key={item.href}>
+                      <li
+                        key={item.href}
+                        className="nav-item-anim"
+                        style={
+                          {
+                            '--nav-delay': `${i * 40}ms`,
+                          } as React.CSSProperties
+                        }
+                      >
                         <NextLink
                           aria-current={current ? 'page' : undefined}
                           className={cn(
@@ -210,17 +220,6 @@ export const Navbar = () => {
                             )}
                           />
                           <span>{item.label}</span>
-                          {current ? (
-                            <Badge
-                              aria-hidden="true"
-                              className="ml-auto tracking-wider uppercase"
-                              color="accent"
-                              size="sm"
-                              variant="primary"
-                            >
-                              Activa
-                            </Badge>
-                          ) : null}
                         </NextLink>
                       </li>
                     );
@@ -229,7 +228,14 @@ export const Navbar = () => {
               </nav>
 
               {/* CTA primario anclado al fondo del body */}
-              <div className="mt-auto">
+              <div
+                className="nav-item-anim mt-auto"
+                style={
+                  {
+                    '--nav-delay': `${visibleNavMenuItems.length * 40}ms`,
+                  } as React.CSSProperties
+                }
+              >
                 <NextLink
                   className="block"
                   href={session ? routes.marketplaceNew : routes.login}

@@ -66,6 +66,27 @@ export const rojo = '#D33F49';
 <div className="p-3" />
 ```
 
+### Equivalencias canónicas de valores numéricos
+
+Tailwind v4 genera named utilities para `calc(var(--spacing) * N)`.
+Usá el nombre en vez de arbitrary values:
+
+| Arbitrary       | Named (v4)  | Equivale a |
+| --------------- | ----------- | ---------- |
+| `h-[400px]`     | `h-100`     | 25rem      |
+| `h-[360px]`     | `h-90`      | 22.5rem    |
+| `w-[760px]`     | `w-190`     | 47.5rem    |
+| `w-[200px]`     | `w-50`      | 12.5rem    |
+| `min-h-[360px]` | `min-h-90`  | 22.5rem    |
+| `min-w-[760px]` | `min-w-190` | 47.5rem    |
+| `p-[128px]`     | `p-128`     | 32rem      |
+
+Regla: **preferir el named class (`h-100`) sobre el arbitrary value
+(`h-[400px]`)**. Si necesitás un valor nuevo, verificar si el
+multiplicador existe antes de caer a `h-[XXXpx]`. El formatter
+del proyecto (Prettier) los normaliza — si escribís `h-[400px]`, lo
+va a convertir a `h-100` eventualmente.
+
 ## `!important` modifier — SUFFIX in v4
 
 Tailwind v4 invirtió la sintaxis del `!important` con respecto a v3:

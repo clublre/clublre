@@ -15,8 +15,13 @@ const section = tv({
     },
     spacing: {
       none: 'py-0',
+      /** Compacto: para páginas internas (admin, cuenta, login, etc.). */
+      xs: 'py-6 md:py-10',
+      /** Default para páginas de info. */
       sm: 'py-10 md:py-14',
+      /** Para secciones dentro de home (entre componentes). */
       md: 'py-16 md:py-20',
+      /** Generoso: para hero / landing. */
       lg: 'py-20 md:py-28',
     },
   },

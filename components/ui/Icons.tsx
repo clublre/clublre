@@ -62,8 +62,23 @@ export const ArrowLeft = (p: Omit<IconProps, 'icon'>) => (
 export const ArrowRight = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="arrow-right" {...p} />
 );
+export const CaretRight = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="caret-right" {...p} />
+);
+export const CaretDown = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="caret-down" {...p} />
+);
 export const ArrowUp = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="arrow-up" {...p} />
+);
+export const ArrowDown = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="arrow-down" {...p} />
+);
+export const Search = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="magnifying-glass" {...p} />
+);
+export const DotsVertical = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="dots-three-vertical" {...p} />
 );
 export const Menu = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="list" {...p} />
@@ -91,6 +106,25 @@ export const Calendar = (p: Omit<IconProps, 'icon'>) => (
 );
 export const Check = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="check" {...p} />
+);
+export const X = (p: Omit<IconProps, 'icon'>) => <Phosphor icon="x" {...p} />;
+export const FunnelX = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="funnel-x" {...p} />
+);
+export const Download = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="download-simple" {...p} />
+);
+export const MagnifyingGlass = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="magnifying-glass" {...p} />
+);
+export const Pause = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="pause" {...p} />
+);
+export const Play = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="play" {...p} />
+);
+export const Archive = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="archive" {...p} />
 );
 export const Shield = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="shield" {...p} />

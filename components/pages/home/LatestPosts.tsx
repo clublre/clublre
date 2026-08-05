@@ -39,7 +39,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
         <ul className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
             <li key={post.slug} className="h-full">
-              <Reveal delay={i * 80} className="h-full">
+              <Reveal className="h-full" delay={i * 80}>
                 <NextLink
                   aria-label={`Leer ${post.title}`}
                   className={cn(
@@ -50,7 +50,7 @@ export function LatestPosts({ posts }: LatestPostsProps) {
                 >
                   <div className="text-default-500 mb-2 flex items-center gap-3 text-xs">
                     <Chip
-                      className="tracking-wider uppercase"
+                      className="capitalize"
                       color="accent"
                       size="sm"
                       variant="soft"

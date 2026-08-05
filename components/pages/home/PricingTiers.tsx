@@ -28,7 +28,7 @@ export function PricingTiers() {
     <>
       <div className="grid items-stretch gap-6 md:grid-cols-3">
         {pricingTiers.map((tier, i) => (
-          <Reveal key={tier.id} delay={i * 100} className="h-full">
+          <Reveal key={tier.id} className="h-full" delay={i * 100}>
             <CardClub
               className="group flex h-full flex-col"
               highlighted={tier.highlighted}

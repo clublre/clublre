@@ -5,6 +5,7 @@
 
 import { useMemo, useState } from 'react';
 
+import { Storefront } from '@/components/ui/Icons';
 import {
   MarketplaceFilters,
   type MarketplaceFilterState,
@@ -81,7 +82,7 @@ export function MarketplaceBrowser() {
         <ul className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((listing: Listing, i) => (
             <li key={listing.id} className="h-full">
-              <Reveal delay={Math.min(i * 60, 480)} className="h-full">
+              <Reveal className="h-full" delay={Math.min(i * 60, 480)}>
                 <ListingCard
                   listing={listing}
                   owner={memberById.get(listing.ownerId)}
@@ -97,7 +98,11 @@ export function MarketplaceBrowser() {
 
 function EmptyState() {
   return (
-    <div className="bg-surface shadow-club rounded-2xl p-10 text-center">
+    <div className="bg-surface shadow-club flex flex-col items-center rounded-2xl p-10 text-center">
+      <Storefront
+        aria-hidden="true"
+        className="text-default-300 mb-4 size-10"
+      />
       <p className="text-default-700 text-base font-medium">
         Todavía no hay publicaciones que coincidan con tu búsqueda.
       </p>

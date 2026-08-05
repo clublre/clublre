@@ -67,7 +67,7 @@ export function ListingDetailClient({
   const category = findCategory(listing.categoryId, categories);
 
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container size="md">
         <NextLink
           className="text-default-600 hover:text-primary mb-6 inline-flex items-center gap-2 text-sm"
@@ -78,7 +78,7 @@ export function ListingDetailClient({
 
         <div className="flex items-center gap-2 text-xs">
           <Chip
-            className="tracking-wider uppercase"
+            className="capitalize"
             color="accent"
             size="sm"
             variant="soft"
@@ -86,7 +86,7 @@ export function ListingDetailClient({
             {category?.name ?? 'Sin categoría'}
           </Chip>
           <Chip
-            className="tracking-wider uppercase"
+            className="capitalize"
             color={listing.type === 'service' ? 'accent' : 'default'}
             size="sm"
             variant={listing.type === 'service' ? 'primary' : 'soft'}
@@ -95,7 +95,7 @@ export function ListingDetailClient({
           </Chip>
           {listing.status === 'reserved' && (
             <Chip
-              className="tracking-wider uppercase"
+              className="capitalize"
               color="accent"
               size="sm"
               variant="primary"

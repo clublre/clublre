@@ -36,7 +36,7 @@ export function ValuesGrid() {
               </CardClubBody>
             </CardClub>
           </Reveal>
-          <Reveal delay={120} className="h-full">
+          <Reveal className="h-full" delay={120}>
             <CardClub className="h-full">
               <CardClubTitle>Formación</CardClubTitle>
               <CardClubBody>
@@ -45,7 +45,7 @@ export function ValuesGrid() {
               </CardClubBody>
             </CardClub>
           </Reveal>
-          <Reveal delay={220} className="h-full">
+          <Reveal className="h-full" delay={220}>
             <CardClub className="h-full">
               <CardClubTitle>Tradición</CardClubTitle>
               <CardClubBody>

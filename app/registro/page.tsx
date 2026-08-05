@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RegistroPage() {
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container className="flex flex-col items-center" size="sm">
         <Eyebrow className="mb-3 block" tone="sky">
           Nuevo socio

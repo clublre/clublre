@@ -1,6 +1,8 @@
 'use client';
 import { useMemo } from 'react';
 
+import { Table } from '@heroui/react';
+
 import { useMarketplaceStore } from '@/stores/marketplace-store';
 import { useAuthStore } from '@/stores/auth-store';
 
@@ -15,7 +17,7 @@ const formatDate = (iso: string) =>
 
 /** Tabla de auditoría append-only — todas las acciones del
  *  panel pasan por acá. En producción la tabla vive en Supabase
- *  con RLS que impide UPDATE / DELETE. */
+ *  con RLS que impide UPDATE / DELETE. Built sobre HeroUI v3 Table. */
 export function AuditLog() {
   const entries = useMarketplaceStore((s) => s.audit);
   const members = useAuthStore((s) => s.members);
@@ -24,55 +26,45 @@ export function AuditLog() {
     [members],
   );
 
-  if (entries.length === 0) {
-    return (
-      <p className="text-default-600 text-sm">
-        Todavía no hay acciones registradas.
-      </p>
-    );
-  }
-
   return (
-    <div className="bg-surface shadow-club overflow-hidden rounded-2xl">
-      <table className="w-full text-left text-sm">
-        <thead className="text-default-500 text-xs tracking-wider uppercase">
-          <tr>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Fecha
-            </th>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Actor
-            </th>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Acción
-            </th>
-            <th className="px-4 py-3 font-medium" scope="col">
-              Nota
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-default-200/60 divide-y">
-          {entries.map((entry) => {
-            const actor = memberById.get(entry.actorId);
-            return (
-              <tr key={entry.id}>
-                <td className="text-default-600 px-4 py-3 text-xs whitespace-nowrap">
-                  {formatDate(entry.createdAt)}
-                </td>
-                <td className="px-4 py-3 text-sm">
-                  {actor
-                    ? `${actor.fullName} ${actor.lastInitial}.`
-                    : entry.actorId}
-                </td>
-                <td className="px-4 py-3">{entry.action}</td>
-                <td className="text-default-600 px-4 py-3 text-xs">
-                  {entry.note || '—'}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <Table aria-label="Registro de auditoría">
+      <Table.ScrollContainer>
+        <Table.Content className="min-w-150">
+          <Table.Header>
+            <Table.Column isRowHeader>Fecha</Table.Column>
+            <Table.Column>Actor</Table.Column>
+            <Table.Column>Acción</Table.Column>
+            <Table.Column>Nota</Table.Column>
+          </Table.Header>
+          <Table.Body
+            renderEmptyState={() => (
+              <p className="text-default-600 py-12 text-center text-sm">
+                Todavía no hay acciones registradas.
+              </p>
+            )}
+          >
+            {entries.map((entry) => {
+              const actor = memberById.get(entry.actorId);
+              return (
+                <Table.Row key={entry.id} id={entry.id}>
+                  <Table.Cell className="text-default-600 text-xs whitespace-nowrap">
+                    {formatDate(entry.createdAt)}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {actor
+                      ? `${actor.fullName} ${actor.lastInitial}.`
+                      : entry.actorId}
+                  </Table.Cell>
+                  <Table.Cell>{entry.action}</Table.Cell>
+                  <Table.Cell className="text-default-600 text-xs">
+                    {entry.note || '—'}
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
+          </Table.Body>
+        </Table.Content>
+      </Table.ScrollContainer>
+    </Table>
   );
 }

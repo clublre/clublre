@@ -67,7 +67,7 @@ export function ReportsQueue() {
               <div className="min-w-0 grow">
                 <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color="warning"
                     size="sm"
                     variant="primary"
@@ -75,7 +75,7 @@ export function ReportsQueue() {
                     {REASON_LABEL[report.reason]}
                   </Chip>
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color="accent"
                     size="sm"
                     variant="soft"

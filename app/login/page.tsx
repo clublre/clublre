@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container className="flex flex-col items-center" size="sm">
         <Eyebrow className="mb-3 block" tone="sky">
           Acceso de socios

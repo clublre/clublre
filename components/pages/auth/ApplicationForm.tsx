@@ -6,7 +6,6 @@ import {
   Button,
   Description,
   FieldError,
-  Input,
   InputGroup,
   Label,
   TextArea,
@@ -57,7 +56,7 @@ export function ApplicationForm() {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-      <TextField isRequired fullWidth name="fullName">
+      <TextField fullWidth isRequired name="fullName">
         <Label>Nombre completo</Label>
         <InputGroup fullWidth>
           <InputGroup.Prefix>
@@ -71,7 +70,7 @@ export function ApplicationForm() {
         </InputGroup>
       </TextField>
 
-      <TextField isRequired fullWidth name="email">
+      <TextField fullWidth isRequired name="email">
         <Label>Email</Label>
         <InputGroup fullWidth>
           <InputGroup.Prefix>
@@ -90,7 +89,7 @@ export function ApplicationForm() {
         </Description>
       </TextField>
 
-      <TextField isRequired fullWidth name="zone">
+      <TextField fullWidth isRequired name="zone">
         <Label>Zona</Label>
         <InputGroup fullWidth>
           <InputGroup.Prefix>

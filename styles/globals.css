@@ -372,3 +372,52 @@ a[href] {
     transition: none;
   }
 }
+
+/* Animación de entrada para los items del Drawer mobile.
+   Cada <li> con `.nav-item-anim` espera `--nav-delay` y entra
+   deslizando desde la izquierda. Como el Drawer de HeroUI v3
+   desmonta el contenido al cerrarse, la animación corre cada vez
+   que se abre. */
+@keyframes navItemIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-0.5rem, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.nav-item-anim {
+  animation: navItemIn 0.32s cubic-bezier(0.2, 0, 0, 1) both;
+  animation-delay: var(--nav-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+/* Underline animado para links — el underline se "dibuja" desde
+   izq a der al hover. Usamos `background-image` en lugar de
+   `border-bottom` para evitar reflow. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-item-anim {
+    animation: none;
+  }
+  .link-underline,
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 0% 0;
+  }
+}

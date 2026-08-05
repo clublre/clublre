@@ -24,7 +24,9 @@ export default function EditListingPage() {
 
   // Suscripción directa al store: re-renderiza cuando el socio
   // cambie el status o las publicaciones muten.
-  const listing = useMarketplaceStore((s) => s.listings.find((l) => l.id === id));
+  const listing = useMarketplaceStore((s) =>
+    s.listings.find((l) => l.id === id),
+  );
 
   useEffect(() => {
     if (!mounted) return;
@@ -70,7 +72,7 @@ export default function EditListingPage() {
   }
 
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container className="flex flex-col" size="md">
         <Eyebrow className="mb-3 block" tone="sky">
           Editar publicación

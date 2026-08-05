@@ -12,6 +12,7 @@ import {
   categories,
   findCategory,
 } from '@/data/marketplace';
+import { Archive, Check, X } from '@/components/ui/Icons';
 import { routes } from '@/lib/routes';
 
 const STATUS_LABEL: Record<ListingStatus, string> = {
@@ -89,7 +90,7 @@ export function ListingsModeration() {
               <div className="min-w-0 grow">
                 <div className="mb-2 flex flex-wrap items-center gap-2 text-xs">
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color="accent"
                     size="sm"
                     variant="soft"
@@ -97,7 +98,7 @@ export function ListingsModeration() {
                     {category?.name ?? 'Sin categoría'}
                   </Chip>
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color={STATUS_COLOR[listing.status]}
                     size="sm"
                     variant={
@@ -132,8 +133,7 @@ export function ListingsModeration() {
                 {listing.status === 'pending_review' && (
                   <>
                     <Button
-                      className="font-semibold"
-
+                      className="inline-flex items-center gap-1.5 font-semibold"
                       size="sm"
                       variant="primary"
                       onPress={() =>
@@ -146,13 +146,13 @@ export function ListingsModeration() {
                         )
                       }
                     >
+                      <Check aria-hidden="true" className="size-4 shrink-0" />
                       Aprobar
                     </Button>
                     <Button
-                      className="font-semibold"
-
+                      className="inline-flex items-center gap-1.5 font-semibold"
                       size="sm"
-                      variant="primary"
+                      variant="danger"
                       onPress={() =>
                         currentMember &&
                         setListingStatus(
@@ -163,13 +163,14 @@ export function ListingsModeration() {
                         )
                       }
                     >
+                      <X aria-hidden="true" className="size-4 shrink-0" />
                       Rechazar
                     </Button>
                   </>
                 )}
                 {listing.status === 'published' && (
                   <Button
-                    className="font-semibold"
+                    className="inline-flex items-center gap-1.5 font-semibold"
                     size="sm"
                     variant="outline"
                     onPress={() =>
@@ -182,6 +183,7 @@ export function ListingsModeration() {
                       )
                     }
                   >
+                    <Archive aria-hidden="true" className="size-4 shrink-0" />
                     Archivar
                   </Button>
                 )}

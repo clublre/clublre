@@ -14,19 +14,26 @@ interface StatCardProps {
 }
 
 function StatCard({ label, value, hint, href }: StatCardProps) {
+  // `h-full` + `flex flex-col` hace que la card ocupe toda la altura
+  // de su row del grid (CSS Grid estira items al alto del row).
+  // `mt-auto` en el hint lo empuja al fondo — así cuando una card
+  // tiene descripción de 2 líneas y las demás 1, los hints quedan
+  // alineados al bottom en vez de "flotando" en alturas distintas.
   const body = (
-    <div className="bg-surface shadow-club rounded-2xl p-5">
+    <div className="bg-surface shadow-club flex h-full flex-col rounded-2xl p-5">
       <p className="text-default-500 text-xs tracking-wider uppercase">
         {label}
       </p>
       <p className="text-foreground mt-2 text-3xl font-bold">{value}</p>
-      {hint ? <p className="text-default-500 mt-1 text-xs">{hint}</p> : null}
+      {hint ? (
+        <p className="text-default-500 mt-auto pt-1 text-xs">{hint}</p>
+      ) : null}
     </div>
   );
   if (href) {
     return (
       <NextLink
-        className="block transition-transform hover:-translate-y-0.5"
+        className="block h-full transition-transform hover:-translate-y-0.5"
         href={href}
       >
         {body}

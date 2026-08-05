@@ -38,6 +38,9 @@ export interface AuthState {
   /** Acciones de la maqueta. */
   signInWithGoogle: () => Promise<{ ok: boolean; error?: string }>;
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>;
+  /** Login directo como un miembro específico — sólo para la maqueta,
+   *  permite saltar entre socio / moderador / admin sin backend. */
+  signInAs: (memberId: string) => { ok: boolean; error?: string };
   signOut: () => void;
 
   applyForMembership: (input: {
@@ -127,6 +130,21 @@ export const useAuthStore = create<AuthState>()(
           return {
             ok: false,
             error: 'Tu cuenta está suspendida. Contactá a la comisión.',
+          };
+        }
+        set({ session: { memberId: member.id, snapshot: member } });
+        return { ok: true };
+      },
+
+      signInAs(memberId) {
+        const member = get().members.find((m) => m.id === memberId);
+        if (!member) {
+          return { ok: false, error: `Miembro ${memberId} no existe.` };
+        }
+        if (member.accountStatus === 'suspended') {
+          return {
+            ok: false,
+            error: 'Esta cuenta está suspendida. Contactá a la comisión.',
           };
         }
         set({ session: { memberId: member.id, snapshot: member } });

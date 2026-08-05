@@ -51,7 +51,7 @@ export function ActivitiesSection() {
             const meta = ACTIVITY_ICONS[activity.id] ?? { icon: MedalIcon };
             const Icon = meta.icon;
             return (
-              <Reveal key={activity.id} delay={i * 80} className="h-full">
+              <Reveal key={activity.id} className="h-full" delay={i * 80}>
                 <CardClub className="group flex h-full flex-col">
                   <CardClubHeader>
                     <span

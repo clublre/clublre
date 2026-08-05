@@ -40,10 +40,10 @@ export function Reveal({
   return (
     <div
       ref={ref}
+      className={cn(className)}
       data-reveal="pending"
       data-revealed="false"
       style={delay > 0 ? { transitionDelay: '${delay}ms' } : undefined}
-      className={cn(className)}
       {...props}
     >
       {children}

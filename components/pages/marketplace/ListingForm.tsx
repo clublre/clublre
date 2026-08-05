@@ -196,7 +196,7 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select.Popover>
       </Select>
 
-      <TextField isRequired fullWidth name="title">
+      <TextField fullWidth isRequired name="title">
         <Label>Título</Label>
         <Input
           placeholder="Botines de básquet talle 42 — casi nuevos"
@@ -294,7 +294,7 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select>
 
         {priceMode !== 'free' && priceMode !== 'contact' && (
-          <TextField isRequired fullWidth name="price">
+          <TextField fullWidth isRequired name="price">
             <Label>Precio</Label>
             <InputGroup fullWidth>
               <InputGroup.Prefix>$</InputGroup.Prefix>
@@ -310,7 +310,7 @@ export function ListingForm({ initial }: ListingFormProps) {
         )}
       </div>
 
-      <TextField isRequired fullWidth name="zone">
+      <TextField fullWidth isRequired name="zone">
         <Label>Zona</Label>
         <InputGroup fullWidth>
           <InputGroup.Prefix>
@@ -350,7 +350,7 @@ export function ListingForm({ initial }: ListingFormProps) {
         </Select.Popover>
       </Select>
 
-      <TextField isRequired fullWidth name="contactHandle">
+      <TextField fullWidth isRequired name="contactHandle">
         <Label>
           {contactPreference === 'whatsapp' ? 'Número de WhatsApp' : 'Email'}
         </Label>

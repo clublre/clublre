@@ -14,6 +14,8 @@ import { Navbar } from '@/components/organisms/Navbar';
 import { Footer } from '@/components/organisms/Footer';
 import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { BackToTop } from '@/components/ui/BackToTop';
+import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { AdminNavBar } from '@/components/layouts/AdminNavBar';
 
 // Payload JSON-LD SportsClub para rich results de Google.
 // El `@id` da una identidad estable para que Google deduplique
@@ -148,6 +150,8 @@ export default function RootLayout({
           <BackToTop />
           <div className="relative flex min-h-screen flex-col">
             <Navbar />
+            <Breadcrumb />
+            <AdminNavBar />
             <main className="grow" id="main-content" tabIndex={-1}>
               {children}
             </main>

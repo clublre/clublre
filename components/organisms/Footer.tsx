@@ -1,10 +1,9 @@
 import NextLink from 'next/link';
-import { ArrowUp, MapPin, Phone } from '@/components/ui/Icons';
+import { MapPin, Phone } from '@/components/ui/Icons';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Logo, InstagramIcon } from '@/components/ui/Icons';
-import { cn } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
@@ -51,23 +50,23 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Phone
                   aria-hidden="true"
-                  className="text-primary size-4 shrink-0"
+                  className="text-primary size-4 shrink-0 transition-transform group-hover:scale-110"
                 />
                 <a
-                  className="hover:text-primary transition-colors"
+                  className="link-underline hover:text-primary transition-colors"
                   href="tel:+543414351273"
                 >
                   +54 341 435 1273
                 </a>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="group flex items-center gap-2.5">
                 <InstagramIcon
                   aria-hidden="true"
-                  className="text-primary size-4 shrink-0"
+                  className="text-primary size-4 shrink-0 transition-transform group-hover:scale-110"
                 />
                 <a
                   aria-label="Instagram (se abre en una pestaña nueva)"
-                  className="hover:text-primary transition-colors"
+                  className="link-underline hover:text-primary transition-colors"
                   href={siteConfig.links.instagram}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -86,20 +85,7 @@ export function Footer() {
           <p>
             © {year} {siteConfig.name}. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-4">
-            <p className="hidden sm:block">Hecho con ♥ en Rosario.</p>
-            <a
-              aria-label="Volver arriba"
-              className={cn(
-                'bg-foreground/5 text-default-600 hover:bg-foreground/10 hover:text-primary',
-                'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs transition-colors',
-              )}
-              href="#top"
-            >
-              <ArrowUp aria-hidden="true" className="size-3" />
-              Arriba
-            </a>
-          </div>
+          <p className="hidden sm:block">Hecho con ♥ en Rosario.</p>
         </Container>
       </div>
     </footer>

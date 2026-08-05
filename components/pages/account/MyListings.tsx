@@ -89,7 +89,7 @@ export function MyListings({ ownerId }: MyListingsProps) {
             <CardClub className="h-full">
               <div className="mb-2 flex items-center justify-between gap-2 text-xs">
                 <Chip
-                  className="tracking-wider uppercase"
+                  className="capitalize"
                   color="accent"
                   size="sm"
                   variant="soft"
@@ -97,7 +97,7 @@ export function MyListings({ ownerId }: MyListingsProps) {
                   {cat?.name ?? 'Sin categoría'}
                 </Chip>
                 <Chip
-                  className="tracking-wider uppercase"
+                  className="capitalize"
                   color={STATUS_COLOR[listing.status]}
                   size="sm"
                   variant="soft"

@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import { Chip } from '@heroui/react';
-import { ArrowRight } from '@/components/ui/Icons';
+import { ArrowRight, Newspaper } from '@/components/ui/Icons';
 
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
@@ -30,7 +30,11 @@ export function PostList() {
     return (
       <Section as="section" spacing="lg">
         <Container size="md">
-          <div className="bg-surface shadow-club rounded-2xl p-10 text-center">
+          <div className="bg-surface shadow-club flex flex-col items-center rounded-2xl p-10 text-center">
+            <Newspaper
+              aria-hidden="true"
+              className="text-default-300 mb-4 size-10"
+            />
             <p className="text-default-700 text-base font-medium">
               Todavía no hay notas publicadas.
             </p>
@@ -48,11 +52,11 @@ export function PostList() {
       <Container>
         <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {postsNewestFirst.map((post, i) => (
-            <Reveal key={post.slug} delay={i * 80} className="h-full">
+            <Reveal key={post.slug} className="h-full" delay={i * 80}>
               <CardClub className="group flex h-full flex-col">
                 <div className="mb-3 flex items-center justify-between text-xs">
                   <Chip
-                    className="tracking-wider uppercase"
+                    className="capitalize"
                     color="accent"
                     size="sm"
                     variant="soft"

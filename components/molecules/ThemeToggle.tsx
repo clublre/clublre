@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useIsSSR } from '@react-aria/ssr';
 
@@ -30,12 +30,9 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
 
   // Al click, `spinning` va true por ~500ms. El CSS rota el ícono
   // 360° y aprovecha ese intervalo para switchear el sol/luna.
+  // El `setTimeout` resetea a false cuando termina la animación, sin
+  // necesitar un `useEffect` (que dispararía cascading renders).
   const [spinning, setSpinning] = useState(false);
-
-  // Si el tema cambia externamente (system, devtools), resync.
-  useEffect(() => {
-    setSpinning(false);
-  }, [theme]);
 
   const onPress = () => {
     if (spinning) return;
@@ -59,7 +56,7 @@ export const ThemeToggle: FC<ThemeToggleProps> = ({
       >
         <span
           className={
-            'motion-reduce:transition-none inline-flex ' +
+            'inline-flex motion-reduce:transition-none ' +
             (spinning
               ? 'rotate-180 opacity-0 transition-all duration-500 ease-in-out'
               : 'rotate-0 opacity-100 transition-all duration-300 ease-out')

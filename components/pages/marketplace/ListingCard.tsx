@@ -40,32 +40,38 @@ export function ListingCard({ listing, owner }: ListingCardProps) {
       className="block h-full"
       href={routes.marketplaceItem(listing.id)}
     >
-      <CardClub className="hover:border-primary/30 h-full transition-colors">
-        <div className="mb-3 flex items-center justify-between text-xs">
-          <Chip
-            className="tracking-wider uppercase"
-            color="accent"
-            size="sm"
-            variant="soft"
-          >
-            {category?.name ?? 'Sin categoría'}
-          </Chip>
-          <Chip
-            className="tracking-wider uppercase"
-            color={listing.type === 'service' ? 'accent' : 'default'}
-            size="sm"
-            variant={listing.type === 'service' ? 'primary' : 'soft'}
-          >
-            {listing.type === 'service' ? 'Servicio' : 'Bien'}
-          </Chip>
+      <CardClub className="hover:border-primary/30 flex h-full transition-colors">
+        {/* Top — chips, título, descripción. Toma el espacio
+            disponible para empujar el footer al fondo de la card. */}
+        <div className="flex grow flex-col">
+          <div className="mb-3 flex items-center justify-between text-xs">
+            <Chip
+              className="capitalize"
+              color="accent"
+              size="sm"
+              variant="soft"
+            >
+              {category?.name ?? 'Sin categoría'}
+            </Chip>
+            <Chip
+              className="capitalize"
+              color={listing.type === 'service' ? 'accent' : 'default'}
+              size="sm"
+              variant={listing.type === 'service' ? 'primary' : 'soft'}
+            >
+              {listing.type === 'service' ? 'Servicio' : 'Bien'}
+            </Chip>
+          </div>
+          <h3 className="text-foreground group-hover:text-primary line-clamp-2 text-lg font-semibold transition-colors">
+            {listing.title}
+          </h3>
+          <p className="text-default-600 mt-2 line-clamp-3 text-sm">
+            {listing.description}
+          </p>
         </div>
-        <h3 className="text-foreground group-hover:text-primary line-clamp-2 text-lg font-semibold transition-colors">
-          {listing.title}
-        </h3>
-        <p className="text-default-600 mt-2 line-clamp-3 text-sm">
-          {listing.description}
-        </p>
-        <div className="mt-4 flex items-baseline justify-between border-t border-default-200/40 pt-3 text-sm">
+
+        {/* Footer — siempre pegado abajo de la card. */}
+        <div className="border-default-200/40 mt-4 flex items-baseline justify-between border-t pt-3 text-sm">
           <span className="text-default-500">{listing.zone}</span>
           <span className="text-foreground font-bold">
             {listing.priceMode === 'free'

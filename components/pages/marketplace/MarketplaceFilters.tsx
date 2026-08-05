@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { Input, ListBox, Select } from '@heroui/react';
 
+import { cn } from '@/lib/utils';
 import { type Listing, type Category, categories } from '@/data/marketplace';
 
 export interface MarketplaceFilterState {
@@ -57,16 +58,36 @@ export function MarketplaceFilters({
     return categories.filter((c) => c.type === 'both' || c.type === state.type);
   }, [state.type]);
 
+  // Hay filtros activos cuando el usuario modificó algo respecto del
+  // estado default. Sort default es `newest`, así que no entrar ahí.
+  // Contamos cuántos para mostrar "Limpiar N filtros" en el pill.
+  const activeFilterCount =
+    (state.q.trim() !== '' ? 1 : 0) +
+    (state.categoryId !== 'all' ? 1 : 0) +
+    (state.type !== 'all' ? 1 : 0);
+  const hasActiveFilters = activeFilterCount > 0;
+
   return (
     <div className="bg-surface shadow-club mb-6 rounded-2xl p-4 sm:p-5">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Input
-          aria-label="Buscar"
-          placeholder="Botines, raqueta, clases…"
-          type="search"
-          value={state.q}
-          onChange={(e) => onChange({ ...state, q: e.target.value })}
-        />
+        <div className="relative">
+          <Input
+            aria-label="Buscar"
+            placeholder="Botines, raqueta, clases…"
+            type="search"
+            value={state.q}
+            onChange={(e) => onChange({ ...state, q: e.target.value })}
+          />
+          {state.q ? (
+            <button
+              aria-label="Limpiar búsqueda"
+              className="text-default-400 hover:text-default-700 absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-0.5 text-xs transition-colors"
+              onClick={() => onChange({ ...state, q: '' })}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          ) : null}
+        </div>
         <Select
           aria-label="Categoría"
           placeholder={
@@ -164,6 +185,63 @@ export function MarketplaceFilters({
           </Select.Popover>
         </Select>
       </div>
+      {hasActiveFilters ? (
+        <div
+          aria-label="Filtros activos"
+          className="mt-3 flex flex-wrap items-center gap-2"
+        >
+          {state.q.trim() !== '' ? (
+            <button
+              className="bg-primary/15 text-primary hover:bg-primary/25 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
+              onClick={() => onChange({ ...state, q: '' })}
+            >
+              “{state.q.trim()}”
+              <span aria-hidden="true" className="text-base leading-none">
+                ×
+              </span>
+            </button>
+          ) : null}
+          {state.categoryId !== 'all' ? (
+            <button
+              className="bg-primary/15 text-primary hover:bg-primary/25 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
+              onClick={() => onChange({ ...state, categoryId: 'all' })}
+            >
+              {categories.find((c) => c.id === state.categoryId)?.name ??
+                'Categoría'}
+              <span aria-hidden="true" className="text-base leading-none">
+                ×
+              </span>
+            </button>
+          ) : null}
+          {state.type !== 'all' ? (
+            <button
+              className="bg-primary/15 text-primary hover:bg-primary/25 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-colors"
+              onClick={() => onChange({ ...state, type: 'all' })}
+            >
+              {TYPE_OPTIONS.find((t) => t.id === state.type)?.label ?? 'Tipo'}
+              <span aria-hidden="true" className="text-base leading-none">
+                ×
+              </span>
+            </button>
+          ) : null}
+          <button
+            className={cn(
+              'text-default-500 hover:text-primary text-xs transition-colors',
+              activeFilterCount > 1 ? 'ml-1' : 'ml-0',
+            )}
+            onClick={() =>
+              onChange({
+                q: '',
+                categoryId: 'all',
+                type: 'all',
+                sort: 'newest',
+              })
+            }
+          >
+            Limpiar todo
+          </button>
+        </div>
+      ) : null}
       <p className="text-default-500 mt-3 text-xs">{totalLabel}</p>
     </div>
   );

@@ -7,6 +7,7 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
 import { title } from '@/components/primitives';
 import { MarketplaceBrowser } from '@/components/pages/marketplace/MarketplaceBrowser';
+import { StickyPublishButton } from '@/components/pages/marketplace/StickyPublishButton';
 import { routes } from '@/lib/routes';
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function MarketplacePage() {
   return (
-    <Section as="section" spacing="md">
+    <Section as="section" spacing="sm">
       <Container size="xl">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -51,6 +52,7 @@ export default function MarketplacePage() {
 
         <MarketplaceBrowser />
       </Container>
+      <StickyPublishButton />
     </Section>
   );
 }

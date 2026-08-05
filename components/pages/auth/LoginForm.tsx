@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import {
   Button,
   FieldError,
-  Input,
   InputGroup,
   Label,
   TextField,
@@ -19,10 +18,12 @@ import { Envelope } from '@/components/ui/Icons';
 export function LoginForm() {
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
   const signInWithEmail = useAuthStore((s) => s.signInWithEmail);
+  const signInAs = useAuthStore((s) => s.signInAs);
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [devError, setDevError] = useState<string | null>(null);
 
   const handleSuccess = () => {
     router.push(routes.account);
@@ -73,7 +74,7 @@ export function LoginForm() {
       </div>
 
       <form className="flex flex-col gap-3" onSubmit={onEmail}>
-        <TextField isRequired fullWidth isDisabled={isPending} name="email">
+        <TextField fullWidth isRequired isDisabled={isPending} name="email">
           <Label>Email</Label>
           <InputGroup fullWidth>
             <InputGroup.Prefix>
@@ -105,6 +106,72 @@ export function LoginForm() {
         <code className="text-default-700">juan.perez@example.com</code>) o
         Google simulado.
       </p>
+
+      {/* Accesos rápidos de la maqueta — botones hardcodeados para
+          saltar entre socio / moderador / admin sin backend. */}
+      <div className="bg-default-50 dark:bg-default-900/40 mt-2 rounded-2xl p-4">
+        <p className="text-default-500 mb-2 text-xs tracking-wider uppercase">
+          Maqueta · accesos rápidos
+        </p>
+        <div className="grid gap-2 sm:grid-cols-3">
+          <Button
+            className="font-semibold"
+            isDisabled={isPending}
+            size="sm"
+            variant="outline"
+            onPress={() => {
+              setDevError(null);
+              const result = signInAs('member-1');
+              if (!result.ok) {
+                setDevError(result.error ?? 'No se pudo iniciar sesión.');
+                return;
+              }
+              handleSuccess();
+            }}
+          >
+            Como socio
+          </Button>
+          <Button
+            className="font-semibold"
+            isDisabled={isPending}
+            size="sm"
+            variant="secondary"
+            onPress={() => {
+              setDevError(null);
+              const result = signInAs('mod-1');
+              if (!result.ok) {
+                setDevError(result.error ?? 'No se pudo iniciar sesión.');
+                return;
+              }
+              handleSuccess();
+            }}
+          >
+            Como moderador
+          </Button>
+          <Button
+            className="font-semibold"
+            isDisabled={isPending}
+            size="sm"
+            variant="primary"
+            onPress={() => {
+              setDevError(null);
+              const result = signInAs('admin-1');
+              if (!result.ok) {
+                setDevError(result.error ?? 'No se pudo iniciar sesión.');
+                return;
+              }
+              handleSuccess();
+            }}
+          >
+            Como admin
+          </Button>
+        </div>
+        {devError ? (
+          <p className="text-danger mt-2 text-xs" role="alert">
+            {devError}
+          </p>
+        ) : null}
+      </div>
     </div>
   );
 }

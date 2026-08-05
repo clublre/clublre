@@ -53,7 +53,7 @@ export default function AccountStatusPage() {
   const copy = STATUS_COPY[member.accountStatus];
 
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container className="flex flex-col items-center" size="sm">
         <Eyebrow className="mb-3 block" tone="sky">
           Estado de tu cuenta

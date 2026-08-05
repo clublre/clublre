@@ -30,19 +30,19 @@ export function BackToTop() {
 
   return (
     <Button
+      isIconOnly
       aria-label="Volver arriba"
       className={
         // Posición + z-index por encima del contenido principal, debajo del navbar.
         // `pointer-events-none` cuando no está visible para no interceptar clicks.
-        'motion-reduce:transition-none fixed right-4 bottom-4 z-30 ' +
-        'rounded-full shadow-club-lg ' +
+        'fixed right-4 bottom-4 z-30 motion-reduce:transition-none ' +
+        'shadow-club-lg rounded-full ' +
         (visible
-          ? (clicked
-              ? 'pointer-events-auto scale-90 opacity-0 transition-all duration-300'
-              : 'pointer-events-auto scale-100 opacity-100 transition-all duration-300')
+          ? clicked
+            ? 'pointer-events-auto scale-90 opacity-0 transition-all duration-300'
+            : 'pointer-events-auto scale-100 opacity-100 transition-all duration-300'
           : 'pointer-events-none scale-90 opacity-0 transition-all duration-300')
       }
-      isIconOnly
       size="md"
       variant="primary"
       onPress={() => {

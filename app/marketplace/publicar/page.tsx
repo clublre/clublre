@@ -45,7 +45,7 @@ export default function PublishListingPage() {
   }
 
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="sm">
       <Container className="flex flex-col" size="md">
         <Eyebrow className="mb-3 block" tone="sky">
           Nueva publicación

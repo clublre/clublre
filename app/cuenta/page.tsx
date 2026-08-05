@@ -5,7 +5,7 @@
 // asume que ya pasó el gate y muestra la información del socio.
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { Button } from '@heroui/react';
 
@@ -27,6 +27,13 @@ export default function AccountPage() {
   // cliente, así renderizamos el placeholder en ambos. Después del
   // mount leemos la sesión persistida en localStorage.
   const mounted = useHasMounted();
+
+  // `Date.now()` en render es impuro — el cálculo cambia entre renders
+  // y rompe la regla de pureza de React. `useState` con initializer
+  // captura el valor una sola vez al montar el componente, haciendo
+  // el output determinista dado el mismo `member.memberSince`. Tiene
+  // que estar antes de cualquier early return (regla de los Hooks).
+  const [referenceNow] = useState(() => Date.now());
 
   useEffect(() => {
     if (!mounted) return;
@@ -52,7 +59,7 @@ export default function AccountPage() {
   const yearsAsMember = Math.max(
     1,
     Math.floor(
-      (Date.now() - new Date(member.memberSince).getTime()) /
+      (referenceNow - new Date(member.memberSince).getTime()) /
         (365 * 24 * 60 * 60 * 1000),
     ),
   );
@@ -79,7 +86,7 @@ export default function AccountPage() {
         </Container>
       </Section>
 
-      <Section as="section" spacing="lg">
+      <Section as="section" spacing="sm">
         <Container size="md">
           <div className="bg-surface shadow-club mb-10 grid gap-6 rounded-2xl p-6 sm:grid-cols-2 sm:p-8">
             <div>
