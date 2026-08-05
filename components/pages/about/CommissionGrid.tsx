@@ -78,10 +78,10 @@ function MemberCard({
         className={cn(
           'pointer-events-none absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100',
           isRoot
-            ? 'bg-gradient-to-br from-sky-500/10 via-transparent to-sky-500/5'
+            ? 'bg-linear-to-br from-sky-500/10 via-transparent to-sky-500/5'
             : tone === 'sky'
-              ? 'bg-gradient-to-br from-sky-500/8 via-transparent to-sky-500/3'
-              : 'from-foreground/5 to-foreground/0 bg-gradient-to-br via-transparent',
+              ? 'bg-linear-to-br from-sky-500/8 via-transparent to-sky-500/3'
+              : 'from-foreground/5 to-foreground/0 bg-linear-to-br via-transparent',
         )}
       />
 
@@ -93,8 +93,8 @@ function MemberCard({
             'flex items-center justify-center rounded-full ring-2 transition-transform group-hover:scale-105',
             isRoot ? 'size-16' : 'size-12',
             tone === 'sky'
-              ? 'bg-gradient-to-br from-sky-400/30 via-sky-500/20 to-sky-600/25 text-sky-700 ring-sky-500/30 dark:from-sky-400/20 dark:via-sky-500/15 dark:to-sky-600/15 dark:text-sky-200 dark:ring-sky-400/25'
-              : 'from-foreground/15 via-foreground/10 to-foreground/5 text-foreground/80 ring-foreground/15 dark:from-foreground/10 dark:via-foreground/5 dark:to-foreground/0 bg-gradient-to-br',
+              ? 'bg-linear-to-br from-sky-400/30 via-sky-500/20 to-sky-600/25 text-sky-700 ring-sky-500/30 dark:from-sky-400/20 dark:via-sky-500/15 dark:to-sky-600/15 dark:text-sky-200 dark:ring-sky-400/25'
+              : 'from-foreground/15 via-foreground/10 to-foreground/5 text-foreground/80 ring-foreground/15 dark:from-foreground/10 dark:via-foreground/5 dark:to-foreground/0 bg-linear-to-br',
           )}
         >
           <span
@@ -145,7 +145,7 @@ function MemberCard({
       {isRoot && (
         <div
           aria-hidden="true"
-          className="absolute inset-x-5 bottom-0 h-px bg-gradient-to-r from-transparent via-sky-500/30 to-transparent"
+          className="absolute inset-x-5 bottom-0 h-px bg-linear-to-r from-transparent via-sky-500/30 to-transparent"
         />
       )}
     </article>
@@ -174,7 +174,7 @@ export function CommissionGrid() {
       {/* Línea conectora sutil */}
       <div
         aria-hidden="true"
-        className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
+        className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-linear-to-b to-transparent"
       />
 
       {/* Nivel 1 — 5 miembros directos */}
@@ -188,7 +188,7 @@ export function CommissionGrid() {
       {level2.length > 0 && (
         <div
           aria-hidden="true"
-          className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-gradient-to-b to-transparent"
+          className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-linear-to-b to-transparent"
         />
       )}
 
