@@ -515,9 +515,21 @@ TURNSTILE_SECRET_KEY=
 
 ## 8. Roadmap de migración (de la maqueta a producción)
 
+### Pre-Migración (Semana -1) — pre-requisitos
+
+Cerrar antes de arrancar la Semana 1. Son bloqueantes para que la migración a Supabase no se complique con deuda preexistente.
+
+- [ ] **Auditoría full del repo** — a11y, SEO, perf, security, UX vs tendencias 2025-2026 → reporte P0/P1/P2
+- [ ] **DNS `clublre.com.ar`** — NIC debe apuntar el A record a `216.198.79.1` (Vercel ya tiene el dominio agregado, muestra "Invalid Configuration" hasta propagar)
+- [ ] **Speed Insights** — `@vercel/speed-insights` instalado y montado en `app/layout.tsx` (Sentry cleanup ya está hecho en `b211644`)
+- [ ] **Tests** — Vitest para units + Playwright para e2e del flujo crítico (login → publicar → contactar)
+- [ ] **Verificar cobertura de CI** — Husky pre-commit, lint-staged, commit-msg ya están activos; falta el workflow de Vercel Preview en PRs a `develop`
+
+### Migración (Semanas 0-6)
+
 | Sem | Bloque                                                     | Estado    |
 | --- | ---------------------------------------------------------- | --------- |
-| 0   | Remover Sentry + agregar Speed Insights                    | en curso  |
+| 0   | Remover Sentry + agregar Speed Insights                    | parcial   |
 | 1   | Setup Supabase (sa-east-1) + migrations + RLS + seed       | por hacer |
 | 2   | Supabase Auth + `proxy.ts` + reemplazar stores mock        | por hacer |
 | 3   | Marketplace en Server Actions + Supabase Storage           | por hacer |
@@ -525,7 +537,7 @@ TURNSTILE_SECRET_KEY=
 | 5   | Resend + templates + emails en cada Server Action          | por hacer |
 | 6   | i18n (es-AR default, en-US + pt-BR siguientes) + hardening | por hacer |
 
-**6 semanas estimadas para migrar la maqueta a un producto funcional.**
+**6 semanas estimadas para migrar la maqueta a un producto funcional** (sin contar la semana -1).
 
 ---
 
