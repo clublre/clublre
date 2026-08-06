@@ -104,15 +104,6 @@ const nextConfig = {
     ],
   },
   /**
-   * Opt into the CSS View Transitions API for client-side
-   * navigations between App Router routes. The browser will
-   * cross-fade matched elements (those sharing a
-   * `view-transition-name`) automatically. Fallback is an
-   * instant cut in browsers without support (Safari < 18).
-   * Top-level en Next 16 — antes iba dentro de `experimental`.
-   */
-  viewTransition: true,
-  /**
    * React 19 + Next 16: opt into the React Compiler for
    * automatic memoization. Stable in 19; safe for React Aria,
    * HeroUI and most client components since they already mark
