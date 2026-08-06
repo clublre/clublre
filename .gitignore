@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-# npm lockfile — usamos pnpm, no npm
-/package-lock.json
+# pnpm lockfile — usamos npm, no pnpm
+/pnpm-lock.yaml
 # testing
 /coverage
 
