@@ -1,9 +1,7 @@
 import { cn } from '@/lib/utils';
 
-// Capa de iluminación ambiente por página: dos blobs radiales con
-// blur-3xl y alpha bajo, renderizados con mix-blend-screen.
-// `pointer-events-none` + `aria-hidden` para no bloquear clicks ni
-// lectores de pantalla.
+// Capa de iluminación ambiente — blobs radiales blur-3xl con mix-blend-screen.
+// pointer-events-none + aria-hidden para no interferir con UI/lectores.
 
 export type AmbientPreset = 'home' | 'blog' | 'about';
 

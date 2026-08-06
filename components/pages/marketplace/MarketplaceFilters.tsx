@@ -37,9 +37,9 @@ const SORT_OPTIONS: ReadonlyArray<{
   { id: 'price_desc', label: 'Mayor precio' },
 ];
 
-/** Filtros del listado de Entre Socios. La maqueta usa Selects
- *  nativos estilados por HeroUI — el backend real los persistirá
- *  en search params para deep-linkability. */
+// Filtros del listado — Selects
+ //  nativos estilados por HeroUI — el backend real los persistirá
+ //  en search params para deep-linkability. */
 export function MarketplaceFilters({
   state,
   onChange,
@@ -51,16 +51,14 @@ export function MarketplaceFilters({
     return `${total} publicaciones`;
   }, [total]);
 
-  // Las categorías se filtran según el `type` activo — si el socio
-  // eligió "Servicios", las de tipo `good` se ocultan.
+  // Las categorías se filtran según el `type` activo — eligió 'Servicios' oculta 'good'.
   const visibleCategories: ReadonlyArray<Category> = useMemo(() => {
     if (state.type === 'all') return categories;
     return categories.filter((c) => c.type === 'both' || c.type === state.type);
   }, [state.type]);
 
-  // Hay filtros activos cuando el usuario modificó algo respecto del
-  // estado default. Sort default es `newest`, así que no entrar ahí.
-  // Contamos cuántos para mostrar "Limpiar N filtros" en el pill.
+  // Cuenta filtros modificados del default (sort=newest es default, no entra)
+  // para mostrar "Limpiar N filtros" en el pill.
   const activeFilterCount =
     (state.q.trim() !== '' ? 1 : 0) +
     (state.categoryId !== 'all' ? 1 : 0) +

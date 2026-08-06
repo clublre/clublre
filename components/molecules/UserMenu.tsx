@@ -1,10 +1,8 @@
 'use client';
 
-// UserMenu — dropdown del socio logueado. Slot derecho de la navbar.
-// Sigue el patrón HeroUI v3: trigger con `<Avatar>`, header con avatar +
-// nombre + email en el popover, items con icono a la derecha.
-// El chip de rol va en una fila propia debajo del bloque de user
-// (no metido dentro del info del avatar).
+// Dropdown del socio logueado — slot derecho de la navbar.
+// Patrón HeroUI v3: trigger avatar + header (avatar+email) + items con icono.
+// Chip de rol en fila propia, no mezclado con el avatar.
 
 import { useRouter } from 'next/navigation';
 import { Avatar, Chip, Dropdown, Label } from '@heroui/react';
@@ -35,7 +33,7 @@ const ROLE_CHIP: Record<
   admin: { label: 'Administrador', color: 'accent' },
 };
 
-/** Menú de usuario — visible cuando hay sesión activa. */
+// Menú de usuario — visible cuando hay sesión activa.
 export function UserMenu() {
   const member = useCurrentMember();
   const signOut = useAuthStore((s) => s.signOut);
@@ -91,7 +89,6 @@ export function UserMenu() {
         {/* Chip de rol — debajo del bloque user, en su propia fila. */}
         <div className="px-4 pb-3">
           <Chip
-            // className="tracking-wider"
             color="accent"
             size="sm"
             variant="soft"
@@ -155,7 +152,7 @@ export function UserMenu() {
   );
 }
 
-/** Trigger avatar cuando NO hay sesión — ofrece login + registro. */
+// Trigger avatar sin sesión — ofrece login + registro.
 export function SignInTrigger() {
   return (
     <Dropdown>

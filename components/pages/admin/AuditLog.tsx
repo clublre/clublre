@@ -15,9 +15,8 @@ const formatDate = (iso: string) =>
     minute: '2-digit',
   }).format(new Date(iso));
 
-/** Tabla de auditoría append-only — todas las acciones del
- *  panel pasan por acá. En producción la tabla vive en Supabase
- *  con RLS que impide UPDATE / DELETE. Built sobre HeroUI v3 Table. */
+// Tabla de auditoría append-only — todas las acciones del panel pasan por acá.
+// Producción: Supabase + RLS que impide UPDATE/DELETE. Built sobre HeroUI v3 Table.
 export function AuditLog() {
   const entries = useMarketplaceStore((s) => s.audit);
   const members = useAuthStore((s) => s.members);

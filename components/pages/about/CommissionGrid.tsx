@@ -12,7 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 import { commission, type CommissionMember } from '@/data/club';
 
-/** Mapeo rol → icono + tono. Presidente usa un crown distintivo. */
+// Mapeo rol → icono + tono. Presidente usa un crown distintivo.
 function pickRoleVisuals(role: string): {
   Icon: ComponentType<Record<string, unknown>>;
   tone: 'sky' | 'default';
@@ -60,11 +60,10 @@ function MemberCard({
     <article
       className={cn(
         'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-all duration-300',
-        // Base: subtle surface con depth via bg + ring + soft shadow.
-        // `bg-surface-secondary` adapta light/dark sin tocar `dark:`.
+        // bg-surface-secondary adapta light/dark sin tocar dark:.
         'bg-surface-secondary ring-default-200/70 ring-1',
         'shadow-sm hover:-translate-y-1 hover:shadow-lg',
-        // Ring hover: emerge al tono del cargo
+        // Ring hover: emerge al tono del cargo.
         isRoot
           ? 'hover:ring-sky-500/50 dark:hover:ring-sky-400/40'
           : tone === 'sky'
@@ -152,7 +151,7 @@ function MemberCard({
   );
 }
 
-/** Layout de la comisión directiva — grid jerárquico sin react-flow. */
+// Layout de la comisión directiva — grid jerárquico sin react-flow.
 export function CommissionGrid() {
   const root = commission.find((m) => !m.reportsTo);
   if (!root) return null;

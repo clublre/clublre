@@ -1,21 +1,10 @@
-/**
- * Bundle analysis lives in `next experimental-analyze` (Turbopack
- * compatible) and is invoked by `npm run analyze`. Keeping it out
- * of the build path means zero overhead for normal CI / production.
- */
+// Bundle analysis: `npm run analyze` (Turbopack-compatible).
+// Fuera del path de build normal — cero overhead en CI/prod.
 
-/**
- * Security headers — baseline. Tighten further if/when the site
- * starts handling auth, payments or third-party embeds.
- *
- * Notes:
- * - CSP allows self + the data: scheme (used by the OG image for
- *   the embedded base64 shield) plus jsDelivr (next/font)
- * - frame-ancestors 'none' blocks iframe embedding (defence vs
- *   clickjacking even more strictly than X-Frame-Options)
- * - Permissions-Policy locks down camera/mic/geolocation/payment
- *   APIs the site never needs
- */
+// Security headers baseline. CSP permite data: (escudo en OG image
+// como base64) y vercel.live. frame-ancestors 'none' blinda iframes.
+// Permissions-Policy cierra APIs que el sitio no usa. Endurecer
+// cuando se sume auth real.
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
@@ -51,17 +40,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      // next/og embeds the shield as a data: URI, HeroUI inline
-      // styles, and next/font may fetch subsets from gstatic/jsdelivr.
+      // data: requerido por OG image (escudo en base64).
       "img-src 'self' data: blob:",
-      "style-src 'self' 'unsafe-inline'",
-      "font-src 'self' data:",
-      // vercel.live needed for Next 16 dev-mode feedback widget; it's
-      // already allowed in dev via the headers() dev-skip but adding
-      // it here as a defence-in-depth (some browsers / proxies can
-      // re-inject CSP headers after a redirect).
+      "style-src 'self' 'unsafe-inline'",     // HeroUI inline styles
+      "font-src 'self' data:",                // next/font subsets
+      // vercel.live = Next 16 dev-mode feedback widget.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
-      // Vercel Live / Insights beacon + og.xyz type tooling.
       "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live wss://vercel.live",
       "frame-ancestors 'none'",
       'upgrade-insecure-requests',
@@ -73,17 +57,15 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
-  // reactCompiler: { target: '19' },
+  // reactCompiler: { target: '19' },  // listo en 19, lo dejamos comentado hasta sumar CI
   typescript: {
     ignoreBuildErrors: false,
   },
   async headers() {
-    // Headers are NOT applied in `next dev`. Next binds to localhost
-    // only and HMR + Vercel Live feedback + Next dev's liveness
-    // probes need a permissive CSP that breaks the production values.
-    // The `headers()` callback runs in `next build` only when
-    // NODE_ENV=production, but we make the skip explicit here so
-    // every contributor sees why.
+    // Headers solo en producción: en dev el CSP permisivo +
+    // HMR + Vercel Live no funcionan con la CSP estricta.
+    // El callback corre en `next build` con NODE_ENV=production,
+    // pero dejamos el skip explícito para que se vea el porqué.
     if (process.env.NODE_ENV !== 'production') {
       return [];
     }
@@ -95,7 +77,7 @@ const nextConfig = {
     ];
   },
   experimental: {
-    optimizePackageImports: [
+    optimizePackageImports: [       // tree-shaking agresivo para HeroUI / framer-motion
       '@heroui/react',
       '@heroui/styles',
       'react-icons',
@@ -103,17 +85,8 @@ const nextConfig = {
       'framer-motion',
     ],
   },
-  /**
-   * React 19 + Next 16: opt into the React Compiler for
-   * automatic memoization. Stable in 19; safe for React Aria,
-   * HeroUI and most client components since they already mark
-   * pure renders. Drops most manual `useMemo` / `useCallback`
-   * in the codebase (we have a few in Navbar and ThemeToggle
-   * that can stay or be removed later).
-   */
-  reactCompiler: {
-    target: '19',
-  },
+  // React Compiler 19 — memoización automática. Seguro con HeroUI/RAC.
+  reactCompiler: { target: '19' },
 };
 
 module.exports = nextConfig;

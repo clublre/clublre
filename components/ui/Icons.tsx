@@ -1,5 +1,5 @@
-// Iconos de marca + iconos temáticos/nav. Todo el código consume
-// este módulo en vez de tocar @iconify/react directamente.
+// Iconos de marca + temáticos. Wrapper sobre @iconify/react — centraliza
+// la collection de phosphor y los iconos custom del club.
 
 import type { FC, SVGProps } from 'react';
 import type { IconProps as IconifyIconProps } from '@iconify/react';
@@ -49,8 +49,7 @@ export const Logo: FC<LogoProps> = ({
   />
 );
 
-// Helper inline para evitar importar `cn` (mantiene este módulo
-// liviano y sin dependencia cruzada a `lib/utils`).
+// Helper inline (evita dependencia cruzada con lib/utils).
 function cnLogo(cls?: string): string {
   return ['h-auto w-auto rounded-full', cls].filter(Boolean).join(' ');
 }

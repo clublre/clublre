@@ -1,8 +1,7 @@
 'use client';
 
-// Loading UI para `/blog/[slug]`. Renderiza el layout real del post
-// dentro de `<phantom-ui loading>` para que los shimmer blocks matcheen
-// la geometría real (largo del título, ancho de párrafos).
+// Loading UI de `/blog/[slug]` — dentro de `<phantom-ui loading>` para
+// que los shimmers matcheen la geometría real.
 
 import NextLink from 'next/link';
 import { ArrowLeft } from '@/components/ui/Icons';

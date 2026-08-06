@@ -16,7 +16,7 @@ import { useAuthStore } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
 import { Envelope, MapPin, User } from '@/components/ui/Icons';
 
-/** Formulario de solicitud de alta — paso previo al login. */
+// Formulario de solicitud de alta — paso previo al login.
 export function ApplicationForm() {
   const apply = useAuthStore((s) => s.applyForMembership);
   const signInWithEmail = useAuthStore((s) => s.signInWithEmail);

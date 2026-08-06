@@ -9,9 +9,8 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 
-// Error boundary de segmento para `/blog/[slug]`. Vive dentro del
-// segmento blog para que un error ahí no rompa el layout entero
-// (Navbar / Footer siguen vivos, solo el body del post se reemplaza).
+// Error boundary de `/blog/[slug]`. Solo se reemplaza el body del post
+// (Navbar/Footer siguen vivos).
 
 export default function BlogSlugError({
   error,
@@ -21,8 +20,7 @@ export default function BlogSlugError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log local — Vercel runtime logs lo captura y, si está
-    // configurado, lo manda al log drain de Slack.
+    // Log local → Vercel runtime logs → log drain a Slack (si está configurado).
     console.error('[ErrorBoundary:blog/[slug]]', error);
   }, [error]);
 

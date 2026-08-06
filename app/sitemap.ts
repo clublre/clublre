@@ -3,10 +3,8 @@ import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
 import { posts } from '@/data/posts';
 
-/** Sitemap — Next.js genera `/sitemap.xml` desde este archivo.
- *  Las rutas estáticas se listan explícitas y los posts se pullan
- *  de la capa de datos. Las rutas privadas (auth, cuenta,
- *  marketplace, admin) se excluyen explícitamente. */
+// Sitemap generado en /sitemap.xml. Estáticas explícitas + posts de la
+// capa de datos. Privadas excluidas.
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 

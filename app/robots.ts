@@ -2,10 +2,8 @@ import type { MetadataRoute } from 'next';
 
 import { siteConfig } from '@/config/site';
 
-/** robots.txt — generado en `/robots.txt` por Next.js.
- *  Apunta al sitemap para que los crawlers descubran todas las
- *  rutas. Bloquea auth, cuenta, marketplace y admin: son contenido
- *  privado y no deben aparecer en motores de búsqueda. */
+// robots.txt generado en /robots.txt. Apunta al sitemap.
+// Bloquea auth/cuenta/marketplace/admin — son contenido privado.
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [

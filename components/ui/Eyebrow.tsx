@@ -3,7 +3,7 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 import { cn } from '@/lib/utils';
 
-/** Label uppercase chico arriba de un heading. */
+// Label uppercase chico arriba de un heading.
 const eyebrow = tv({
   base: 'text-xs font-semibold uppercase tracking-[0.2em]',
   variants: {

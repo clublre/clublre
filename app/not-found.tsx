@@ -7,8 +7,8 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 
-/** 404 global. Se renderiza cuando se llama a `notFound()` desde
- *  cualquier Server Component o cuando una ruta no matchea. */
+// 404 global — se renderiza con `notFound()` desde cualquier Server Component
+// o cuando una ruta no matchea.
 export default function NotFound() {
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">

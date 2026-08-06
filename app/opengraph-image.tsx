@@ -3,7 +3,7 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-/** Dimensiones OG estándar — 1200×630 para OG/Twitter cards. */
+// Dimensiones OG estándar — 1200×630.
 export const size = {
   width: 1200,
   height: 630,
@@ -11,20 +11,18 @@ export const size = {
 
 export const contentType = 'image/png';
 
-/** Texto accesible para lectores de pantalla y previewers de plataforma. */
+// Alt text para screen readers y social previews.
 export const alt =
   'Club Los Rosarinos Estudiantil — Club deportivo en Rosario, Santa Fe';
 
-/** Runtime Node.js explícito: Vercel defaultea a Edge para metadata
- *  routes, pero necesitamos `node:fs`/`node:path` para embeber el
- *  escudo como data URI. */
+// Runtime Node explícito: Vercel defaultea a Edge, pero necesitamos
+// `node:fs`/`node:path` para embeber el escudo como data URI.
 export const runtime = 'nodejs';
 
-// `app/opengraph-image.tsx` — ruta OG file-based de Next.js 16.
-// Static al build (sin params / cookies / runtime). Genera un PNG
-// 1200×630 para Twitter, LinkedIn, Slack, WhatsApp, etc.
-// El escudo se embebe como data URI para que Satori lo incluya
-// inline sin un segundo round-trip HTTP del crawler social.
+// Ruta OG file-based de Next 16 — static al build (sin params/cookies).
+// Genera PNG 1200×630 para Twitter/LinkedIn/Slack/WhatsApp.
+// Escudo embebido como data URI: Satori lo incluye inline sin
+// round-trip extra del crawler social.
 
 export default async function Image() {
   const logoData = await readFile(join(process.cwd(), 'public', 'logo2.jpeg'));

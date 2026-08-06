@@ -6,14 +6,8 @@ import { Button } from '@heroui/react';
 import { ArrowUp } from '@/components/ui/Icons';
 import { useScrollProgress } from '@/lib/use-scroll-progress';
 
-/**
- * Botón flotante "Volver arriba" — aparece después de scrollear
- * más de 50% de la página. Fixed bottom-right, sobre el contenido
- * importante pero debajo del navbar.
- *
- * Animación: fade + slide-up al aparecer, fade al click.
- * Respeta `prefers-reduced-motion` (sin transition).
- */
+// Botón flotante "Volver arriba" — aparece tras scrollear 50% de la página.
+// Animación fade+slide-up; respeta `prefers-reduced-motion`.
 export function BackToTop() {
   const progress = useScrollProgress();
   const [clicked, setClicked] = useState(false);
@@ -25,7 +19,7 @@ export function BackToTop() {
     }
   }, [clicked]);
 
-  // Sólo visible si el usuario scrolleó más de 50% de la página.
+  // Visible solo si el usuario scrolleó más de 50% de la página.
   const visible = progress > 0.5;
 
   return (
@@ -33,8 +27,7 @@ export function BackToTop() {
       isIconOnly
       aria-label="Volver arriba"
       className={
-        // Posición + z-index por encima del contenido principal, debajo del navbar.
-        // `pointer-events-none` cuando no está visible para no interceptar clicks.
+        // pointer-events-none cuando no está visible — no interceptar clicks.
         'fixed right-4 bottom-4 z-30 motion-reduce:transition-none ' +
         'shadow-club-lg rounded-full ' +
         (visible

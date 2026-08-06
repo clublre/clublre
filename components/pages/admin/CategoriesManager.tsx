@@ -10,9 +10,8 @@ const TYPE_LABEL = {
   both: 'Bienes y servicios',
 } as const;
 
-/** Manager de categorías — sólo lectura en la maqueta. En
- *  producción este componente tendría un form para alta / baja
- *  + drag & drop para reordenar. Built sobre HeroUI v3 Table. */
+// Manager de categorías — solo lectura en maqueta. Producción: form alta/baja
+// + drag & drop para reordenar. Built sobre HeroUI v3 Table.
 export function CategoriesManager() {
   return (
     <Table aria-label="Lista de categorías">

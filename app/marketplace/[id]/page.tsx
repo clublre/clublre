@@ -27,8 +27,7 @@ export default async function ListingDetailPage({ params }: PageProps) {
   if (!listing) notFound();
   const owner = seedMembers.find((m) => m.id === listing.ownerId);
 
-  // El detalle vive en un client wrapper para leer el store de auth
-  // (la maqueta no usa RSC + cookies). El wrapper maneja el gate
-  // de "isOwner" y los modales.
+  // Detalle en client wrapper — la maqueta no usa RSC + cookies.
+  // El wrapper maneja el gate de "isOwner" y los modales.
   return <ListingDetailClient listing={listing} owner={owner} />;
 }

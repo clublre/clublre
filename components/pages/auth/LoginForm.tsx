@@ -14,7 +14,7 @@ import { useAuthStore } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
 import { Envelope } from '@/components/ui/Icons';
 
-/** Formulario de login mockeado — Google OAuth simulado y email. */
+// Formulario de login mockeado — Google OAuth simulado y email.
 export function LoginForm() {
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
   const signInWithEmail = useAuthStore((s) => s.signInWithEmail);

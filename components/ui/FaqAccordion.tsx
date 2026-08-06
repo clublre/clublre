@@ -1,28 +1,27 @@
 'use client';
 
-// FAQ colapsable sobre el `Accordion` de HeroUI. Necesita `'use client'`
-// porque Accordion usa hooks internos.
+// FAQ colapsable sobre el Accordion de HeroUI (requiere 'use client' por sus hooks).
 
 import { Accordion } from '@heroui/react';
 
 export interface FaqItem {
-  /** Key único — lo usa React y el estado de expansión del Accordion. */
+  // Key único — React + estado de expansión del Accordion.
   id: string;
-  /** Pregunta visible en el trigger. */
+  // Pregunta visible en el trigger.
   question: string;
-  /** Respuesta que se revela al expandir. */
+  // Respuesta revelada al expandir.
   answer: string;
 }
 
 export interface FaqAccordionProps {
   items: ReadonlyArray<FaqItem>;
-  /** Permite expandir varios items a la vez. Default: uno solo. */
+  // Permite varios items abiertos a la vez. Default: uno solo.
   allowMultiple?: boolean;
-  /** Clases mergeadas al `<Accordion>` raíz. */
+  // Clases mergeadas al Accordion raíz.
   className?: string;
-  /** Clases mergeadas al trigger de cada item. */
+  // Clases mergeadas al trigger.
   triggerClassName?: string;
-  /** Clases mergeadas al body del panel de cada item. */
+  // Clases mergeadas al body del panel.
   bodyClassName?: string;
 }
 

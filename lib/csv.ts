@@ -2,9 +2,9 @@
 // desde el panel admin (Socios, Publicaciones, Reportes). Mantenerlo
 // en `lib/` para reuso entre páginas.
 
-/** Escapa un valor CSV según RFC 4180. Si contiene coma, comilla
- *  o salto de línea, lo envuelve en comillas dobles y escapa las
- *  comillas internas. */
+// Escapa un valor CSV según RFC 4180. Si contiene coma, comilla
+// o salto de línea, lo envuelve en comillas dobles y escapa las
+// comillas internas.
 const escapeCsv = (v: unknown): string => {
   const s = v === null || v === undefined ? '' : String(v);
   if (/[",\n\r]/.test(s)) {

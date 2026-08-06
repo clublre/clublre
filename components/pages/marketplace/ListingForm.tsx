@@ -26,7 +26,7 @@ import { routes } from '@/lib/routes';
 import { MapPin, Phone } from '@/components/ui/Icons';
 
 interface ListingFormProps {
-  /** Cuando se pasa, la página está en modo edición. */
+  // Cuando se pasa, la página está en modo edición.
   initial?: Listing;
 }
 
@@ -51,9 +51,9 @@ const CONTACT_OPTIONS: ReadonlyArray<{
   { id: 'email', label: 'Email' },
 ];
 
-/** Formulario compartido para crear y editar publicaciones. Cuando
- *  se pasa `initial`, precarga los campos y dispara `updateListing`;
- *  si no, dispara `createListing`. */
+// Formulario compartido para crear y editar publicaciones.
+ //  se pasa `initial`, precarga los campos y dispara `updateListing`;
+ //  si no, dispara `createListing`. */
 export function ListingForm({ initial }: ListingFormProps) {
   const router = useRouter();
   const currentMember = useAuthStore((s) => s.currentMember());

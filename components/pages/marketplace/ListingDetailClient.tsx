@@ -47,17 +47,14 @@ const formatDate = (iso: string) =>
     day: 'numeric',
   }).format(new Date(iso));
 
-/** Wrapper client del detalle — controla los modales de contacto y
- *  reporte. La página server component pasa props ya validadas. */
+// Wrapper client del detalle — controla los modales de contacto y
+ //  reporte. La página server component pasa props ya validadas. */
 export function ListingDetailClient({
   listing,
   owner,
 }: ListingDetailClientProps) {
-  // Hidratación: si dependemos de la sesión para mostrar u ocultar
-  // botones (contactar / editar / reportar), el server no la conoce
-  // y el cliente sí, y el árbol difiere. Lo guardamos detrás del
-  // flag `mounted` para que server y cliente rendericen lo mismo en
-  // el primer pase.
+  // Hidratación: botones (contactar/editar/reportar) dependen de la sesión
+  // que el server no conoce. `mounted` evita tree mismatch server/cliente.
   const mounted = useHasMounted();
   const currentMember = useAuthStore((s) => s.currentMember());
   const isOwner = mounted && currentMember?.id === listing.ownerId;

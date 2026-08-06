@@ -52,9 +52,8 @@ const formatDate = (iso: string) =>
     day: 'numeric',
   }).format(new Date(iso));
 
-// Map del filtro de nuqs (que es semántico) al listado de statuses
-// que el filtro acepta. "all" muestra cualquier estado.
-// A nivel de módulo para que useMemo no lo necesite como dep.
+// Map del filtro semántico de nuqs al listado de statuses. "all" = cualquier estado.
+// Module-level para que useMemo no lo necesite como dep.
 const STATUSES_FOR_FILTER: Record<ListingStatusFilterValue, ListingStatus[]> = {
   pending: ['pending_review'],
   published: ['published', 'reserved'],
@@ -69,7 +68,7 @@ const STATUSES_FOR_FILTER: Record<ListingStatusFilterValue, ListingStatus[]> = {
   ],
 };
 
-/** Cola de moderación de publicaciones — filtros por estado,
+/** Cola de moderación — filtros por estado,
  *  acciones de aprobar / rechazar / archivar. */
 export function ListingsModeration() {
   const listings = useMarketplaceStore((s) => s.listings);
@@ -90,7 +89,7 @@ export function ListingsModeration() {
     [listings, statusFilter],
   );
 
-  // Orden: pending_review primero, luego por fecha desc.
+  // Orden: pending_review primero, luego fecha desc.
   const sorted = [...filtered].sort((a, b) => {
     if (a.status === 'pending_review' && b.status !== 'pending_review') {
       return -1;

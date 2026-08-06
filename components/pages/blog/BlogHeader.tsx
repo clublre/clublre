@@ -3,9 +3,9 @@ import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { title } from '@/components/primitives';
 
-/** Header del blog: eyebrow + h1 + tagline centrado. Mismo patrón
- *  `viewTransitionName: 'page-title'` entre home / otras páginas para
- *  animar entre rutas. */
+// Header del blog: eyebrow + h1 + tagline centrado.
+ //  `viewTransitionName: 'page-title'` entre home / otras páginas para
+ //  animar entre rutas. */
 export function BlogHeader() {
   return (
     <Section as="section" spacing="md">

@@ -31,7 +31,7 @@ interface ListingCardProps {
   owner: Member | undefined;
 }
 
-/** Card de publicación — usada en el listado de Entre Socios. */
+// Card de publicación — usada en el listado de Entre Socios.
 export function ListingCard({ listing, owner }: ListingCardProps) {
   const category = findCategory(listing.categoryId, categories);
   return (

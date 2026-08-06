@@ -56,10 +56,8 @@ const FILTER_OPTIONS: ReadonlyArray<Filter> = [
   'rejected',
 ];
 
-/** Columnas sortables de la tabla. Cada entry mapea el `id` del
- *  `<Table.Column>` al campo del socio que se usa como key de sort.
- *  Mantenerlo centralizado evita typos entre el header y el
- *  comparador. */
+/** Columnas sortables. Centralizado para evitar typos entre
+ *  el header y el comparador. */
 type SortableColumn = 'name' | 'role' | 'status' | 'memberSince';
 
 const ROLE_ORDER: Record<Member['role'], number> = {
@@ -75,10 +73,8 @@ const STATUS_ORDER: Record<Member['accountStatus'], number> = {
   rejected: 3,
 };
 
-/** Determina si el viewer actual tiene al menos una acción que
- *  pueda tomar sobre este socio. Se usa para deshabilitar el
- *  kebab cuando no hay nada que hacer (admin activo, rechazado, etc.) —
- *  mejor UX que mostrar un menú con un solo item "Sin acciones". */
+/** Habilita/deshabilita el kebab de fila — no mostrar menú
+ *  con un solo item "Sin acciones". */
 const hasActions = (member: Member, viewer: Member | null): boolean => {
   if (member.accountStatus === 'pending') return true;
   if (member.accountStatus === 'suspended') return true;
@@ -110,8 +106,7 @@ const getInitials = (name: string): string => {
   ).toUpperCase();
 };
 
-/** Compara dos socios por la columna solicitada. Devuelve un número
- *  en formato `Array#sort` (negativo si `a < b`). */
+
 const compareMembers =
   (column: SortableColumn) =>
   (a: Member, b: Member): number => {
@@ -128,16 +123,8 @@ const compareMembers =
     }
   };
 
-/** Tabla de miembros con todas las features para admin:
- *  - Filter chips (estado de cuenta)
- *  - Search por nombre / email / zona
- *  - Avatar + nombre + email en la columna "Nombre"
- *  - Checkbox selection con bulk actions
- *  - Sticky actions column con dropdown por fila
- *  - Pagination
- *  - Chip cerrado para estados terminales
- *  - Empty state inline
- *  Built sobre HeroUI v3 Table para a11y gratis. */
+/** Tabla admin de socios: filter + search + sort + bulk actions
+ *  + pagination. Built sobre HeroUI v3 Table (a11y gratis). */
 export function MembersTable() {
   const members = useAuthStore((s) => s.members);
   const approve = useAuthStore((s) => s.approveMember);
@@ -157,7 +144,7 @@ export function MembersTable() {
     direction: 'ascending' | 'descending';
   } | null>(null);
 
-  // Filter + search — un solo pass con .includes()
+  // Filter + search en un solo pass.
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return members.filter((m) => {
@@ -171,9 +158,7 @@ export function MembersTable() {
     });
   }, [members, filter, query]);
 
-  /** Aplica el sort activo sobre `filtered`. Mantener el sort
-   *  separado del filter permite cambiar filtros sin perder el
-   *  orden actual. */
+  // Sort separado del filter para que cambiar filtros no pierda el orden.
   const sorted = useMemo(() => {
     if (!sortDescriptor) return filtered;
     const cmp = compareMembers(sortDescriptor.column);
@@ -189,10 +174,9 @@ export function MembersTable() {
     safePage * ROWS_PER_PAGE,
   );
 
-  // Reset a página 1 cuando cambian filtros, búsqueda o sort. También
-  // limpiamos la selección porque los socios elegidos podrían no
-  // estar visibles con el nuevo filtro (la UI mostraría el bulk bar
-  // pero los items quedarían huérfanos).
+  // Reset a página 1 cuando cambian filtros/búsqueda/sort y limpiar
+  // selección — los items elegidos podrían no estar visibles con el
+  // nuevo filtro (la UI mostraría el bulk bar con items huérfanos).
   const onFilterChange = (f: Filter) => {
     setFilter(f);
     setPage(1);
@@ -203,9 +187,8 @@ export function MembersTable() {
     setPage(1);
     setSelectedKeys(new Set());
   };
-  // El Table pasa `column: Key` (no `string`) — casteamos a nuestro
-  // `SortableColumn` que es un union restringido. Si la key no
-  // matchea, la cambiamos a `null` (sin sort activo).
+  // HeroUI pasa `column: Key` — casteamos a nuestro `SortableColumn`
+  // restringido. Si no matchea, sort = null.
   const onSortChange = (descriptor: {
     column: Key;
     direction: 'ascending' | 'descending';
@@ -225,7 +208,7 @@ export function MembersTable() {
     setSelectedKeys(new Set());
   };
 
-  // Bulk actions — solo disponibles si sos admin y hay selección
+  // Bulk actions solo si sos admin y hay selección.
   const canBulk = currentMember?.role === 'admin';
   const selectedCount =
     selectedKeys === 'all' ? sorted.length : selectedKeys.size;
@@ -234,10 +217,8 @@ export function MembersTable() {
       ? sorted.map((m) => m.id)
       : Array.from(selectedKeys).map(String);
 
-  /** Acciones bulk disponibles en función de los socios seleccionados.
-   *  Una acción se habilita sólo si aplica a TODOS los seleccionados
-   *  (intersección, no unión) — así nunca se ejecuta una acción sobre
-   *  alguien para quien no corresponde. */
+  // Una acción bulk se habilita solo si aplica a TODOS los seleccionados
+  // (intersección) — nunca se ejecuta sobre alguien para quien no corresponde.
   const bulkAvailable = useMemo(() => {
     if (selectedCount === 0 || !currentMember) {
       return {
@@ -294,23 +275,18 @@ export function MembersTable() {
     setSelectedKeys(new Set());
   };
 
-  // HeroUI v3 Select usa `Set` para el `selectedKeys` controlado, pero
-  // en single mode el `onSelectionChange` recibe la key como string
-  // suelto (NO envuelta en Set). Verificado vía console.log en browser.
-  // Cuidado: NO descartar cuando `value === 'all'` — `'all'` es también
-  // el `id` del filter "Todos", un valor válido en single mode.
+  // HeroUI v3 Select en single mode pasa la key como string suelto,
+  // no un Set. Cuidado: no descartar `value === 'all'` — es un id válido
+  // (filter "Todos").
   const filterSelection = useMemo(() => new Set<Filter>([filter]), [filter]);
 
-  // HeroUI v3 Select en single mode pasa la key directo (no un Set).
-  // El tipo `(key: Key | null) => void` viene de `AriaSelectProps`.
+  // Tipo `(key: Key | null) => void` viene de `AriaSelectProps` de HeroUI.
   const handleFilterSelectionChange = (key: Key | null) => {
     if (key === null) return;
     onFilterChange(key as Filter);
   };
 
-  /** Descarga los socios actualmente filtrados como CSV. Exporta
-   *  las columnas visibles de la tabla para que el archivo sea
-   *  consistente con lo que el usuario ve. */
+  // CSV con las columnas visibles — consistente con lo que ve el usuario.
   const handleDownloadCsv = () => {
     const rows = sorted.map((m) => ({
       Nombre: m.fullName,
@@ -325,17 +301,14 @@ export function MembersTable() {
     downloadCsv(`clublre-socios-${stamp}.csv`, csv);
   };
 
-  /** Determina qué empty state mostrar — diferentes mensajes e icons
-   *  según si el problema es "no hay datos" o "el filtro/search
-   *  no matcheó con nada". Patrón de HeroUI v3 docs. */
+  // Empty state distinto según "no hay datos" vs "filtro no matcheó".
   const noDataAtAll = members.length === 0;
   const hasActiveQuery = query.trim().length > 0 || filter !== 'all';
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Toolbar: search a la izquierda, filter selector + download a la derecha.
-          Layout responsive — en mobile se apila, en desktop se separa
-          con `ml-auto` para empujar el filtro al borde derecho. */}
+      {/* Toolbar: search izq, filter+download der. En mobile se apila;
+          en desktop `ml-auto` empuja el filter al borde derecho. */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <SearchField
           aria-label="Buscar socio"
@@ -389,9 +362,8 @@ export function MembersTable() {
         </Tooltip>
       </div>
 
-      {/* Bulk actions bar — visible sólo con selección. El trigger
-          sigue "Acciones" + chevron; los items se habilitan según
-          `bulkAvailable` (intersección sobre la selección). */}
+      {/* Bulk actions bar — visible solo con selección. Items se habilitan
+          según `bulkAvailable` (intersección). */}
       {canBulk && selectedCount > 0 ? (
         <div className="bg-primary/10 text-foreground animate-in fade-in slide-in-from-top-2 flex items-center gap-3 rounded-xl px-4 py-2 text-sm duration-150 motion-reduce:animate-none">
           <span className="font-medium">

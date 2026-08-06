@@ -24,8 +24,7 @@ import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
-// Mapeo href → ícono. Module-level para que desktop y drawer
-// puedan consultar sin re-renderizar el árbol de íconos.
+// Mapeo href → ícono. Module-level — desktop y drawer lo consultan sin re-render.
 const NAV_ICONS = {
   '/': Home,
   '/about': Info,
@@ -35,21 +34,18 @@ const NAV_ICONS = {
 
 type NavHref = keyof typeof NAV_ICONS;
 
-/** Nav principal del sitio.
- *  - Desktop (>= sm): marca + nav pill horizontal + theme toggle.
- *  - Mobile (< sm): marca + hamburguesa que abre un `Drawer` de HeroUI.
+/** Nav principal — desktop: marca + pill + toggle; mobile: marca + Drawer.
  *  Estado de ruta activa expuesto con `aria-current="page"`. */
 export const Navbar = () => {
-  // Estado del menú mobile en el UI store para permitir que un futuro
-  // command palette / shortcut dispare el drawer sin prop-drilling.
+  // UI store para el menú mobile — futuro command palette/shortcut dispara
+  // el drawer sin prop-drilling.
   const isMenuOpen = useUiStore((s) => s.mobileMenuOpen);
   const openMobileMenu = useUiStore((s) => s.openMobileMenu);
   const closeMobileMenu = useUiStore((s) => s.closeMobileMenu);
   const session = useAuthStore((s) => s.session);
   const pathname = usePathname();
 
-  /** Items visibles según sesión — los `memberOnly` solo aparecen
-   *  para socios logueados. */
+  // Items visibles según sesión — memberOnly solo para socios logueados.
   const visibleNavItems = useMemo(
     () =>
       siteConfig.navItems.filter(
@@ -65,7 +61,7 @@ export const Navbar = () => {
     [session],
   );
 
-  /** URLs con fragmento (`/#x`) nunca se marcan como current. */
+  // URLs con fragmento (`/#x`) nunca se marcan como current.
   const isCurrent = useMemo(
     () => (href: string) => !href.includes('#') && pathname === href,
     [pathname],

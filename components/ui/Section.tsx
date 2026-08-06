@@ -3,8 +3,8 @@ import { tv, type VariantProps } from 'tailwind-variants';
 
 import { cn } from '@/lib/utils';
 
-/** Wrapper semántico de sección. Centraliza spacing y variantes
- *  de fondo para mantener consistencia entre páginas. */
+// Wrapper semántico de sección — centraliza spacing y variantes
+ //  de fondo para mantener consistencia entre páginas. */
 const section = tv({
   base: '',
   variants: {
@@ -15,13 +15,13 @@ const section = tv({
     },
     spacing: {
       none: 'py-0',
-      /** Compacto: para páginas internas (admin, cuenta, login, etc.). */
+      // Compacto: páginas internas (admin, cuenta, login).
       xs: 'py-6 md:py-10',
-      /** Default para páginas de info. */
+      // Default para páginas de info.
       sm: 'py-10 md:py-14',
-      /** Para secciones dentro de home (entre componentes). */
+      // Para secciones dentro de home (entre componentes).
       md: 'py-16 md:py-20',
-      /** Generoso: para hero / landing. */
+      // Generoso: para hero / landing.
       lg: 'py-20 md:py-28',
     },
   },
@@ -33,7 +33,7 @@ const section = tv({
 
 export interface SectionProps
   extends HTMLAttributes<HTMLElement>, VariantProps<typeof section> {
-  /** Renderiza como `<section>` (default) u otro elemento. */
+  // Renderiza como <section> (default) u otro elemento.
   as?: 'section' | 'div' | 'article' | 'main';
 }
 

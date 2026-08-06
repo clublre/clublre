@@ -14,10 +14,10 @@ interface LatestPostsProps {
   posts: ReadonlyArray<BlogPost>;
 }
 
-/** Posts más recientes del blog en la home. Aporta SEO (links
- *  internos + señal de contenido fresco) y mantiene el sitio vivo
- *  entre publicaciones. Recibe `posts` por prop para que la home
- *  decida el slice sin que este componente toque la capa de datos. */
+// Posts más recientes del blog en la home. Aporta SEO (links
+ //  internos + señal de contenido fresco) y mantiene el sitio vivo
+ //  entre publicaciones. Recibe `posts` por prop para que la home
+ //  decida el slice sin que este componente toque la capa de datos. */
 export function LatestPosts({ posts }: LatestPostsProps) {
   return (
     <Section as="section" spacing="lg">

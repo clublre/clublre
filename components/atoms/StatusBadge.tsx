@@ -25,8 +25,7 @@ const ROLE_LABEL: Record<Role, string> = {
   admin: 'Administrador',
 };
 
-/** Badge de cuenta para listados y tarjetas. Capitalized, no
- *  uppercase — más legible para nombres propios. */
+// Badge de cuenta — capitalized (no uppercase, más legible).
 export function StatusBadge({ status }: { status: AccountStatus }) {
   return (
     <Chip
@@ -40,7 +39,7 @@ export function StatusBadge({ status }: { status: AccountStatus }) {
   );
 }
 
-/** Badge de rol — usado en Mi cuenta y panel admin. */
+// Badge de rol — Mi cuenta y panel admin.
 export function RoleBadge({ role }: { role: Role }) {
   const color = role === 'admin' || role === 'moderator' ? 'accent' : 'default';
   return (

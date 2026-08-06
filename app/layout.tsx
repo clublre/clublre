@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
-// CSS pre-hidratación para `<phantom-ui loading>`: oculta el texto
-// placeholder hasta que el Web Component mida el DOM y superponga
-// los shimmer blocks.
+// CSS pre-hidratación: oculta el texto de `<phantom-ui loading>`
+// hasta que el Web Component mida el DOM y superponga los shimmers.
 import '@aejkatappaja/phantom-ui/ssr.css';
 import { type Metadata, type Viewport } from 'next';
 
@@ -18,10 +17,8 @@ import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { AdminNavBar } from '@/components/layouts/AdminNavBar';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-// Payload JSON-LD SportsClub para rich results de Google.
-// El `@id` da una identidad estable para que Google deduplique
-// la entidad entre crawls. `dangerouslySetInnerHTML` es seguro
-// porque el payload se construye en código (sin input del usuario).
+// JSON-LD SportsClub — `@id` estable para que Google deduplique entre crawls.
+// `dangerouslySetInnerHTML` seguro: el payload se construye en código (sin input del usuario).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@id': `${siteConfig.url}/#club`,
@@ -78,8 +75,8 @@ export const metadata: Metadata = {
       'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!',
     url: siteConfig.url,
     locale: 'es_AR',
-    // `app/opengraph-image.tsx` es auto-detectado por Next 16; lo
-    // declaramos explícito para que el link sea visible a simple vista.
+    // app/opengraph-image.tsx es auto-detectado por Next 16 — lo declaramos
+    // explícito para que sea visible a simple vista.
     images: ['/opengraph-image'],
   },
   twitter: {

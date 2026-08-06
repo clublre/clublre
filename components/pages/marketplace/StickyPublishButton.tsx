@@ -10,14 +10,8 @@ import { Plus } from '@/components/ui/Icons';
 import { cn } from '@/lib/utils';
 import { routes } from '@/lib/routes';
 
-/**
- * Floating "Publicar" button — visible solo para socios logueados en
- * la página de Marketplace. En desktop aparece fixed bottom-right cuando
- * el usuario scrolleó más de 30% (así no compite con los filtros arriba).
- * En mobile siempre visible.
- *
- * No se monta si el usuario no tiene sesión (login) o si no es `active`.
- */
+// Floating "Publicar" — solo socios logueados active. Desktop aparece tras
+// scrollear 30% (no compite con filtros arriba). Mobile siempre visible.
 export function StickyPublishButton() {
   const member = useCurrentMember();
   const mounted = useHasMounted();
@@ -35,17 +29,17 @@ export function StickyPublishButton() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [mounted]);
 
-  // After mount, server and client render the same placeholder.
+  // Pre-mount: no renderizar (placeholder idéntico server/cliente).
   if (!mounted) return null;
-  // Sólo socios activos pueden publicar.
+  // Solo socios activos pueden publicar.
   if (!member || member.accountStatus !== 'active') return null;
 
   return (
     <div
       className={cn(
-        // Fixed bottom-right, debajo del BackToTop cuando ambos están.
+        // Fixed bottom-right, debajo del BackToTop si ambos están visibles.
         'fixed right-4 bottom-16 z-30 transition-all duration-300 motion-reduce:transition-none sm:bottom-4',
-        // En mobile: siempre visible. En desktop: aparece tras scrollear.
+        // Mobile siempre visible; desktop aparece tras scrollear.
         scrolled
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0 max-sm:translate-y-0 max-sm:opacity-100',

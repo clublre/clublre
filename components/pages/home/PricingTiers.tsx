@@ -18,11 +18,11 @@ const formatPrice = (price: number) =>
     maximumFractionDigits: 0,
   }).format(price);
 
-/** Grid de 3 columnas con los planes de cuota. Server component que
- *  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
- *  `md:mt-auto` alinea los CTAs al fondo del card más alto.
- *
- *  Vive como sección `id="cuotas"` en la landing (`app/page.tsx`). */
+// Grid de 3 columnas con los planes de cuota. Server component que
+ //  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
+ //  `md:mt-auto` alinea los CTAs al fondo del card más alto.
+ //
+ //  Vive como sección `id="cuotas"` en la landing (`app/page.tsx`). */
 export function PricingTiers() {
   return (
     <>

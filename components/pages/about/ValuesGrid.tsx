@@ -8,9 +8,9 @@ import {
   CardClubBody,
 } from '@/components/ui/CardClub';
 
-/** Grid de 3 cards con los valores centrales del club. El copy
- *  editorial vive directo acá (cambia poco); se movería a `data/`
- *  cuando el sitio gane un CMS. */
+// Grid de 3 cards con los valores centrales del club.
+ //  editorial vive directo acá (cambia poco); se movería a `data/`
+ //  cuando el sitio gane un CMS. */
 export function ValuesGrid() {
   return (
     <Section as="section" spacing="lg">

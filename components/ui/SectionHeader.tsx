@@ -5,9 +5,9 @@ import { cn } from '@/lib/utils';
 import { Eyebrow } from './Eyebrow';
 import { title } from '@/components/primitives';
 
-/** Header compartido: eyebrow + título + descripción opcional.
- *  Usar dentro de un <Section>; el margin-bottom sigue la escala
- *  de spacing de la app. */
+// Header compartido: eyebrow + título + descripción opcional.
+// Usar dentro de un <Section>; el margin-bottom sigue la escala
+// de spacing de la app.
 const sectionHeader = tv({
   base: 'mx-auto',
   variants: {
@@ -36,15 +36,15 @@ const sectionHeader = tv({
 
 export interface SectionHeaderProps
   extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof sectionHeader> {
-  /** Label uppercase arriba del título. */
+  // Label uppercase arriba del título.
   eyebrow: string;
-  /** Título de la sección — renderiza como `<h2>` por default. */
+  // Título — renderiza como <h2> por default.
   heading: ReactNode;
-  /** Tono del eyebrow. Default: `sky`. */
+  // Tono del eyebrow. Default: sky.
   tone?: 'default' | 'sky';
-  /** Copia opcional debajo del título. */
+  // Copia opcional debajo del título.
   description?: ReactNode;
-  /** Slot trailing opcional (ej. link "Ver todos"). */
+  // Slot trailing opcional (ej. link 'Ver todos').
   trailing?: ReactNode;
 }
 

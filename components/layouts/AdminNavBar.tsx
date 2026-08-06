@@ -1,13 +1,9 @@
 'use client';
 
-// Barra de navegación del panel admin — vive en el root layout, en
-// la posición donde antes estaba el `Breadcrumb`. Sticky `top-16`
-// (justo debajo de la navbar global de 4rem) y full-width.
-//
-// Renderiza solo si:
-//   - el usuario está logueado como admin/moderator
-//   - la ruta actual empieza con `/admin`
-// En cualquier otro caso devuelve `null` (sin layout shift).
+// Nav bar del panel admin — vive en root layout, en la posición del antiguo
+// Breadcrumb. Sticky top-16 (bajo la navbar global) y full-width.
+// Renderiza solo si user es admin/mod y la ruta empieza con /admin.
+// En cualquier otro caso null (sin layout shift).
 
 import NextLink from 'next/link';
 import type { Route } from 'next';

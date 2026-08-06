@@ -5,9 +5,9 @@ import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 
-/** Trust strip — social proof rápido entre hero y actividades.
- *  Single source of truth para que el strip se vea consistente y
- *  los cambios de copy sean locales a este archivo. */
+// Trust strip — social proof rápido entre hero y actividades.
+ //  Single source of truth para que el strip se vea consistente y
+ //  los cambios de copy sean locales a este archivo. */
 const STATS: ReadonlyArray<{
   icon: FC<{ className?: string }>;
   value: string;
@@ -30,9 +30,9 @@ const STATS: ReadonlyArray<{
   },
 ] as const;
 
-/** Tres stats en una sola card, entre hero y actividades. Plain div
- *  (no CardClub) porque CardClub envuelve hijos en un div padded,
- *  lo que rompe el grid interno con hairlines entre celdas. */
+// Tres stats en una sola card, entre hero y actividades. Plain div
+ //  (no CardClub) porque CardClub envuelve hijos en un div padded,
+ //  lo que rompe el grid interno con hairlines entre celdas. */
 export function TrustStrip() {
   return (
     <Section as="section" spacing="md">

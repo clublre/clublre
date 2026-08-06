@@ -1,13 +1,7 @@
 'use client';
 
-// Shell del panel admin — header + área de contenido. El shell
-// valida que el usuario actual tenga rol admin/moderator y
-// redirige a `/cuenta` si no.
-//
-// La nav bar de admin vive en `components/layouts/AdminNavBar.tsx`,
-// montada en el root layout — aparece full-width y sticky bajo la
-// navbar global cuando la ruta empieza con `/admin`. Ver ese
-// componente para el detalle de los links.
+// Shell admin — header + área de contenido. Valida rol admin/mod y redirige a
+// /cuenta si no. La nav bar vive en AdminNavBar (root layout).
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -21,19 +15,18 @@ import { useHasMounted } from '@/lib/auth-helpers';
 import { routes } from '@/lib/routes';
 
 interface AdminShellProps {
-  /** Título del header (eyebrow + h1). */
+  // Título del header (eyebrow + h1).
   eyebrow: string;
   heading: string;
   description?: string;
-  /** CTAs alineados a la derecha del header. */
+  // CTAs alineados a la derecha del header.
   actions?: React.ReactNode;
-  /** Contenido principal. */
+  // Contenido principal.
   children: React.ReactNode;
 }
 
-/** Shell con header (eyebrow + h1 + description) y área de contenido.
- *  La nav bar de admin la monta el root layout — acá solo va el
- *  header de la página + los children. */
+// Shell con header (eyebrow + h1 + description) + children.
+// Nav bar de admin la monta el root layout (AdminNavBar).
 export function AdminShell({
   eyebrow,
   heading,
@@ -43,7 +36,7 @@ export function AdminShell({
 }: AdminShellProps) {
   const member = useAuthStore((s) => s.currentMember());
   const router = useRouter();
-  // Hidratación: placeholder estable hasta después del mount.
+  // Hidratación: placeholder estable hasta el mount.
   const mounted = useHasMounted();
 
   useEffect(() => {

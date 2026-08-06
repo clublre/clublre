@@ -3,8 +3,7 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-// `app/icon.tsx` — favicon route de Next 16 (32×32 PNG). Next lo toma
-// automático (mejor que el legacy `public/favicon.ico`).
+// Favicon route de Next 16 (32×32 PNG) — auto-tomado por Next.
 
 export const size = {
   width: 32,
@@ -13,7 +12,7 @@ export const size = {
 
 export const contentType = 'image/png';
 
-// Carga del escudo vía `fs` de Node — single-pass por build (ruta static).
+// Single-pass por build (ruta static).
 
 export default async function Icon() {
   const logoData = await readFile(join(process.cwd(), 'public', 'logo2.jpeg'));

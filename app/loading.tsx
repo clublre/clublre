@@ -1,7 +1,7 @@
 'use client';
 
-// Loading UI raíz — Next.js lo renderiza mientras se prepara
-// cualquier segmento sin su propio `loading.tsx`.
+// Loading UI raíz — Next.js lo renderiza mientras se prepara cualquier
+// segmento sin su propio `loading.tsx`.
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';

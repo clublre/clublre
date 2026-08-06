@@ -4,10 +4,10 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Reveal } from '@/components/ui/Reveal';
 import { CommissionGrid } from './CommissionGrid';
 
-/** Sección de comisión directiva. Renderiza un grid moderno de
- *  cards: Presidente destacada, nivel 1 en row, nivel 2 (vocales)
- *  agrupados. `id="comision"` ancla el link `#comision` que usan los
- *  CTAs de los planes. */
+// Sección de comisión directiva — grid moderno de cards.
+ //  cards: Presidente destacada, nivel 1 en row, nivel 2 (vocales)
+ //  agrupados. `id="comision"` ancla el link `#comision` que usan los
+ //  CTAs de los planes. */
 export function CommissionSection() {
   return (
     <Section as="section" id="comision" spacing="lg">

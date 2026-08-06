@@ -15,8 +15,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log local — Vercel runtime logs lo captura y, si está
-    // configurado, lo manda al log drain de Slack.
+    // Log local → Vercel runtime logs → log drain a Slack (si está configurado).
     console.error('[ErrorBoundary:app/error]', error);
   }, [error]);
 

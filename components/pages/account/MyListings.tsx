@@ -52,12 +52,11 @@ interface MyListingsProps {
   ownerId: string;
 }
 
-/** Lista de publicaciones del socio actual. */
+// Lista de publicaciones del socio actual.
 export function MyListings({ ownerId }: MyListingsProps) {
-  // Seleccionamos el array crudo (referencialmente estable cuando
-  // no hay mutaciones) y filtramos con `useMemo`. `s.listingsByOwner()`
-  // devuelve un array nuevo en cada render y rompe el snapshot
-  // caching de `useSyncExternalStore` (loop infinito).
+  // Array crudo + useMemo (referencialmente estable cuando no hay mutaciones).
+  // `s.listingsByOwner()` crea array nuevo por render → rompe el snapshot caching
+  // de useSyncExternalStore (loop infinito).
   const allListings = useMarketplaceStore((s) => s.listings);
   const listings = useMemo(
     () => allListings.filter((l) => l.ownerId === ownerId),

@@ -1,8 +1,7 @@
 'use client';
 
-// Página `/cuenta` — el layout redirige si no hay sesión o si la
-// cuenta está `pending` / `rejected` / `suspended`. Esta página
-// asume que ya pasó el gate y muestra la información del socio.
+// Página `/cuenta` — el layout redirige si no hay sesión o cuenta no-activa.
+// Esta página asume que ya pasó el gate.
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -23,16 +22,12 @@ export default function AccountPage() {
   const member = useCurrentMember();
   const signOut = useAuthStore((s) => s.signOut);
   const router = useRouter();
-  // Hidratación: `mounted=false` durante SSR y primer render del
-  // cliente, así renderizamos el placeholder en ambos. Después del
-  // mount leemos la sesión persistida en localStorage.
+  // Hidratación: mounted=false durante SSR y primer render — placeholder
+  // estable. Tras mount leemos localStorage.
   const mounted = useHasMounted();
 
-  // `Date.now()` en render es impuro — el cálculo cambia entre renders
-  // y rompe la regla de pureza de React. `useState` con initializer
-  // captura el valor una sola vez al montar el componente, haciendo
-  // el output determinista dado el mismo `member.memberSince`. Tiene
-  // que estar antes de cualquier early return (regla de los Hooks).
+  // `Date.now()` en render es impuro — `useState` con initializer captura
+  // el valor al montar (output determinista). Antes de cualquier early return.
   const [referenceNow] = useState(() => Date.now());
 
   useEffect(() => {

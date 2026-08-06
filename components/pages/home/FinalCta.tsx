@@ -10,10 +10,10 @@ import { Reveal } from '@/components/ui/Reveal';
 import { InstagramIcon } from '@/components/ui/Icons';
 import { routes } from '@/lib/routes';
 
-/** CTA principal al final de la home. Plain div con `.gradient-border-sky`
- *  + capa decorativa con el escudo del club como watermark (blur +
- *  desaturado, opacity 7%) y gradiente primary suave. Ambos decorativos
- *  son `aria-hidden` + `pointer-events-none`. */
+// CTA principal al final de la home. Plain div con gradient-border-sky
+ //  + capa decorativa con el escudo del club como watermark (blur +
+ //  desaturado, opacity 7%) y gradiente primary suave. Ambos decorativos
+ //  son `aria-hidden` + `pointer-events-none`. */
 export function FinalCta() {
   return (
     <Section as="section" spacing="md">

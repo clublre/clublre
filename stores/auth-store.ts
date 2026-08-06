@@ -1,10 +1,8 @@
 'use client';
 
-// Store de auth para la maqueta — simula la sesión sin backend real.
-// Persiste en localStorage (sólo client) para que un refresh mantenga
-// al usuario logueado. En producción este archivo se reemplaza por
-// cookies httpOnly + un Server Component que llame a `auth.getUser()`
-// desde Supabase.
+// Maqueta: simula sesión sin backend. Persiste en localStorage para
+// mantener el login entre refreshes. Producción: cookies httpOnly +
+// `auth.getUser()` de Supabase desde un Server Component.
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
@@ -18,29 +16,24 @@ import {
 
 export interface AuthSession {
   memberId: string;
-  /** Snapshot del miembro al momento de login — la página puede
-   *  re-leer el estado fresco del store por si la comisión cambió
-   *  el rol en otra sesión. */
+  // Snapshot al login — la página re-lee el store por si cambió el rol.
   snapshot: Member;
 }
 
 export interface AuthState {
-  /** Miembros del club — sembrados + cualquier alta nueva que se
-   *  haya agregado en la sesión. */
+  // Miembros sembrados + altas nuevas de la sesión.
   members: ReadonlyArray<Member>;
-  /** Sesión activa — `null` si nadie está logueado. */
+  // Sesión activa — null si nadie está logueado.
   session: AuthSession | null;
 
-  /** Helpers expuestos para los componentes. */
+  // Helpers para componentes.
   getMember: (id: string) => Member | undefined;
   currentMember: () => Member | null;
 
-  /** Acciones de la maqueta. */
+  // Acciones de la maqueta (sin backend real).
   signInWithGoogle: () => Promise<{ ok: boolean; error?: string }>;
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>;
-  /** Login directo como un miembro específico — sólo para la maqueta,
-   *  permite saltar entre socio / moderador / admin sin backend. */
-  signInAs: (memberId: string) => { ok: boolean; error?: string };
+  signInAs: (memberId: string) => { ok: boolean; error?: string };  // saltar entre roles
   signOut: () => void;
 
   applyForMembership: (input: {
@@ -68,7 +61,7 @@ export interface AuthState {
 const STORAGE_KEY = 'clublre:auth-mock-v1';
 
 const storage = createJSONStorage(() => {
-  // SSR guard — Zustand sólo accede a `window` cuando hidrata.
+  // SSR guard — Zustand accede a `window` solo al hidratar.
   if (typeof window === 'undefined') {
     return {
       getItem: () => null,
@@ -76,9 +69,8 @@ const storage = createJSONStorage(() => {
       removeItem: () => undefined,
     };
   }
-  // `localStorage` lanza en Safari/Firefox private mode y al exceder
-  // la cuota. Wrappeamos cada método para que un fallo de
-  // persistencia no rompa la hidratación de la app.
+  // `localStorage` lanza en Safari/Firefox private mode y al exceder la
+  // cuota. Wrappeamos para que un fallo no rompa la hidratación.
   return {
     getItem: (name) => {
       try {
@@ -114,15 +106,12 @@ export const useAuthStore = create<AuthState>()(
       currentMember: () => {
         const s = get().session;
         if (!s) return null;
-        // Devolvemos el miembro fresco del store para reflejar
-        // aprobaciones / suspensiones que ocurran en la sesión.
+        // Miembro fresco del store — refleja aprobaciones/suspensiones de la sesión.
         return get().members.find((m) => m.id === s.memberId) ?? s.snapshot;
       },
 
       async signInWithGoogle() {
-        // Mock: simulamos que el socio de Google es siempre
-        // `member-1`. En la versión real, Google OAuth devuelve
-        // un id que mapeamos a un `member.id`.
+        // Mock: Google → siempre member-1.
         await new Promise((r) => setTimeout(r, 600));
         const member = get().members.find((m) => m.id === 'member-1');
         if (!member) return { ok: false, error: 'Cuenta no encontrada' };
@@ -151,7 +140,7 @@ export const useAuthStore = create<AuthState>()(
         return { ok: true };
       },
 
-      async signInWithEmail(email) {
+      async signInWithEmail(email) {  // mock email lookup
         await new Promise((r) => setTimeout(r, 600));
         const normalized = email.trim().toLowerCase();
         const member = get().members.find(
@@ -164,8 +153,7 @@ export const useAuthStore = create<AuthState>()(
           };
         }
         if (member.accountStatus === 'pending') {
-          // Permite login pero conserva el estado — el layout
-          // redirige a la pantalla "pendiente".
+          // Permite login pero conserva el estado — el layout redirige a "pendiente".
           set({ session: { memberId: member.id, snapshot: member } });
           return { ok: true };
         }
@@ -190,6 +178,7 @@ export const useAuthStore = create<AuthState>()(
       },
 
       async applyForMembership({ fullName, email, zone, memberId }) {
+        // Mock: 500ms para simular latencia de red.
         await new Promise((r) => setTimeout(r, 500));
         const exists = get().members.some(
           (m) => m.email.toLowerCase() === email.trim().toLowerCase(),

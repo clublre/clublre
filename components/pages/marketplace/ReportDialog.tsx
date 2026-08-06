@@ -24,8 +24,8 @@ const REASON_LABEL: Record<ReportReason, string> = {
 
 const REASON_OPTIONS = Object.keys(REASON_LABEL) as ReportReason[];
 
-/** Modal para reportar una publicación — dispara un evento en el
- *  store que el panel admin ve como reporte abierto. */
+// Modal para reportar una publicación — dispara un evento en el
+ //  store que el panel admin ve como reporte abierto. */
 export function ReportDialog({
   isOpen,
   onOpenChange,

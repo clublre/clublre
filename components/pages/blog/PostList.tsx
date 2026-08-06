@@ -20,11 +20,11 @@ const formatDate = (iso: string) =>
     day: 'numeric',
   }).format(new Date(iso));
 
-/** Grid con todos los posts del blog. Server component que lee
- *  `postsNewestFirst` directo de `data/posts.ts`. El título va
- *  wrappeado en NextLink dentro de CardClubTitle para que toda
- *  la zona del título sea clickeable, más el CTA "Leer artículo"
- *  abajo anclado a `/blog/[slug]`. */
+// Grid con todos los posts del blog. Server component que lee
+ //  `postsNewestFirst` directo de `data/posts.ts`. El título va
+ //  wrappeado en NextLink dentro de CardClubTitle para que toda
+ //  la zona del título sea clickeable, más el CTA "Leer artículo"
+ //  abajo anclado a `/blog/[slug]`. */
 export function PostList() {
   if (postsNewestFirst.length === 0) {
     return (

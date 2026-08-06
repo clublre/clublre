@@ -2,15 +2,9 @@
 
 import { useScrollProgress } from '@/lib/use-scroll-progress';
 
-/**
- * Barra fina de progreso de scroll — fixed en el top del viewport
- * sobre todo lo demás (`z-50` arriba del navbar). Crece con `scaleX`
- * desde el origen izquierdo, sin reflow.
- *
- * - Respetamos `prefers-reduced-motion` desactivando la transición.
- * - `aria-hidden="true"` para que no se anuncie el progreso.
- * - `pointer-events-none` para no interceptar clicks.
- */
+// Barra fija de progreso de scroll — `scaleX` desde el origen (sin reflow).
+// aria-hidden + pointer-events-none para no anunciar ni interceptar clicks.
+// Respeta `prefers-reduced-motion`.
 export function ScrollProgress() {
   const progress = useScrollProgress();
 

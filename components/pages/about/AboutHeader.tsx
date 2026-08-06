@@ -4,8 +4,8 @@ import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/ui/Reveal';
 import { title } from '@/components/primitives';
 
-/** Header de about: eyebrow + h1 + intro centrado. Mismo patrón
- *  `viewTransitionName: 'page-title'` que el resto de headers. */
+// Header de about: eyebrow + h1 + intro centrado.
+ //  `viewTransitionName: 'page-title'` que el resto de headers. */
 export function AboutHeader() {
   return (
     <Section as="section" spacing="md">

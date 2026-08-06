@@ -23,10 +23,8 @@ export function Breadcrumb() {
   if (!mounted) return null;
   if (!member) return null;
 
-  // En el panel admin la nav bar horizontal del `AdminShell` ya
-  // muestra la sección activa (`/admin/usuarios` → "Socios" highlighted).
-  // Mostrar también el breadcrumb sería redundante — el usuario
-  // ya tiene la nav bar sticky justo arriba del contenido.
+  // En admin el AdminShell ya muestra la sección activa — breadcrumb redundante
+  // cuando el usuario tiene la nav bar sticky justo arriba del contenido.
   if (pathname.startsWith('/admin')) return null;
 
   const items = getBreadcrumbs(pathname, member.role);

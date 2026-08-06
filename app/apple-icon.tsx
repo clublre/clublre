@@ -3,9 +3,7 @@ import { join } from 'node:path';
 
 import { ImageResponse } from 'next/og';
 
-// `app/apple-icon.tsx` — PNG 180×180 usado por iOS Safari cuando se
-// agrega el sitio a la home screen (y la mayoría de share-sheet
-// previews en iMessage / Slack iOS). Escudo centrado.
+// Apple touch icon 180×180 — iOS Safari home-screen y share-sheets (iMessage/Slack iOS).
 
 export const size = {
   width: 180,

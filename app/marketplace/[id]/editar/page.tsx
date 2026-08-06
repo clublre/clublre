@@ -14,16 +14,14 @@ import { useHasMounted } from '@/lib/auth-helpers';
 import { routes } from '@/lib/routes';
 
 export default function EditListingPage() {
-  // `useParams` es sync en cliente (Next 16) — sin Promise IIFE,
-  // sin `useState` derivado, sin `getState()` directo.
+  // `useParams` es sync en cliente (Next 16) — sin Promise IIFE ni `getState()`.
   const params = useParams<{ id: string }>();
   const id = params.id;
   const member = useAuthStore((s) => s.currentMember());
   const router = useRouter();
   const mounted = useHasMounted();
 
-  // Suscripción directa al store: re-renderiza cuando el socio
-  // cambie el status o las publicaciones muten.
+  // Suscripción directa al store — re-renderiza cuando cambien listings.
   const listing = useMarketplaceStore((s) =>
     s.listings.find((l) => l.id === id),
   );

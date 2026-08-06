@@ -27,8 +27,8 @@ interface ContactDialogProps {
   owner: Member;
 }
 
-/** Modal de contacto — explica que el club no participa del
- *  pago ni la entrega y abre WhatsApp o mail pre-poblado. */
+// Modal de contacto — explica que el club no participa del
+ //  pago ni la entrega y abre WhatsApp o mail pre-poblado. */
 export function ContactDialog({
   isOpen,
   onOpenChange,

@@ -20,9 +20,9 @@ import {
 } from '@/components/ui/Icons';
 import { activities } from '@/data/club';
 
-/** Ícono por actividad (phosphor vía iconify). Single source of truth
- *  para mantener consistencia visual y tener el catálogo completo
- *  de deportes que lucide no cubre. */
+// Ícono por actividad (phosphor vía iconify). Single source of truth
+ //  para mantener consistencia visual y tener el catálogo completo
+ //  de deportes que lucide no cubre. */
 type IconComponent = FC<{ className?: string; 'aria-hidden'?: boolean }>;
 
 const ACTIVITY_ICONS: Record<string, { icon: IconComponent }> = {
@@ -34,8 +34,8 @@ const ACTIVITY_ICONS: Record<string, { icon: IconComponent }> = {
   karate: { icon: HandFistIcon },
 };
 
-/** Sección con la lista completa de actividades del club.
- *  SectionHeader + grid de 3 columnas con CardClub por actividad. */
+// Sección con la lista completa de actividades del club.
+ //  SectionHeader + grid de 3 columnas con CardClub por actividad. */
 export function ActivitiesSection() {
   return (
     <Section as="section" id="actividades" spacing="lg">

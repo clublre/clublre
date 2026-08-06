@@ -3,15 +3,15 @@ import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardClubProps extends HTMLAttributes<HTMLDivElement> {
-  /** Resalta la card (usado en planes de cuota destacados). */
+  // Resalta la card (planes de cuota destacados).
   highlighted?: boolean;
-  /** Slot opcional para media arriba del body. */
+  // Slot opcional para media arriba del body.
   media?: ReactNode;
 }
 
-/** Card de marca para actividades, planes y posts. Se queda en `<div>`
- *  en lugar de `<Card>` de HeroUI porque el `highlighted` y los
- *  shadows custom no mapean 1:1 a las props de HeroUI. */
+// Card de marca para actividades, planes y posts.
+ //  en lugar de `<Card>` de HeroUI porque el `highlighted` y los
+ //  shadows custom no mapean 1:1 a las props de HeroUI. */
 export function CardClub({
   highlighted = false,
   media,

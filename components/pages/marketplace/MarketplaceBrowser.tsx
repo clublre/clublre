@@ -1,7 +1,7 @@
 'use client';
 
-// Browser del marketplace — client component que combina los
-// filtros, el listado y los vacíos. La data vive en `useMarketplaceStore`.
+// Browser del marketplace — client component que combina filtros, listado y vacíos.
+// Data en useMarketplaceStore.
 
 import { useMemo, useState } from 'react';
 
@@ -21,14 +21,13 @@ const VISIBLE_STATUSES: ReadonlyArray<ListingStatus> = [
   'reserved',
 ];
 
-/** Lista pública de publicaciones — sólo muestra `published` y `reserved`.
- *  Las pendientes, rechazadas, archivadas, etc. sólo aparecen en
- *  Mi cuenta o en el panel admin. */
+// Lista pública de publicaciones — solo `published` y `reserved`.
+ //  Las pendientes, rechazadas, archivadas, etc. sólo aparecen en
+ //  Mi cuenta o en el panel admin. */
 export function MarketplaceBrowser() {
   const listings = useMarketplaceStore((s) => s.listings);
-  // Suscribirse a `members` directo y armar un Map O(1) evita
-  // re-renders perdidos cuando la comisión modera a un socio
-  // (getMember() devolvía el método estable, no la data).
+  // Map O(1) por id — getMember() devolvía el método estable, no la data,
+  // y se perdían re-renders al moderar un socio.
   const members = useAuthStore((s) => s.members);
   const memberById = useMemo(
     () => new Map(members.map((m) => [m.id, m])),

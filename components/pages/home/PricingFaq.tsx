@@ -5,11 +5,11 @@ import { Reveal } from '@/components/ui/Reveal';
 import { FaqAccordion } from '@/components/ui/FaqAccordion';
 import { faqItems } from '@/data/faq';
 
-/** Sección de preguntas frecuentes. Server component. Los items
- *  llevan `id` estable (índice + texto) para que React no churn DOM
- *  si el orden cambia. `id="faq"` ancla CTAs externos.
- *
- *  Vive como sección `id="faq"` en la landing (`app/page.tsx`). */
+// Sección de preguntas frecuentes. Server component. Los items
+ //  llevan `id` estable (índice + texto) para que React no churn DOM
+ //  si el orden cambia. `id="faq"` ancla CTAs externos.
+ //
+ //  Vive como sección `id="faq"` en la landing (`app/page.tsx`). */
 export function PricingFaq() {
   return (
     <Section as="section" id="faq" spacing="lg">

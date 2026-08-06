@@ -15,10 +15,8 @@ import { routes } from '@/lib/routes';
 export default function PublishListingPage() {
   const member = useAuthStore((s) => s.currentMember());
   const router = useRouter();
-  // Hidratación: durante SSR y primer render del cliente, no leemos
-  // la sesión persistida en localStorage. Renderizamos siempre el
-  // placeholder hasta después del mount. Así el árbol inicial es
-  // idéntico en server y cliente.
+  // Hidratación: SSR y primer render no leen localStorage — placeholder
+  // hasta el mount. Árbol idéntico server/cliente.
   const mounted = useHasMounted();
 
   useEffect(() => {

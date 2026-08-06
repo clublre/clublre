@@ -15,13 +15,11 @@ export interface ProvidersProps {
 }
 
 // HeroUI v3 no necesita Provider (a diferencia de NextUI v2).
-// Solo wrapeamos con next-themes para manejar light/dark.
-// HeroUI lee el tema activo de `data-theme` automáticamente.
+// Solo wrapeamos con next-themes; HeroUI lee el tema de `data-theme`.
 //
-// Registramos la collection de phosphor offline — sin esto,
-// `<Icon icon="ph:house" />` hace fetch a api.iconify.design en
-// runtime y los icons no se ven en prod (el sandbox de Vercel no
-// sale a la API antes de hidratar).
+// Collection de phosphor offline — sin esto, `<Icon icon="ph:house" />`
+// hace fetch a api.iconify.design en runtime y los icons no se ven en
+// prod (el sandbox de Vercel no sale a internet antes de hidratar).
 addCollection(phIcons);
 
 export function Providers({ children, themeProps }: ProvidersProps) {

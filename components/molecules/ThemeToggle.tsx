@@ -9,16 +9,12 @@ import { MoonFilledIcon, SunIcon } from '@/components/ui/Icons';
 
 export interface ThemeToggleProps {
   className?: string;
-  /** Tamaño visual del ícono. */
+  // Tamaño visual del ícono.
   size?: 'sm' | 'md' | 'lg';
 }
 
-/** Toggle claro/oscuro como botón icon-only. Molécula: compone
- *  `IconButton` con `next-themes`. Muestra sol en light y luna en dark.
- *
- *  Al alternar, el ícono rota 360° y se desvanece brevemente — anima
- *  el cambio de tema con feedback visual. Después settleamos al ícono
- *  destino (sol o luna) con un fade-in. */
+// Toggle claro/oscuro — IconButton + next-themes. Sol en light, luna en dark.
+// Al alternar: rotación 360° + fade, después settle al ícono destino.
 export const ThemeToggle: FC<ThemeToggleProps> = ({
   className,
   size = 'md',
