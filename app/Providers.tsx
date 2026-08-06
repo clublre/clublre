@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { addCollection } from '@iconify/react';
 import { icons as phIcons } from '@iconify-json/ph';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import {
   ThemeProvider as NextThemesProvider,
   type ThemeProviderProps,
@@ -24,5 +25,9 @@ export interface ProvidersProps {
 addCollection(phIcons);
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-  return <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>;
+  return (
+    <NuqsAdapter>
+      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+    </NuqsAdapter>
+  );
 }

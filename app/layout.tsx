@@ -16,6 +16,7 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { AdminNavBar } from '@/components/layouts/AdminNavBar';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // Payload JSON-LD SportsClub para rich results de Google.
 // El `@id` da una identidad estable para que Google deduplique
@@ -157,6 +158,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

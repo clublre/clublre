@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { Button } from '@heroui/react';
-import * as Sentry from '@sentry/nextjs';
 import NextLink from 'next/link';
 
 import { Container } from '@/components/ui/Container';
@@ -22,10 +21,9 @@ export default function BlogSlugError({
   reset: () => void;
 }) {
   useEffect(() => {
-    Sentry.captureException(error, {
-      tags: { boundary: 'blog/[slug]' },
-    });
-    console.error('[BlogSlugBoundary]', error);
+    // Log local — Vercel runtime logs lo captura y, si está
+    // configurado, lo manda al log drain de Slack.
+    console.error('[ErrorBoundary:blog/[slug]]', error);
   }, [error]);
 
   return (

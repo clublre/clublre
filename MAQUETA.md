@@ -188,6 +188,57 @@ Cuando estén conformes con el producto:
 
 ---
 
+## Lo que viene (post-maqueta)
+
+La arquitectura objetivo está documentada en [`STACK.md`](./STACK.md). Resumen:
+
+- **Backend unificado**: Supabase (Postgres + Auth + Storage + RLS) en región **São Paulo**.
+- **File storage**: Supabase Storage con 3 buckets (`avatars`, `listings`, `blog`) — fotos de perfil + imágenes de publicaciones.
+- **Email transaccional**: Resend (free tier, ~150-250 emails/mes = $0).
+- **CAPTCHA**: Cloudflare Turnstile en application form + report.
+- **Hosting**: Vercel Pro con edge São Paulo.
+- **Web Vitals**: `@vercel/speed-insights` (gratis, 5KB).
+
+**Costo estimado en producción**: **$45/mes** (Supabase $25 + Vercel $20). El resto es free tier.
+
+**Setup operativo paso a paso**: ver [`docs/RUNBOOK.md`](./docs/RUNBOOK.md) — guía para crear las cuentas (GitHub Org `clublre`, Vercel Team, Cloudflare, NIC Argentina, Resend, Supabase) en el orden correcto.
+
+### Estructura de carpetas preparada
+
+Las siguientes carpetas ya existen con READMEs explicativos esperando el wire-up:
+
+- `supabase/` + `supabase/migrations/` — DB schema + RLS policies
+- `lib/supabase/` — clientes (`server`, `client`, `admin`)
+- `app/actions/` — Server Actions agrupadas por dominio
+- `emails/` — templates React Email
+
+### Roadmap (6 semanas estimadas)
+
+| Sem | Bloque                                              |
+| --- | --------------------------------------------------- |
+| 1   | Setup Supabase + migrations + RLS + seed            |
+| 2   | Supabase Auth + `proxy.ts` + reemplazar stores mock |
+| 3   | Marketplace en Server Actions + Supabase Storage    |
+| 4   | Uploads reales (avatares + listings)                |
+| 5   | Resend + templates + emails en cada Server Action   |
+| 6   | i18n + hardening pre-launch                         |
+
+### Decisiones ya tomadas
+
+- ❌ ~~Sentry~~ — Vercel logs + Slack log drain cubren el 99%.
+- ❌ ~~Mercado Pago~~ — las cuotas las maneja otro sistema del club.
+- ❌ ~~Inngest / pg_cron / Vercel Cron~~ — no hay workflows programados.
+- ❌ ~~Supabase Realtime~~ — RSC + `revalidatePath` alcanza.
+
+### Lo que se necesita del club para arrancar
+
+- Acceso al dashboard de Supabase (o crear el proyecto nuevo en sa-east-1).
+- Decisión sobre email/password vs magic link vs ambos para el login.
+- Verificación del dominio `clublre.com.ar` en Cloudflare (para Turnstile).
+- Confirmación del dominio en Resend (para SPF/DKIM/DMARC de los emails).
+
+---
+
 ## Flujo de ramas
 
 Para no pushear todo a `main` usamos dos ramas:

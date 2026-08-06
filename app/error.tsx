@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { Button } from '@heroui/react';
-import * as Sentry from '@sentry/nextjs';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -16,13 +15,9 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Mandamos el error a Sentry para enterarnos de problemas en
-    // producción. `error.digest` es el id estable del App Router.
-    Sentry.captureException(error, {
-      tags: { boundary: 'app/error' },
-    });
-    // Log local para devs en consola del browser.
-    console.error('[ErrorBoundary]', error);
+    // Log local — Vercel runtime logs lo captura y, si está
+    // configurado, lo manda al log drain de Slack.
+    console.error('[ErrorBoundary:app/error]', error);
   }, [error]);
 
   return (
