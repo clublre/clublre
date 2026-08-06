@@ -1,11 +1,11 @@
 # Dependabot — Club LRE
-# Mantiene npm actualizado y abre PRs automáticos por semana.
+# Mantiene pnpm actualizado y abre PRs automáticos por semana.
 # Se mergean manualmente con revisión rápida (CI + changelog).
 
 version: 2
 
 updates:
-  - package-ecosystem: 'npm'
+  - package-ecosystem: 'pnpm'
     directory: '/'
     schedule:
       interval: 'weekly'

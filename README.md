@@ -1,38 +1,68 @@
 # Club Los Rosarinos Estudiantil — Sitio web
 
-Sitio oficial del **Club Los Rosarinos Estudiantil** (CLUB L.R.E), una institución deportiva y social de Rosario, Argentina, fundada en 1943.
+Sitio oficial del **Club Los Rosarinos Estudiantil** (CLUB L.R.E), una
+institución deportiva y social de Rosario, Argentina, fundada en 1943.
 
 ## Stack
 
-- **[Next.js 16](https://nextjs.org/)** — App Router, Turbopack
-- **[React 19](https://react.dev/)**
+- **[Next.js 16](https://nextjs.org/)** — App Router, Turbopack, Server Components
+- **[React 19](https://react.dev/)** — Server Actions, `useOptimistic`, `<Form>`
 - **[HeroUI v3](https://heroui.com/)** — `nextui.org` rebranded, sobre React Aria + Tailwind v4
 - **[Tailwind CSS v4](https://tailwindcss.com/)** — CSS-based config (`@theme`)
-- **[TypeScript 6](https://www.typescriptlang.org/)**
+- **[TypeScript 6](https://www.typescriptlang.org/)** — strict
 - **[next-themes](https://github.com/pacocoursey/next-themes)** — light/dark
-- **[Tailwind Variants](https://tailwind-variants.org)** — type-safe variants
-- **[React Icons](https://react-icons.github.io/react-icons)** — íconos
+- **[pnpm 10](https://pnpm.io/)** — package manager (con Corepack + `engines.runtime`)
+- **[Vercel](https://vercel.com)** — hosting (Hobby plan, región iad1)
 
 ## Requisitos
 
-- **Node.js 22.21.1** (ver `.nvmrc`).
+- **Node.js 22+** (recomendado 24.x, ver `.nvmrc`).
+- **pnpm** — instalable via `corepack enable` (viene con Node 16+).
 
-## Setup
+## Setup local
 
 ```bash
-nvm use            # usa la versión del .nvmrc
-npm install
-npm run dev        # http://localhost:3000
+# 1. Clonar e instalar
+git clone git@github.com:clublre/clublre.git
+cd clublre
+nvm use          # usa Node del .nvmrc
+corepack enable  # habilita pnpm via Corepack
+pnpm install     # auto-configura git hooks (husky)
+
+# 2. Variables de entorno (opcional por ahora)
+cp .env.example .env.local
+# editar .env.local con tus keys de Supabase / Resend cuando las tengas
+
+# 3. Dev server
+pnpm dev         # http://localhost:3000
 ```
 
 ## Scripts
 
-- `npm run dev` — dev server (Turbopack).
-- `npm run build` — build de producción.
-- `npm run start` — arranca el build.
-- `npm run lint` — ESLint 9 (flat config).
-- `npm run lint:fix` — ESLint con `--fix`.
-- `npm run type-check` — TypeScript sin emitir.
+- `pnpm dev` — dev server (Turbopack).
+- `pnpm build` — build de producción.
+- `pnpm start` — arranca el build.
+- `pnpm lint` — ESLint 9 (flat config).
+- `pnpm lint:fix` — ESLint con `--fix`.
+- `pnpm type-check` — TypeScript sin emitir.
+
+## Deploy
+
+Push a `main` o `develop` dispara deploy automático en Vercel.
+Ver [`docs/RUNBOOK.md`](docs/RUNBOOK.md) para el setup completo de las
+cuentas externas (Vercel, GitHub Org, NIC Argentina para el dominio,
+Supabase, Resend, Cloudflare Turnstile).
+
+## Pre-commit hooks
+
+Cada commit corre automáticamente:
+
+| Hook           | Qué hace                                                                  | Bypass        |
+| -------------- | ------------------------------------------------------------------------- | ------------- |
+| **pre-commit** | `pnpm exec lint-staged` → ESLint `--fix` + Prettier sobre archivos staged | `--no-verify` |
+| **commit-msg** | Valida Conventional Commits (`type(scope): subject`)                      | `--no-verify` |
+
+Ver [AGENTS.md](AGENTS.md) §"Pre-commit hooks" para el detalle.
 
 ## Sistema de diseño
 
@@ -53,61 +83,37 @@ vive en `data/` y se reemplaza por un CMS en producción.
   `text-blue-700`. **No usar `bg-amarillo`** ni nombres custom: pueden
   romper por auto-referencia en `@theme inline`.
 
-### Estructura atomic design
+### Atomic design
 
-```
-components/
-  icons.tsx           # Brand SVG icons
-  primitives.ts       # tailwind-variants helpers (title, subtitle)
-  counter.tsx         # Demo Button (NO es parte del design system)
-  atoms/              # Atomic — single-purpose, no state
-    IconButton.tsx    # HeroUI Button isIconOnly + aria-label
-  molecules/          # Atomic — atoms + state/logic
-    ThemeToggle.tsx   # IconButton + next-themes (sun/moon)
-  organisms/          # Atomic — full sections
-    Navbar.tsx
-    Footer.tsx
-  ui/                 # Atomic — UI primitives (layout & decorative)
-    Section.tsx       # <Section> — wrapper semántico con variant/spacing
-    Container.tsx     # <Container> — fixed max-width + padding
-    Eyebrow.tsx       # <Eyebrow> — small uppercase label
-    CardClub.tsx      # <CardClub> — branded card con accent stripe
-    BlurryBlob.tsx    # Blobs animados decorativos para hero
-```
-
-| Componente     | Uso                                                                |
-| -------------- | ------------------------------------------------------------------ |
-| `<Section>`    | Wrapper semántico de página (`variant` y `spacing` configurables). |
-| `<Container>`  | Wrapper con max-width + padding consistente.                       |
-| `<Eyebrow>`    | Label pequeño uppercase sobre un heading.                          |
-| `<CardClub>`   | Card de marca con accent stripe opcional.                          |
-| `<BlurryBlob>` | Blobs animados decorativos para hero.                              |
-| `IconButton`   | Atom wrapper sobre HeroUI Button con `isIconOnly` + `aria-label`.  |
-| `ThemeToggle`  | Molecule que combina `IconButton` + `next-themes` para light/dark. |
+| Capa      | Carpeta                 | Regla                                               |
+| --------- | ----------------------- | --------------------------------------------------- |
+| atoms     | `components/atoms/`     | Single-purpose, sin state. Wrappers de HeroUI.      |
+| molecules | `components/molecules/` | atoms + state/logic (ej. ThemeToggle).              |
+| organisms | `components/organisms/` | Full sections (Navbar, Footer).                     |
+| ui        | `components/ui/`        | Layout & decorative primitives (Section, CardClub). |
 
 ## Estructura del proyecto
 
 ```
-app/                  # Next.js App Router
-  layout.tsx
-  page.tsx            # Home (hero, actividades, CTA)
-  about/              # Historia, valores, comisión
-  blog/               # Blog index + [slug]
-  pricing/            # Cuotas
-  providers.tsx       # next-themes wrapper (NO NextUIProvider)
-config/
-  site.ts             # Nav items, metadata
-  design-tokens.ts    # TS tokens espejo de globals.css
-  fonts.ts            # next/font configs
-scripts/              # dev-clean.mjs, etc.
-styles/
-  globals.css         # @import tailwindcss + @heroui/styles + @theme
-public/
-  llms.txt            # Contexto para AI agents
-.github/              # Governance: AGENTS.md, copilot-instructions.md,
-                      # .instructions/*.md (TypeScript/Tailwind/HeroUI/Git),
-                      # agents/*.agent.md, prompts/*.prompt.md,
-                      # workflows/ci.yml
+app/                  # Next.js App Router (rutas, layouts, error boundaries)
+components/
+  atoms/              # Atoms — wrappers de HeroUI
+  molecules/          # Molecules — atoms + state
+  organisms/          # Organisms — secciones completas
+  ui/                 # UI primitives — Section, CardClub, etc.
+  pages/              # Composición por ruta (home/, admin/, marketplace/)
+  layouts/            # Layouts especiales (AdminNavBar)
+config/               # Tokens, site config, fonts
+data/                 # Domain data (activities, members, listings, posts)
+lib/                  # Helpers (utils, breadcrumbs, auth-helpers, csv)
+stores/               # Zustand stores (auth, marketplace, ui)
+styles/               # globals.css con @theme block
+docs/                 # RUNBOOK.md (setup operativo)
+.github/              # AGENTS.md, .instructions/, workflows/ci.yml,
+                      # PULL_REQUEST_TEMPLATE.md, dependabot.yml, CODEOWNERS
+public/               # assets estáticos + llms.txt
+supabase/             # skeleton para migrations (vacío hasta migración)
+emails/               # skeleton para React Email templates (vacío)
 ```
 
 ## Convenciones
@@ -118,12 +124,15 @@ public/
 - **Atomic design** — nuevos componentes compartidos van en `atoms/`,
   `molecules/`, `ui/` u `organisms/`. Nunca en la raíz de `components/`.
 - **Tokens duplicados** — cualquier color/space nuevo va en **ambos** `globals.css` y `design-tokens.ts`.
+- **Conventional Commits** — mensajes con formato `type(scope): subject`.
 
-## AI tooling
+## Documentación adicional
 
-- **HeroUI MCP server** configurado en `.vscode/mcp.json` (`heroui-react`).
-- **`llms.txt`** en `public/` para crawlers de LLMs.
-- **Globales** en `~/Library/Application Support/Code/User/mcp.json` (Figma, context7, GitHub, etc.).
+- [`AGENTS.md`](AGENTS.md) — reglas para AI agents (governance + pre-commit hooks).
+- [`BEST-PRACTICES.md`](BEST-PRACTICES.md) — biblia arquitectónica (decisiones + razones).
+- [`STACK.md`](STACK.md) — propuesta de stack técnico (Supabase + Resend + Vercel).
+- [`MAQUETA.md`](MAQUETA.md) — qué está simulado vs. producción.
+- [`docs/RUNBOOK.md`](docs/RUNBOOK.md) — paso a paso para levantar la infra.
 
 ## License
 
