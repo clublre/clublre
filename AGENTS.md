@@ -228,6 +228,33 @@ Si el build de producción falla, ahí sí — `npm run build`.
 
 ---
 
+## Pre-commit hooks (Husky + lint-staged)
+
+Cada commit corre automáticamente dos hooks:
+
+| Hook           | Qué hace                                                                      | Tiempo |
+| -------------- | ----------------------------------------------------------------------------- | ------ |
+| **pre-commit** | `pnpm exec lint-staged` → ESLint `--fix` + Prettier sobre los archivos staged | ~2-5s  |
+| **commit-msg** | Valida que el mensaje siga Conventional Commits (`type(scope): subject`)      | <1s    |
+
+**Setup automático**: al hacer `pnpm install`, el script `prepare` corre `husky` que setea los hooks. Los nuevos devs no necesitan hacer nada manual.
+
+**Config**: ver `.lintstagedrc.json` (qué corre por tipo de archivo) y `.husky/*` (los scripts).
+
+**Si el pre-commit falla** (prettier reformateó algo): los cambios están en `git status`, los stageás y commiteás otra vez. Si querés un único commit, `git commit --amend`.
+
+**Bypass de emergencia**: `git commit --no-verify` (omite ambos hooks). Usar solo en emergencias — Conventional Commits validado en CI / PR review igual.
+
+**Tipos de commit aceptados** (en AGENTS.md §"Convencional Commits"):
+
+```
+feat, fix, refactor, chore, docs, style, test, perf, build, ci
+```
+
+Con scope opcional: `feat(pricing): ...`. Subject: lowercase, sin punto final, ≤72 chars.
+
+---
+
 ## Verification checklist (before declaring a task done)
 
 ```bash
