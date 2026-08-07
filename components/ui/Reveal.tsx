@@ -29,7 +29,7 @@ export function Reveal({
       className={cn(className)}
       data-reveal="pending"
       data-revealed="false"
-      style={delay > 0 ? { transitionDelay: '${delay}ms' } : undefined}
+      style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
       {...props}
     >
       {children}

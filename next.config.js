@@ -42,8 +42,8 @@ const securityHeaders = [
       "default-src 'self'",
       // data: requerido por OG image (escudo en base64).
       "img-src 'self' data: blob:",
-      "style-src 'self' 'unsafe-inline'",     // HeroUI inline styles
-      "font-src 'self' data:",                // next/font subsets
+      "style-src 'self' 'unsafe-inline'", // HeroUI inline styles
+      "font-src 'self' data:", // next/font subsets
       // vercel.live = Next 16 dev-mode feedback widget.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
       "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live wss://vercel.live",
@@ -58,6 +58,10 @@ const nextConfig = {
   reactStrictMode: true,
   typedRoutes: true,
   // reactCompiler: { target: '19' },  // listo en 19, lo dejamos comentado hasta sumar CI
+  // Next 16 requiere `images.qualities` explícito — sino warning al build.
+  images: {
+    qualities: [75],
+  },
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -77,12 +81,12 @@ const nextConfig = {
     ];
   },
   experimental: {
-    optimizePackageImports: [       // tree-shaking agresivo para HeroUI / framer-motion
+    optimizePackageImports: [
+      // tree-shaking agresivo para HeroUI
       '@heroui/react',
       '@heroui/styles',
       'react-icons',
       'react-icons/fa',
-      'framer-motion',
     ],
   },
   // React Compiler 19 — memoización automática. Seguro con HeroUI/RAC.
