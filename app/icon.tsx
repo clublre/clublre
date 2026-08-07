@@ -1,9 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { ImageResponse } from 'next/og';
-
 // Favicon route de Next 16 (32×32 PNG) — auto-tomado por Next.
+// Servimos el logo directamente como PNG (sin ImageResponse) porque
+// Satori/ImageResponse tiene limites de tamano para imagenes embebidas
+// como data URI. Ver AUDIT-2026-08-06.md contexto.
 
 export const size = {
   width: 32,
@@ -18,33 +19,11 @@ export default async function Icon() {
   const logoData = await readFile(
     join(process.cwd(), 'public', 'logo-512.png'),
   );
-  const logoSrc = `data:image/jpeg;base64,${logoData.toString('base64')}`;
 
-  return new ImageResponse(
-    <div
-      style={{
-        height: '100%',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '50%',
-        overflow: 'hidden',
-        background: '#fff',
-      }}
-    >
-      <img
-        alt="CLUB L.R.E"
-        height={32}
-        src={logoSrc}
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-        }}
-        width={32}
-      />
-    </div>,
-    { ...size },
-  );
+  return new Response(logoData, {
+    headers: {
+      'content-type': contentType,
+      'cache-control': 'public, max-age=31536000, immutable',
+    },
+  });
 }
