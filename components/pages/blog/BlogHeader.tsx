@@ -8,7 +8,7 @@ import { title } from '@/components/primitives';
 //  animar entre rutas. */
 export function BlogHeader() {
   return (
-    <Section as="section" spacing="sm">
+    <Section as="section" spacing="md">
       <Container className="text-center">
         <Eyebrow className="mb-3 block" tone="sky">
           Novedades

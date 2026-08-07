@@ -28,7 +28,7 @@ const formatDate = (iso: string) =>
 export function PostList() {
   if (postsNewestFirst.length === 0) {
     return (
-      <Section as="section" spacing="md">
+      <Section as="section" className="!pt-6" spacing="md">
         <Container size="md">
           <div className="bg-surface shadow-club flex flex-col items-center rounded-2xl p-10 text-center">
             <Newspaper
@@ -48,7 +48,7 @@ export function PostList() {
   }
 
   return (
-    <Section as="section" spacing="md">
+    <Section as="section" className="!pt-6" spacing="md">
       <Container>
         <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {postsNewestFirst.map((post, i) => (
