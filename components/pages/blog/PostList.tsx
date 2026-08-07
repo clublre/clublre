@@ -21,14 +21,14 @@ const formatDate = (iso: string) =>
   }).format(new Date(iso));
 
 // Grid con todos los posts del blog. Server component que lee
- //  `postsNewestFirst` directo de `data/posts.ts`. El título va
- //  wrappeado en NextLink dentro de CardClubTitle para que toda
- //  la zona del título sea clickeable, más el CTA "Leer artículo"
- //  abajo anclado a `/blog/[slug]`. */
+//  `postsNewestFirst` directo de `data/posts.ts`. El título va
+//  wrappeado en NextLink dentro de CardClubTitle para que toda
+//  la zona del título sea clickeable, más el CTA "Leer artículo"
+//  abajo anclado a `/blog/[slug]`. */
 export function PostList() {
   if (postsNewestFirst.length === 0) {
     return (
-      <Section as="section" spacing="lg">
+      <Section as="section" className="!pt-6" spacing="md">
         <Container size="md">
           <div className="bg-surface shadow-club flex flex-col items-center rounded-2xl p-10 text-center">
             <Newspaper
@@ -48,7 +48,7 @@ export function PostList() {
   }
 
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" className="!pt-6" spacing="md">
       <Container>
         <div className="grid items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {postsNewestFirst.map((post, i) => (
