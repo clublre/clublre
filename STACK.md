@@ -363,19 +363,42 @@ El proyecto usa **dos canales de email**, ambos con el mismo provider (Resend) p
 
 ## 3. Lo que NO usamos y por qué
 
-| Tecnología                | Por qué NO                                                                          |
-| ------------------------- | ----------------------------------------------------------------------------------- |
-| **Mercado Pago**          | Las cuotas las maneja un sistema interno del club. Esta app no procesa pagos.       |
-| **Inngest / Temporal**    | No hay workflows multi-paso. Todo es single-step.                                   |
-| **Supabase Realtime**     | RSC + `revalidatePath` alcanza para la concurrencia esperada.                       |
-| **Vercel Cron / pg_cron** | Sin jobs programados (la cuota la maneja otro sistema).                             |
-| **Sentry**                | Vercel logs + Slack cubren el 99% del valor. $26/mes sin justificación.             |
-| **Auth.js v5 (NextAuth)** | Supabase Auth integrado con RLS. Menos piezas.                                      |
-| **Clerk**                 | SaaS caro, otra dependencia.                                                        |
-| **Neon / Railway / RDS**  | Supabase ya tiene DB + Auth + Storage.                                              |
-| **AWS S3 + CloudFront**   | Storage de Supabase alcanza. S3 se justifica a >10K imágenes.                       |
-| **WhatsApp Cloud API**    | Útil para urgentes. **No para transaccional/legal.** Sumar en fase 2 si hace falta. |
-| **i18n (next-intl)**      | Hoy toda la UI es es-AR. Cuando se sume en-US + pt-BR.                              |
+| Tecnología                | Por qué NO                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| **Mercado Pago**          | Las cuotas las maneja un sistema interno del club. Esta app no procesa pagos.              |
+| **Inngest / Temporal**    | No hay workflows multi-paso. Todo es single-step.                                          |
+| **Supabase Realtime**     | RSC + `revalidatePath` alcanza para la concurrencia esperada.                              |
+| **Vercel Cron / pg_cron** | Sin jobs programados (la cuota la maneja otro sistema).                                    |
+| **Sentry**                | Vercel logs + Slack cubren el 99% del valor. $26/mes sin justificación.                    |
+| **Auth.js v5 (NextAuth)** | Supabase Auth integrado con RLS. Menos piezas.                                             |
+| **Clerk**                 | SaaS caro, otra dependencia.                                                               |
+| **Neon / Railway / RDS**  | Supabase ya tiene DB + Auth + Storage.                                                     |
+| **AWS S3 + CloudFront**   | Storage de Supabase alcanza. S3 se justifica a >10K imágenes.                              |
+| **WhatsApp Cloud API**    | Útil para urgentes. **No para transaccional/legal.** Sumar en fase 2 si hace falta.        |
+| **i18n (next-intl)**      | Hoy toda la UI es es-AR. Cuando se sume en-US + pt-BR.                                     |
+| **TanStack Query**        | RSC + Server Actions + `useOptimistic` (React 19) cubren el 95%. Solo si admin Semana 4-6. |
+
+### Costos Vercel Functions (Server Actions + Route Handlers)
+
+Vercel factura **1 invocation** por cada ejecución de Server Action o Route Handler. El plan Hobby incluye **1 millón de invocations/mes gratis**.
+
+**Estimación Club LRE:**
+
+| Fase             | Socios activos | Estimado invocations/mes | % del free tier |
+| ---------------- | -------------- | ------------------------ | --------------- |
+| Mvp              | 50-100         | 500-5.000                | 0.05% - 0.5%    |
+| Crecimiento      | 500            | 5.000-25.000             | 0.5% - 2.5%     |
+| Saturación Hobby | 5.000          | 50.000-250.000           | 5% - 25%        |
+| Break-even Pro   | 10.000+        | 500.000+                 | 50%+            |
+
+**Conclusión**: Hobby alcanza hasta ~5K socios activos. No hay que preocuparse por costos de Server Actions en fase 1.
+
+**Tips para mantener el costo bajo** (incluso en Pro):
+
+- Cachear Server Components con `revalidate` (Next.js + Vercel cachean HTML por 1h+ gratis)
+- Usar `useOptimistic` de React 19 para UI updates instantáneos sin mutaciones redundantes
+- No usar Server Actions para polling — para eso, Route Handlers con cache
+- Una Server Action = una mutation lógica; no concatenar 5 mutaciones en 1 request
 
 ---
 
