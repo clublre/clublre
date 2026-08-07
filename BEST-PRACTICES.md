@@ -16,7 +16,9 @@
 | **HeroUI**       | 3.2+    | API compound, sin Provider, Tailwind v4 native.                    |
 | **Tailwind CSS** | 4.3+    | `@theme` en CSS, no JS config.                                     |
 | **ESLint**       | 9.x     | Flat config, `eslint-config-next/core-web-vitals`.                 |
-| **Node.js**      | 22.21.x | LTS, requerido por HeroUI MCP.                                     |
+| **Node.js**      | 24.x    | LTS, requerido por Next 16 + Turbopack.                            |
+
+> Stack canónico y costos en [`STACK.md §0`](./STACK.md) y §4. Esta tabla es solo el resumen rápido.
 
 ---
 
@@ -48,7 +50,7 @@ Si necesitás un link externo, usá `<a target="_blank" rel="noopener noreferrer
 
 ### 1.3 `optimizePackageImports`
 
-`@heroui/react`, `@heroui/styles`, `react-icons` y `framer-motion` se tree-shakean agresivamente. Importá siempre desde la raíz:
+`@heroui/react`, `@heroui/styles` y `react-icons` se tree-shakean agresivamente. Importá siempre desde la raíz:
 
 ```ts
 // ✅ bien
@@ -414,7 +416,7 @@ npm run dev:clean          # matar zombies + wipe .next/cache + .next/dev
 npm run dev:clean -- restart  # idem + arrancar dev server de nuevo
 ```
 
-### Qué hace `npm run dev:clean`
+### Qué hace `pnpm run dev:clean`
 
 1. Mata procesos zombis: `next dev`, `next-server`, `next-build`,
    `next-devtools-mcp`.
@@ -423,7 +425,7 @@ npm run dev:clean -- restart  # idem + arrancar dev server de nuevo
    `.next/types`, `node_modules/.cache`.
 4. (Opcional) Arranca `next dev` en background.
 
-Si el dev server se comporta raro, corré `npm run dev:clean -- restart`
+Si el dev server se comporta raro, corré `pnpm run dev:clean -- restart`
 y volvé a probar.
 
 ---
@@ -630,8 +632,9 @@ Iconos como botón necesitan `aria-label`:
 ### 9.1 Imágenes
 
 - ✅ Usá `<Image>` de Next, no `<img>`.
-- ✅ `priority` solo above-the-fold.
+- ✅ `preload` solo above-the-fold (en Next 16, `priority` está deprecado).
 - ✅ Tamaños definidos (`width`, `height` o `fill`).
+- ✅ `formats: ['image/avif', 'image/webp']` en `next.config.js` para AVIF + WebP automático.
 
 ### 9.2 Fonts
 
@@ -640,12 +643,11 @@ next/font/google (ya configurado en `config/fonts.ts`). No importes fuentes en C
 ### 9.3 JS al cliente
 
 - ❌ Evitá `"use client"` salvo necesidad real.
-- ❌ No importes `framer-motion` directo — HeroUI lo hace lazy si es necesario.
 - ❌ No uses `useEffect` para cosas que pueden ser server-side.
 
 ### 9.4 Bundle analysis
 
-`npm run analyze` corre `next build && next experimental-analyze -o`.
+`pnpm run analyze` corre `next build && next experimental-analyze -o`.
 Output en `.next/diagnostics/analyze/index.html` (sin servidor) o
 levanta UI interactiva en `localhost:4000` si removés el `-o`.
 
@@ -706,30 +708,24 @@ Ver [`AGENTS.md`](./AGENTS.md) y [`.github/copilot-instructions.md`](./.github/c
 
 ---
 
-## 12. Pendientes / Post-MVP
+## 12. Phase 2 / Future iteration
 
 Hay mejoras que **no forman parte del MVP** pero quedan registradas
 para iteraciones futuras. Cada item incluye: contexto, motivación,
 stack propuesto y esfuerzo estimado. No abrir PRs hasta que se
 defina un milestone.
 
-> **Estado al 2026-07-30:** §12.1 (tests) y §12.2 (Storybook) están
+> **Estado al 2026-08-07:** §12.1 (tests) y §12.2 (Storybook) están
 > **pospuestos por decisión del equipo**. La info del stack y el
 > esfuerzo estimado se conserva como referencia futura; cualquier
-> reactivaión debe pasar por un milestone explícito. §12.3 sigue
+> reactivación debe pasar por un milestone explícito. §12.3 sigue
 > abierta como brainstorm.
 
 ### 12.1 Tests unitarios + integration (Vitest + Testing Library) — 🟡 POSPUESTO
 
-> **Pospuesto.** El sitio es chico, 100% estático, sin auth ni
-> endpoints; el ROI de tests automatizados no compensa el setup en
-> el corto plazo. Si más adelante se agrega CMS, autenticación de
-> socios o formularios de contacto, este item vuelve a la mesa.
-> Mientras tanto, las verificaciones manuales son `npm run
-type-check && npm run lint` antes de cada handoff.
+sin auth ni endpoints reales (la maqueta usa stores mockeados); el ROI de tests automatizados no compensa el setup en el corto plazo. Si más adelante se agrega CMS, autenticación de socios o formularios de contacto, este item vuelve a la mesa. Mientras tanto, las verificaciones manuales son `pnpm run type-check && pnpm run lint` antes de cada handoff.
 
-**Por qué ahora no:** el sitio es 100% estático (`output: "export"`
-en `next.config.js`), sin endpoints, sin auth, sin estado
+**Por qué ahora no:** el sitio hoy corre contra mocks en memoria (Zustand + localStorage), sin endpoints server, sin auth real, sin DBonfig.js`), sin endpoints, sin auth, sin estado
 compartido. La superficie a testear es:
 
 - 5 componentes UI (`Section`, `Container`, `CardClub`, `Eyebrow`,
@@ -855,7 +851,7 @@ de Chromatic.
 
 ---
 
-## 13. Production hardening
+3. Production hardening
 
 Una vez que el sitio entra a `clublre.com.ar` (o el dominio que
 definas), esta checklist queda activa:
@@ -916,7 +912,7 @@ curl -I https://clublre.com.ar/apple-icon    # 180×180
 
 ### 13.4 Bundle analysis — ✅ aplicado
 
-`npm run analyze` corre `next build && next experimental-analyze -o`
+`pnpm run analyze` corre `next build && next experimental-analyze -o`
 y deja reporte en `.next/diagnostics/analyze/index.html`. Útil
 cuando se agrega una dep o se sospecha regresión de tamaño.
 
@@ -924,15 +920,15 @@ cuando se agrega una dep o se sospecha regresión de tamaño.
 
 Antes de cada release taggeado:
 
-1. `npm run type-check && npm run lint && npm run build` — limpio.
-2. `npm run analyze` — diff de bundle, sin regresiones.
-3. Probar localmente con `npm run dev` — DevTools → Network tab
+1. `pnpm run type-check && pnpm run lint && pnpm run build` — limpio.
+2. `pnpm run analyze` — diff de bundle, sin regresiones.
+3. Probar localmente con `pnpm run dev` — DevTools → Network tab
    verificá:
    - `<link rel="icon" href="/icon">` cargado
    - `<link rel="apple-touch-icon" href="/apple-icon">` cargado
    - `<meta property="og:image" content=".../opengraph-image">` presente
    - JSON-LD `<script type="application/ld+json">` con `@type: SportsClub`
-4. Linter de opengraph.xyz → score 7/7 verde en description y title.
+4. Linter de [opengraph.xyz](https://www.opengraph.xyz/) → score 7/7 verde en description y title.
 5. Lighthouse → Performance ≥ 95, Accessibility = 100, Best Practices = 100.
 
 ---
@@ -976,10 +972,10 @@ hacer visible la restraint.
 
 ### Tokens descubiertos durante reviews
 
-| Token                       | Hallazgo                                                                                            | Acción                                                                                   |
-| --------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `--color-amarillo-soft`     | `bg-[#3A6BE0]` en `BlurryBlob` y `text-[#1B4FCF]` en `Eyebrow` violaban la regla "no arbitrary hex" | Agregado a `@theme` + `@theme inline` + alias TS en `config/design-tokens.ts`            |
-| `<SectionHeader>` primitive | 4 páginas duplicaban el bloque `eyebrow + h2 + descripción` con variantes de `mb-10`/`mb-12`        | Extraído a `components/ui/SectionHeader.tsx` con variants de `align`, `width`, `spacing` |
+| Token                                             | Hallazgo                                                                                     | Acción                                                                                        |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `bg-[#3A6BE0]` / `text-[#1B4FCF]` (arbitrary hex) | `BlurryBlob` y `Eyebrow` violaban la regla "no arbitrary hex"                                | Reemplazados por tokens de `@theme` + `@theme inline` + alias TS en `config/design-tokens.ts` |
+| `<SectionHeader>` primitive                       | 4 páginas duplicaban el bloque `eyebrow + h2 + descripción` con variantes de `mb-10`/`mb-12` | Extraído a `components/ui/SectionHeader.tsx` con variants de `align`, `width`, `spacing`      |
 
 ### Hallazgos históricos
 
