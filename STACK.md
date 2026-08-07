@@ -238,11 +238,21 @@ supabase-storage/
 
 ---
 
-### 2.4 Email transaccional
+### 2.4 Email — Estrategia dual (Supabase Auth + Resend transactional)
 
-#### Resend (free tier)
+El proyecto usa **dos canales de email**, ambos con el mismo provider (Resend) para consolidar:
 
-**Qué hace**: enviar los 7 emails del flujo de socio.
+#### Canal A — Supabase Auth emails (custom SMTP)
+
+**Provider**: Resend (vía SMTP)  
+**Cuándo**: signup confirmation, password reset, magic links, email change  
+**Config**: Supabase dashboard → Authentication → SMTP Settings  
+**Límite**: el de Resend (3.000/mes free tier) — sin el rate limit de 2/hora del built-in de Supabase
+
+#### Canal B — Resend transactional (API)
+
+**Provider**: Resend (vía SDK REST + React Email)  
+**Cuándo**: los 7 emails del flujo de socio
 
 | Evento                          | Destinatario | Cuándo               |
 | ------------------------------- | ------------ | -------------------- |
@@ -254,13 +264,14 @@ supabase-storage/
 | "Nueva publicación reportada"   | Admins       | Al reportar          |
 | "Tu publicación fue ocultada"   | Socio dueño  | Al ocultar           |
 
-**Por qué**:
+**Por qué Resend (ambos canales)**:
 
 - API moderna (REST, no SMTP), pensada para Next.js.
 - **React Email**: templates como componentes React (consistente con el stack).
 - DX excelente: dashboard con logs de entrega, bounces, complaints.
 - Free tier generoso: **3.000 emails/mes**, 100/día.
 - **Volumen del club**: ~150-250 emails/mes. **Siempre en free tier.**
+- **Un solo provider** = un solo dashboard de logs, una sola facturación, un solo setup de dominio.
 
 **Costos**: Free $0 / Pro $20/mes por 50K (no se va a usar).
 
@@ -273,6 +284,13 @@ supabase-storage/
 - **AWS SES**: requiere setup AWS.
 - **Gmail SMTP**: riesgo de suspensión.
 - **WhatsApp Cloud API**: para urgentes (cuota vence, evento). **No para transaccional/legal.** Sumar en fase 2 si hace falta.
+
+**Setup inicial (Semana 1)**:
+
+1. Crear cuenta en Resend (free tier).
+2. Verificar dominio `clublre.com.ar` en Resend (agregar SPF/DKIM/DMARC).
+3. Obtener API key + credenciales SMTP (`smtp.resend.com:465`).
+4. Configurar Supabase → Authentication → SMTP con esas credenciales.
 
 ---
 
@@ -521,21 +539,23 @@ Cerrar antes de arrancar la Semana 1. Son bloqueantes para que la migración a S
 
 - [ ] **Auditoría full del repo** — a11y, SEO, perf, security, UX vs tendencias 2025-2026 → reporte P0/P1/P2
 - [ ] **DNS `clublre.com.ar`** — NIC debe apuntar el A record a `216.198.79.1` (Vercel ya tiene el dominio agregado, muestra "Invalid Configuration" hasta propagar)
-- [ ] **Speed Insights** — `@vercel/speed-insights` instalado y montado en `app/layout.tsx` (Sentry cleanup ya está hecho en `b211644`)
+- [ ] **Speed Insights + Web Analytics** — `@vercel/speed-insights` y `@vercel/analytics` instalados y montados en `app/layout.tsx` (Sentry cleanup ya está hecho en `b211644`)
 - [ ] **Tests** — Vitest para units + Playwright para e2e del flujo crítico (login → publicar → contactar)
 - [ ] **Verificar cobertura de CI** — Husky pre-commit, lint-staged, commit-msg ya están activos; falta el workflow de Vercel Preview en PRs a `develop`
+- [ ] **Resend setup** — crear cuenta, verificar dominio `clublre.com.ar` (SPF/DKIM/DMARC), obtener API key + SMTP credentials (Semana 1)
+- [ ] **Supabase project** — crear proyecto en sa-east-1 (São Paulo) para mínima latencia desde Argentina
 
 ### Migración (Semanas 0-6)
 
-| Sem | Bloque                                                     | Estado    |
-| --- | ---------------------------------------------------------- | --------- |
-| 0   | Remover Sentry + agregar Speed Insights                    | parcial   |
-| 1   | Setup Supabase (sa-east-1) + migrations + RLS + seed       | por hacer |
-| 2   | Supabase Auth + `proxy.ts` + reemplazar stores mock        | por hacer |
-| 3   | Marketplace en Server Actions + Supabase Storage           | por hacer |
-| 4   | Uploads reales (avatares + listings)                       | por hacer |
-| 5   | Resend + templates + emails en cada Server Action          | por hacer |
-| 6   | i18n (es-AR default, en-US + pt-BR siguientes) + hardening | por hacer |
+| Sem | Bloque                                                                                                  | Estado    |
+| --- | ------------------------------------------------------------------------------------------------------- | --------- |
+| 0   | Remover Sentry + agregar Speed Insights + Web Analytics                                                 | hecho     |
+| 1   | Setup Supabase (sa-east-1) + migrations + RLS + seed + **custom SMTP con Resend**                       | por hacer |
+| 2   | Supabase Auth + `proxy.ts` + reemplazar stores mock                                                     | por hacer |
+| 3   | Marketplace en Server Actions + Supabase Storage                                                        | por hacer |
+| 4   | Uploads reales (avatares + listings)                                                                    | por hacer |
+| 5   | Resend API + React Email templates + emails en cada Server Action (marketing, reportes, notificaciones) | por hacer |
+| 6   | i18n (es-AR default, en-US + pt-BR siguientes) + hardening                                              | por hacer |
 
 **6 semanas estimadas para migrar la maqueta a un producto funcional** (sin contar la semana -1).
 
