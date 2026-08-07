@@ -25,7 +25,7 @@ export const runtime = 'nodejs';
 // round-trip extra del crawler social.
 
 export default async function Image() {
-  const logoData = await readFile(join(process.cwd(), 'public', 'logo2.jpeg'));
+  const logoData = await readFile(join(process.cwd(), 'public', 'logo.png'));
   const logoSrc = `data:image/jpeg;base64,${logoData.toString('base64')}`;
 
   return new ImageResponse(

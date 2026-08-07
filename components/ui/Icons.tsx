@@ -33,7 +33,7 @@ export interface LogoProps {
   sizes?: string;
 }
 
-/** Escudo del club — se sirve desde `/public/logo2.jpeg` vía `next/image`. */
+/** Escudo del club — se sirve desde `/public/logo.png` vía `next/image`. */
 export const Logo: FC<LogoProps> = ({
   size = 36,
   className,
@@ -47,7 +47,7 @@ export const Logo: FC<LogoProps> = ({
     height={size}
     preload={priority}
     sizes={sizes}
-    src="/logo2.jpeg"
+    src="/logo.png"
     width={size}
     {...(priority ? {} : { loading: 'lazy' })}
   />

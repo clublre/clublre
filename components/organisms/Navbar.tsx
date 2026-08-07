@@ -85,7 +85,7 @@ export const Navbar = () => {
             onClick={closeMobileMenu}
           >
             {/* priority + sizes para el LCP image en first paint */}
-            <Logo priority size={32} sizes="32px" />
+            <Logo priority size={50} sizes="50px" />
           </NextLink>
 
           {/* Nav desktop — pill style con bg-primary/10 en estado activo.
@@ -165,7 +165,7 @@ export const Navbar = () => {
                 href={routes.home}
                 onClick={closeMobileMenu}
               >
-                <Logo size={32} />
+                <Logo size={50} />
               </NextLink>
               {/* Cluster derecho: theme toggle a la izquierda del close. */}
               <div className="flex items-center gap-1">
