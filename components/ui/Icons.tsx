@@ -41,6 +41,7 @@ export const Logo: FC<LogoProps> = ({
   <Image
     alt="Club Los Rosarinos Estudiantil"
     className={cnLogo(className)}
+    fetchPriority={priority ? 'high' : undefined}
     height={size}
     sizes={sizes}
     src="/logo2.jpeg"
