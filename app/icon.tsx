@@ -15,7 +15,9 @@ export const contentType = 'image/png';
 // Single-pass por build (ruta static).
 
 export default async function Icon() {
-  const logoData = await readFile(join(process.cwd(), 'public', 'logo.png'));
+  const logoData = await readFile(
+    join(process.cwd(), 'public', 'logo-512.png'),
+  );
   const logoSrc = `data:image/jpeg;base64,${logoData.toString('base64')}`;
 
   return new ImageResponse(
