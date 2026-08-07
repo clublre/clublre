@@ -25,7 +25,9 @@ export interface LogoProps {
   /** Ancho Y alto en píxeles (cuadrado). */
   size?: number;
   className?: string;
-  /** Marcar como `priority` en posiciones above-the-fold (ej. Navbar). */
+  /** Marcar como `preload` en posiciones above-the-fold (ej. Navbar).
+   *  En Next 16 reemplaza al deprecado `priority`. Inyecta un `<link rel="preload">`
+   *  en el head y fetchPriority="high". */
   priority?: boolean;
   /** Hint responsive pasado a `next/image` para elegir resolución. */
   sizes?: string;
@@ -43,10 +45,11 @@ export const Logo: FC<LogoProps> = ({
     className={cnLogo(className)}
     fetchPriority={priority ? 'high' : undefined}
     height={size}
+    preload={priority}
     sizes={sizes}
     src="/logo2.jpeg"
     width={size}
-    {...(priority ? { priority: true } : { loading: 'lazy' })}
+    {...(priority ? {} : { loading: 'lazy' })}
   />
 );
 

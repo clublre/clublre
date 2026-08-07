@@ -59,8 +59,11 @@ const nextConfig = {
   typedRoutes: true,
   // reactCompiler: { target: '19' },  // listo en 19, lo dejamos comentado hasta sumar CI
   // Next 16 requiere `images.qualities` explícito — sino warning al build.
+  // Tambien agregamos AVIF + WebP para servir el formato optimo al browser
+  // segun Accept header. AVIF es ~30% mas chico que WebP en promedio.
   images: {
     qualities: [75],
+    formats: ['image/avif', 'image/webp'],
   },
   typescript: {
     ignoreBuildErrors: false,

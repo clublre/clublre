@@ -85,7 +85,7 @@ export const Navbar = () => {
             onClick={closeMobileMenu}
           >
             {/* priority + sizes para el LCP image en first paint */}
-            <Logo priority size={32} sizes="(max-width: 640px) 28px, 28px" />
+            <Logo priority size={32} sizes="32px" />
           </NextLink>
 
           {/* Nav desktop — pill style con bg-primary/10 en estado activo.
