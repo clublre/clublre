@@ -851,8 +851,7 @@ de Chromatic.
 - **Forms backend** — contacto y pre-inscripción. Resend + React
   Email es la opción más liviana.
 
-> ✅ **Error tracking** está cubierto (ver §13). Sentry configurado;
-> solo falta crear proyecto free tier + setear `NEXT_PUBLIC_SENTRY_DSN`.
+> ⚠️ **Error tracking**: en revisión. Se removió Sentry (commit `b211644`) — Vercel logs + log drain a Slack cubren el 99% del valor sin el costo. Re-evaluar en fase 2 si el volumen lo justifica.
 
 ---
 
@@ -882,26 +881,22 @@ HMR + liveness probes rompen con strict CSP). El `headers()`
 callback detecta `process.env.NODE_ENV` y devuelve `[]` en dev,
 dejándolos activos solo en builds de producción.
 
-### 13.2 Error tracking (Sentry) — ✅ configurado
+### 13.2 Error tracking (Sentry) — ❌ removido
 
-`@sentry/nextjs` instalado. Files:
+Sentry fue removido en commit `b211644`. Justificación: para un
+club con ~1000 socios, Vercel logs + log drain a Slack cubren el
+99% del valor de error tracking sin el costo de $26/mes de Sentry.
 
-- `instrumentation.ts` (Next 16 hook) — dispatcha el config
-  correcto según `NEXT_RUNTIME` (server / edge).
-- `sentry.{server,edge,client}.config.ts` — tres configs
-  separadas que setean `tracesSampleRate: 0.1` en prod.
-- `app/error.tsx` ya hace `Sentry.captureException(error, { tags:
-{ boundary: 'app/error' } })`. Lo mismo en `app/blog/error.tsx`
-  con tag `boundary='blog/[slug]'`. Filtrá issues en Sentry por
-  ese tag para separar errores globales vs scoped.
+**Si en el futuro se necesita re-activar** (ej: deploy a producción
+con tráfico real, monitoreo de regresiones, alerting):
 
-Activación: una sola env var en Vercel Project Settings:
+1. `pnpm add @sentry/nextjs`
+2. Recrear `instrumentation.ts` + `sentry.{server,edge,client}.config.ts`
+3. Setear `NEXT_PUBLIC_SENTRY_DSN` en Vercel Project Settings
+4. Configurar sampling rate (recomendado: `tracesSampleRate: 0.1` en prod)
+5. Actualizar `app/error.tsx` para llamar `Sentry.captureException()`
 
-```
-NEXT_PUBLIC_SENTRY_DSN=https://xxxx@sentry.io/123
-```
-
-Sin DSN, los configs no inicializan Sentry — zero overhead en dev.
+References: `STACK.md §2.7` y §3 para más contexto.
 
 ### 13.3 OG image, icons & JSON-LD — ✅ aplicado
 
