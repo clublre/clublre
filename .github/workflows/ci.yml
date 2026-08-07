@@ -19,14 +19,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Setup Node primero — Node 24 viene del .nvmrc.
+      # No usamos `cache: pnpm` acá porque requiere pnpm preinstalado
+      # y los runners de GitHub Actions no lo traen. El cache lo maneja
+      # `pnpm/action-setup` abajo con `cache: true`.
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@$(node -p "require('./package.json').packageManager.split('@')[1]") --activate
+      # pnpm/action-setup lee el `packageManager` de package.json y
+      # instala la versión correcta. Reemplaza el combo corepack que
+      # teniamos antes (que era fragil porque setup-node intentaba
+      # cachear pnpm antes de tenerlo instalado).
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          cache: true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
