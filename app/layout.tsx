@@ -16,6 +16,7 @@ import { BackToTop } from '@/components/ui/BackToTop';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { AdminNavBar } from '@/components/layouts/AdminNavBar';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 // JSON-LD SportsClub — `@id` estable para que Google deduplique entre crawls.
 // `dangerouslySetInnerHTML` seguro: el payload se construye en código (sin input del usuario).
@@ -156,6 +157,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <SpeedInsights />
+          <Analytics />
         </Providers>
       </body>
     </html>
