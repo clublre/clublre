@@ -29,13 +29,12 @@ jobs:
           node-version-file: '.nvmrc'
 
       # pnpm/action-setup lee el `packageManager` de package.json y
-      # instala la versión correcta. Reemplaza el combo corepack que
-      # teniamos antes (que era fragil porque setup-node intentaba
-      # cachear pnpm antes de tenerlo instalado).
+      # instala la versión correcta. No pasamos `version:` porque
+      # choca con `packageManager: pnpm@X.Y.Z` del package.json
+      # ("Multiple versions of pnpm specified").
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
           cache: true
 
       - name: Install dependencies
