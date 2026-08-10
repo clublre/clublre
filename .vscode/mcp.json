@@ -1,32 +1,32 @@
 {
   "servers": {
-    "heroui-react": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@heroui/react-mcp@latest"]
-    },
-    "next-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"]
-    },
     "codebase-memory-mcp": {
-      "type": "stdio",
-      "command": "npx",
       "args": ["-y", "codebase-memory-mcp@latest"],
+      "command": "npx",
       "env": {
         "CBM_CACHE_DIR": "${workspaceFolder}/.codebase-memory"
-      }
-    },
-    "sequential-thinking": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"]
+      },
+      "type": "stdio"
     },
     "context7": {
-      "type": "stdio",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@latest"]
+      "type": "stdio"
+    },
+    "heroui-react": {
+      "args": ["-y", "@heroui/react-mcp@latest"],
+      "command": "npx",
+      "type": "stdio"
+    },
+    "next-devtools": {
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "command": "npx",
+      "type": "stdio"
+    },
+    "sequential-thinking": {
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking@latest"],
+      "command": "npx",
+      "type": "stdio"
     }
   }
 }
