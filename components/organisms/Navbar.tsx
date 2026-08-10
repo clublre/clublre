@@ -24,6 +24,11 @@ import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
 
+// Login popover oculto en prod hasta que el auth flow esté bien integrado.
+// Vercel Project Settings → Env vars: NEXT_PUBLIC_DEPLOY_BRANCH=develop (scope develop).
+// Cuando se integre bien, borrar este flag y restaurar los dos <SignInTrigger/>/<UserMenu/>.
+const isDevelopDeploy = process.env['NEXT_PUBLIC_DEPLOY_BRANCH'] === 'develop';
+
 // Mapeo href → ícono. Module-level — desktop y drawer lo consultan sin re-render.
 const NAV_ICONS = {
   '/': Home,
@@ -85,7 +90,7 @@ export const Navbar = () => {
             onClick={closeMobileMenu}
           >
             {/* priority + sizes para el LCP image en first paint */}
-          <Logo priority size={50} sizes="(max-width: 640px) 28px, 50px" />
+            <Logo priority size={50} sizes="(max-width: 640px) 28px, 50px" />
           </NextLink>
 
           {/* Nav desktop — pill style con bg-primary/10 en estado activo.
@@ -129,14 +134,14 @@ export const Navbar = () => {
 
           {/* Lado derecho desktop */}
           <div className="hidden items-center gap-1 sm:flex">
-            {session ? <UserMenu /> : <SignInTrigger />}
+            {isDevelopDeploy && (session ? <UserMenu /> : <SignInTrigger />)}
             <ThemeToggle />
           </div>
 
           {/* Lado derecho mobile — avatar + hamburguesa. El ThemeToggle
               vive en el Drawer.Header, no hace falta duplicarlo acá. */}
           <div className="flex items-center gap-1 sm:hidden">
-            {session ? <UserMenu /> : <SignInTrigger />}
+            {isDevelopDeploy && (session ? <UserMenu /> : <SignInTrigger />)}
             <IconButton
               aria-label="Abrir menú de navegación"
               size="md"
