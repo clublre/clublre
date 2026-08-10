@@ -18,9 +18,9 @@
 
 ## Checklist
 
-- [ ] `pnpm type-check` pasa
-- [ ] `pnpm lint` pasa
-- [ ] `pnpm build` pasa
+- [ ] `npm run type-check` pasa
+- [ ] `npm run lint` pasa
+- [ ] `npm run build` pasa
 - [ ] Probado en el navegador (si hay cambio de UI)
 - [ ] Sin `console.log` / código comentado
 - [ ] Sin secretos ni `.env*` committeados
