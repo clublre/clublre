@@ -11,9 +11,9 @@ import { InstagramIcon } from '@/components/ui/Icons';
 import { routes } from '@/lib/routes';
 
 // CTA principal al final de la home. Plain div con gradient-border-sky
- //  + capa decorativa con el escudo del club como watermark (blur +
- //  desaturado, opacity 7%) y gradiente primary suave. Ambos decorativos
- //  son `aria-hidden` + `pointer-events-none`. */
+//  + capa decorativa con el escudo del club como watermark (blur +
+//  desaturado, opacity 7%) y gradiente primary suave. Ambos decorativos
+//  son `aria-hidden` + `pointer-events-none`. */
 export function FinalCta() {
   return (
     <Section as="section" spacing="md">
@@ -27,7 +27,7 @@ export function FinalCta() {
             aria-hidden="true"
             className="pointer-events-none absolute top-1/2 left-1/2 aspect-square w-[40%] max-w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.07] blur-[1px] grayscale select-none"
             height={500}
-            src="/logo2.jpeg"
+            src="/logo.png"
             width={500}
           />
 

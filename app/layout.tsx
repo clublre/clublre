@@ -27,7 +27,7 @@ const jsonLd = {
   name: siteConfig.name,
   alternateName: 'CLUB L.R.E',
   url: siteConfig.url,
-  logo: `${siteConfig.url}/logo2.jpeg`,
+  logo: `${siteConfig.url}/logo.png`,
   description: siteConfig.description,
   address: {
     '@type': 'PostalAddress',

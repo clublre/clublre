@@ -394,7 +394,7 @@ export const seedListings: ReadonlyArray<Listing> = [
       {
         id: 'img-1-1',
         alt: 'Botines de básquet azul marino, detalle del lateral',
-        src: '/logo2.jpeg',
+        src: '/logo.png',
       },
     ],
   },
