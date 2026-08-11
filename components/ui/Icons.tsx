@@ -162,6 +162,9 @@ export const Calculator = (p: Omit<IconProps, 'icon'>) => (
 export const Trophy = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="trophy" {...p} />
 );
+export const GraduationCap = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="graduation-cap" {...p} />
+);
 export const User = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="user" {...p} />
 );
