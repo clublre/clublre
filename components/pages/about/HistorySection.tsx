@@ -29,7 +29,7 @@ const beats: ReadonlyArray<HistoryBeat> = [
   {
     year: '1959',
     title: 'La fusión histórica',
-    body: 'El 25 de enero, socios y vecinas de ambas asociaciones decidieron fusionarse y dar vida al Club Los Rosarinos Estudiantil, bajo la primera presidencia de Alfredo Beccani.',
+    body: 'El 25 de enero, socios y vecinos de ambas asociaciones decidieron fusionarse y dar vida al Club Los Rosarinos Estudiantil, bajo la primera presidencia de Alfredo Beccani.',
   },
   {
     year: '1964–67',
