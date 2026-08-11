@@ -4,23 +4,27 @@ import { Calendar, MapPin, Users } from '@/components/ui/Icons';
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { AnimatedNumber } from '@/components/molecules/AnimatedNumber';
 
 // Trust strip — social proof rápido entre hero y actividades.
 //  Single source of truth para que el strip se vea consistente y
 //  los cambios de copy sean locales a este archivo. */
 const STATS: ReadonlyArray<{
   icon: FC<{ className?: string }>;
-  value: string;
+  /** Si `numeric` está definido, el count será animado al entrar en view. */
+  numeric?: { value: number; suffix?: string };
+  /** Texto estático (direcciones, etc.) — se muestra tal cual. */
+  value?: string;
   label: string;
 }> = [
   {
     icon: Users,
-    value: '900+',
+    numeric: { value: 900, suffix: '+' },
     label: 'Socios activos',
   },
   {
     icon: Calendar,
-    value: '1959',
+    numeric: { value: 1959 },
     label: 'Año de fundación',
   },
   {
@@ -52,7 +56,15 @@ export function TrustStrip() {
                 </span>
                 <div className="min-w-0">
                   <p className="text-foreground text-3xl font-bold sm:text-2xl">
-                    {stat.value}
+                    {stat.numeric ? (
+                      <AnimatedNumber
+                        duration={1.6}
+                        suffix={stat.numeric.suffix}
+                        value={stat.numeric.value}
+                      />
+                    ) : (
+                      stat.value
+                    )}
                   </p>
                   <p className="text-default-600 sm:text-sm">{stat.label}</p>
                 </div>
