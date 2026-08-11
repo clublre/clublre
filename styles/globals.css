@@ -269,10 +269,13 @@ a[href] {
   body {
     /* Evita scroll horizontal causado por los blobs decorativos del
        AmbientBlobs — se extienden fuera del viewport intencionalmente
-       para que el glow fluya entre secciones. `clip` sería ideal pero
-       soporte inconsistente en Safari/older. `hidden` es la opción
-       segura. */
-    overflow-x: hidden;
+       para que el glow fluya entre secciones.
+       ⚠️ NO usar `overflow-x: hidden` en el body — los browsers computan
+       overflow-y: auto cuando X es hidden, lo que convierte al body en
+       un scroll container propio y rompe `position: sticky` en los
+       descendientes (ej. Navbar). `overflow-x: clip` no genera scroll
+       container y mantiene sticky funcionando. */
+    overflow-x: clip;
   }
 
   html {
