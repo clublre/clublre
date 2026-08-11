@@ -8,21 +8,15 @@ import {
 } from '@/components/ui/CardClub';
 import { Reveal } from '@/components/ui/Reveal';
 import { Check } from '@/components/ui/Icons';
+import { AnimatedNumber } from '@/components/molecules/AnimatedNumber';
 import { pricingTiers } from '@/data/club';
 import { routes } from '@/lib/routes';
 
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    maximumFractionDigits: 0,
-  }).format(price);
-
 // Grid de 3 columnas con los planes de cuota. Server component que
- //  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
- //  `md:mt-auto` alinea los CTAs al fondo del card más alto.
- //
- //  Vive como sección `id="cuotas"` en la landing (`app/page.tsx`). */
+//  lee `pricingTiers` directo de `data/club.ts`. El `items-stretch` +
+//  `md:mt-auto` alinea los CTAs al fondo del card más alto.
+//
+//  Vive como sección `id="cuotas"` en la landing (`app/page.tsx`). */
 export function PricingTiers() {
   return (
     <>
@@ -48,7 +42,7 @@ export function PricingTiers() {
               </div>
               <div className="mb-2 flex items-baseline gap-1">
                 <span className="text-foreground text-4xl font-bold">
-                  {formatPrice(tier.price)}
+                  <AnimatedNumber currency duration={1.4} value={tier.price} />
                 </span>
                 <span className="text-default-500 text-sm">/mes</span>
               </div>

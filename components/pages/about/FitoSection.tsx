@@ -78,9 +78,12 @@ export function FitoSection() {
 
             <Reveal delay={260}>
               <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
-                El <em>Festival de Música Progresiva</em> que mapeó el rock
-                rosarino. Once bandas locales compitieron; un jovencísimo Fito
-                Páez, al frente de Staff, se consagró ganador.
+                El{' '}
+                <strong className="text-foreground font-semibold">
+                  Festival de Música Progresiva
+                </strong>{' '}
+                que mapeó el rock rosarino. Once bandas locales compitieron; un
+                jovencísimo Fito Páez, al frente de Staff, se consagró ganador.
               </p>
             </Reveal>
           </div>
