@@ -98,6 +98,10 @@ export const Newspaper = (p: Omit<IconProps, 'icon'>) => (
 export const Phone = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="phone" {...p} />
 );
+// Celular/mobile — para distinguir WhatsApp del teléfono fijo en el footer.
+export const PhoneMobile = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="device-mobile" {...p} />
+);
 export const MapPin = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="map-pin-area" {...p} />
 );
@@ -157,6 +161,9 @@ export const Calculator = (p: Omit<IconProps, 'icon'>) => (
 );
 export const Trophy = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="trophy" {...p} />
+);
+export const GraduationCap = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="graduation-cap" {...p} />
 );
 export const User = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="user" {...p} />

@@ -40,12 +40,25 @@ const PRESETS: Record<AmbientPreset, ReadonlyArray<BlobConfig>> = {
     {
       position: 'top-0 left-1/2',
       color: 'bg-sky-500/4',
-      size: 'h-[40rem] w-[40rem]',
+      size: 'h-[60rem] w-[60rem]',
+    },
+    // Blobs intermedios — sin estos, la página tiene un "gap" de
+    // ~4700px sin iluminación entre los blobs top/bottom y se nota
+    // un corte cuando scrolleás y pasás el borde de un blob.
+    {
+      position: 'top-1/3 right-1/3',
+      color: 'bg-sky-400/3',
+      size: 'h-[55rem] w-[55rem]',
+    },
+    {
+      position: 'bottom-1/3 left-1/3',
+      color: 'bg-cyan-400/3',
+      size: 'h-[55rem] w-[55rem]',
     },
     {
       position: 'bottom-0 right-1/2',
       color: 'bg-cyan-400/2',
-      size: 'h-[40rem] w-[40rem]',
+      size: 'h-[60rem] w-[60rem]',
     },
   ],
 };
@@ -61,7 +74,11 @@ export function AmbientBlobs(props: AmbientBlobsProps) {
     <div
       aria-hidden="true"
       className={cn(
-        'pointer-events-none absolute inset-0 overflow-hidden mix-blend-screen',
+        // Sin `overflow-hidden` — los blobs pueden extenderse más allá
+        // del contenedor padre para que la iluminación fluya entre
+        // secciones sin borde duro. `mix-blend-screen` los integra con
+        // cualquier fondo debajo.
+        'pointer-events-none absolute inset-0 mix-blend-screen',
         props.className,
       )}
     >
