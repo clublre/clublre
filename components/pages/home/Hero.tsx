@@ -9,11 +9,13 @@ import { Reveal } from '@/components/ui/Reveal';
 import BlurryBlob from '@/components/ui/BlurryBlob';
 import { title, subtitle } from '@/components/primitives';
 import { routes } from '@/lib/routes';
+import { siteConfig } from '@/config/site';
+import { yearsSince } from '@/lib/utils';
 
 // Hero — primer impacto de marca arriba de la home.
- //  Server component. Compone BlurryBlob + eyebrow + h1 con span
- //  gradiente + par de CTAs. El h1 lleva `viewTransitionName: 'page-title'`
- //  para animar entre rutas vía la View Transitions API. */
+//  Server component. Compone BlurryBlob + eyebrow + h1 con span
+//  gradiente + par de CTAs. El h1 lleva `viewTransitionName: 'page-title'`
+//  para animar entre rutas vía la View Transitions API. */
 export function Hero() {
   return (
     <Section
@@ -45,7 +47,7 @@ export function Hero() {
             })}
             style={{ viewTransitionName: 'page-title' }}
           >
-            Más de 80 años{' '}
+            Más de {yearsSince(siteConfig.foundedYear)} años{' '}
             <span className={title({ color: 'sky', size: 'lg' })}>
               formando comunidad
             </span>

@@ -1,10 +1,9 @@
 import type { ComponentType } from 'react';
 
 import {
-  Calculator,
   Crown,
   Notebook,
-  Trophy,
+  Shield,
   User,
   UserCircle,
   Wallet,
@@ -22,10 +21,10 @@ function pickRoleVisuals(role: string): {
   if (r.includes('vice')) return { Icon: UserCircle, tone: 'sky' };
   if (r.includes('secret')) return { Icon: Notebook, tone: 'sky' };
   if (r.includes('tesor')) return { Icon: Wallet, tone: 'sky' };
+  if (r.includes('síndico') || r.includes('sindico'))
+    return { Icon: Shield, tone: 'sky' };
   if (r.includes('suplente')) return { Icon: User, tone: 'default' };
   if (r.includes('vocal')) return { Icon: User, tone: 'default' };
-  if (r.includes('hacienda')) return { Icon: Calculator, tone: 'default' };
-  if (r.includes('deportes')) return { Icon: Trophy, tone: 'default' };
   return { Icon: User, tone: 'default' };
 }
 
@@ -37,6 +36,18 @@ function getInitials(name: string): string {
   return (first + last).toUpperCase();
 }
 
+// Clasificación de level 2 para los sub-grupos del organigrama.
+// Mantener centralizada — la usan tanto el render como cualquier
+// consumidor futuro (filtros, búsqueda, etc.).
+const isVocalTitular = (m: CommissionMember) => {
+  const r = m.role.toLowerCase();
+  return r.includes('vocal') && !r.includes('suplente');
+};
+const isVocalSuplente = (m: CommissionMember) => {
+  const r = m.role.toLowerCase();
+  return r.includes('vocal') && r.includes('suplente');
+};
+
 /**
  * Card minimalista estilo Vercel/Linear:
  * - Avatar gradient con iniciales (sin círculo blanco)
@@ -45,16 +56,30 @@ function getInitials(name: string): string {
  * - Icon accent en la esquina superior derecha
  * - Hover: lift sutil + ring color emerge
  * - Theme-adaptive via tokens del repo
+ *
+ * `isSuplente` aplica una atenuación sutil (avatar más chico,
+ * opacidad bajada) para diferenciar titulares de suplentes sin
+ * romper la coherencia visual del grupo.
  */
 function MemberCard({
   member,
   isRoot,
+  isSuplente,
 }: {
   member: CommissionMember;
   isRoot: boolean;
+  isSuplente: boolean;
 }) {
   const { Icon, tone } = pickRoleVisuals(member.role);
   const initials = getInitials(member.name);
+
+  // Tamaños escalonados: root > titular > suplente.
+  const avatarSize = isRoot ? 'size-16' : isSuplente ? 'size-10' : 'size-12';
+  const initialsSize = isRoot
+    ? 'text-xl'
+    : isSuplente
+      ? 'text-sm'
+      : 'text-base';
 
   return (
     <article
@@ -69,6 +94,9 @@ function MemberCard({
           : tone === 'sky'
             ? 'hover:ring-sky-500/40 dark:hover:ring-sky-400/30'
             : 'hover:ring-default-300 dark:hover:ring-default-100/40',
+        // Suplentes: atenuación global sutil para que el ojo los
+        // perciba como "segunda línea" sin perder legibilidad.
+        !isRoot && isSuplente && 'opacity-90',
       )}
     >
       {/* Glow gradient al hover (decorativo) */}
@@ -90,18 +118,13 @@ function MemberCard({
           aria-hidden="true"
           className={cn(
             'flex items-center justify-center rounded-full ring-2 transition-transform group-hover:scale-105',
-            isRoot ? 'size-16' : 'size-12',
+            avatarSize,
             tone === 'sky'
               ? 'bg-linear-to-br from-sky-400/30 via-sky-500/20 to-sky-600/25 text-sky-700 ring-sky-500/30 dark:from-sky-400/20 dark:via-sky-500/15 dark:to-sky-600/15 dark:text-sky-200 dark:ring-sky-400/25'
               : 'from-foreground/15 via-foreground/10 to-foreground/5 text-foreground/80 ring-foreground/15 dark:from-foreground/10 dark:via-foreground/5 dark:to-foreground/0 bg-linear-to-br',
           )}
         >
-          <span
-            className={cn(
-              'font-semibold tracking-tight',
-              isRoot ? 'text-xl' : 'text-base',
-            )}
-          >
+          <span className={cn('font-semibold tracking-tight', initialsSize)}>
             {initials}
           </span>
         </div>
@@ -126,6 +149,7 @@ function MemberCard({
             tone === 'sky'
               ? 'text-sky-600/80 dark:text-sky-300/80'
               : 'text-foreground/50',
+            !isRoot && isSuplente && 'opacity-75',
           )}
         >
           {member.role}
@@ -151,7 +175,58 @@ function MemberCard({
   );
 }
 
-// Layout de la comisión directiva — grid jerárquico sin react-flow.
+/** Sub-grupo del organigrama con heading + grid auto-fit. */
+function Subgroup({
+  title,
+  members,
+}: {
+  title: string;
+  members: ReadonlyArray<CommissionMember>;
+}) {
+  if (members.length === 0) return null;
+  return (
+    <section className="flex flex-col gap-3">
+      <h4 className="text-foreground/60 text-xs font-semibold tracking-wider uppercase">
+        {title}
+      </h4>
+      <div className="grid-auto-fit-220 grid gap-4">
+        {members.map((member) => (
+          <MemberCard
+            key={member.id}
+            isRoot={false}
+            isSuplente={member.role.toLowerCase().includes('suplente')}
+            member={member}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/** Línea conectora vertical entre niveles del organigrama. */
+function Connector() {
+  return (
+    <div
+      aria-hidden="true"
+      className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-linear-to-b to-transparent"
+    />
+  );
+}
+
+/**
+ * Layout de la comisión directiva:
+ * - Presidente (featured)
+ * - Línea conectora
+ * - Level 1: ejecutivos + síndico titular (4 cards, auto-fit)
+ * - Línea conectora
+ * - Level 2 con sub-grupos:
+ *   - Vocales titulares
+ *   - Vocales suplentes
+ *   - Otros cargos (protesorero + síndico suplente)
+ *
+ * Los grids usan `grid-auto-fit-220`/`260` (definidas en
+ * `styles/globals.css`) — se adaptan al viewport sin media queries.
+ */
 export function CommissionGrid() {
   const root = commission.find((m) => !m.reportsTo);
   if (!root) return null;
@@ -161,44 +236,43 @@ export function CommissionGrid() {
     (m) => m.reportsTo && m.reportsTo !== root.id,
   );
 
+  const vocalesTitulares = level2.filter(isVocalTitular);
+  const vocalesSuplentes = level2.filter(isVocalSuplente);
+  const otrosCargos = level2.filter(
+    (m) => !isVocalTitular(m) && !isVocalSuplente(m),
+  );
+
   return (
     <div className="flex flex-col gap-8">
       {/* Presidente — card featured, centrada */}
       <div className="flex justify-center">
         <div className="w-full max-w-sm">
-          <MemberCard isRoot member={root} />
+          <MemberCard isRoot isSuplente={false} member={root} />
         </div>
       </div>
 
-      {/* Línea conectora sutil */}
-      <div
-        aria-hidden="true"
-        className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-linear-to-b to-transparent"
-      />
+      {level1.length > 0 && <Connector />}
 
-      {/* Nivel 1 — 5 miembros directos */}
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {level1.map((member) => (
-          <MemberCard key={member.id} isRoot={false} member={member} />
-        ))}
-      </div>
-
-      {/* Línea conectora */}
-      {level2.length > 0 && (
-        <div
-          aria-hidden="true"
-          className="from-default-300/50 dark:from-default-100/30 mx-auto h-6 w-px bg-linear-to-b to-transparent"
-        />
-      )}
-
-      {/* Nivel 2 — vocales */}
-      {level2.length > 0 && (
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:mx-auto lg:max-w-3xl">
-          {level2.map((member) => (
-            <MemberCard key={member.id} isRoot={false} member={member} />
+      {/* Nivel 1 — ejecutivos + síndico titular */}
+      {level1.length > 0 && (
+        <div className="grid-auto-fit-260 grid gap-4">
+          {level1.map((member) => (
+            <MemberCard
+              key={member.id}
+              isRoot={false}
+              isSuplente={false}
+              member={member}
+            />
           ))}
         </div>
       )}
+
+      {level2.length > 0 && <Connector />}
+
+      {/* Nivel 2 — sub-grupos */}
+      <Subgroup members={vocalesTitulares} title="Vocales titulares" />
+      <Subgroup members={vocalesSuplentes} title="Vocales suplentes" />
+      <Subgroup members={otrosCargos} title="Otros cargos" />
     </div>
   );
 }

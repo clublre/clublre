@@ -5,7 +5,7 @@ import { Reveal } from '@/components/ui/Reveal';
 import { title } from '@/components/primitives';
 
 // Header de about: eyebrow + h1 + intro centrado.
- //  `viewTransitionName: 'page-title'` que el resto de headers. */
+//  `viewTransitionName: 'page-title'` que el resto de headers. */
 export function AboutHeader() {
   return (
     <Section as="section" spacing="md">
@@ -30,9 +30,9 @@ export function AboutHeader() {
         </Reveal>
         <Reveal delay={220}>
           <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
-            Fundado en 1943, el Club Los Rosarinos Estudiantil es una
-            institución deportiva y social con más de 3.500 socios. A lo largo
-            de ocho décadas, hemos sido parte de la vida de miles de familias
+            Fundado en 1959, el Club Los Rosarinos Estudiantil es una
+            institución deportiva y social con más de 900 socios. A lo largo de
+            ocho décadas, hemos sido parte de la vida de miles de familias
             rosarinas, formando deportistas y generando comunidad.
           </p>
         </Reveal>

@@ -11,7 +11,7 @@ export interface FaqItem {
 export const faqItems: ReadonlyArray<FaqItem> = [
   {
     q: '¿Cómo me asocio al club?',
-    a: 'Podés acercarte a nuestra sede de Iriondo 375, Rosario, de lunes a viernes con tu DNI y una foto carnet. También podés escribirnos por Instagram para coordinar el trámite.',
+    a: 'Podés acercarte a nuestra sede de Iriondo 375, Rosario, de Lunes a Viernes con tu DNI y una foto carnet. También podés escribirnos por Instagram para coordinar el trámite.',
   },
   {
     q: '¿Los menores de edad pueden asociarse?',

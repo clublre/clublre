@@ -7,13 +7,15 @@ import {
   CardClubTitle,
   CardClubBody,
 } from '@/components/ui/CardClub';
+import { siteConfig } from '@/config/site';
+import { yearsSince } from '@/lib/utils';
 
 // Grid de 3 cards con los valores centrales del club.
- //  editorial vive directo acá (cambia poco); se movería a `data/`
- //  cuando el sitio gane un CMS. */
+//  editorial vive directo acá (cambia poco); se movería a `data/`
+//  cuando el sitio gane un CMS. */
 export function ValuesGrid() {
   return (
-    <Section as="section" spacing="lg">
+    <Section as="section" spacing="md">
       <Container>
         <SectionHeader
           description="Comunidad, formación y tradición se construyen cada día en cada actividad, cada clase y cada partido."
@@ -21,12 +23,12 @@ export function ValuesGrid() {
           heading="Lo que nos define"
         />
 
-        {/* Layout asimétrico — primera card destacada (2 cols × 2 rows),
-            las otras dos comparten la columna derecha. Anti-pattern
-            explícito per taste-skill §6 ("three equal card columns"). */}
-        <div className="grid items-stretch gap-6 md:grid-cols-3 md:grid-rows-2">
+        {/* Grid de 3 cards iguales (1 × md:grid-cols-3). Sin `items-stretch`
+            para que cada card tenga su altura natural — sin espacio
+            vacío adentro. Top-aligned por default. */}
+        <div className="grid gap-6 md:grid-cols-3">
           <Reveal className="h-full">
-            <CardClub className="h-full md:col-span-2 md:row-span-2">
+            <CardClub className="h-full">
               <CardClubTitle>Comunidad</CardClubTitle>
               <CardClubBody>
                 Un espacio donde las familias rosarinas crecen juntas,
@@ -49,8 +51,8 @@ export function ValuesGrid() {
             <CardClub className="h-full">
               <CardClubTitle>Tradición</CardClubTitle>
               <CardClubBody>
-                Más de 80 años de historia formando campeones dentro y fuera de
-                la cancha.
+                Más de {yearsSince(siteConfig.foundedYear)} años de historia
+                formando campeones dentro y fuera de la cancha.
               </CardClubBody>
             </CardClub>
           </Reveal>

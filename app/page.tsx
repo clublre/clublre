@@ -14,11 +14,12 @@ import { PricingTiers } from '@/components/pages/home/PricingTiers';
 import { PricingFaq } from '@/components/pages/home/PricingFaq';
 import { LatestPosts } from '@/components/pages/home/LatestPosts';
 import { FinalCta } from '@/components/pages/home/FinalCta';
+import { siteConfig } from '@/config/site';
+import { yearsSince } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'CLUB L.R.E | Club deportivo en Rosario, Santa Fe',
-  description:
-    'Más de 80 años formando comunidad en Rosario. Deportes, recreación y vida social para toda la familia. Conocé nuestras cuotas.',
+  description: `Más de ${yearsSince(siteConfig.foundedYear)} años formando comunidad en Rosario. Deportes, recreación y vida social para toda la familia. Conocé nuestras cuotas.`,
 };
 
 export default function HomePage() {

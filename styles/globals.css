@@ -199,6 +199,19 @@
     pointer-events: none;
     z-index: -1;
   }
+
+  /* Grid responsivo sin media queries.
+     `auto-fit` colapsa tracks vacíos cuando no entran más cards;
+     `minmax(N, 1fr)` garantiza un ancho mínimo legible y estira
+     las cards al máximo disponible. Ideal para organigramas y
+     grids de cards donde la cantidad es fija pero el viewport
+     es variable. */
+  .grid-auto-fit-220 {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .grid-auto-fit-260 {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
 }
 
 /* Scale on press — targets HeroUI Button (`data-slot="button"`),
@@ -252,6 +265,16 @@ a[href] {
 }
 
 @layer base {
+  html,
+  body {
+    /* Evita scroll horizontal causado por los blobs decorativos del
+       AmbientBlobs — se extienden fuera del viewport intencionalmente
+       para que el glow fluya entre secciones. `clip` sería ideal pero
+       soporte inconsistente en Safari/older. `hidden` es la opción
+       segura. */
+    overflow-x: hidden;
+  }
+
   html {
     color-scheme: light dark;
     scroll-behavior: smooth;

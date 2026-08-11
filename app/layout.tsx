@@ -6,7 +6,7 @@ import { type Metadata, type Viewport } from 'next';
 
 import { Providers } from './Providers';
 
-import { cn } from '@/lib/utils';
+import { cn, yearsSince } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import { fontSans } from '@/config/fonts';
 import { Navbar } from '@/components/organisms/Navbar';
@@ -31,13 +31,25 @@ const jsonLd = {
   description: siteConfig.description,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Iriondo 375',
-    addressLocality: 'Rosario',
-    addressRegion: 'Santa Fe',
-    postalCode: 'S2122',
-    addressCountry: 'AR',
+    streetAddress: siteConfig.contact.address.street,
+    addressLocality: siteConfig.contact.address.city,
+    addressRegion: siteConfig.contact.address.province,
+    postalCode: siteConfig.contact.address.postalCode,
+    addressCountry: siteConfig.contact.address.country,
   },
-  telephone: '+54 341 435 1273',
+  // Teléfono fijo. WhatsApp va por separado en `contactPoint` para que
+  // Google lo distinga y muestre el canal correcto en el panel.
+  telephone: siteConfig.contact.phone.tel,
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: siteConfig.contact.whatsapp.tel,
+      contactOption: 'TollFree',
+      areaServed: 'AR',
+      availableLanguage: ['es-AR'],
+    },
+  ],
   sameAs: [siteConfig.links.instagram],
 } as const;
 
@@ -47,8 +59,7 @@ export const metadata: Metadata = {
     default: 'CLUB L.R.E | Club deportivo en Rosario, Santa Fe',
     template: `%s - ${siteConfig.name}`,
   },
-  description:
-    'Club deportivo y social en Rosario con más de 80 años formando comunidad. Básquet, natación, gimnasia artística, vóley, tenis de mesa y karate para toda la familia.',
+  description: `Club deportivo y social en Rosario con más de ${yearsSince(siteConfig.foundedYear)} años formando comunidad. Básquet, natación, gimnasia artística, vóley, tenis de mesa y karate para toda la familia.`,
   applicationName: siteConfig.name,
   keywords: [
     'Club Los Rosarinos Estudiantil',
@@ -72,9 +83,7 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: siteConfig.name,
     title: 'Club Los Rosarinos Estudiantil — Deportes en Rosario',
-    description:
-      'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!',
-    url: siteConfig.url,
+    description: `Más de ${yearsSince(siteConfig.foundedYear)} años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más. ¡Asociate hoy!`,
     locale: 'es_AR',
     // app/opengraph-image.tsx es auto-detectado por Next 16 — lo declaramos
     // explícito para que sea visible a simple vista.
@@ -83,9 +92,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Club Los Rosarinos Estudiantil — Deportes en Rosario',
-    description:
-      'Más de 80 años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más.',
-    images: ['/opengraph-image'],
+    description: `Más de ${yearsSince(siteConfig.foundedYear)} años formando comunidad en Rosario. Fútbol, básquet, pileta climatizada y más.`,
   },
   robots: {
     index: true,
