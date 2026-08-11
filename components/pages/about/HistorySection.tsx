@@ -29,7 +29,7 @@ const beats: ReadonlyArray<HistoryBeat> = [
   {
     year: '1959',
     title: 'La fusión histórica',
-    body: 'El 25 de enero, socios y vecinas de ambas asociaciones decidieron fusionarse y dar vida al Club Los Rosarinos Estudiantil, bajo la primera presidencia de Alfredo Beccani.',
+    body: 'El 25 de enero, socios y vecinos de ambas asociaciones decidieron fusionarse y dar vida al Club Los Rosarinos Estudiantil, bajo la primera presidencia de Alfredo Beccani.',
   },
   {
     year: '1964–67',
@@ -61,21 +61,28 @@ export function HistorySection() {
 
           <Reveal delay={140}>
             <figure className="mx-auto max-w-4xl text-center">
-              {/* Comillas decorativas enormes — el ojo entra por acá */}
-              <span
-                aria-hidden="true"
-                className="block text-center font-serif text-8xl leading-none text-sky-500/30 md:text-9xl"
-              >
-                &ldquo;
-              </span>
-
-              <blockquote className="text-foreground -mt-12 text-2xl leading-snug font-medium md:text-3xl md:leading-tight lg:text-4xl">
+              <blockquote className="text-foreground text-2xl leading-snug font-medium md:text-3xl md:leading-tight lg:text-4xl">
+                {/* Comilla de apertura — inline + vertical-align para que
+                    quede anclada a la línea base del primer renglón
+                    (patrón clásico de pull-quote editorial). */}
+                <span
+                  aria-hidden="true"
+                  className="mr-2 font-serif text-6xl text-sky-500/30 md:mr-3 md:text-7xl"
+                  style={{ lineHeight: 0.1, verticalAlign: '-0.45em' }}
+                >
+                  &ldquo;
+                </span>
                 Cuenta la leyenda popular que a la hora de decidir el orden
                 definitivo de los nombres para la nueva institución, las
                 comisiones tiraron una moneda al aire…
-                <span className="font-semibold"> ¡y cayó de canto</span>
-                <span aria-hidden="true" className="text-sky-500/30">
-                  !&rdquo;
+                <span className="font-semibold"> ¡y cayó de canto!</span>
+                {/* Comilla de cierre — mismo anclaje al final */}
+                <span
+                  aria-hidden="true"
+                  className="ml-2 font-serif text-6xl text-sky-500/30 md:ml-3 md:text-7xl"
+                  style={{ lineHeight: 0.1, verticalAlign: '-0.45em' }}
+                >
+                  &rdquo;
                 </span>
               </blockquote>
 

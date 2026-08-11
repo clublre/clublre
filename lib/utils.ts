@@ -16,3 +16,10 @@ export function cn(...inputs: ClassValue[]): string {
 export function yearsSince(year: number): number {
   return new Date().getFullYear() - year;
 }
+
+/** `decadesSince` — décadas completas transcurridas desde `year` hasta hoy.
+ *  Mismo contrato que `yearsSince` pero redondea a décadas (Math.floor).
+ *  Sirve para copy tipo "ocho décadas" que se desactualiza solo. */
+export function decadesSince(year: number): number {
+  return Math.floor(yearsSince(year) / 10);
+}
