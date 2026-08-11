@@ -79,69 +79,113 @@ export const activities: ReadonlyArray<Activity> = [
   },
 ] as const;
 
-/** Comisión directiva (placeholder — vendría del CMS). */
+/** Comisión directiva vigente. */
 /**
- * Comisión directiva — modelada como árbol (id + reportsTo).
- * El organigrama en `components/pages/about/CommissionSection` lo
- * renderiza con `@xyflow/react`. Mantener jerarquía explícita en los
- * datos (en lugar de agrupar por nivel) facilita futuros cambios y
- * refleja la realidad organizativa.
+ * Modelada como árbol (id + reportsTo). El organigrama en
+ * `components/pages/about/CommissionSection` lo renderiza con
+ * `@xyflow/react`. Mantener jerarquía explícita en los datos (en lugar
+ * de agrupar por nivel) facilita futuros cambios y refleja la realidad
+ * organizativa.
  */
 export const commission: ReadonlyArray<CommissionMember> = [
-  { id: 'presidente', role: 'Presidente', name: 'Juan Pérez' },
+  { id: 'presidente', role: 'Presidente', name: 'Celeste González' },
 
   {
     id: 'vicepresidente',
     role: 'Vicepresidente',
-    name: 'María González',
+    name: 'Héctor Fernando Biscaysaqu',
     reportsTo: 'presidente',
   },
   {
     id: 'secretario',
-    role: 'Secretario',
-    name: 'Carlos López',
+    role: 'Secretario General',
+    name: 'Federico Borgna',
     reportsTo: 'presidente',
   },
   {
     id: 'tesorero',
     role: 'Tesorero',
-    name: 'Ana Martínez',
+    name: 'Ariel Martin Arolfo',
     reportsTo: 'presidente',
   },
-
   {
-    id: 'vocal-1',
-    role: 'Vocal titular',
-    name: 'Pedro Rodríguez',
-    reportsTo: 'secretario',
-  },
-  {
-    id: 'vocal-2',
-    role: 'Vocal titular',
-    name: 'Lucía Fernández',
-    reportsTo: 'secretario',
-  },
-  {
-    id: 'vocal-3',
-    role: 'Vocal suplente',
-    name: 'Diego Sánchez',
+    id: 'protesorero',
+    role: 'Protesorero',
+    name: 'Valentino Sguro',
     reportsTo: 'tesorero',
   },
 
-  // Subcomisiones — dependen de la presidencia.
   {
-    id: 'sub-hacienda',
-    role: 'Subcomisión de Hacienda',
-    name: 'Roberto Díaz',
+    id: 'vocal-titular-1',
+    role: 'Vocal titular',
+    name: 'Darío Luis Prato',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-titular-2',
+    role: 'Vocal titular',
+    name: 'Jerónimo M. Martoccia',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-titular-3',
+    role: 'Vocal titular',
+    name: 'Juan Cruz Estévez',
+    reportsTo: 'secretario',
+  },
+
+  {
+    id: 'vocal-suplente-1',
+    role: 'Vocal suplente',
+    name: 'Alejandra Eciolaza',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-suplente-2',
+    role: 'Vocal suplente',
+    name: 'Florencia Bella',
+    reportsTo: 'secretario',
+  },
+  {
+    id: 'vocal-suplente-3',
+    role: 'Vocal suplente',
+    name: 'Cecilia Albornoz',
+    reportsTo: 'secretario',
+  },
+
+  {
+    id: 'sindico-titular',
+    role: 'Síndico titular',
+    name: 'Félix O. Seni',
     reportsTo: 'presidente',
   },
   {
-    id: 'sub-deportes',
-    role: 'Subcomisión de Deportes',
-    name: 'Sofía Romero',
-    reportsTo: 'presidente',
+    id: 'sindico-suplente',
+    role: 'Síndico suplente',
+    name: 'Carolina Sánchez',
+    reportsTo: 'sindico-titular',
   },
 ] as const;
+
+/** Metadata de la comisión directiva vigente — fuente de verdad para el
+ *  bloque "Aprobada por…" en la página /about. */
+export interface CommissionMeta {
+  /** Número de acta de la asamblea que aprobó la comisión. */
+  actaNumber: string;
+  /** Fecha de aprobación (ISO 8601). */
+  approvedAt: string;
+  /** Tipo de asamblea (e.g. "Asamblea General Ordinaria"). */
+  assemblyType: string;
+  /** Vigencia de la autoridad en años. */
+  tenureYears: number;
+}
+
+export const commissionMeta: CommissionMeta = {
+  actaNumber: '103',
+  approvedAt: '2025-06-03',
+  assemblyType: 'Asamblea General Ordinaria',
+  tenureYears: 3,
+} as const;
 
 /** Planes de cuota (placeholder — vendría del CMS). */
 export const pricingTiers: ReadonlyArray<PricingTier> = [

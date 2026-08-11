@@ -41,8 +41,8 @@ export const posts: ReadonlyArray<BlogPost> = [
     date: '2026-02-20',
     category: 'Básquet',
     excerpt:
-      'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
-    body: 'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos martes y jueves.',
+      'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos Martes y Jueves.',
+    body: 'Abrimos inscripciones para la escuela de básquet infantil. Entrenamientos Martes y Jueves.',
   },
   {
     slug: 'colonia-de-verano',

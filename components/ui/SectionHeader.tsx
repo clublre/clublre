@@ -68,9 +68,9 @@ export function SectionHeader({
       <Eyebrow className="mb-3 block" tone={tone}>
         {eyebrow}
       </Eyebrow>
-      <h2 className={title({ size: 'md', class: 'block' })}>{heading}</h2>
+      <h2 className={title({ size: 'lg', class: 'block' })}>{heading}</h2>
       {description ? (
-        <p className="text-default-600 mx-auto mt-4 max-w-xl text-base">
+        <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
           {description}
         </p>
       ) : null}
