@@ -52,7 +52,7 @@ export function FinalCta() {
                 1–3 días hábiles.
               </p>
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <NextLink href={routes.login}>
+                <NextLink href={routes.registro}>
                   <Button className="font-semibold" size="lg" variant="primary">
                     Quiero asociarme
                     <ArrowRight aria-hidden="true" className="ml-2 size-4" />

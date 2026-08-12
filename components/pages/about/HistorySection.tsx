@@ -61,14 +61,13 @@ export function HistorySection() {
 
           <Reveal delay={140}>
             <figure className="mx-auto max-w-4xl text-center">
-              <blockquote className="text-foreground text-2xl leading-snug font-medium md:text-3xl md:leading-tight lg:text-4xl">
-                {/* Comilla de apertura — inline + vertical-align para que
-                    quede anclada a la línea base del primer renglón
-                    (patrón clásico de pull-quote editorial). */}
+              <blockquote className="text-foreground relative mx-auto max-w-4xl px-10 text-2xl leading-snug font-medium md:px-14 md:text-3xl md:leading-tight lg:text-4xl">
+                {/* Comillas decorativas — absolute + leading-none para
+                    que queden ancladas al primer/último renglón sin
+                    necesidad de inline styles (AGENTS.md §Style). */}
                 <span
                   aria-hidden="true"
-                  className="mr-2 font-serif text-6xl text-sky-500/30 md:mr-3 md:text-7xl"
-                  style={{ lineHeight: 0.1, verticalAlign: '-0.45em' }}
+                  className="absolute top-0 left-0 text-6xl leading-none text-sky-500/30 md:text-7xl"
                 >
                   &ldquo;
                 </span>
@@ -76,11 +75,9 @@ export function HistorySection() {
                 definitivo de los nombres para la nueva institución, las
                 comisiones tiraron una moneda al aire…
                 <span className="font-semibold"> ¡y cayó de canto!</span>
-                {/* Comilla de cierre — mismo anclaje al final */}
                 <span
                   aria-hidden="true"
-                  className="ml-2 font-serif text-6xl text-sky-500/30 md:ml-3 md:text-7xl"
-                  style={{ lineHeight: 0.1, verticalAlign: '-0.45em' }}
+                  className="absolute right-0 bottom-0 text-6xl leading-none text-sky-500/30 md:text-7xl"
                 >
                   &rdquo;
                 </span>

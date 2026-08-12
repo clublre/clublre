@@ -10,7 +10,7 @@ import { title } from '@/components/primitives';
 // Lo mostramos como un marquee horizontal para evocar el "lineup" de
 // un festival. Cada nombre con su rol en minúscula.
 const staffBands: ReadonlyArray<{ name: string; role: string }> = [
-  { name: 'Fito Páez', role: 'voz y composición' },
+  { name: 'Fito Páez', role: 'Voz y composición' },
   { name: 'Germán Risemberg', role: 'bajo y composición' },
   { name: 'Carlos Murias', role: 'guitarras' },
   { name: '"Pájaro" Gómez', role: 'batería' },
@@ -61,7 +61,7 @@ export function FitoSection() {
               </Eyebrow>
             </Reveal>
 
-            <Reveal delay={140}>
+            <Reveal delay={80}>
               <h2
                 className={title({
                   size: 'lg',
@@ -76,7 +76,7 @@ export function FitoSection() {
               </h2>
             </Reveal>
 
-            <Reveal delay={260}>
+            <Reveal delay={160}>
               <p className="text-default-600 mx-auto mt-6 max-w-2xl text-lg">
                 El{' '}
                 <strong className="text-foreground font-semibold">
@@ -90,8 +90,8 @@ export function FitoSection() {
         </div>
 
         {/* ─── Premio como pull-quote ───────────────────────────────── */}
-        <Reveal delay={380}>
-          <div className="mx-auto mt-14 max-w-3xl">
+        <Reveal delay={240}>
+          <div className="mx-auto mt-14 max-w-xl">
             <CardClub className="border-sky-500/30 text-center">
               <Eyebrow className="mb-4 block" tone="sky">
                 El premio
@@ -100,12 +100,9 @@ export function FitoSection() {
                   ya renderiza un <p>, y anidar <p> adentro dispara
                   hydration error de React. */}
               <div className="text-default-600 text-sm leading-relaxed">
-                <p className="text-foreground text-lg leading-relaxed md:text-xl">
-                  &ldquo;Una botella de whisky y{' '}
-                  <span className="text-primary font-semibold">
-                    dos horas de grabación
-                  </span>{' '}
-                  en un estudio de calle Dorrego al 700.&rdquo;
+                <p className="text-default-700 text-xl leading-relaxed font-semibold md:text-2xl">
+                  &ldquo;Una botella de whisky y dos horas de grabación en un
+                  estudio de calle Dorrego al 700&rdquo;
                 </p>
                 <p className="mt-4">Tan auténtico como inolvidable.</p>
               </div>
@@ -114,7 +111,7 @@ export function FitoSection() {
         </Reveal>
 
         {/* ─── Staff — los que compartieron escenario ──────────────── */}
-        <Reveal delay={480}>
+        <Reveal delay={320}>
           <div className="mt-16">
             <SectionHeader
               align="center"
@@ -128,7 +125,7 @@ export function FitoSection() {
             <div className="flex flex-wrap justify-center gap-3">
               {staffBands.map((member, i) => (
                 <Reveal key={member.name} delay={i * 80}>
-                  <div className="bg-surface border-default-200 hover:border-primary/40 rounded-full border px-5 py-2.5 transition-colors">
+                  <div className="bg-surface border-default-200/10 rounded-full border px-5 py-2.5 shadow transition-colors hover:border-sky-500/20 hover:bg-sky-500/5">
                     <span className="text-foreground font-semibold">
                       {member.name}
                     </span>
@@ -143,7 +140,7 @@ export function FitoSection() {
         </Reveal>
 
         {/* ─── Jurado estelar ──────────────────────────────────────── */}
-        <Reveal delay={620}>
+        <Reveal delay={400}>
           <div className="mt-16">
             <SectionHeader
               align="center"
@@ -158,7 +155,7 @@ export function FitoSection() {
               {jury.map((name) => (
                 <div
                   key={name}
-                  className="bg-surface border-default-200 rounded-xl border p-5 text-center"
+                  className="bg-surface border-default-200/10 rounded-xl border p-5 text-center shadow"
                 >
                   <p className="text-foreground font-semibold">{name}</p>
                 </div>
@@ -168,7 +165,7 @@ export function FitoSection() {
         </Reveal>
 
         {/* ─── Cierre ──────────────────────────────────────────────── */}
-        <Reveal delay={760}>
+        <Reveal delay={480}>
           <p className="text-default-600 mx-auto mt-16 max-w-2xl text-center text-base italic md:text-lg">
             Aquella velada en nuestro club fue una de las chispas iniciales que
             terminarían dando origen a la mítica{' '}

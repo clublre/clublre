@@ -51,7 +51,7 @@ export function ValuesGrid() {
             gradient de transparente → default-300/40 → transparente,
             180px centrado. Separa sin subrayar. El icono en sky-500/70
             es el único acento de color. */}
-        <div className="mt-4 md:mt-12">
+        <div className="mx-auto mt-4 max-w-4xl md:mt-12">
           {values.map((value, i) => (
             <Fragment key={value.title}>
               {i > 0 && (
@@ -63,12 +63,12 @@ export function ValuesGrid() {
               <Reveal delay={i * 100}>
                 <article
                   className={cn(
-                    'grid gap-5 py-10 text-center md:grid-cols-[4.5rem_1fr] md:items-center md:gap-10 md:py-14 md:text-left',
+                    'grid items-center gap-5 py-10 text-center md:grid-cols-[4.5rem_1fr] md:items-start md:gap-10 md:text-left',
                   )}
                 >
                   <span
                     aria-hidden="true"
-                    className="inline-flex items-center justify-center text-sky-500/70"
+                    className="mx-auto inline-flex size-18 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-500/70 shadow md:size-20"
                   >
                     <value.icon className="size-12 md:size-14" />
                   </span>

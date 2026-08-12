@@ -22,6 +22,11 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(
     const el = ref.current;
     if (!el) return;
 
+    // Marca el documento como JS-ready para que el CSS pueda ocultar
+    // [data-reveal] solo cuando JS está activo. Sin este flag, no-JS
+    // users verían el contenido invisible (progressive enhancement).
+    document.documentElement.classList.add('js-ready');
+
     // Respetar `prefers-reduced-motion` — saltar la animación.
     if (
       typeof window !== 'undefined' &&
