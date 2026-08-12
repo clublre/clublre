@@ -84,7 +84,7 @@ function MemberCard({
   return (
     <article
       className={cn(
-        'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-all duration-300',
+        'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-[transform,box-shadow,ring-color] duration-300',
         // bg-surface-secondary adapta light/dark sin tocar dark:.
         'bg-surface-secondary ring-default-200/70 ring-1',
         'shadow-sm hover:-translate-y-1 hover:shadow-lg',

@@ -58,7 +58,10 @@ export function PricingTiers() {
                   </li>
                 ))}
               </ul>
-              <NextLink className="mt-6 block md:mt-auto" href={routes.login}>
+              <NextLink
+                className="mt-6 block md:mt-auto"
+                href={`${routes.registro}?plan=${tier.id}`}
+              >
                 <Button
                   className="w-full font-semibold"
                   size="md"
@@ -73,8 +76,8 @@ export function PricingTiers() {
       </div>
 
       <p className="text-default-500 mt-10 text-center text-sm">
-        * Los precios no incluyen el carnet de socio (pago único anual).
-        Consultá por descuentos para grupos y empresas.
+        Los precios no incluyen el carnet de socio (pago único anual). Consultá
+        por descuentos para grupos y empresas.
       </p>
     </>
   );

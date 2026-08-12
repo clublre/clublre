@@ -54,7 +54,7 @@ export function Hero() {
               duration={2400}
               interval={4000}
               prefix="construyendo "
-              words={['comunidad', 'familia', 'respeto']}
+              words={['comunidad', 'familia', 'valores']}
             />
           </h1>
         </Reveal>
@@ -62,7 +62,7 @@ export function Hero() {
         <Reveal delay={220}>
           <p
             className={subtitle({
-              class: 'text-default-100 mx-auto mt-6 max-w-xl text-center',
+              class: 'text-foreground/80 mx-auto mt-6 max-w-xl text-center',
             })}
           >
             Deportes, recreación y vida social para toda la familia en el
@@ -72,7 +72,7 @@ export function Hero() {
 
         {/* CTA primario + link secundario (sin botones compitiendo) */}
         <Reveal delay={320}>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:items-baseline sm:justify-center">
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:items-baseline sm:justify-center">
             <NextLink href={routes.about}>
               <Button
                 className="group shadow-club-lg font-semibold"

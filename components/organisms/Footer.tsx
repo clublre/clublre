@@ -28,10 +28,10 @@ const waDigits = (tel: string): string => tel.replace(/\D/g, '');
  * Los datos vienen de `siteConfig` (single source of truth). */
 export function Footer() {
   return (
-    <footer className="bg-surface-muted border-default-200/30 border-t">
+    <footer className="bg-surface-muted border-default-200/15 border-t">
       <Container className="pt-10 pb-8 md:pt-14 md:pb-10">
         {/* ─── Brand block (full-width) ────────────────────────────── */}
-        <div className="border-default-200/30 grid items-end gap-6 border-b pb-10 md:grid-cols-12 md:pb-12">
+        <div className="border-default-200/15 grid items-end gap-6 border-b pb-10 md:grid-cols-12 md:pb-12">
           <div className="md:col-span-8">
             <NextLink
               aria-label={`Ir al inicio — ${siteConfig.name}`}
@@ -72,7 +72,7 @@ export function Footer() {
               {siteConfig.hours.general.map((row) => (
                 <div
                   key={row.days}
-                  className="border-default-200/20 flex items-baseline justify-between gap-4 border-b pb-2 last:border-b-0"
+                  className="border-default-200/10 flex items-baseline justify-between gap-4 border-b pb-2 last:border-b-0"
                 >
                   <dt className="text-foreground font-medium">{row.days}</dt>
                   <dd className="text-default-600 tabular-nums">{row.hours}</dd>
@@ -100,7 +100,7 @@ export function Footer() {
             <Eyebrow className="mb-4 block" tone="default">
               Contacto
             </Eyebrow>
-            <ul className="text-default-600 space-y-3 text-sm">
+            <ul className="text-foreground space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
                 <MapPin
                   aria-hidden="true"
@@ -178,7 +178,7 @@ export function Footer() {
         </div>
 
         {/* ─── Bottom bar ──────────────────────────────────────────── */}
-        <div className="border-default-200/30 border-t pt-6">
+        <div className="border-default-200/15 border-t pt-6">
           <Container className="text-default-500 flex flex-col items-start justify-between gap-3 text-xs sm:flex-row sm:items-center">
             <p>
               © {year} {siteConfig.name}. Todos los derechos reservados.

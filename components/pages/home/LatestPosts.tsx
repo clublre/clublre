@@ -15,9 +15,9 @@ interface LatestPostsProps {
 }
 
 // Posts más recientes del blog en la home. Aporta SEO (links
- //  internos + señal de contenido fresco) y mantiene el sitio vivo
- //  entre publicaciones. Recibe `posts` por prop para que la home
- //  decida el slice sin que este componente toque la capa de datos. */
+//  internos + señal de contenido fresco) y mantiene el sitio vivo
+//  entre publicaciones. Recibe `posts` por prop para que la home
+//  decida el slice sin que este componente toque la capa de datos. */
 export function LatestPosts({ posts }: LatestPostsProps) {
   return (
     <Section as="section" spacing="lg">
@@ -58,10 +58,14 @@ export function LatestPosts({ posts }: LatestPostsProps) {
                       {post.category}
                     </Chip>
                     <time dateTime={post.date}>
+                      {/* Parse con `T00:00:00` evita el bug de zona
+                          horaria: `new Date('2026-01-15')` se interpreta
+                          como UTC midnight y puede renderizar "14 ene"
+                          en horarios tarde Argentina. */}
                       {new Intl.DateTimeFormat('es-AR', {
                         day: 'numeric',
                         month: 'short',
-                      }).format(new Date(post.date))}
+                      }).format(new Date(`${post.date}T00:00:00`))}
                     </time>
                   </div>
                   <h3 className="text-foreground group-hover:text-primary mb-2 text-lg font-semibold transition-colors">

@@ -46,7 +46,7 @@ export function TrustStrip() {
             {STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="flex items-center gap-3 px-3 py-2 text-left sm:flex-col sm:items-center sm:gap-2 sm:px-6 sm:py-6 sm:text-center"
+                className="group flex items-center gap-3 px-3 py-2 text-left sm:flex-col sm:items-center sm:gap-2 sm:px-6 sm:py-6 sm:text-center"
               >
                 <span className="bg-primary/10 text-primary inline-flex size-20 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-105">
                   <stat.icon
