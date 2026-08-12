@@ -13,8 +13,30 @@
 //  Respeta `prefers-reduced-motion`: en ese caso el ciclado sigue
 //  pero sin sweep — solo swap de opacidad.
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { cn } from '@/lib/utils';
+
+// Suscripción SSR-safe a `prefers-reduced-motion`. `useSyncExternalStore`
+// está diseñado para stores externos (matchMedia, window size, etc.) y
+// maneja el caso SSR/CSR sin hydration warnings: el server snapshot
+// garantiza que el primer render del cliente coincida con el HTML
+// server-rendered, y luego se suscribe a los cambios del media query.
+const REDUCE_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+
+function subscribeReduceMotion(callback: () => void): () => void {
+  const mq = window.matchMedia(REDUCE_MOTION_QUERY);
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+function getReduceMotionSnapshot(): boolean {
+  return window.matchMedia(REDUCE_MOTION_QUERY).matches;
+}
+
+function getReduceMotionServerSnapshot(): boolean {
+  // Default conservador para SSR — matchea el initial state.
+  return false;
+}
 
 export interface ChromaticCyclerProps {
   /** Frase fija que precede al cycler (ej. "formando "). */
@@ -40,21 +62,14 @@ export function ChromaticCycler({
   duration = 1200,
 }: ChromaticCyclerProps) {
   const [index, setIndex] = useState(0);
-  // Lazy init — leer el media query en el initial state en vez de dentro
-  // de un effect evita el warning `react-hooks/set-state-in-effect` y
-  // nos da el valor correcto desde el primer render.
-  const [reduceMotion, setReduceMotion] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  });
-
-  // Detectar cambios en vivo (el user puede toggearlo desde el SO).
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const onChange = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+  // useSyncExternalStore evita el hydration mismatch del lazy init
+  // con `window.matchMedia` y el setState-en-effect de la versión
+  // anterior (regla `react-hooks/set-state-in-effect`).
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotionSnapshot,
+    getReduceMotionServerSnapshot,
+  );
 
   // Cycle cada `interval` ms.
   useEffect(() => {
@@ -71,20 +86,21 @@ export function ChromaticCycler({
     <span className={cn('inline-block', className)}>
       {prefix}
       <span
+        aria-hidden="true"
         // Wrapper relativo para que el word absolute ocupe el espacio
         // del word actual (evita layout shift entre palabras de ancho
-        // distinto).
+        // distinto). `aria-hidden` evita que los SR lean las 3 words
+        // (los siblings absolutos ya están ocultos visualmente, pero
+        // seguían siendo leídos).
         className="relative inline-block align-baseline"
       >
         {/* Spacer invisible del width del current word — reserva el
             ancho para que los absolute siblings no muevan el prefix. */}
-        <span aria-hidden="true" className="invisible">
-          {currentWord}
-        </span>
+        <span className="invisible">{currentWord}</span>
         {words.map((word, i) => (
           <span
             key={word}
-            aria-hidden={i !== index}
+            aria-hidden="true"
             className={cn(
               'absolute inset-0',
               i === index ? foregroundClass : 'opacity-0',
@@ -98,9 +114,10 @@ export function ChromaticCycler({
             {word}
           </span>
         ))}
-        {/* Reader copy — siempre la palabra actual para screen readers. */}
-        <span className="sr-only">{currentWord}</span>
       </span>
+      {/* Single source of truth para SR: una sola mención de la
+          palabra actual, fuera del wrapper aria-hidden. */}
+      <span className="sr-only">{currentWord}</span>
     </span>
   );
 }

@@ -201,8 +201,13 @@ export const SwimmingIcon = (p: Omit<IconProps, 'icon'>) => (
 export const HandFistIcon = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="hand-waving" {...p} />
 );
-export const MedalIcon = (p: Omit<IconProps, 'icon'>) => (
+// Antes exportado como `MedalIcon` pero dibujaba `person-simple-run`
+// (figura corriendo). Renombrado para que el nombre describa el SVG.
+export const RunningIcon = (p: Omit<IconProps, 'icon'>) => (
   <Phosphor icon="person-simple-run" {...p} />
+);
+export const MedalIcon = (p: Omit<IconProps, 'icon'>) => (
+  <Phosphor icon="medal" {...p} />
 );
 
 // Icono de marca (Instagram — versión phosphor, sin SVG custom).
