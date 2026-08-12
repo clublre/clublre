@@ -7,6 +7,7 @@ import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Reveal } from '@/components/ui/Reveal';
 import BlurryBlob from '@/components/ui/BlurryBlob';
+import { ChromaticCycler } from '@/components/molecules/ChromaticCycler';
 import { title, subtitle } from '@/components/primitives';
 import { routes } from '@/lib/routes';
 import { siteConfig } from '@/config/site';
@@ -48,9 +49,13 @@ export function Hero() {
             style={{ viewTransitionName: 'page-title' }}
           >
             Más de {yearsSince(siteConfig.foundedYear)} años{' '}
-            <span className={title({ color: 'sky', size: 'lg' })}>
-              formando comunidad
-            </span>
+            <ChromaticCycler
+              className={title({ color: 'sky', size: 'lg' })}
+              duration={2400}
+              interval={4000}
+              prefix="construyendo "
+              words={['comunidad', 'familia', 'respeto']}
+            />
           </h1>
         </Reveal>
 
@@ -68,28 +73,18 @@ export function Hero() {
         {/* CTA primario + link secundario (sin botones compitiendo) */}
         <Reveal delay={320}>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:items-baseline sm:justify-center">
-            <NextLink href={routes.homeCuotas}>
+            <NextLink href={routes.about}>
               <Button
                 className="group shadow-club-lg font-semibold"
                 size="lg"
                 variant="primary"
               >
-                Conocé las cuotas
+                Leé nuestra historia
                 <ArrowRight
                   aria-hidden="true"
                   className="ml-2 size-4 transition-transform group-hover:translate-x-0.5"
                 />
               </Button>
-            </NextLink>
-            <NextLink
-              className="group text-default-100 hover:text-foreground inline-flex items-baseline text-sm font-medium transition-colors sm:ml-2"
-              href={routes.about}
-            >
-              o leé nuestra historia
-              <ArrowRight
-                aria-hidden="true"
-                className="ml-1 size-4 transition-transform group-hover:translate-x-0.5"
-              />
             </NextLink>
           </div>
         </Reveal>

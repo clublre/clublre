@@ -445,3 +445,71 @@ a[href] {
     background-size: 0% 0;
   }
 }
+
+/* Chromatic Cycler — efecto "Dia" de beui.dev usado en el Hero.
+   El span absoluto con esta clase entra con un fade up sutil
+   (translateY chico + opacity) y un gradiente en la paleta del club
+   (sky → blue → yellow → blue → sky) recorre el texto de izq a
+   der vía `background-position`. Al final queda como texto sólido
+   en el color de `--accent` (sky del club).
+
+   `animationDuration` se setea inline desde el componente para
+   poder ajustar el ritmo del sweep. */
+@keyframes chromaticReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(0.15em);
+    background-position: 100% 0;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+    background-position: 100% 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    background-position: 0% 0;
+  }
+}
+
+.chromatic-reveal {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent) 45%,
+    #fde097 53%,
+    #facc15 55%,
+    #fde097 58%,
+    var(--accent) 60%,
+    var(--accent) 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation-name: chromaticReveal;
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  animation-fill-mode: forwards;
+}
+
+/* Fallback para prefers-reduced-motion — solo fade sin sweep. */
+@keyframes chromaticFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.motion-safe-fade {
+  animation: chromaticFade 0.4s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chromatic-reveal {
+    animation: chromaticFade 0.4s ease-out forwards;
+  }
+}
