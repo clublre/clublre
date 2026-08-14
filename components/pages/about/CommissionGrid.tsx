@@ -84,16 +84,11 @@ function MemberCard({
   return (
     <article
       className={cn(
-        'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-[transform,box-shadow,ring-color] duration-300',
+        'group relative isolate flex flex-col gap-5 rounded-2xl p-5 transition-[transform,box-shadow] duration-300',
         // bg-surface-secondary adapta light/dark sin tocar dark:.
-        'bg-surface-secondary ring-default-200/70 ring-1',
+        // Sin ring — el feedback de hover vive en shadow + lift.
+        'bg-surface-secondary',
         'shadow-sm hover:-translate-y-1 hover:shadow-lg',
-        // Ring hover: emerge al tono del cargo.
-        isRoot
-          ? 'hover:ring-sky-500/50 dark:hover:ring-sky-400/40'
-          : tone === 'sky'
-            ? 'hover:ring-sky-500/40 dark:hover:ring-sky-400/30'
-            : 'hover:ring-default-300 dark:hover:ring-default-100/40',
         // Suplentes: atenuación global sutil para que el ojo los
         // perciba como "segunda línea" sin perder legibilidad.
         !isRoot && isSuplente && 'opacity-90',

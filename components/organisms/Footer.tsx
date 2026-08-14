@@ -1,11 +1,5 @@
 import NextLink from 'next/link';
-import {
-  ArrowRight,
-  Envelope,
-  MapPin,
-  Phone,
-  PhoneMobile,
-} from '@/components/ui/Icons';
+import { Envelope, MapPin, Phone, PhoneMobile } from '@/components/ui/Icons';
 
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -50,14 +44,7 @@ export function Footer() {
             </p>
           </div>
           <div className="md:col-span-4 md:text-right">
-            {/* CTA principal — alineado al final del brand block */}
-            <NextLink
-              className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors"
-              href={routes.homeCuotas}
-            >
-              Asociate al club
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </NextLink>
+            {/* CTA "Asociate al club" deshabilitado por ahora — apuntaba a /#cuotas (sección de pricing comentada en la home). */}
           </div>
         </div>
 

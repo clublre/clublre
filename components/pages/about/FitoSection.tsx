@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import { Icon } from '@iconify/react';
+
 import { Section } from '@/components/ui/Section';
 import { Container } from '@/components/ui/Container';
 import { Eyebrow } from '@/components/ui/Eyebrow';
@@ -5,23 +8,58 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Reveal } from '@/components/ui/Reveal';
 import { CardClub } from '@/components/ui/CardClub';
 import { title } from '@/components/primitives';
+import { cn } from '@/lib/utils';
 
-// Integrantes de Staff — la banda que lideró Fito Páez aquella noche.
-// Lo mostramos como un marquee horizontal para evocar el "lineup" de
-// un festival. Cada nombre con su rol en minúscula.
-const staffBands: ReadonlyArray<{ name: string; role: string }> = [
-  { name: 'Fito Páez', role: 'Voz y composición' },
-  { name: 'Germán Risemberg', role: 'bajo y composición' },
-  { name: 'Carlos Murias', role: 'guitarras' },
-  { name: '"Pájaro" Gómez', role: 'batería' },
-  { name: 'Maxi Ades', role: 'percusión' },
+// Integrantes de Staff — foto solo si hay retrato con licencia libre
+// (ver `public/fito/CREDITS.md`). Los iconos son phosphor via Iconify.
+type StaffMember = {
+  name: string;
+  role: string;
+  isLead?: boolean;
+  /** Slug del archivo en `/public/fito/` (sin extensión). */
+  slug?: string;
+  /** Icono phosphor (`ph:...`) según el instrumento. */
+  icon: string;
+};
+const staffBands: ReadonlyArray<StaffMember> = [
+  {
+    name: 'Fito Páez',
+    role: 'Voz y composición',
+    isLead: true,
+    slug: 'fito-paez',
+    icon: 'ph:microphone-fill',
+  },
+  {
+    name: '"Pájaro" Gómez',
+    role: 'Batería',
+    slug: 'pajaro-gomez',
+    icon: 'ph:drum-fill',
+  },
+  {
+    name: 'Germán Risemberg',
+    role: 'Bajo y composición',
+    icon: 'ph:music-notes-fill',
+  },
+  { name: 'Carlos Murias', role: 'Guitarras', icon: 'ph:guitar-fill' },
+  { name: 'Maxi Ades', role: 'Percusión', icon: 'ph:metronome-fill' },
 ];
 
-const jury: ReadonlyArray<string> = [
-  'Juan Carlos Baglietto',
-  'Rubén Goldín',
-  'Juan Chianelli',
-  'Norberto Campos',
+type JuryMember = { name: string; role: string; slug?: string; icon: string };
+const jury: ReadonlyArray<JuryMember> = [
+  {
+    name: 'Juan Carlos Baglietto',
+    role: 'Cantautor',
+    slug: 'juan-carlos-baglietto',
+    icon: 'ph:microphone-fill',
+  },
+  {
+    name: 'Rubén Goldín',
+    role: 'Cantautor',
+    slug: 'ruben-goldin',
+    icon: 'ph:microphone-fill',
+  },
+  { name: 'Juan Chianelli', role: 'Cantautor', icon: 'ph:microphone-fill' },
+  { name: 'Norberto Campos', role: 'Figura cultural', icon: 'ph:star-fill' },
 ];
 
 /**
@@ -31,8 +69,10 @@ const jury: ReadonlyArray<string> = [
  * - Hero con año "1980" como marca tipográfica gigante (watermark)
  *   + título con Fito Páez en gradient sky/blue.
  * - Bloque del festival + premio como pull-quote cinemático.
- * - Integrantes de Staff en cluster de chips.
- * - Jurado como 4 cards (auto-fit).
+ * - Integrantes de Staff: CardClub con retrato (Fito, Pájaro) y mini-cards
+ *   con icono para Risemberg, Murias y Ades.
+ * - Jurado: misma lógica — 2 cols de fotos + mini-cards para Chianelli y
+ *   Norberto Campos.
  * - Cierre con la frase de orgullo barrial.
  *
  * Variante `gradient` del Section para atmósfera cálida. La
@@ -122,19 +162,95 @@ export function FitoSection() {
               width="md"
             />
 
-            <div className="flex flex-wrap justify-center gap-3">
-              {staffBands.map((member, i) => (
-                <Reveal key={member.name} delay={i * 80}>
-                  <div className="bg-surface border-default-200/10 rounded-full border px-5 py-2.5 shadow transition-colors hover:border-sky-500/20 hover:bg-sky-500/5">
-                    <span className="text-foreground font-semibold">
-                      {member.name}
-                    </span>
-                    <span className="text-default-500 ml-2 text-xs tracking-wider uppercase">
-                      {member.role}
-                    </span>
-                  </div>
-                </Reveal>
-              ))}
+            {/* Lineup — grid responsivo: 2/3/5 según viewport. */}
+            <div className="mx-auto max-w-4xl">
+              {/* Photo cards — imagen como bg con filtro sky + overlay
+                  degradado y texto blanco al fondo (look editorial). */}
+              <div className="grid items-stretch gap-4 sm:grid-cols-2">
+                {staffBands
+                  .filter((m) => m.slug)
+                  .map((member, i) => (
+                    <Reveal
+                      key={member.name}
+                      className="h-full"
+                      delay={i * 100}
+                    >
+                      <article
+                        className={cn(
+                          'group shadow-club relative aspect-[4/5] overflow-hidden rounded-2xl',
+                          'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
+                          member.isLead && 'ring-primary ring-2',
+                        )}
+                      >
+                        {/* Imagen de fondo */}
+                        <Image
+                          fill
+                          alt={`Retrato de ${member.name}`}
+                          className="absolute inset-0 h-full w-full object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          src={`/fito/${member.slug}.jpg`}
+                        />
+                        {/* Filtro sky duotone (mix-blend-multiply sobre la
+                            imagen en grayscale; opacity-0 al hover). */}
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-sky-500/45 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-0"
+                        />
+                        {/* Degradado inferior para contraste del texto */}
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent"
+                        />
+                        {/* Texto overlay */}
+                        <div className="absolute inset-x-0 bottom-0 z-10 p-6">
+                          <h3 className="text-xl font-semibold tracking-tight text-white drop-shadow-sm">
+                            {member.name}
+                          </h3>
+                          <p className="mt-2 flex items-center gap-1.5 text-xs tracking-[0.18em] text-white/85 uppercase">
+                            <Icon
+                              aria-hidden="true"
+                              className="size-3.5 shrink-0"
+                              icon={member.icon}
+                            />
+                            {member.role}
+                          </p>
+                        </div>
+                      </article>
+                    </Reveal>
+                  ))}
+              </div>
+
+              {/* Mini-cards estilo User — icono a la izquierda, título +
+                  subtítulo a la derecha (compactas, padding p-4). */}
+              {staffBands.filter((m) => !m.slug).length > 0 && (
+                <div className="mt-10 grid gap-3 sm:grid-cols-3">
+                  {staffBands
+                    .filter((m) => !m.slug)
+                    .map((member, i) => (
+                      <Reveal key={member.name} delay={i * 80}>
+                        <article className="group bg-surface shadow-club border-default-200/0 hover:shadow-club-lg flex items-center gap-4 rounded-xl border p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5">
+                          <div
+                            aria-hidden="true"
+                            className="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-full"
+                          >
+                            <Icon
+                              className="text-primary size-6"
+                              icon={member.icon}
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-foreground truncate text-sm font-semibold">
+                              {member.name}
+                            </p>
+                            <p className="text-default-500 mt-0.5 text-[10px] tracking-[0.18em] uppercase">
+                              {member.role}
+                            </p>
+                          </div>
+                        </article>
+                      </Reveal>
+                    ))}
+                </div>
+              )}
             </div>
           </div>
         </Reveal>
@@ -151,15 +267,86 @@ export function FitoSection() {
               width="md"
             />
 
-            <div className="grid-auto-fit-220 grid gap-4">
-              {jury.map((name) => (
-                <div
-                  key={name}
-                  className="bg-surface border-default-200/10 rounded-xl border p-5 text-center shadow"
-                >
-                  <p className="text-foreground font-semibold">{name}</p>
+            <div className="mx-auto max-w-4xl">
+              {/* Photo cards — mismo diseño editorial que Staff. */}
+              <div className="grid items-stretch gap-4 sm:grid-cols-2">
+                {jury
+                  .filter((m) => m.slug)
+                  .map((member, i) => (
+                    <Reveal
+                      key={member.name}
+                      className="h-full"
+                      delay={i * 100}
+                    >
+                      <article
+                        className={cn(
+                          'group shadow-club relative aspect-[4/5] overflow-hidden rounded-2xl',
+                          'hover:shadow-club-lg transition-[transform,box-shadow] duration-300 hover:-translate-y-1',
+                        )}
+                      >
+                        <Image
+                          fill
+                          alt={`Retrato de ${member.name}`}
+                          className="absolute inset-0 h-full w-full object-cover object-top grayscale transition-all duration-500 group-hover:grayscale-0"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          src={`/fito/${member.slug}.jpg`}
+                        />
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-sky-500/45 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-0"
+                        />
+                        <div
+                          aria-hidden="true"
+                          className="absolute inset-0 bg-linear-to-t from-black/75 via-black/15 to-transparent"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 z-10 p-6">
+                          <h3 className="text-xl font-semibold tracking-tight text-white drop-shadow-sm">
+                            {member.name}
+                          </h3>
+                          <p className="mt-2 flex items-center gap-1.5 text-xs tracking-[0.18em] text-white/85 uppercase">
+                            <Icon
+                              aria-hidden="true"
+                              className="size-3.5 shrink-0"
+                              icon={member.icon}
+                            />
+                            {member.role}
+                          </p>
+                        </div>
+                      </article>
+                    </Reveal>
+                  ))}
+              </div>
+
+              {/* Mini-cards estilo User — mismo patrón que Staff. */}
+              {jury.filter((m) => !m.slug).length > 0 && (
+                <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                  {jury
+                    .filter((m) => !m.slug)
+                    .map((member, i) => (
+                      <Reveal key={member.name} delay={i * 80}>
+                        <article className="group bg-surface shadow-club border-default-200/0 hover:shadow-club-lg flex items-center gap-4 rounded-xl border p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5">
+                          <div
+                            aria-hidden="true"
+                            className="bg-primary/10 flex size-12 shrink-0 items-center justify-center rounded-full"
+                          >
+                            <Icon
+                              className="text-primary size-6"
+                              icon={member.icon}
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-foreground truncate text-sm font-semibold">
+                              {member.name}
+                            </p>
+                            <p className="text-default-500 mt-0.5 text-[10px] tracking-[0.18em] uppercase">
+                              {member.role}
+                            </p>
+                          </div>
+                        </article>
+                      </Reveal>
+                    ))}
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </Reveal>
