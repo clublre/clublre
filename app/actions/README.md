@@ -79,4 +79,33 @@ export async function createListing(formData: FormData) {
 
 ## Estado
 
-⏸ Vacía — se pobla en Semana 2-3 del roadmap (STACK.md §8).
+⏸ **Stubs maqueta.** El árbol del README ya existe (`auth.ts`,
+`members.ts`, `listings.ts`, `moderation.ts`) pero las funciones
+son stubs contractuales: validan input, devuelven
+`{ data } | { error }`, y delegan la mutación real al store del
+cliente. Cuando llegue Supabase:
+
+1. Cada stub reemplaza su body por queries
+   `supabase.from(...).insert/update/select(...)`.
+2. RLS cubre los permisos — la action puede validar menos.
+3. Se quita la dependencia de `lib/maqueta.ts` (la flag deja de
+   ser necesaria; todo pasa por Supabase Auth + RLS).
+4. Los componentes admin dejan de llamar al store cliente y pasan
+   a llamar a estas actions.
+
+## Importación — sin barrels
+
+Cada action se importa desde su archivo puntual:
+
+```ts
+import { createListing } from '@/app/actions/listings';
+```
+
+**No** hay un barrel `app/actions/index.ts`. Los barrels de `'use
+server'` rompen el tree-shaking con React Compiler 19 / Next 16
+porque hacen entrar al bundle el módulo entero aunque un componente
+importe solo una función. Importar siempre desde el archivo concreto.
+
+No hay tests automatizados en el proyecto (ver `AGENTS.md` §"What
+NOT to do" y la regla explícita del usuario). La verificación se
+hace con `pnpm run build` + smoke test manual en `pnpm run dev`.

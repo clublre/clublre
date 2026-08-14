@@ -1,8 +1,5 @@
 import type { Metadata } from 'next';
 
-import { Section } from '@/components/ui/Section';
-import { Container } from '@/components/ui/Container';
-import { Eyebrow } from '@/components/ui/Eyebrow';
 import { AmbientBlobs } from '@/components/ui/AmbientBlobs';
 
 import { postsNewestFirst } from '@/data/posts';
@@ -10,7 +7,8 @@ import { postsNewestFirst } from '@/data/posts';
 import { Hero } from '@/components/pages/home/Hero';
 import { TrustStrip } from '@/components/pages/home/TrustStrip';
 import { ActivitiesSection } from '@/components/pages/home/ActivitiesSection';
-import { PricingTiers } from '@/components/pages/home/PricingTiers';
+// Pricing desactivado por ahora — descomentar cuando se reactiven las cuotas.
+// import { PricingTiers } from '@/components/pages/home/PricingTiers';
 import { PricingFaq } from '@/components/pages/home/PricingFaq';
 import { LatestPosts } from '@/components/pages/home/LatestPosts';
 import { FinalCta } from '@/components/pages/home/FinalCta';
@@ -33,7 +31,8 @@ export default function HomePage() {
       <LatestPosts posts={latestPosts} />
       <FinalCta />
 
-      <Section as="section" id="cuotas" spacing="lg">
+      {/* Sección de pricing (`id="cuotas"`) deshabilitada por ahora — descomentar cuando se reactiven los planes. */}
+      {/* <Section as="section" id="cuotas" spacing="lg">
         <Container>
           <div className="mb-10 text-center md:mb-12">
             <Eyebrow className="mb-3 block" tone="sky">
@@ -52,7 +51,7 @@ export default function HomePage() {
           </div>
           <PricingTiers />
         </Container>
-      </Section>
+      </Section> */}
 
       <PricingFaq />
       <AmbientBlobs preset="home" />

@@ -89,4 +89,25 @@ Tipos generados del schema → autocomplete en `supabase.from('listings').select
 
 ## Estado
 
-⏸ Vacío — se pobla en Semana 1-2 del roadmap (STACK.md §8).
+⏸ **Vacío — maqueta activa.** Hasta que se enchufe Supabase real,
+todo el demo vive en:
+
+- `data/marketplace.ts` — seeds tipados (socios, listings, reportes)
+- `stores/auth-store.ts` — sesión mock con persist en localStorage
+- `stores/marketplace-store.ts` — listings/reportes/audit mock con persist
+- `lib/maqueta.ts` — feature flag (`NEXT_PUBLIC_MAQUETA`)
+
+Rutas habilitadas en maqueta:
+
+- `/admin/*` — devuelve 404 si `NEXT_PUBLIC_MAQUETA=false`
+- `useAuthStore.signInAs(memberId)` — devuelve error si la flag está off
+- Server Actions stub en `app/actions/*` — usan `lib/maqueta.ts`
+
+Migración a Supabase real:
+
+1. Implementar los cuatro clientes de este README.
+2. Reemplazar el cuerpo de `useAuthStore.*` por queries a `auth.users`.
+3. Reemplazar el cuerpo de `useMarketplaceStore.*` por queries a
+   `listings` / `reports` / `audit`.
+4. Poner `NEXT_PUBLIC_MAQUETA=false` en Vercel.
+5. Borrar `data/marketplace.ts` cuando las seeds ya no se importen.
