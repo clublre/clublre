@@ -5,6 +5,7 @@
 // se reemplaza por queries a Supabase desde Server Components.
 
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 import {
   type Listing,
@@ -74,174 +75,231 @@ export interface MarketplaceState {
 const newId = (prefix: string) =>
   `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 
-export const useMarketplaceStore = create<MarketplaceState>()((set, get) => ({
-  listings: seedListings,
-  reports: seedReports,
-  audit: seedAudit,
+const STORAGE_KEY = 'clublre:marketplace-mock-v1';
 
-  listingById: (id) => get().listings.find((l) => l.id === id),
-  listingsByOwner: (ownerId) =>
-    get().listings.filter((l) => l.ownerId === ownerId),
-  reportsByStatus: (status) => get().reports.filter((r) => r.status === status),
-
-  createListing(input, actorId) {
-    const id = newId('listing');
-    const now = new Date().toISOString();
-    const firstListingForOwner =
-      get().listings.filter((l) => l.ownerId === input.ownerId).length === 0;
-    const listing: Listing = {
-      id,
-      ownerId: input.ownerId,
-      type: input.type,
-      title: input.title,
-      description: input.description,
-      categoryId: input.categoryId,
-      condition: input.condition,
-      priceMode: input.priceMode,
-      price: input.price,
-      currency: 'ARS',
-      zone: input.zone,
-      contactPreference: input.contactPreference,
-      contactHandle: input.contactHandle,
-      status: firstListingForOwner ? 'pending_review' : 'published',
-      createdAt: now,
-      updatedAt: now,
-      images: [],
+// Mismo SSR-safe wrapper que `auth-store` — Safari private mode y
+// cuota de localStorage deben fallar silenciosamente para no romper
+// la hidratación de Next.
+const safeStorage = createJSONStorage(() => {
+  if (typeof window === 'undefined') {
+    return {
+      getItem: () => null,
+      setItem: () => undefined,
+      removeItem: () => undefined,
     };
-    set((s) => ({
-      listings: [listing, ...s.listings],
-      audit: [
-        {
-          id: newId('audit'),
-          actorId,
-          action: firstListingForOwner
-            ? 'Publicó primera publicación (pendiente de revisión)'
-            : 'Publicó publicación',
-          targetType: 'listing',
-          targetId: id,
-          note: input.title,
-          createdAt: now,
-        },
-        ...s.audit,
-      ],
-    }));
-    return { ok: true, id };
-  },
+  }
+  return {
+    getItem: (name) => {
+      try {
+        return window.localStorage.getItem(name);
+      } catch {
+        return null;
+      }
+    },
+    setItem: (name, value) => {
+      try {
+        window.localStorage.setItem(name, value);
+      } catch {
+        // Sin-op en quota exceeded / private mode.
+      }
+    },
+    removeItem: (name) => {
+      try {
+        window.localStorage.removeItem(name);
+      } catch {
+        // Sin-op.
+      }
+    },
+  };
+});
 
-  updateListing(id, patch, actorId) {
-    const now = new Date().toISOString();
-    set((s) => ({
-      listings: s.listings.map((l) =>
-        l.id === id ? { ...l, ...patch, updatedAt: now } : l,
-      ),
-      audit: [
-        {
-          id: newId('audit'),
-          actorId,
-          action: 'Editó publicación',
-          targetType: 'listing',
-          targetId: id,
-          note: '',
-          createdAt: now,
-        },
-        ...s.audit,
-      ],
-    }));
-    return { ok: true };
-  },
+export const useMarketplaceStore = create<MarketplaceState>()(
+  persist(
+    (set, get) => ({
+      listings: seedListings,
+      reports: seedReports,
+      audit: seedAudit,
 
-  setListingStatus(id, status, actorId, note) {
-    const now = new Date().toISOString();
-    set((s) => ({
-      listings: s.listings.map((l) =>
-        l.id === id ? { ...l, status, updatedAt: now } : l,
-      ),
-      audit: [
-        {
-          id: newId('audit'),
-          actorId,
-          action: `Cambió estado de publicación a ${status}`,
-          targetType: 'listing',
-          targetId: id,
-          note: note ?? '',
-          createdAt: now,
-        },
-        ...s.audit,
-      ],
-    }));
-    return { ok: true };
-  },
+      listingById: (id) => get().listings.find((l) => l.id === id),
+      listingsByOwner: (ownerId) =>
+        get().listings.filter((l) => l.ownerId === ownerId),
+      reportsByStatus: (status) =>
+        get().reports.filter((r) => r.status === status),
 
-  reportListing(listingId, reporterId, reason, detail) {
-    const id = newId('report');
-    const now = new Date().toISOString();
-    set((s) => ({
-      reports: [
-        {
+      createListing(input, actorId) {
+        const id = newId('listing');
+        const now = new Date().toISOString();
+        const firstListingForOwner =
+          get().listings.filter((l) => l.ownerId === input.ownerId).length ===
+          0;
+        const listing: Listing = {
           id,
-          listingId,
-          reporterId,
-          reason,
-          detail,
-          status: 'open',
+          ownerId: input.ownerId,
+          type: input.type,
+          title: input.title,
+          description: input.description,
+          categoryId: input.categoryId,
+          condition: input.condition,
+          priceMode: input.priceMode,
+          price: input.price,
+          currency: 'ARS',
+          zone: input.zone,
+          contactPreference: input.contactPreference,
+          contactHandle: input.contactHandle,
+          status: firstListingForOwner ? 'pending_review' : 'published',
           createdAt: now,
-        },
-        ...s.reports,
-      ],
-      audit: [
-        {
-          id: newId('audit'),
-          actorId: reporterId,
-          action: 'Reportó publicación',
-          targetType: 'report',
-          targetId: id,
-          note: reason,
-          createdAt: now,
-        },
-        ...s.audit,
-      ],
-    }));
-    return { ok: true };
-  },
+          updatedAt: now,
+          images: [],
+        };
+        set((s) => ({
+          listings: [listing, ...s.listings],
+          audit: [
+            {
+              id: newId('audit'),
+              actorId,
+              action: firstListingForOwner
+                ? 'Publicó primera publicación (pendiente de revisión)'
+                : 'Publicó publicación',
+              targetType: 'listing',
+              targetId: id,
+              note: input.title,
+              createdAt: now,
+            },
+            ...s.audit,
+          ],
+        }));
+        return { ok: true, id };
+      },
 
-  resolveReport(reportId, actorId, action, note) {
-    const now = new Date().toISOString();
-    const report = get().reports.find((r) => r.id === reportId);
-    if (!report) return { ok: false, error: 'Reporte no encontrado' };
-    set((s) => ({
-      reports: s.reports.map((r) =>
-        r.id === reportId
-          ? {
-              ...r,
-              status: 'resolved' as const,
-              resolutionNote: note,
-            }
-          : r,
-      ),
-      listings:
-        action === 'hide-listing'
-          ? s.listings.map((l) =>
-              l.id === report.listingId
-                ? { ...l, status: 'rejected' as ListingStatus }
-                : l,
-            )
-          : s.listings,
-      audit: [
-        {
-          id: newId('audit'),
-          actorId,
-          action:
+      updateListing(id, patch, actorId) {
+        const now = new Date().toISOString();
+        set((s) => ({
+          listings: s.listings.map((l) =>
+            l.id === id ? { ...l, ...patch, updatedAt: now } : l,
+          ),
+          audit: [
+            {
+              id: newId('audit'),
+              actorId,
+              action: 'Editó publicación',
+              targetType: 'listing',
+              targetId: id,
+              note: '',
+              createdAt: now,
+            },
+            ...s.audit,
+          ],
+        }));
+        return { ok: true };
+      },
+
+      setListingStatus(id, status, actorId, note) {
+        const now = new Date().toISOString();
+        set((s) => ({
+          listings: s.listings.map((l) =>
+            l.id === id ? { ...l, status, updatedAt: now } : l,
+          ),
+          audit: [
+            {
+              id: newId('audit'),
+              actorId,
+              action: `Cambió estado de publicación a ${status}`,
+              targetType: 'listing',
+              targetId: id,
+              note: note ?? '',
+              createdAt: now,
+            },
+            ...s.audit,
+          ],
+        }));
+        return { ok: true };
+      },
+
+      reportListing(listingId, reporterId, reason, detail) {
+        const id = newId('report');
+        const now = new Date().toISOString();
+        set((s) => ({
+          reports: [
+            {
+              id,
+              listingId,
+              reporterId,
+              reason,
+              detail,
+              status: 'open',
+              createdAt: now,
+            },
+            ...s.reports,
+          ],
+          audit: [
+            {
+              id: newId('audit'),
+              actorId: reporterId,
+              action: 'Reportó publicación',
+              targetType: 'report',
+              targetId: id,
+              note: reason,
+              createdAt: now,
+            },
+            ...s.audit,
+          ],
+        }));
+        return { ok: true };
+      },
+
+      resolveReport(reportId, actorId, action, note) {
+        const now = new Date().toISOString();
+        const report = get().reports.find((r) => r.id === reportId);
+        if (!report) return { ok: false, error: 'Reporte no encontrado' };
+        set((s) => ({
+          reports: s.reports.map((r) =>
+            r.id === reportId
+              ? {
+                  ...r,
+                  status: 'resolved' as const,
+                  resolutionNote: note,
+                }
+              : r,
+          ),
+          listings:
             action === 'hide-listing'
-              ? 'Ocultó publicación tras reporte'
-              : 'Desestimó reporte',
-          targetType: 'report',
-          targetId: reportId,
-          note,
-          createdAt: now,
-        },
-        ...s.audit,
-      ],
-    }));
-    return { ok: true };
-  },
-}));
+              ? s.listings.map((l) =>
+                  l.id === report.listingId
+                    ? { ...l, status: 'rejected' as ListingStatus }
+                    : l,
+                )
+              : s.listings,
+          audit: [
+            {
+              id: newId('audit'),
+              actorId,
+              action:
+                action === 'hide-listing'
+                  ? 'Ocultó publicación tras reporte'
+                  : 'Desestimó reporte',
+              targetType: 'report',
+              targetId: reportId,
+              note,
+              createdAt: now,
+            },
+            ...s.audit,
+          ],
+        }));
+        return { ok: true };
+      },
+    }),
+    {
+      name: STORAGE_KEY,
+      storage: safeStorage,
+      // Mantenemos sólo estado mutable. Los seeds se recargan
+      // desde `data/marketplace` cada vez que el store se monta
+      // — la persistencia solo agrega las publicaciones/acciones
+      // creadas durante la sesión del usuario.
+      partialize: (s) => ({
+        listings: s.listings,
+        reports: s.reports,
+        audit: s.audit,
+      }),
+    },
+  ),
+);

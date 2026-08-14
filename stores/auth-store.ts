@@ -13,6 +13,7 @@ import {
   type AccountStatus,
   seedMembers,
 } from '@/data/marketplace';
+import { isMaqueta } from '@/lib/maqueta';
 
 export interface AuthSession {
   memberId: string;
@@ -33,7 +34,7 @@ export interface AuthState {
   // Acciones de la maqueta (sin backend real).
   signInWithGoogle: () => Promise<{ ok: boolean; error?: string }>;
   signInWithEmail: (email: string) => Promise<{ ok: boolean; error?: string }>;
-  signInAs: (memberId: string) => { ok: boolean; error?: string };  // saltar entre roles
+  signInAs: (memberId: string) => { ok: boolean; error?: string }; // saltar entre roles
   signOut: () => void;
 
   applyForMembership: (input: {
@@ -126,6 +127,16 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signInAs(memberId) {
+        // Sólo disponible en maqueta — en producción el login viene de
+        // Supabase Auth. El flag evita que un visitante "cambie de rol"
+        // desde la consola de DevTools con un atajo.
+        if (!isMaqueta()) {
+          return {
+            ok: false,
+            error:
+              'El cambio de rol está deshabilitado. Iniciá sesión con tu cuenta.',
+          };
+        }
         const member = get().members.find((m) => m.id === memberId);
         if (!member) {
           return { ok: false, error: `Miembro ${memberId} no existe.` };
@@ -140,7 +151,8 @@ export const useAuthStore = create<AuthState>()(
         return { ok: true };
       },
 
-      async signInWithEmail(email) {  // mock email lookup
+      async signInWithEmail(email) {
+        // mock email lookup
         await new Promise((r) => setTimeout(r, 600));
         const normalized = email.trim().toLowerCase();
         const member = get().members.find(
