@@ -15,6 +15,7 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { Breadcrumb } from '@/components/ui/Breadcrumb';
 import { AdminNavBar } from '@/components/layouts/AdminNavBar';
+import { getCurrentMember } from '@/lib/supabase/get-member';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -112,11 +113,14 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Cookie de Auth (si hay) para Navbar/UserMenu; si es null → maqueta en el cliente.
+  const supabaseMember = await getCurrentMember();
+
   return (
     <html suppressHydrationWarning data-scroll-behavior="smooth" lang="es-AR">
       <head />
@@ -155,7 +159,7 @@ export default function RootLayout({
           <ScrollProgress />
           <BackToTop />
           <div className="relative flex min-h-screen flex-col">
-            <Navbar />
+            <Navbar supabaseMember={supabaseMember} />
             <Breadcrumb />
             <AdminNavBar />
             <main className="grow" id="main-content" tabIndex={-1}>
