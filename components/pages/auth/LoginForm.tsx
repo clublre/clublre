@@ -10,17 +10,19 @@ import {
   TextField,
 } from '@heroui/react';
 
+import { login } from '@/app/actions/auth';
 import { useAuthStore } from '@/stores/auth-store';
 import { routes } from '@/lib/routes';
 import { Envelope } from '@/components/ui/Icons';
 
-// Formulario de login mockeado — Google OAuth simulado y email.
+// Email+password → Supabase (`login`). Google y atajos = maqueta Zustand.
+// Ver docs/AUTH.md.
 export function LoginForm() {
   const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
-  const signInWithEmail = useAuthStore((s) => s.signInWithEmail);
   const signInAs = useAuthStore((s) => s.signInAs);
   const router = useRouter();
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [devError, setDevError] = useState<string | null>(null);
@@ -45,13 +47,14 @@ export function LoginForm() {
     e.preventDefault();
     setError(null);
     setIsPending(true);
-    const result = await signInWithEmail(email);
+    const formData = new FormData();
+    formData.set('email', email);
+    formData.set('password', password);
+    const result = await login(formData);
     setIsPending(false);
-    if (!result.ok) {
-      setError(result.error ?? 'No pudimos iniciar sesión.');
-      return;
+    if (result?.error) {
+      setError(result.error);
     }
-    handleSuccess();
   };
 
   return (
@@ -86,6 +89,18 @@ export function LoginForm() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputGroup>
+        </TextField>
+        <TextField fullWidth isRequired isDisabled={isPending} name="password">
+          <Label>Contraseña</Label>
+          <InputGroup fullWidth>
+            <InputGroup.Input
+              autoComplete="current-password"
+              placeholder="••••••••"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </InputGroup>
         </TextField>

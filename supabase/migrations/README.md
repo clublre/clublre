@@ -19,4 +19,4 @@ Carpeta para las migrations SQL versionadas. Se crean con `supabase migration ne
 
 ## Estado
 
-⏸ Vacía — se pobla al arrancar la Semana 1 del roadmap (STACK.md §8).
+`0001_members.sql` — correr en el SQL Editor del dashboard hasta tener CLI.

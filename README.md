@@ -53,6 +53,9 @@ Ver [`docs/RUNBOOK.md`](docs/RUNBOOK.md) para el setup completo de las
 cuentas externas (Vercel, GitHub Org, NIC Argentina para el dominio,
 Supabase, Resend, Cloudflare Turnstile).
 
+Auth (registro/login Supabase, tabla `members`, maqueta en paralelo):
+[`docs/AUTH.md`](docs/AUTH.md).
+
 ## Pre-commit hooks
 
 Cada commit corre automáticamente:

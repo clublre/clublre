@@ -4,13 +4,14 @@
 // Patrón HeroUI v3: trigger avatar + header (avatar+email) + items con icono.
 // Chip de rol en fila propia, no mezclado con el avatar.
 
-import { useRouter } from 'next/navigation';
 import { Avatar, Chip, Dropdown, Label } from '@heroui/react';
 
-import { useAuthStore, useCurrentMember } from '@/stores/auth-store';
+import { logout } from '@/app/actions/auth';
+import { useAuthStore } from '@/stores/auth-store';
+import { useResolvedMember } from '@/lib/auth-helpers';
 import { routes } from '@/lib/routes';
 import { Gear, Plus, SignIn, SignOut, User } from '@/components/ui/Icons';
-import type { Role } from '@/data/marketplace';
+import type { Member, Role } from '@/data/marketplace';
 
 const initials = (name: string): string => {
   const parts = name.trim().split(/\s+/);
@@ -33,17 +34,21 @@ const ROLE_CHIP: Record<
   admin: { label: 'Administrador', color: 'accent' },
 };
 
-// Menú de usuario — visible cuando hay sesión activa.
-export function UserMenu() {
-  const member = useCurrentMember();
-  const signOut = useAuthStore((s) => s.signOut);
-  const router = useRouter();
+// `supabaseMember` viene del layout (cookie). Si es null, cae al mock.
+export function UserMenu({
+  supabaseMember,
+}: {
+  supabaseMember?: Member | null;
+}) {
+  const member = useResolvedMember(supabaseMember);
+  const signOutMock = useAuthStore((s) => s.signOut);
 
   if (!member) return null;
 
+  // Cookie + localStorage — ver logout en app/actions/auth.ts.
   const onSignOut = () => {
-    signOut();
-    router.push(routes.home);
+    signOutMock();
+    void logout();
   };
 
   const initialsLabel = initials(member.fullName);
