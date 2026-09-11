@@ -89,4 +89,6 @@ Tipos generados del schema → autocomplete en `supabase.from('listings').select
 
 ## Estado
 
-⏸ Vacío — se pobla en Semana 1-2 del roadmap (STACK.md §8).
+`server.ts`, `client.ts`, `env.ts`, `member.ts`, `get-member.ts` creados.
+`admin.ts` y `types.ts` generados: pendientes.
+Guía de auth: [`docs/AUTH.md`](../../docs/AUTH.md).

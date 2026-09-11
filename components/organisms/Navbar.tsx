@@ -23,6 +23,7 @@ import { useAuthStore } from '@/stores/auth-store';
 import { useUiStore } from '@/stores/ui-store';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/lib/routes';
+import type { Member } from '@/data/marketplace';
 
 // Login popover oculto en prod hasta que el auth flow esté bien integrado.
 // Vercel Project Settings → Env vars: NEXT_PUBLIC_DEPLOY_BRANCH=develop (scope develop).
@@ -41,13 +42,18 @@ type NavHref = keyof typeof NAV_ICONS;
 
 /** Nav principal — desktop: marca + pill + toggle; mobile: marca + Drawer.
  *  Estado de ruta activa expuesto con `aria-current="page"`. */
-export const Navbar = () => {
+export const Navbar = ({
+  supabaseMember = null,
+}: {
+  supabaseMember?: Member | null;
+}) => {
   // UI store para el menú mobile — futuro command palette/shortcut dispara
   // el drawer sin prop-drilling.
   const isMenuOpen = useUiStore((s) => s.mobileMenuOpen);
   const openMobileMenu = useUiStore((s) => s.openMobileMenu);
   const closeMobileMenu = useUiStore((s) => s.closeMobileMenu);
-  const session = useAuthStore((s) => s.session);
+  const mockSession = useAuthStore((s) => s.session);
+  const session = supabaseMember ? { memberId: supabaseMember.id } : mockSession;
   const pathname = usePathname();
 
   // Items visibles según sesión — memberOnly solo para socios logueados.
@@ -134,14 +140,24 @@ export const Navbar = () => {
 
           {/* Lado derecho desktop */}
           <div className="hidden items-center gap-1 sm:flex">
-            {isDevelopDeploy && (session ? <UserMenu /> : <SignInTrigger />)}
+            {isDevelopDeploy &&
+              (session ? (
+                <UserMenu supabaseMember={supabaseMember} />
+              ) : (
+                <SignInTrigger />
+              ))}
             <ThemeToggle />
           </div>
 
           {/* Lado derecho mobile — avatar + hamburguesa. El ThemeToggle
               vive en el Drawer.Header, no hace falta duplicarlo acá. */}
           <div className="flex items-center gap-1 sm:hidden">
-            {isDevelopDeploy && (session ? <UserMenu /> : <SignInTrigger />)}
+            {isDevelopDeploy &&
+              (session ? (
+                <UserMenu supabaseMember={supabaseMember} />
+              ) : (
+                <SignInTrigger />
+              ))}
             <IconButton
               aria-label="Abrir menú de navegación"
               size="md"

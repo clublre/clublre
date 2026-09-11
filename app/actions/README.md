@@ -79,4 +79,5 @@ export async function createListing(formData: FormData) {
 
 ## Estado
 
-⏸ Vacía — se pobla en Semana 2-3 del roadmap (STACK.md §8).
+`auth.ts` — `register`, `login`, `logout` (email/password).
+Google OAuth pendiente. Guía: [`docs/AUTH.md`](../../docs/AUTH.md).
