@@ -12,10 +12,10 @@ Para el plan de stack completo ver `STACK.md`.
 
 Hay **dos capas** de “usuario”:
 
-| Capa | Dónde | Para qué |
-| ---- | ----- | -------- |
-| **Auth** | `auth.users` (Supabase Auth) | ¿Puede entrar? Email + password + cookie httpOnly |
-| **Socio** | `public.members` | ¿Es socio aprobado? `pending` / `active` / `suspended` / `rejected` + `role` |
+| Capa      | Dónde                        | Para qué                                                                     |
+| --------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| **Auth**  | `auth.users` (Supabase Auth) | ¿Puede entrar? Email + password + cookie httpOnly                            |
+| **Socio** | `public.members`             | ¿Es socio aprobado? `pending` / `active` / `suspended` / `rejected` + `role` |
 
 Un user puede loguearse y quedar en **pending** (`/cuenta/estado`).
 Solo con `account_status = 'active'` entra a `/cuenta` plena.
@@ -34,16 +34,22 @@ si no, el mock. Así no rompemos la demo mientras migramos.
 
 ### Variables de entorno
 
-| Variable | ¿Obligatoria hoy? | Notas |
-| -------- | ----------------- | ----- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Sí | Project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Sí | Publishable / anon key |
-| `NEXT_PUBLIC_DEPLOY_BRANCH=develop` | Sí en local/preview | Muestra login en la navbar |
-| `NEXT_PUBLIC_APP_URL` | Recomendada | `http://localhost:3000` en local |
-| `SUPABASE_SERVICE_ROLE_KEY` | No | Bypasea RLS; no hay `admin.ts` cableado aún |
-| Resend / Turnstile | No | Próximas features |
+| Variable                            | ¿Obligatoria hoy?   | Notas                                                                  |
+| ----------------------------------- | ------------------- | ---------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`          | Sí                  | Project URL                                                            |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`     | Sí                  | Publishable / anon key                                                 |
+| `NEXT_PUBLIC_DEPLOY_BRANCH=develop` | Sí en local/preview | Muestra login en la navbar (pendiente de revisar con el equipo)        |
+| `NEXT_PUBLIC_MAQUETA`               | Sí según entorno    | `true` = atajos demo en `/login` + admin stub. **Production: `false`** |
+| `NEXT_PUBLIC_APP_URL`               | Recomendada         | `http://localhost:3000` en local                                       |
+| `SUPABASE_SERVICE_ROLE_KEY`         | No                  | Bypasea RLS; no hay `admin.ts` cableado aún                            |
+| Resend / Turnstile                  | No                  | Próximas features                                                      |
 
 Local: `.env.local` (gitignored). Vercel: Project → Environment Variables.
+
+**Maqueta vs auth real en `/login`:** con `NEXT_PUBLIC_MAQUETA=true` se
+ven Google fake y “Como socio/admin”. Con `false`, solo email+password
+contra Supabase. La navbar sigue gated por `DEPLOY_BRANCH` hasta
+acordar el cambio con el equipo.
 
 ### Dashboard Supabase
 
@@ -139,4 +145,70 @@ pnpm dev
 1. `/registro` con email nuevo → fila en Auth + Table Editor `members`.
 2. Activar con SQL / Table Editor.
 3. Logout → `/login` email+password → `/cuenta`.
-4. Atajo “Como admin” sigue andando para marketplace demo.
+4. Atajo “Como admin” sigue andando para marketplace demo
+   (solo si `NEXT_PUBLIC_MAQUETA=true`).
+
+---
+
+## Checklist v1 — salir a producción
+
+Primera versión productiva = **registro + login email/password** reales.
+El código de auth ya está; esto es lo que falta **antes** de usuarios reales.
+
+### Pendientes
+
+- [ ] **Vercel Production — env vars**
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - `NEXT_PUBLIC_APP_URL` = dominio real (ej. `https://clublre.com.ar`)
+  - `NEXT_PUBLIC_MAQUETA=false`
+  - Redeploy después de guardar las vars
+
+- [ ] **Supabase — Auth URL Configuration**
+  - Site URL = dominio de producción
+  - Redirect URLs = dominio + `/**` (y previews `*.vercel.app` si aplica)
+
+- [ ] **Supabase — schema**
+  - Correr `supabase/migrations/0001_members.sql` en el proyecto de prod
+    (si es otro proyecto que el de local)
+
+- [ ] **Confirm email**
+  - v1: dejar **Confirm email OFF** (mismo flujo que local; si se prende,
+    hay que cambiar el insert de `members` — hoy necesita sesión)
+
+- [ ] **Navbar / `NEXT_PUBLIC_DEPLOY_BRANCH`**
+  - Hoy el login en la barra solo se muestra si
+    `NEXT_PUBLIC_DEPLOY_BRANCH=develop`
+  - Acordar con el equipo cómo mostrarlo en Production (se puede cambiar y utilizar directamente la feature flag NEXT_PUBLIC_MAQUETA)
+
+- [ ] **Activar socios - Comisión**
+  - Sin UI admin todavía. Activar a mano:
+
+```sql
+update public.members
+set account_status = 'active'
+where email = 'socio@ejemplo.com';
+```
+
+- Opcional: también `role = 'admin' | 'moderator'` si corresponde
+
+- [ ] **Smoke test en el deploy**
+  - Registro → fila en Auth + `members` (pending)
+  - Activar socio
+  - Login → `/cuenta`
+  - Logout → login otra vez
+  - Con `MAQUETA=false`: `/login` sin Google fake ni atajos de rol
+
+### Muy recomendable (v1.1)
+
+- [ ] Olvidé mi contraseña (`resetPasswordForEmail` + páginas UI + SMTP)
+- [ ] CSP `connect-src` incluye `https://*.supabase.co` si el cliente
+      habla con Supabase en prod
+
+### Más a futuro
+
+- Emails Resend (solicitud recibida / aprobado)
+- Aprobar socios desde `/admin`
+- `useIsAdmin` / `useCanModerate` leyendo socio de Supabase (no solo mock)
+- Google OAuth real
+- Cloudflare Turnstile
