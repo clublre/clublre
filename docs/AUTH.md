@@ -53,9 +53,12 @@ acordar el cambio con el equipo.
 
 ### Dashboard Supabase
 
-1. Correr `supabase/migrations/0001_members.sql` en el **SQL Editor**.
+1. Correr en el **SQL Editor** (en orden):
+   - `supabase/migrations/0001_members.sql` (tabla + RLS)
+   - `supabase/migrations/0002_handle_new_user.sql` (trigger: Auth → members)
 2. Authentication → Email: on. **Confirm email: off** en local
-   (si está on, `signUp` no deja sesión y el insert a `members` falla por RLS).
+   (con el trigger, la ficha se crea igual; sin confirm, `signUp` deja sesión
+   y el redirect a `/cuenta/estado` funciona).
 3. URL Configuration → Site URL: `http://localhost:3000` (+ redirects).
 
 ### Activar un socio (mientras no hay UI admin)
@@ -96,7 +99,8 @@ components/pages/account/
   AccountScreen.tsx              # UI; useResolvedMember
   AccountStatusScreen.tsx        # pending / rejected / suspended
 
-supabase/migrations/0001_members.sql  # schema + RLS
+supabase/migrations/0001_members.sql         # schema + RLS
+supabase/migrations/0002_handle_new_user.sql # trigger Auth → members
 ```
 
 ---
@@ -104,11 +108,16 @@ supabase/migrations/0001_members.sql  # schema + RLS
 ## Flujos
 
 ```
-/registro → register → auth.users + members(pending) → /cuenta/estado
+/registro → signUp(metadata) → trigger crea members(pending) → /cuenta/estado
                               ↓ (activar en DB)
 /login (email+pass) → login → /cuenta
 Cerrar sesión → logout (cookie) + signOut mock → home
 ```
+
+**Alta atómica:** la app **no** inserta en `members`. El trigger
+`on_auth_user_created` (`0002_handle_new_user.sql`) corre en la misma
+transacción que el insert a `auth.users`. Si la ficha falla, falla todo
+el signup. Nombre/zona/nota viajan en `options.data` del `signUp`.
 
 Atajos “Como admin” = solo mock; **no** escriben en Supabase.
 
@@ -169,12 +178,12 @@ El código de auth ya está; esto es lo que falta **antes** de usuarios reales.
   - Redirect URLs = dominio + `/**` (y previews `*.vercel.app` si aplica)
 
 - [ ] **Supabase — schema**
-  - Correr `supabase/migrations/0001_members.sql` en el proyecto de prod
-    (si es otro proyecto que el de local)
+  - Correr `0001_members.sql` y `0002_handle_new_user.sql` en prod
+    (si es otro proyecto que el de local), en ese orden
 
 - [ ] **Confirm email**
-  - v1: dejar **Confirm email OFF** (mismo flujo que local; si se prende,
-    hay que cambiar el insert de `members` — hoy necesita sesión)
+  - v1: dejar **Confirm email OFF** (mismo flujo que local; sesión inmediata
+    tras el registro). Con el trigger, la ficha se crea igual si se prende.
 
 - [ ] **Navbar / `NEXT_PUBLIC_DEPLOY_BRANCH`**
   - Hoy el login en la barra solo se muestra si

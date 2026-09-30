@@ -2,6 +2,7 @@
 
 // Server Actions de auth — corren en el servidor.
 // Ver docs/AUTH.md: Auth (cookie) ≠ ficha de socio (`members.account_status`).
+// El insert a `members` lo hace el trigger SQL (0002_handle_new_user.sql).
 
 import { redirect } from 'next/navigation';
 
@@ -24,12 +25,10 @@ const read = (formData: FormData, key: string): string =>
   String(formData.get(key) ?? '').trim();
 
 /**
- * Alta: crea user en Auth + fila `members` en `pending`.
- * Redirect a `/cuenta/estado`. Errores → `{ error }` para el form.
+ * Alta: `signUp` con metadata del form. El trigger crea `members(pending)`.
+ * Éxito → `/cuenta/estado`. Errores → `{ error }` para el form.
  */
-export async function register(
-  formData: FormData,
-): Promise<AuthActionResult> {
+export async function register(formData: FormData): Promise<AuthActionResult> {
   const fullName = read(formData, 'fullName');
   const email = read(formData, 'email').toLowerCase();
   const zone = read(formData, 'zone');
@@ -48,36 +47,27 @@ export async function register(
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      // Viaja a auth.users.raw_user_meta_data → lo lee el trigger.
+      data: {
+        full_name: fullName,
+        last_initial: lastInitialFromName(fullName),
+        zone,
+        application_note: note,
+      },
+    },
+  });
+
   if (error) {
     return { error: error.message };
   }
-  const user = data.user;
-  if (!user) {
+  if (!data.user) {
     return {
       error:
         'No pudimos crear la cuenta. Si el email ya existe, iniciá sesión.',
-    };
-  }
-
-  // Mismo UUID que Auth — FK en 0001_members.sql.
-  // Requiere confirm-email OFF en local: si no hay sesión, RLS bloquea el insert.
-  const { error: insertError } = await supabase.from('members').insert({
-    id: user.id,
-    full_name: fullName,
-    last_initial: lastInitialFromName(fullName),
-    email,
-    zone,
-    account_status: 'pending',
-    role: 'member',
-    application_note: note || null,
-  });
-
-  if (insertError) {
-    return {
-      error:
-        insertError.message ||
-        'La cuenta de acceso se creó pero el perfil de socio falló. Escribinos a la comisión.',
     };
   }
 

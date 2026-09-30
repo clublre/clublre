@@ -147,7 +147,7 @@ Capacidad del free tier de Resend: **3.000 emails/mes**. Volumen estimado del cl
 
 **Casos de uso**:
 
-- **Application**: socio completa form → `auth.signUp()` + INSERT en `members` con `account_status='pending'`. Admin recibe email.
+- **Application**: socio completa form → `auth.signUp()` con metadata; trigger SQL crea `members` (`pending`). Admin recibe email.
 - **Aprobación**: admin click "Aprobar" → Server Action `UPDATE members SET account_status='active' WHERE id=?` + email bienvenida.
 - **Publicar**: socio autenticado sube imagen a Storage + INSERT en `listings` + INSERT en `listing_images`.
 - **Reportar**: socio autenticado INSERT en `reports`. Admin ve la cola en `/admin/reportes`.
