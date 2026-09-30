@@ -26,7 +26,7 @@ const read = (formData: FormData, key: string): string =>
 
 /**
  * Alta: `signUp` con metadata del form. El trigger crea `members(pending)`.
- * Éxito → `/cuenta/estado`. Errores → `{ error }` para el form.
+ * Éxito → `redirect()` (no retorna un valor). Error → `{ error }` para el form.
  */
 export async function register(formData: FormData): Promise<AuthActionResult> {
   const fullName = read(formData, 'fullName');
@@ -76,6 +76,7 @@ export async function register(formData: FormData): Promise<AuthActionResult> {
 
 /**
  * Login email+password. Rama según `members.account_status`.
+ * Éxito → `redirect()` (no retorna un valor). Error → `{ error }` para el form.
  * No toca el store mock — los atajos de /login siguen aparte.
  */
 export async function login(formData: FormData): Promise<AuthActionResult> {
@@ -121,8 +122,9 @@ export async function login(formData: FormData): Promise<AuthActionResult> {
 }
 
 /**
- * Borra la cookie de Supabase. El caller también debe `signOut` del mock
- * (Zustand), si no la maqueta te deja “logueado” en localStorage.
+ * Borra la cookie de Supabase y `redirect()` al home (no retorna un valor).
+ * El caller también debe `signOut` del mock (Zustand), si no la maqueta
+ * te deja “logueado” en localStorage.
  */
 export async function logout(): Promise<void> {
   if (getSupabasePublicEnv()) {
