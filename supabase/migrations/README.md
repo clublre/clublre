@@ -19,4 +19,7 @@ Carpeta para las migrations SQL versionadas. Se crean con `supabase migration ne
 
 ## Estado
 
-⏸ Vacía — se pobla al arrancar la Semana 1 del roadmap (STACK.md §8).
+Correr en el SQL Editor del dashboard (en orden) hasta tener CLI:
+
+1. `0001_members.sql` — tabla `members` + RLS
+2. `0002_handle_new_user.sql` — trigger: al crear user en Auth → insert en `members`

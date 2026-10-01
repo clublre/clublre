@@ -6,6 +6,8 @@
     "@iconify-json/ph": "^1.2.2",
     "@iconify/react": "^6.0.2",
     "@react-aria/ssr": "^3.9.4",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",

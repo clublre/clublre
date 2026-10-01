@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import {
   Button,
   Description,
@@ -12,46 +11,40 @@ import {
   TextField,
 } from '@heroui/react';
 
-import { useAuthStore } from '@/stores/auth-store';
-import { routes } from '@/lib/routes';
+import { register } from '@/app/actions/auth';
 import { Envelope, MapPin, User } from '@/components/ui/Icons';
 
-// Formulario de solicitud de alta — paso previo al login.
+// Solicitud de alta → Server Action `register` (Auth + members pending).
 export function ApplicationForm() {
-  const apply = useAuthStore((s) => s.applyForMembership);
-  const signInWithEmail = useAuthStore((s) => s.signInWithEmail);
-  const router = useRouter();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [zone, setZone] = useState('');
   const [note, setNote] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!fullName.trim() || !email.trim() || !zone.trim()) {
-      setError('Completá nombre, email y zona para enviar la solicitud.');
+    if (!fullName.trim() || !email.trim() || !zone.trim() || !password) {
+      setError('Completá nombre, email, zona y contraseña.');
       return;
     }
     setIsPending(true);
-    const id = `pending-${Date.now().toString(36)}`;
-    const result = await apply({
-      fullName,
-      email,
-      zone,
-      memberId: id,
-    });
-    if (!result.ok) {
-      setIsPending(false);
-      setError(result.error ?? 'No pudimos registrar la solicitud.');
-      return;
-    }
-    // Auto-login para que la pantalla de pendiente tenga sesión.
-    await signInWithEmail(email);
+    const formData = new FormData();
+    formData.set('fullName', fullName);
+    formData.set('email', email);
+    formData.set('zone', zone);
+    formData.set('password', password);
+    formData.set('confirmPassword', confirmPassword);
+    formData.set('note', note);
+    const result = await register(formData);
     setIsPending(false);
-    router.push(routes.accountStatus);
+    if (result?.error) {
+      setError(result.error);
+    }
   };
 
   return (
@@ -99,6 +92,31 @@ export function ApplicationForm() {
             placeholder="Rosario — Pichincha"
             value={zone}
             onChange={(e) => setZone(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
+
+      <TextField fullWidth isRequired name="password">
+        <Label>Contraseña</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Input
+            autoComplete="new-password"
+            placeholder="Mínimo 6 caracteres"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </InputGroup>
+      </TextField>
+
+      <TextField fullWidth isRequired name="confirmPassword">
+        <Label>Repetí la contraseña</Label>
+        <InputGroup fullWidth>
+          <InputGroup.Input
+            autoComplete="new-password"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </InputGroup>
       </TextField>

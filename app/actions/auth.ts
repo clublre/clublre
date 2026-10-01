@@ -1,47 +1,135 @@
 'use server';
 
-// Maqueta: todas las "Server Actions" aquí terminan mutando los
-// stores del cliente via un helper que sincroniza persist en
-// localStorage. Sin Supabase real todavía — el patrón es el mismo
-// que cuando llegue (validar input, mutar, revalidar, retornar
-// { data } | { error }) — solo que el destino final de la mutación
-// es localStorage y no Postgres.
-//
-// Reglas del README en app/actions/README.md:
-//   • `'use server'` arriba
-//   • validar inputs (Zod en prod, simple trim/length acá)
-//   • auth check (delegado a la sesión del store en maqueta)
-//   • retornar { data } | { error }
-//   • revalidatePath cuando hay listados cacheados
+// Server Actions de auth — corren en el servidor.
+// Ver docs/AUTH.md: Auth (cookie) ≠ ficha de socio (`members.account_status`).
+// El insert a `members` lo hace el trigger SQL (0002_handle_new_user.sql).
 
-import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-// ---------- helpers ----------
+import { createClient } from '@/lib/supabase/server';
+import { getSupabasePublicEnv } from '@/lib/supabase/env';
+import { routes } from '@/lib/routes';
+import type { AccountStatus } from '@/data/marketplace';
 
-type Result<T> = { data: T } | { error: string };
-
-function err(message: string): { error: string } {
-  return { error: message };
+export interface AuthActionResult {
+  error: string | null;
 }
 
-/** Lee el snapshot actual de un store desde el cliente.
- *  Si la maqueta no está habilitada (NEXT_PUBLIC_MAQUETA=false),
- *  devolvemos `{ error }` para que los callers se comporten como
- *  producción. */
-function isMaquetaServer(): boolean {
-  const v = process.env['NEXT_PUBLIC_MAQUETA'];
-  return v === undefined || v === 'true' || v === '1';
-}
+const lastInitialFromName = (fullName: string): string => {
+  const parts = fullName.trim().split(/\s+/);
+  const last = parts[parts.length - 1] ?? '?';
+  return (last.charAt(0) || '?').toUpperCase();
+};
 
-// ---------- auth ----------
+const read = (formData: FormData, key: string): string =>
+  String(formData.get(key) ?? '').trim();
 
-export async function signOut(): Promise<Result<{ ok: true }>> {
-  if (!isMaquetaServer()) {
-    return err('Auth no disponible en producción todavía.');
+/**
+ * Alta: `signUp` con metadata del form. El trigger crea `members(pending)`.
+ * Éxito → `redirect()` (no retorna un valor). Error → `{ error }` para el form.
+ */
+export async function register(formData: FormData): Promise<AuthActionResult> {
+  const fullName = read(formData, 'fullName');
+  const email = read(formData, 'email').toLowerCase();
+  const zone = read(formData, 'zone');
+  const password = String(formData.get('password') ?? '');
+  const confirm = String(formData.get('confirmPassword') ?? '');
+  const note = read(formData, 'note');
+
+  if (!fullName || !email || !zone || !password) {
+    return { error: 'Completá nombre, email, zona y contraseña.' };
   }
-  // El cliente ya tiene `useAuthStore.signOut()` — esta action
-  // existe para documentar el patrón y porque un botón de logout
-  // puede ser un form sin JS.
-  revalidatePath('/');
-  return { data: { ok: true } };
+  if (password.length < 6) {
+    return { error: 'La contraseña tiene que tener al menos 6 caracteres.' };
+  }
+  if (password !== confirm) {
+    return { error: 'Las contraseñas no coinciden.' };
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      // Viaja a auth.users.raw_user_meta_data → lo lee el trigger.
+      data: {
+        full_name: fullName,
+        last_initial: lastInitialFromName(fullName),
+        zone,
+        application_note: note,
+      },
+    },
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+  if (!data.user) {
+    return {
+      error:
+        'No pudimos crear la cuenta. Si el email ya existe, iniciá sesión.',
+    };
+  }
+
+  redirect(routes.accountStatus);
+}
+
+/**
+ * Login email+password. Rama según `members.account_status`.
+ * Éxito → `redirect()` (no retorna un valor). Error → `{ error }` para el form.
+ * No toca el store mock — los atajos de /login siguen aparte.
+ */
+export async function login(formData: FormData): Promise<AuthActionResult> {
+  const email = read(formData, 'email').toLowerCase();
+  const password = String(formData.get('password') ?? '');
+
+  if (!email || !password) {
+    return { error: 'Completá email y contraseña.' };
+  }
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  if (error) {
+    return { error: 'Email o contraseña incorrectos.' };
+  }
+  const user = data.user;
+  if (!user) {
+    return { error: 'No pudimos iniciar sesión.' };
+  }
+
+  const { data: row } = await supabase
+    .from('members')
+    .select('account_status')
+    .eq('id', user.id)
+    .maybeSingle();
+
+  const status = (row?.['account_status'] ?? null) as AccountStatus | null;
+
+  if (status === 'suspended') {
+    return { error: 'Tu cuenta está suspendida. Contactá a la comisión.' };
+  }
+  if (status === 'rejected') {
+    return { error: 'Tu solicitud fue rechazada. Contactá a la comisión.' };
+  }
+  if (status === 'pending' || !status) {
+    redirect(routes.accountStatus);
+  }
+
+  redirect(routes.account);
+}
+
+/**
+ * Borra la cookie de Supabase y `redirect()` al home (no retorna un valor).
+ * El caller también debe `signOut` del mock (Zustand), si no la maqueta
+ * te deja “logueado” en localStorage.
+ */
+export async function logout(): Promise<void> {
+  if (getSupabasePublicEnv()) {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  }
+  redirect(routes.home);
 }

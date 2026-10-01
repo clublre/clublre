@@ -7,7 +7,8 @@ import 'client-only';
 
 import { useSyncExternalStore } from 'react';
 
-import { useAuthStore } from '@/stores/auth-store';
+import { useAuthStore, useCurrentMember } from '@/stores/auth-store';
+import type { Member } from '@/data/marketplace';
 
 /** Devuelve `true` si el usuario actual tiene rol `admin`. */
 export function useIsAdmin(): boolean {
@@ -35,4 +36,15 @@ export function useHasMounted(): boolean {
     () => true,
     () => false,
   );
+}
+
+/**
+ * Puente auth real ↔ maqueta: cookie Supabase gana; si no, Zustand.
+ * Permite “Como admin” y marketplace demo sin romper signup real.
+ */
+export function useResolvedMember(
+  supabaseMember: Member | null | undefined,
+): Member | null {
+  const mockMember = useCurrentMember();
+  return supabaseMember ?? mockMember;
 }

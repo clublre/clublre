@@ -79,19 +79,10 @@ export async function createListing(formData: FormData) {
 
 ## Estado
 
-⏸ **Stubs maqueta.** El árbol del README ya existe (`auth.ts`,
-`members.ts`, `listings.ts`, `moderation.ts`) pero las funciones
-son stubs contractuales: validan input, devuelven
-`{ data } | { error }`, y delegan la mutación real al store del
-cliente. Cuando llegue Supabase:
+`auth.ts` — `register`, `login`, `logout` (email/password) contra Supabase.
+Google OAuth pendiente. Guía: [`docs/AUTH.md`](../../docs/AUTH.md).
 
-1. Cada stub reemplaza su body por queries
-   `supabase.from(...).insert/update/select(...)`.
-2. RLS cubre los permisos — la action puede validar menos.
-3. Se quita la dependencia de `lib/maqueta.ts` (la flag deja de
-   ser necesaria; todo pasa por Supabase Auth + RLS).
-4. Los componentes admin dejan de llamar al store cliente y pasan
-   a llamar a estas actions.
+`members.ts`, `listings.ts`, `moderation.ts` siguen en stubs de maqueta.
 
 ## Importación — sin barrels
 
